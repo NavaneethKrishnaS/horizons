@@ -48,7 +48,7 @@ export default function FeaturedHouseboatCard({
         {/* Content */}
         <div className="flex flex-col bg-gradient-to-br from-[#FCFBF8] to-[#F7F5EF] p-8">
           <p className="text-[12px] font-medium uppercase tracking-[0.35em] text-[#7A8250]">
-          {houseboat.defaultCategory ?? houseboat.category}
+          {houseboat.defaultCategory}
           </p>
 
           <h3 className="mt-3 font-serif text-[30px] leading-tight text-neutral-900">
