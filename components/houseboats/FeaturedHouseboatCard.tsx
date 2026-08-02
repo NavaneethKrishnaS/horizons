@@ -130,11 +130,12 @@ export default function FeaturedHouseboatCard({
               <div className="mt-1 flex items-end">
                 <p className="text-[42px] font-semibold leading-none text-neutral-900">
                 ₹
-{(
-  houseboat.categories?.find(
-    (c) => c.name === houseboat.defaultCategory
-  )?.price ?? houseboat.startingPrice
-).toLocaleString()}
+                {
+  houseboat.categories
+    .find((c) => c.name === houseboat.defaultCategory)!
+    .price
+    .toLocaleString()
+}
                 </p>
 
                 <span className="mb-[6px] ml-2 text-[16px] text-neutral-500">

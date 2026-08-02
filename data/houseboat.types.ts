@@ -39,17 +39,10 @@ export interface Houseboat {
   yearBuilt: number;
 
   /**
-   * Legacy fields
-   * Keep these until all houseboats are migrated.
-   */
-  category?: HouseboatCategory;
-  startingPrice?: number;
-
-  /**
-   * New pricing system
-   */
-  defaultCategory?: HouseboatCategory;
-  categories?: HouseboatCategoryOption[];
+ * Pricing
+ */
+defaultCategory: HouseboatCategory;
+categories: HouseboatCategoryOption[];
 
   shortDescription: string;
   longDescription: string;
