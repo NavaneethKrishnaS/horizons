@@ -1,4 +1,14 @@
-export const destinations = [
+export interface Destination {
+  id: number;
+  label: string;
+  title: string;
+  description: string;
+  image: string;
+  preview: string;
+  href: string;
+}
+
+export const destinations: Destination[] = [
     {
       id: 1,
       label: "TEA COUNTRY",
