@@ -1,5 +1,5 @@
 import ExperienceCard from "./ExperienceCard";
-import { experiences } from "./experiences";
+import { experiences } from "./experienceData";
 
 export default function ExperienceGrid() {
   return (
