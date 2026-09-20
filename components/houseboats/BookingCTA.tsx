@@ -6,23 +6,23 @@ import { ArrowUpRight } from "lucide-react";
 
 export default function BookingCTA() {
   return (
-    <section className="bg-[#F8F7F3] py-36">
+    <section className="bg-[#F8F7F3] py-20 md:py-36">
       <div className="mx-auto max-w-7xl px-6">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
           viewport={{ once: true }}
-          className="border-y border-black/10 py-24"
+          className="border-y border-black/10 py-14 md:py-24"
         >
-          <div className="grid gap-20 lg:grid-cols-12">
+          <div className="grid gap-10 lg:grid-cols-12 lg:gap-20">
             {/* Left */}
             <div className="lg:col-span-5">
               <p className="mb-6 text-[12px] font-medium uppercase tracking-[0.4em] text-neutral-500">
                 Begin Your Journey
               </p>
 
-              <h2 className="font-serif text-5xl leading-[1.05] tracking-[-0.04em] text-neutral-900 md:text-6xl">
+              <h2 className="font-serif text-[34px] leading-[1.1] tracking-[-0.02em] text-neutral-900 sm:text-5xl md:text-6xl md:leading-[1.05] md:tracking-[-0.04em]">
                 Your Journey
                 <br />
                 Begins Here.
@@ -35,7 +35,7 @@ export default function BookingCTA() {
               Every journey through Kerala's backwaters is thoughtfully curated around your pace, your people and your idea of luxury. Whether you're celebrating something special or simply escaping the everyday, we'll help you discover the houseboat that's right for you.
               </p>
 
-              <div className="mt-16">
+              <div className="mt-10 md:mt-16">
                 <Link
                   href="#featured-houseboats"
                   scroll

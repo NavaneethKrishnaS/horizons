@@ -23,16 +23,16 @@ export default function WhyChooseHorizons() {
     ];
   
     return (
-      <section className="bg-[#F8F7F3] py-36">
+      <section className="bg-[#F8F7F3] py-20 md:py-36">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="grid grid-cols-1 gap-20 lg:grid-cols-12">
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-20">
             {/* Left Column */}
             <div className="h-fit lg:sticky lg:top-32 lg:col-span-5">
               <p className="text-[13px] font-medium uppercase tracking-[0.35em] text-[#7A8250]">
                 Why HORIZONS
               </p>
   
-              <h2 className="mt-5 font-serif text-[52px] leading-[1.08] tracking-[-0.03em] text-neutral-900 xl:text-[56px]">
+              <h2 className="mt-5 font-serif text-[34px] leading-[1.1] tracking-[-0.02em] text-neutral-900 sm:text-[42px] lg:text-[52px] lg:leading-[1.08] lg:tracking-[-0.03em] xl:text-[56px]">
                 Curated with care,
                 <br />
                 designed for
@@ -53,26 +53,26 @@ export default function WhyChooseHorizons() {
               {features.map((feature, index) => (
                 <div
                   key={feature.title}
-                  className={`group py-10 transition-all duration-300 hover:pl-2 ${
+                  className={`group py-8 transition-all duration-300 hover:pl-2 md:py-10 ${
                     index !== 0
                       ? "border-t border-neutral-400/60"
                       : ""
                   }`}
                 >
-                  <div className="grid grid-cols-12 items-start gap-8">
+                  <div className="grid grid-cols-1 items-start gap-3 md:grid-cols-12 md:gap-8">
                     {/* Title */}
-                    <div className="col-span-5">
+                    <div className="md:col-span-5">
                       <span className="text-sm uppercase tracking-[0.25em] text-[#7A8250]">
                         {String(index + 1).padStart(2, "0")}
                       </span>
   
-                      <h3 className="mt-3 font-serif text-[36px] leading-tight text-neutral-900 transition-colors duration-300 group-hover:text-[#7A8250]">
+                      <h3 className="mt-3 font-serif text-[26px] leading-tight text-neutral-900 transition-colors duration-300 group-hover:text-[#7A8250] md:text-[36px]">
                         {feature.title}
                       </h3>
                     </div>
   
                     {/* Description */}
-                    <div className="col-span-7">
+                    <div className="md:col-span-7">
                       <p className="max-w-lg text-lg leading-8 text-neutral-600">
                         {feature.description}
                       </p>

@@ -13,10 +13,10 @@ export default function FeaturedHouseboatCard({
   houseboat,
 }: FeaturedHouseboatCardProps) {
   return (
-    <div className="group overflow-hidden rounded-[32px] bg-neutral-100">
+    <div className="group overflow-hidden rounded-[20px] bg-neutral-100 sm:rounded-[32px]">
       <div className="grid items-stretch lg:grid-cols-[1.35fr_1fr]">
         {/* Image */}
-        <div className="relative h-[520px] overflow-hidden">
+        <div className="relative h-[200px] overflow-hidden sm:h-[360px] lg:h-[520px]">
           <Image
             src={houseboat.gallery[0].src}
             alt={houseboat.gallery[0].alt}
@@ -46,21 +46,21 @@ export default function FeaturedHouseboatCard({
         </div>
 
         {/* Content */}
-        <div className="flex flex-col bg-gradient-to-br from-[#FCFBF8] to-[#F7F5EF] p-8">
-          <p className="text-[12px] font-medium uppercase tracking-[0.35em] text-[#7A8250]">
+        <div className="flex flex-col bg-gradient-to-br from-[#FCFBF8] to-[#F7F5EF] p-5 sm:p-6 lg:p-8">
+          <p className="text-[11px] font-medium uppercase tracking-[0.25em] text-[#7A8250] sm:text-[12px] sm:tracking-[0.35em]">
           {houseboat.defaultCategory}
           </p>
 
-          <h3 className="mt-3 font-serif text-[30px] leading-tight text-neutral-900">
+          <h3 className="mt-2 font-serif text-[22px] leading-tight text-neutral-900 sm:mt-3 sm:text-[30px]">
             {houseboat.name}
           </h3>
 
-          <p className="mt-5 text-[15px] leading-8 text-neutral-700">
+          <p className="mt-5 hidden text-[15px] leading-8 text-neutral-700 sm:block">
             {houseboat.shortDescription}
           </p>
 
           {/* Specs */}
-          <div className="mt-7 flex items-center justify-between border-y border-neutral-200 py-6">
+          <div className="mt-5 flex items-center justify-between border-y border-neutral-200 py-4 sm:mt-7 sm:py-6">
             <div className="flex items-center gap-3">
               <BedDouble
                 size={20}
@@ -69,17 +69,17 @@ export default function FeaturedHouseboatCard({
               />
 
               <div>
-                <p className="text-[26px] font-semibold leading-none text-neutral-900">
+                <p className="text-[18px] font-semibold leading-none text-neutral-900 sm:text-[26px]">
                   {houseboat.bedrooms}
                 </p>
 
-                <p className="mt-1 text-sm text-neutral-500">
+                <p className="mt-0.5 text-[11px] text-neutral-500 sm:mt-1 sm:text-sm">
                   Bedroom
                 </p>
               </div>
             </div>
 
-            <div className="h-12 w-px bg-neutral-200" />
+            <div className="h-9 w-px bg-neutral-200 sm:h-12" />
 
             <div className="flex items-center gap-3">
               <Users
@@ -89,17 +89,17 @@ export default function FeaturedHouseboatCard({
               />
 
               <div>
-                <p className="text-[26px] font-semibold leading-none text-neutral-900">
+                <p className="text-[18px] font-semibold leading-none text-neutral-900 sm:text-[26px]">
                   {houseboat.maxGuests}
                 </p>
 
-                <p className="mt-1 text-sm text-neutral-500">
+                <p className="mt-0.5 text-[11px] text-neutral-500 sm:mt-1 sm:text-sm">
                   Guests
                 </p>
               </div>
             </div>
 
-            <div className="h-12 w-px bg-neutral-200" />
+            <div className="h-9 w-px bg-neutral-200 sm:h-12" />
 
             <div className="flex items-center gap-3">
               <Bath
@@ -109,11 +109,11 @@ export default function FeaturedHouseboatCard({
               />
 
               <div>
-                <p className="text-[26px] font-semibold leading-none text-neutral-900">
+                <p className="text-[18px] font-semibold leading-none text-neutral-900 sm:text-[26px]">
                   {houseboat.bathrooms}
                 </p>
 
-                <p className="mt-1 text-sm text-neutral-500">
+                <p className="mt-0.5 text-[11px] text-neutral-500 sm:mt-1 sm:text-sm">
                   Bathroom
                 </p>
               </div>
@@ -121,14 +121,14 @@ export default function FeaturedHouseboatCard({
           </div>
 
           {/* Price & CTA */}
-          <div className="mt-auto flex items-end justify-between gap-6 pt-8">
+          <div className="mt-auto flex flex-col items-stretch gap-4 pt-5 sm:flex-row sm:items-end sm:justify-between sm:gap-6 sm:pt-8">
             <div>
-              <p className="text-[15px] text-neutral-500">
+              <p className="text-[13px] text-neutral-500 sm:text-[15px]">
                 Starting from
               </p>
 
               <div className="mt-1 flex items-end">
-                <p className="text-[42px] font-semibold leading-none text-neutral-900">
+                <p className="text-[26px] font-semibold leading-none text-neutral-900 sm:text-[42px]">
                 ₹
                 {
   houseboat.categories
@@ -138,7 +138,7 @@ export default function FeaturedHouseboatCard({
 }
                 </p>
 
-                <span className="mb-[6px] ml-2 text-[16px] text-neutral-500">
+                <span className="mb-[4px] ml-2 text-[13px] text-neutral-500 sm:mb-[6px] sm:text-[16px]">
                   / per night
                 </span>
               </div>
@@ -146,7 +146,7 @@ export default function FeaturedHouseboatCard({
 
             <Link
               href={`/houseboats/${houseboat.slug}`}
-              className="group/button inline-flex h-14 items-center justify-center gap-3 rounded-[18px] bg-[#6B7341] px-7 text-[15px] font-medium text-white transition-all duration-300 hover:bg-[#5F673A]"
+              className="group/button inline-flex h-12 w-full items-center justify-center gap-3 rounded-[14px] bg-[#6B7341] px-5 text-[14px] font-medium text-white transition-all duration-300 hover:bg-[#5F673A] sm:h-14 sm:w-auto sm:rounded-[18px] sm:px-7 sm:text-[15px]"
             >
               <span>Explore</span>
 

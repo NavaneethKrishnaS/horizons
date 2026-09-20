@@ -14,7 +14,7 @@ export default function HouseboatExplorer() {
   );
 
   return (
-    <section className="bg-white py-36">
+    <section className="bg-white py-20 md:py-36">
       <div className="mx-auto max-w-7xl px-6">
         {/* Section Heading */}
         <div className="max-w-3xl">
@@ -22,7 +22,7 @@ export default function HouseboatExplorer() {
             Curated Experiences
           </p>
 
-          <h2 className="mt-4 font-serif text-5xl text-neutral-900">
+          <h2 className="mt-4 font-serif text-4xl text-neutral-900 md:text-5xl">
             Curated For Every Journey
           </h2>
 
@@ -35,7 +35,7 @@ export default function HouseboatExplorer() {
 
         {/* Featured Banner */}
         {featured && (
-          <div className="group relative mt-20 aspect-[21/9] overflow-hidden rounded-[32px]">
+          <div className="group relative mt-14 aspect-[4/5] overflow-hidden rounded-[20px] sm:aspect-[16/10] md:mt-20 md:aspect-[21/9] md:rounded-[32px]">
             <Image
               src={featured.image}
               alt={featured.title}
@@ -46,12 +46,12 @@ export default function HouseboatExplorer() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
             {/* Content */}
-            <div className="absolute bottom-14 left-14 max-w-[640px] text-white">
+            <div className="absolute bottom-20 left-6 right-6 max-w-[640px] text-white md:bottom-14 md:left-14 md:right-auto">
               <p className="text-xs uppercase tracking-[0.4em]">
                 {featured.title}
               </p>
 
-              <h3 className="mt-4 max-w-[580px] font-serif text-[52px] leading-[1.05] tracking-[-0.03em] md:text-[64px]">
+              <h3 className="mt-4 max-w-[580px] font-serif text-[30px] leading-[1.08] tracking-[-0.02em] sm:text-[42px] md:text-[64px] md:leading-[1.05] md:tracking-[-0.03em]">
                 {featured.subtitle}
               </h3>
 
@@ -63,7 +63,7 @@ export default function HouseboatExplorer() {
             {/* CTA */}
             <Link
   href={`/houseboats?experience=${featured.id}`}
-  className="group/button absolute bottom-14 right-14 inline-flex items-center gap-3 text-[13px] font-medium uppercase tracking-[0.3em] text-white/80 transition-colors duration-300 hover:text-white"
+  className="group/button absolute bottom-6 right-6 inline-flex md:bottom-14 md:right-14 items-center gap-3 text-[13px] font-medium uppercase tracking-[0.3em] text-white/80 transition-colors duration-300 hover:text-white"
 >
   <span>Explore Now</span>
 
@@ -87,8 +87,8 @@ export default function HouseboatExplorer() {
         )}
 
         {/* Experiences */}
-        <div className="mx-auto mt-20 max-w-5xl">
-          <div className="grid gap-x-20 gap-y-20 md:grid-cols-2">
+        <div className="mx-auto mt-14 max-w-5xl md:mt-20">
+          <div className="grid gap-12 md:grid-cols-2 md:gap-x-20 md:gap-y-20">
             {remaining.map((experience) => (
               <ExperienceCard
                 key={experience.id}

@@ -66,7 +66,7 @@ export default function GuestStory() {
   const story = stories[active];
 
   return (
-    <section className="bg-[#F8F7F3] py-36">
+    <section className="bg-[#F8F7F3] py-20 md:py-36">
       <div className="mx-auto max-w-7xl px-6">
         <div className="relative overflow-hidden">
 
@@ -80,7 +80,7 @@ export default function GuestStory() {
               className="relative"
             >
               {/* Image */}
-              <div className="relative h-[760px] w-full overflow-hidden">
+              <div className="relative h-[520px] w-full overflow-hidden md:h-[760px]">
                 <Image
                   src={story.image}
                   alt={story.guest}
@@ -93,7 +93,7 @@ export default function GuestStory() {
 
               {/* Content */}
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="max-w-3xl px-10 text-center">
+                <div className="max-w-3xl px-6 text-center md:px-10">
                   <motion.p
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -107,7 +107,7 @@ export default function GuestStory() {
                     initial={{ opacity: 0, y: 25 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.25 }}
-                    className="mt-8 font-serif text-[34px] leading-[1.15] tracking-[-0.03em] text-white md:text-[46px] lg:text-[52px]"
+                    className="mt-8 font-serif text-[26px] leading-[1.2] tracking-[-0.02em] text-white sm:text-[34px] md:text-[46px] md:leading-[1.15] md:tracking-[-0.03em] lg:text-[52px]"
                   >
                     {story.title}
                   </motion.blockquote>

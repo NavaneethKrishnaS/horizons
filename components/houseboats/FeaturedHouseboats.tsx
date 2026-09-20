@@ -1,14 +1,27 @@
+"use client";
+
+import { useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+
 import { houseboats } from "@/data/houseboats";
 import FeaturedHouseboatCard from "./FeaturedHouseboatCard";
 
+const INITIAL_COUNT = 3;
+
 export default function FeaturedHouseboats() {
+  const [expanded, setExpanded] = useState(false);
+  const reduceMotion = useReducedMotion();
+
+  const shown = houseboats.slice(0, INITIAL_COUNT);
+  const rest = houseboats.slice(INITIAL_COUNT);
+
   return (
     <section className="relative overflow-hidden bg-black py-24 lg:py-28">
       {/* Background Image */}
       <div
         className="absolute inset-0 -z-10 bg-cover bg-center"
         style={{
-          backgroundImage: "url('/images/houseboats/featured-bg.jpg')",
+          backgroundImage: "url('/images/houseboats/featured-bg.png')",
         }}
       />
 
@@ -22,7 +35,7 @@ export default function FeaturedHouseboats() {
             Featured Collection
           </p>
 
-          <h2 className="mt-4 text-5xl font-light text-white">
+          <h2 className="mt-4 text-4xl font-light text-white md:text-5xl">
             Featured Houseboats
           </h2>
 
@@ -34,13 +47,58 @@ export default function FeaturedHouseboats() {
         </div>
 
         <div className="grid gap-10">
-          {houseboats.map((houseboat) => (
+          {shown.map((houseboat) => (
             <FeaturedHouseboatCard
               key={houseboat.id}
               houseboat={houseboat}
             />
           ))}
+
+          {expanded &&
+            rest.map((houseboat, index) => (
+              <motion.div
+                key={houseboat.id}
+                initial={reduceMotion ? false : { opacity: 0, y: 28 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.55,
+                  delay: reduceMotion ? 0 : index * 0.09,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+              >
+                <FeaturedHouseboatCard houseboat={houseboat} />
+              </motion.div>
+            ))}
         </div>
+
+        {!expanded && rest.length > 0 && (
+          <div className="mt-12 flex justify-center">
+            <button
+              type="button"
+              onClick={() => setExpanded(true)}
+              className="group inline-flex items-center gap-3 rounded-full border border-white/25 px-8 py-4 text-[13px] font-medium uppercase tracking-[0.28em] text-white transition-all duration-300 hover:border-white/60 hover:bg-white/10"
+            >
+              <span>See all {houseboats.length} houseboats</span>
+
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden
+                className="transition-transform duration-300 group-hover:translate-y-1"
+              >
+                <path d="M12 5v14" />
+                <path d="m19 12-7 7-7-7" />
+              </svg>
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
