@@ -33,6 +33,10 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: "#111111",
+  // Lets the page extend into the iOS safe areas (the home-indicator strip
+  // at the bottom). Without it iOS lays content out inside the safe area
+  // and fills that strip with the page background instead.
+  viewportFit: "cover",
 };
 
 export default function RootLayout({
