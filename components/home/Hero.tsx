@@ -1,5 +1,4 @@
 import Link from "next/link";
-import SearchBar from "./SearchBar";
 
 export default function Hero() {
   return (
@@ -13,7 +12,7 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/30" />
 
       {/* Hero Content */}
-      <div className="relative z-10 -translate-y-16 flex flex-col items-center px-6 text-center text-[#F7F4EE]">
+      <div className="relative z-10 flex flex-col items-center px-6 text-center text-[#F7F4EE]">
         <p className="mb-6 text-[11px] font-medium uppercase tracking-[0.55em] text-white/70">
           BY SCENIC ESCAPES
         </p>
@@ -37,8 +36,6 @@ export default function Hero() {
           </span>
         </Link>
       </div>
-
-      <SearchBar />
     </section>
   );
 }

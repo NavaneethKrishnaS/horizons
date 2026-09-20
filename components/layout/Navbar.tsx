@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Container from "@/components/ui/Container";
 import MegaMenu from "./navbar/MegaMenu";
+import MobileMenu from "./navbar/MobileMenu";
 import { AnimatePresence, motion } from "framer-motion";
 
 export default function Navbar() {
@@ -14,6 +15,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [closeTimeout, setCloseTimeout] = useState<NodeJS.Timeout | null>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     function handleScroll() {
@@ -29,6 +31,15 @@ export default function Navbar() {
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Close the mobile menu when the route changes (covers browser
+  // back/forward). Adjusting state during render is React's documented
+  // pattern for this — an effect here would cause a cascading render.
+  const [lastPathname, setLastPathname] = useState(pathname);
+  if (pathname !== lastPathname) {
+    setLastPathname(pathname);
+    setMenuOpen(false);
+  }
 
   function openMenu(menu: string) {
     if (closeTimeout) {
@@ -117,11 +128,12 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* CTA */}
-          <div className="ml-auto">
+          {/* Right side */}
+          <div className="ml-auto flex items-center">
+            {/* CTA — desktop only; on mobile it lives inside the menu */}
             <Link
               href="/houseboats"
-              className="group flex items-center gap-2 text-[15px] font-light text-white"
+              className="group hidden items-center gap-2 text-[15px] font-light text-white md:flex"
             >
               <span>Check Availability</span>
 
@@ -129,6 +141,29 @@ export default function Navbar() {
                 →
               </span>
             </Link>
+
+            {/* Menu toggle — mobile only */}
+            <button
+              type="button"
+              onClick={() => setMenuOpen((value) => !value)}
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
+              className="relative -mr-2 flex h-10 w-10 items-center justify-center md:hidden"
+            >
+              <span
+                aria-hidden
+                className={`absolute h-px w-6 bg-white transition-transform duration-300 ${
+                  menuOpen ? "rotate-45" : "-translate-y-[3px]"
+                }`}
+              />
+              <span
+                aria-hidden
+                className={`absolute h-px w-6 bg-white transition-transform duration-300 ${
+                  menuOpen ? "-rotate-45" : "translate-y-[3px]"
+                }`}
+              />
+            </button>
           </div>
 
           {/* Mega Menu */}
@@ -152,6 +187,8 @@ export default function Navbar() {
           </AnimatePresence>
         </div>
       </Container>
+
+      <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
     </nav>
   );
 }
