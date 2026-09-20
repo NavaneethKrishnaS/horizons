@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function AboutHero() {
     return (
-      <section className="relative flex min-h-dvh items-center justify-center overflow-hidden">
+      <section className="relative flex min-h-lvh items-center justify-center overflow-hidden">
         {/* Background image */}
         <Image
           src="/images/about/hero.jpg"

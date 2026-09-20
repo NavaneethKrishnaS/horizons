@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="relative flex min-h-dvh items-center justify-center overflow-hidden">
+    <section className="relative flex min-h-lvh items-center justify-center overflow-hidden">
       <Image
         src="/images/hero/hero.png"
         alt="Sunset over the Kerala coast"
