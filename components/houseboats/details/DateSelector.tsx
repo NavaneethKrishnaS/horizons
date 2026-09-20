@@ -54,7 +54,7 @@ export default function DateSelector({
       <button
         type="button"
         onClick={() => setIsOpen(true)}
-        className="flex w-full items-center justify-between rounded-3xl border border-neutral-200 bg-white px-5 py-4 transition-all duration-300 hover:border-neutral-400"
+        className="flex w-full items-center justify-between border border-neutral-200 bg-white px-5 py-3.5 transition-colors duration-300 hover:border-neutral-400"
       >
         <div className="flex items-center gap-3">
           <CalendarDays
@@ -63,11 +63,11 @@ export default function DateSelector({
           />
 
           <div className="text-left">
-            <p className="text-xs text-neutral-500">
+            <p className="text-[11px] uppercase tracking-[0.18em] text-neutral-500">
               Dates
             </p>
 
-            <p className="font-medium text-neutral-900">
+            <p className="mt-1 text-[15px] text-neutral-900 lining-nums">
               {label}
             </p>
           </div>

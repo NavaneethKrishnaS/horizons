@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { DateRange, DayPicker } from "react-day-picker";
 import { startOfDay } from "date-fns";
 
@@ -15,13 +16,30 @@ export default function BookingCalendar({
   selected,
   onSelect,
 }: BookingCalendarProps) {
+  // Two months side by side does not fit a phone. Start at one and step up
+  // once we know the viewport — the calendar only ever renders after a tap,
+  // so there is no server/client mismatch to worry about.
+  const [months, setMonths] = useState(1);
+
+  useEffect(() => {
+    const query = window.matchMedia("(min-width: 768px)");
+
+    const update = () => setMonths(query.matches ? 2 : 1);
+
+    update();
+
+    query.addEventListener("change", update);
+
+    return () => query.removeEventListener("change", update);
+  }, []);
+
   return (
     <div className="flex justify-center">
       <DayPicker
         mode="range"
         selected={selected}
         onSelect={onSelect}
-        numberOfMonths={2}
+        numberOfMonths={months}
         pagedNavigation
         showOutsideDays={false}
         disabled={{
@@ -30,7 +48,6 @@ export default function BookingCalendar({
         modifiersClassNames={{
           today: "rdp-day-today",
         }}
-        className="text-[15px]"
       />
     </div>
   );

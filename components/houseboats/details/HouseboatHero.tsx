@@ -13,7 +13,7 @@ export default function HouseboatHero({
   houseboat,
 }: HouseboatHeroProps) {
   return (
-    <section className="relative h-screen min-h-[800px] overflow-hidden">
+    <section className="relative min-h-lvh overflow-hidden md:min-h-[800px]">
       <Image
         src={houseboat.gallery[0].src}
         alt={houseboat.gallery[0].alt}
@@ -25,7 +25,7 @@ export default function HouseboatHero({
       <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/30 to-black/75" />
 
       <div className="absolute inset-0">
-        <div className="mx-auto flex h-full max-w-7xl items-end justify-between px-6 pb-24">
+        <div className="mx-auto flex min-h-lvh max-w-7xl items-end justify-between px-6 pb-16 md:min-h-[800px] md:pb-24">
           {/* Left Content */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -36,15 +36,15 @@ export default function HouseboatHero({
             }}
             className="max-w-3xl"
           >
-            <h1 className="text-6xl font-light leading-none text-white md:text-8xl">
+            <h1 className="font-cormorant text-[34px] font-light leading-[1.05] text-white lining-nums sm:text-5xl md:text-7xl md:leading-none lg:text-8xl">
               {houseboat.name}
             </h1>
 
-            <p className="mt-8 max-w-2xl text-lg leading-8 text-white/80">
+            <p className="mt-5 hidden max-w-2xl text-lg leading-8 text-white/80 sm:block md:mt-8">
               {houseboat.longDescription}
             </p>
 
-            <div className="mt-10 flex flex-wrap gap-8 text-white/90">
+            <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-[13px] text-white/90 md:mt-10 md:gap-8 md:text-base">
               <span>{houseboat.bedrooms} Bedroom</span>
               <span>{houseboat.bathrooms} Bathroom</span>
               <span>{houseboat.maxGuests} Guests</span>
@@ -78,7 +78,6 @@ export default function HouseboatHero({
             <div
               className="
                 w-[340px]
-                rounded-[32px]
                 border
                 border-white/15
                 bg-white/[0.08]
@@ -95,7 +94,7 @@ export default function HouseboatHero({
                 Starting From
               </p>
 
-              <h2 className="mt-3 text-5xl font-semibold tracking-tight text-white">
+              <h2 className="mt-3 text-[40px] font-light tracking-[-0.01em] text-white lining-nums tabular-nums">
                 ₹
                 {houseboat.categories
                   ?.find((c) => c.name === houseboat.defaultCategory)
@@ -125,7 +124,6 @@ export default function HouseboatHero({
                   w-full
                   items-center
                   justify-center
-                  rounded-full
                   bg-black/85
                   py-4
                   text-white
@@ -151,7 +149,7 @@ export default function HouseboatHero({
           delay: 1,
           duration: 1,
         }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-sm uppercase tracking-[0.3em] text-white/70"
+        className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 text-sm uppercase tracking-[0.3em] text-white/70 sm:block"
       >
         Scroll
       </motion.div>

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 interface GalleryImage {
@@ -17,6 +17,10 @@ interface GalleryLightboxProps {
   onNext: () => void;
 }
 
+// How far (px) or how fast (px/s) a drag has to go before it counts as a swipe.
+const SWIPE_DISTANCE = 60;
+const SWIPE_VELOCITY = 400;
+
 export default function GalleryLightbox({
   images,
   selectedImage,
@@ -25,80 +29,87 @@ export default function GalleryLightbox({
   onNext,
 }: GalleryLightboxProps) {
   return (
-    <AnimatePresence>
-      <motion.div
-        className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-6"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.3 }}
+    <motion.div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4 md:p-6"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+    >
+      {/* Close */}
+      <button
+        type="button"
+        onClick={onClose}
+        aria-label="Close gallery"
+        className="absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur transition hover:bg-white/20 md:right-6 md:top-6"
       >
-        {/* Close */}
-        <motion.button
-          type="button"
-          onClick={onClose}
-          className="absolute right-6 top-6 rounded-full bg-white/10 p-3 text-white backdrop-blur transition hover:bg-white/20"
-          whileHover={{ scale: 1.08 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <X size={22} />
-        </motion.button>
+        <X size={20} strokeWidth={1.5} />
+      </button>
 
-        {/* Previous */}
-        <motion.button
-          type="button"
-          onClick={onPrevious}
-          className="absolute left-6 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white backdrop-blur transition hover:bg-white/20"
-          whileHover={{ scale: 1.08 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <ChevronLeft size={30} />
-        </motion.button>
+      {/* Arrows — desktop only. On a phone the image is swiped instead. */}
+      <button
+        type="button"
+        onClick={onPrevious}
+        aria-label="Previous photo"
+        className="absolute left-6 top-1/2 z-10 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur transition hover:bg-white/20 md:flex"
+      >
+        <ChevronLeft size={26} strokeWidth={1.5} />
+      </button>
 
-        {/* Next */}
-        <motion.button
-          type="button"
-          onClick={onNext}
-          className="absolute right-6 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white backdrop-blur transition hover:bg-white/20"
-          whileHover={{ scale: 1.08 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <ChevronRight size={30} />
-        </motion.button>
+      <button
+        type="button"
+        onClick={onNext}
+        aria-label="Next photo"
+        className="absolute right-6 top-1/2 z-10 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur transition hover:bg-white/20 md:flex"
+      >
+        <ChevronRight size={26} strokeWidth={1.5} />
+      </button>
 
-        {/* Image */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={selectedImage}
-            className="relative h-[85vh] w-full max-w-6xl"
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.96 }}
-            transition={{
-              duration: 0.3,
-              ease: "easeInOut",
-            }}
-          >
-            <Image
-              src={images[selectedImage].src}
-              alt={images[selectedImage].alt}
-              fill
-              priority
-              className="object-contain"
-            />
-          </motion.div>
-        </AnimatePresence>
+      {/*
+        key={selectedImage} remounts this on every change, so each photo fades
+        in on its own. No AnimatePresence: an interrupted exit animation is what
+        left the destinations carousel stuck on the previous slide.
+      */}
+      <motion.div
+        key={selectedImage}
+        drag="x"
+        dragConstraints={{ left: 0, right: 0 }}
+        dragElastic={0.18}
+        dragMomentum={false}
+        onDragEnd={(_event, info) => {
+          const wentLeft =
+            info.offset.x < -SWIPE_DISTANCE ||
+            info.velocity.x < -SWIPE_VELOCITY;
 
-        {/* Counter */}
-        <motion.div
-          className="absolute bottom-8 rounded-full bg-white/10 px-5 py-2 text-sm text-white backdrop-blur"
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 12 }}
-        >
-          {selectedImage + 1} / {images.length}
-        </motion.div>
+          const wentRight =
+            info.offset.x > SWIPE_DISTANCE ||
+            info.velocity.x > SWIPE_VELOCITY;
+
+          if (wentLeft) {
+            onNext();
+          } else if (wentRight) {
+            onPrevious();
+          }
+        }}
+        className="relative h-[75vh] w-full max-w-6xl cursor-grab active:cursor-grabbing md:h-[85vh] md:cursor-default"
+        initial={{ opacity: 0, scale: 0.97 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+      >
+        <Image
+          src={images[selectedImage].src}
+          alt={images[selectedImage].alt}
+          fill
+          priority
+          draggable={false}
+          sizes="100vw"
+          className="select-none object-contain"
+        />
       </motion.div>
-    </AnimatePresence>
+
+      {/* Counter */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 rounded-full bg-white/10 px-4 py-1.5 text-[12px] tracking-[0.15em] text-white backdrop-blur md:bottom-8">
+        {selectedImage + 1} / {images.length}
+      </div>
+    </motion.div>
   );
 }

@@ -2,7 +2,9 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 
 import GalleryLightbox from "./GalleryLightbox";
 
@@ -72,7 +74,7 @@ export default function HouseboatGallery({
 
   return (
     <motion.section
-      className="bg-white py-24"
+      className="bg-white py-14 md:py-24"
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
@@ -82,22 +84,22 @@ export default function HouseboatGallery({
       }}
     >
       <div className="mx-auto max-w-7xl px-6">
-        <div className="mb-16">
-          <p className="text-sm uppercase tracking-[0.35em] text-neutral-500">
+        <div className="mb-8 md:mb-16">
+          <p className="text-[11px] uppercase tracking-[0.3em] text-neutral-500 md:text-sm md:tracking-[0.35em]">
             Gallery
           </p>
 
-          <h2 className="mt-4 text-5xl font-light text-neutral-900">
+          <h2 className="mt-3 font-cormorant text-[30px] font-light leading-[1.1] text-neutral-900 sm:text-4xl md:mt-4 md:text-5xl">
             Experience the Backwaters
           </h2>
         </div>
 
-        <div className="grid gap-5 lg:grid-cols-[2fr_1fr]">
+        <div className="grid gap-3 md:gap-5 lg:grid-cols-[2fr_1fr]">
           {/* Main Image */}
           <motion.button
             type="button"
             onClick={() => setSelectedImage(0)}
-            className="relative aspect-[16/10] overflow-hidden rounded-[32px] text-left"
+            className="relative aspect-[16/10] overflow-hidden text-left"
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -109,18 +111,19 @@ export default function HouseboatGallery({
               src={houseboat.gallery[0].src}
               alt={houseboat.gallery[0].alt}
               fill
+              sizes="(max-width: 1024px) 100vw, 60vw"
               className="object-cover transition duration-700 hover:scale-105"
             />
           </motion.button>
 
           {/* Right Column */}
-          <div className="grid gap-5">
+          <div className="grid gap-3 md:gap-5">
             {houseboat.gallery.slice(1, 3).map((image, index) => (
               <motion.button
                 key={image.src}
                 type="button"
                 onClick={() => setSelectedImage(index + 1)}
-                className="relative aspect-[4/3] overflow-hidden rounded-[32px] text-left"
+                className="relative aspect-[4/3] overflow-hidden text-left"
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -133,6 +136,7 @@ export default function HouseboatGallery({
                   src={image.src}
                   alt={image.alt}
                   fill
+                  sizes="(max-width: 1024px) 100vw, 40vw"
                   className="object-cover transition duration-700 hover:scale-105"
                 />
               </motion.button>
@@ -141,42 +145,70 @@ export default function HouseboatGallery({
         </div>
 
         {houseboat.gallery.length > 3 && (
-          <div className="mt-5 grid gap-5 md:grid-cols-2">
-            {houseboat.gallery.slice(3).map((image, index) => (
-              <motion.button
-                key={image.src}
-                type="button"
-                onClick={() => setSelectedImage(index + 3)}
-                className="relative aspect-[16/10] overflow-hidden rounded-[32px] text-left"
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{
-                  duration: 0.6,
-                  delay: (index + 3) * 0.08,
-                }}
-              >
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  fill
-                  className="object-cover transition duration-700 hover:scale-105"
-                />
-              </motion.button>
-            ))}
-          </div>
+          <>
+            {/*
+              Desktop shows every photo in the grid.
+              Mobile hides them and offers the button below, which opens the
+              lightbox instead of adding four more full-width images to scroll past.
+            */}
+            <div className="hidden md:mt-5 md:grid md:grid-cols-2 md:gap-5">
+              {houseboat.gallery.slice(3).map((image, index) => (
+                <motion.button
+                  key={image.src}
+                  type="button"
+                  onClick={() => setSelectedImage(index + 3)}
+                  className="relative aspect-[16/10] overflow-hidden text-left"
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{
+                    duration: 0.6,
+                    delay: (index + 3) * 0.08,
+                  }}
+                >
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 40vw"
+                    className="object-cover transition duration-700 hover:scale-105"
+                  />
+                </motion.button>
+              ))}
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setSelectedImage(0)}
+              className="group mt-6 inline-flex items-center gap-2 text-[12px] uppercase tracking-[0.25em] text-neutral-900 transition-colors duration-300 hover:text-[#6B7341] md:hidden"
+            >
+              View all {houseboat.gallery.length} photos
+              <ArrowRight
+                size={14}
+                strokeWidth={1.5}
+                className="transition-transform duration-300 group-hover:translate-x-1"
+              />
+            </button>
+          </>
         )}
       </div>
 
-      {selectedImage !== null && (
-        <GalleryLightbox
-          images={houseboat.gallery}
-          selectedImage={selectedImage}
-          onClose={() => setSelectedImage(null)}
-          onPrevious={showPrevious}
-          onNext={showNext}
-        />
-      )}
+      {/*
+        Portalled to <body>. This section animates in, and a transformed
+        ancestor becomes its own stacking context — which left the lightbox
+        trapped underneath the fixed mobile booking bar.
+      */}
+      {selectedImage !== null &&
+        createPortal(
+          <GalleryLightbox
+            images={houseboat.gallery}
+            selectedImage={selectedImage}
+            onClose={() => setSelectedImage(null)}
+            onPrevious={showPrevious}
+            onNext={showNext}
+          />,
+          document.body
+        )}
     </motion.section>
   );
 }

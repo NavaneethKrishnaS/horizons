@@ -5,6 +5,7 @@ import { Phone, ShieldCheck } from "lucide-react";
 import { DateRange } from "react-day-picker";
 import { differenceInCalendarDays } from "date-fns";
 
+import CategorySelector from "./CategorySelector";
 import GuestSelector from "./GuestSelector";
 import DateSelector from "./DateSelector";
 import InquiryModal from "./InquiryModal";
@@ -13,24 +14,26 @@ import { Houseboat } from "@/data/houseboat.types";
 
 interface BookingCardProps {
   houseboat: Houseboat;
+  // Inside the mobile sheet the panel already has its own frame, so the card
+  // drops its border and padding rather than drawing a box inside a box.
+  bare?: boolean;
 }
 
 export default function BookingCard({
   houseboat,
+  bare = false,
 }: BookingCardProps) {
   const [adults, setAdults] = useState(2);
   const [children, setChildren] = useState(0);
   const [infants, setInfants] = useState(0);
 
-  const [selectedDates, setSelectedDates] = useState<
-    DateRange | undefined
-  >();
+  const [selectedDates, setSelectedDates] = useState<DateRange | undefined>();
 
   const [isInquiryOpen, setIsInquiryOpen] = useState(false);
   const [selectedCategoryId, setSelectedCategoryId] = useState(
     houseboat.defaultCategory.toLowerCase()
   );
-  
+
   const selectedCategory =
     houseboat.categories.find(
       (category) => category.id === selectedCategoryId
@@ -41,126 +44,141 @@ export default function BookingCard({
       return 0;
     }
 
-    return differenceInCalendarDays(
-      selectedDates.to,
-      selectedDates.from
-    );
+    return differenceInCalendarDays(selectedDates.to, selectedDates.from);
   }, [selectedDates]);
 
   return (
     <>
       <div
         id="booking-card"
-        className="rounded-[36px] border border-neutral-200 bg-white p-6 shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
-        <p className="text-xs font-medium uppercase tracking-[0.35em] text-neutral-500">
+        className={bare ? "" : "border border-neutral-200 bg-white p-7 md:p-8"}
+      >
+        <p className="text-[11px] uppercase tracking-[0.3em] text-neutral-500">
           Starting From
         </p>
 
-        <div className="mt-4 flex items-end gap-2">
-          <h2 className="text-5xl font-light tracking-tight text-neutral-900">
+        <div className="mt-4 flex items-baseline gap-2">
+          <span className="text-[38px] font-light leading-none tracking-tight text-neutral-900 lining-nums tabular-nums">
             ₹{selectedCategory.price.toLocaleString()}
-          </h2>
-
-          <span className="mb-2 text-base text-neutral-500">
-            / night
           </span>
+
+          <span className="text-[13px] text-neutral-500">/ night</span>
         </div>
 
-        <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-neutral-100 px-4 py-2 text-sm text-neutral-700">
-          <ShieldCheck size={16} />
+        <div className="mt-4 flex items-center gap-2 text-[13px] text-neutral-600">
+          <ShieldCheck
+            size={14}
+            strokeWidth={1.75}
+            className="shrink-0 text-[#6B7341]"
+          />
           Free cancellation up to 7 days
         </div>
 
-        <div className="my-4 h-px bg-neutral-200" />
+        <div className="mt-7 space-y-3">
+          <DateSelector selected={selectedDates} onSelect={setSelectedDates} />
 
-        <div className="space-y-4">
-  <DateSelector
-    selected={selectedDates}
-    onSelect={setSelectedDates}
-  />
+          <CategorySelector
+            categories={houseboat.categories}
+            selectedId={selectedCategoryId}
+            onSelect={setSelectedCategoryId}
+          />
 
-<div className="rounded-[28px] border border-neutral-200 px-6 py-3">
-    <label className="block text-sm text-neutral-500">
-      Category
-    </label>
+          <GuestSelector
+            adults={adults}
+            children={children}
+            infants={infants}
+            maxGuests={houseboat.maxGuests}
+            setAdults={setAdults}
+            setChildren={setChildren}
+            setInfants={setInfants}
+          />
+        </div>
 
-    <select
-  value={selectedCategoryId}
-  onChange={(e) => setSelectedCategoryId(e.target.value)}
-  className="mt-1 w-full bg-transparent text-base font-medium text-neutral-900 outline-none"
->
-      {houseboat.categories.map((category) => (
-        <option key={category.id} value={category.id}>
-          {category.name} — ₹{category.price.toLocaleString()}/night
-        </option>
-      ))}
-    </select>
-  </div>
+        {/* Only appears once there are dates, so the card stays quiet until then. */}
+        {nights > 0 && (
+          <div className="mt-7 border-t border-neutral-200 pt-6">
+            <div className="flex items-baseline justify-between text-[14px] text-neutral-600">
+              <span className="lining-nums">
+                ₹{selectedCategory.price.toLocaleString()} × {nights} Night
+                {nights === 1 ? "" : "s"}
+              </span>
 
-  <GuestSelector
-    adults={adults}
-    children={children}
-    infants={infants}
-    maxGuests={houseboat.maxGuests}
-    setAdults={setAdults}
-    setChildren={setChildren}
-    setInfants={setInfants}
-  />
-</div>
-        <div className="mt-5 space-y-2">
-          <button
-            disabled={nights === 0}
-            onClick={() => setIsInquiryOpen(true)}
-            className={`w-full rounded-full px-6 py-3 text-[15px] font-medium transition-all duration-300 ${
-              nights > 0
-                ? "bg-neutral-900 text-white hover:bg-black"
-                : "cursor-not-allowed bg-neutral-200 text-neutral-500"
-            }`}
-          >
-            Check Availability
-          </button>
+              <span className="lining-nums tabular-nums text-neutral-900">
+                ₹{(selectedCategory.price * nights).toLocaleString()}
+              </span>
+            </div>
 
+            <div className="mt-3 flex items-baseline justify-between text-[14px] text-neutral-600">
+              <span>Taxes &amp; fees</span>
+              <span className="text-neutral-900">Included</span>
+            </div>
+
+            <div className="mt-5 flex items-baseline justify-between border-t border-neutral-200 pt-5">
+              <span className="text-[11px] uppercase tracking-[0.25em] text-neutral-500">
+                Total
+              </span>
+
+              <span className="text-[24px] font-light leading-none text-neutral-900 lining-nums tabular-nums">
+                ₹{(selectedCategory.price * nights).toLocaleString()}
+              </span>
+            </div>
+          </div>
+        )}
+
+        <button
+          type="button"
+          disabled={nights === 0}
+          onClick={() => setIsInquiryOpen(true)}
+          className={`mt-7 w-full px-6 py-4 text-[12px] uppercase tracking-[0.25em] transition-colors duration-300 ${
+            nights > 0
+              ? "bg-neutral-900 text-white hover:bg-black"
+              : "cursor-not-allowed bg-neutral-100 text-neutral-400"
+          }`}
+        >
+          Check Availability
+        </button>
+
+        {nights === 0 && (
+          <p className="mt-3 text-center text-[12px] text-neutral-500">
+            Select your dates to continue
+          </p>
+        )}
+
+        <div className="mt-7 border-t border-neutral-200 pt-6 text-center">
           <a
             href="tel:+919495050352"
-            className="flex w-full items-center justify-center gap-2 rounded-full px-6 py-4 text-base font-medium text-neutral-600 transition-all hover:bg-neutral-100 hover:text-neutral-900"
+            className="inline-flex items-center gap-2 text-[14px] text-neutral-700 transition-colors duration-300 hover:text-[#6B7341]"
           >
-            <Phone size={18} />
-            Call +91 94950 50352
+            <Phone size={15} strokeWidth={1.75} />
+            <span className="lining-nums">+91 94950 50352</span>
           </a>
 
-          <div className="pt-2 text-center">
-            <p className="text-sm text-neutral-500">
-              Need a custom itinerary?
-            </p>
-
+          <p className="mt-4 text-[13px] leading-6 text-neutral-500">
+            Need a custom itinerary?{" "}
             <a
               href="mailto:scenicescapesindia@gmail.com"
-              className="mt-2 inline-block text-base font-medium text-neutral-900 transition-colors hover:text-neutral-600"
+              className="border-b border-neutral-300 pb-0.5 text-neutral-900 transition-colors duration-300 hover:border-[#6B7341] hover:text-[#6B7341]"
             >
-              Email our concierge →
+              Email our concierge
             </a>
-
-            <p className="mt-1 text-sm text-neutral-500">
-              scenicescapesindia@gmail.com
-            </p>
-          </div>
+          </p>
         </div>
       </div>
 
       {selectedDates?.from && selectedDates?.to && (
         <InquiryModal
-        isOpen={isInquiryOpen}
-        onClose={() => setIsInquiryOpen(false)}
-        houseboatName={houseboat.name}
-        checkIn={selectedDates.from}
-        checkOut={selectedDates.to}
-        adults={adults}
-        children={children}
-        infants={infants}
-        nights={nights}
-        selectedCategory={selectedCategory.name}
-        totalPrice={selectedCategory.price * nights}
-      />
+          isOpen={isInquiryOpen}
+          onClose={() => setIsInquiryOpen(false)}
+          houseboatName={houseboat.name}
+          checkIn={selectedDates.from}
+          checkOut={selectedDates.to}
+          adults={adults}
+          children={children}
+          infants={infants}
+          nights={nights}
+          selectedCategory={selectedCategory.name}
+          totalPrice={selectedCategory.price * nights}
+        />
       )}
     </>
   );
