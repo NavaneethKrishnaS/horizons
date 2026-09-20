@@ -20,6 +20,11 @@ export default function Navbar() {
       setScrolled(window.scrollY > 40);
     }
 
+    // Set the correct state on mount, so a page that loads already
+    // scrolled (reload, back navigation, anchor link) doesn't render
+    // a transparent navbar over a light section.
+    handleScroll();
+
     window.addEventListener("scroll", handleScroll);
 
     return () => window.removeEventListener("scroll", handleScroll);
