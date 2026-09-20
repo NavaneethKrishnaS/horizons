@@ -24,7 +24,7 @@ export default function BookingCard({
   bare = false,
 }: BookingCardProps) {
   const [adults, setAdults] = useState(2);
-  const [children, setChildren] = useState(0);
+  const [childCount, setChildCount] = useState(0);
   const [infants, setInfants] = useState(0);
 
   const [selectedDates, setSelectedDates] = useState<DateRange | undefined>();
@@ -85,11 +85,11 @@ export default function BookingCard({
 
           <GuestSelector
             adults={adults}
-            children={children}
+            childCount={childCount}
             infants={infants}
             maxGuests={houseboat.maxGuests}
             setAdults={setAdults}
-            setChildren={setChildren}
+            setChildCount={setChildCount}
             setInfants={setInfants}
           />
         </div>
@@ -173,7 +173,7 @@ export default function BookingCard({
           checkIn={selectedDates.from}
           checkOut={selectedDates.to}
           adults={adults}
-          children={children}
+          childCount={childCount}
           infants={infants}
           nights={nights}
           selectedCategory={selectedCategory.name}

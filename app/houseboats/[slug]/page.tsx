@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
 
-import Breadcrumb from "@/components/common/Breadcrumb";
 
 import HouseboatHero from "@/components/houseboats/details/HouseboatHero";
 import HouseboatOverview from "@/components/houseboats/details/HouseboatOverview";

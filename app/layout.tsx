@@ -9,6 +9,8 @@ import "./globals.css";
 
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import RouteTransition from "@/components/layout/RouteTransition";
+import IntroScreen from "@/components/layout/IntroScreen";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -56,6 +58,10 @@ export default function RootLayout({
       `}
     >
       <body className="flex min-h-full flex-col bg-[#111111]">
+        <IntroScreen />
+
+        <RouteTransition />
+
         <Navbar />
 
         <main className="flex-1">

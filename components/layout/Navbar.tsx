@@ -10,7 +10,6 @@ import { AnimatePresence, motion } from "framer-motion";
 
 export default function Navbar() {
   const pathname = usePathname();
-  const isHomePage = pathname === "/";
 
   const [scrolled, setScrolled] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
@@ -61,12 +60,15 @@ export default function Navbar() {
   return (
     <>
       <nav
+        /*
+          One resting height for every page. Home used to sit at py-8 and
+          every other page at py-6, so moving between them animated a 16px
+          jump in the navbar.
+        */
         className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-500 ${
           scrolled
-            ? "border-white/5 bg-[#2F3522]/55 backdrop-blur-3xl py-5"
-            : isHomePage
-            ? "border-transparent bg-transparent py-8"
-            : "border-transparent bg-transparent py-6"
+            ? "border-white/5 bg-[#2F3522]/55 py-5 backdrop-blur-3xl"
+            : "border-transparent bg-transparent py-8"
         }`}
       >
         <Container>

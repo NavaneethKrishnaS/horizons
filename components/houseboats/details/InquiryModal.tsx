@@ -17,7 +17,7 @@ interface InquiryModalProps {
   checkOut: Date;
 
   adults: number;
-  children: number;
+  childCount: number;
   infants: number;
 
   nights: number;
@@ -38,7 +38,7 @@ export default function InquiryModal({
   checkIn,
   checkOut,
   adults,
-  children,
+  childCount,
   infants,
   nights,
   selectedCategory,
@@ -74,7 +74,7 @@ export default function InquiryModal({
     };
   }, [isOpen, onClose]);
 
-  const totalGuests = adults + children;
+  const totalGuests = adults + childCount;
 
   const validateForm = () => {
     const newErrors = {
@@ -109,8 +109,8 @@ export default function InquiryModal({
 
     const guests = [
       `${adults} Adult${adults === 1 ? "" : "s"}`,
-      ...(children > 0
-        ? [`${children} ${children === 1 ? "Child" : "Children"}`]
+      ...(childCount > 0
+        ? [`${childCount} ${childCount === 1 ? "Child" : "Children"}`]
         : []),
       ...(infants > 0 ? [`${infants} Infant${infants === 1 ? "" : "s"}`] : []),
     ].join(", ");

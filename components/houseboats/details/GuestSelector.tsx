@@ -6,11 +6,11 @@ import { ChevronDown, Minus, Plus, Users } from "lucide-react";
 
 interface GuestSelectorProps {
   adults: number;
-  children: number;
+  childCount: number;
   infants: number;
   maxGuests: number;
   setAdults: React.Dispatch<React.SetStateAction<number>>;
-  setChildren: React.Dispatch<React.SetStateAction<number>>;
+  setChildCount: React.Dispatch<React.SetStateAction<number>>;
   setInfants: React.Dispatch<React.SetStateAction<number>>;
 }
 
@@ -79,18 +79,18 @@ function Counter({
 
 export default function GuestSelector({
   adults,
-  children,
+  childCount,
   infants,
   maxGuests,
   setAdults,
-  setChildren,
+  setChildCount,
   setInfants,
 }: GuestSelectorProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const totalGuests = adults + children;
+  const totalGuests = adults + childCount;
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -187,11 +187,11 @@ export default function GuestSelector({
               <Counter
                 label="Children"
                 subtitle="Ages 2–12"
-                value={children}
-                disableMinus={children <= 0}
+                value={childCount}
+                disableMinus={childCount <= 0}
                 disablePlus={totalGuests >= maxGuests}
-                onIncrement={() => setChildren((v) => v + 1)}
-                onDecrement={() => setChildren((v) => Math.max(0, v - 1))}
+                onIncrement={() => setChildCount((v) => v + 1)}
+                onDecrement={() => setChildCount((v) => Math.max(0, v - 1))}
               />
 
               <Counter
