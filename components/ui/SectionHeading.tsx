@@ -15,7 +15,7 @@ type SectionHeadingProps = {
           {eyebrow}
         </p>
   
-        <h2 className="mt-5 whitespace-pre-line font-[family:var(--font-cormorant)] text-[64px] leading-[0.95] tracking-[-0.04em] text-[#1F2937]">
+        <h2 className="mt-5 whitespace-pre-line font-cormorant text-[38px] leading-[1.02] tracking-[-0.02em] text-[#1F2937] sm:text-[48px] sm:leading-[0.98] lg:text-[64px] lg:leading-[0.95]">
           {title}
         </h2>
   

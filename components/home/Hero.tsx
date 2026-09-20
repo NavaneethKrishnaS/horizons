@@ -1,13 +1,17 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section
-      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-cover bg-center"
-      style={{
-        backgroundImage: "url('/images/hero/hero.png')",
-      }}
-    >
+    <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
+      <Image
+        src="/images/hero/hero.png"
+        alt="Sunset over the Kerala coast"
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover"
+      />
       {/* Softer Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/30" />
 

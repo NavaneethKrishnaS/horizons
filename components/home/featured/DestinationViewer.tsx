@@ -18,8 +18,8 @@ export default function DestinationViewer() {
   }
 
   return (
-    <div className="mt-20">
-      <div className="mb-12 flex justify-end">
+    <div className="mt-12 md:mt-20">
+      <div className="mb-8 flex justify-end md:mb-12">
         <ProgressBar
           current={activeIndex}
           total={destinations.length}

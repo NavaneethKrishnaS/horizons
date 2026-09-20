@@ -6,14 +6,14 @@ import { stays } from "./stays";
 
 export default function SignatureStays() {
   return (
-    <section className="bg-[#F7F4EE] py-32">
+    <section className="bg-[#F7F4EE] py-20 md:py-32">
       <Container>
         <SectionHeading
           eyebrow="SIGNATURE STAYS"
           title={`Handpicked retreats.\nCrafted for unforgettable escapes.`}
         />
 
-        <div className="mt-20 grid grid-cols-3 gap-8">
+        <div className="mt-12 grid grid-cols-1 gap-6 md:mt-20 lg:grid-cols-3 lg:gap-8">
           {stays.map((stay) => (
             <StayCard
               key={stay.id}

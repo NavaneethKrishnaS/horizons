@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+import { whatsappLink } from "@/lib/whatsapp";
+
 type Props = {
   name: string;
   location: string;
@@ -18,12 +20,13 @@ export default function StayCard({
   rating,
 }: Props) {
   return (
-    <article className="group relative h-[520px] overflow-hidden cursor-pointer">
+    <article className="group relative h-[420px] cursor-pointer overflow-hidden sm:h-[520px]">
       {/* Image */}
       <Image
         src={image}
         alt={name}
         fill
+        sizes="(max-width: 1024px) 100vw, 33vw"
         className="object-cover transition-transform duration-[1800ms] ease-out group-hover:scale-110"
       />
 
@@ -31,7 +34,7 @@ export default function StayCard({
       <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/15 to-transparent transition-all duration-700 group-hover:from-black/75 group-hover:via-black/25" />
 
       {/* Content */}
-      <div className="absolute inset-x-0 bottom-0 p-10 text-white transition-all duration-700 group-hover:-translate-y-3">
+      <div className="absolute inset-x-0 bottom-0 p-6 text-white transition-all duration-700 group-hover:-translate-y-3 sm:p-10">
         <div className="mb-4 flex items-center justify-between">
           <p className="text-[11px] uppercase tracking-[0.3em] text-white/70">
             {location}
@@ -42,7 +45,7 @@ export default function StayCard({
           </p>
         </div>
 
-        <h3 className="font-cormorant text-[38px] leading-[1] tracking-[-0.02em]">
+        <h3 className="font-cormorant text-[32px] leading-[1] tracking-[-0.02em] sm:text-[38px]">
           {name}
         </h3>
 
@@ -50,7 +53,7 @@ export default function StayCard({
           {description}
         </p>
 
-        <div className="mt-8 flex items-center justify-between">
+        <div className="mt-6 flex items-center justify-between sm:mt-8">
           <div>
             <p className="text-[28px] font-light">
               ₹{price.toLocaleString()}
@@ -61,13 +64,20 @@ export default function StayCard({
             </p>
           </div>
 
-          <button className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em] text-white/90">
+          <a
+            href={whatsappLink(
+              `Hello HORIZONS, I would like to enquire about ${name} in ${location}.`
+            )}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.22em] text-white/90"
+          >
             Reserve
 
             <span className="transition-transform duration-500 group-hover:translate-x-2">
               →
             </span>
-          </button>
+          </a>
         </div>
       </div>
     </article>

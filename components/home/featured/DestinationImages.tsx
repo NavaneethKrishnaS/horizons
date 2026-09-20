@@ -16,10 +16,10 @@ export default function DestinationImages({
   onNext,
 }: Props) {
   return (
-    <div className="mt-20">
-      <div className="flex gap-7 overflow-hidden">
+    <div className="mt-10 md:mt-20">
+      <div className="flex gap-3 overflow-hidden sm:gap-7">
         {/* Main Image */}
-        <div className="relative h-[430px] w-[84%] overflow-hidden rounded-sm">
+        <div className="relative h-[300px] w-[72%] overflow-hidden rounded-sm sm:h-[430px] sm:w-[84%]">
           <AnimatePresence mode="wait">
             <motion.div
               key={current.id}
@@ -40,6 +40,7 @@ export default function DestinationImages({
                 alt={current.title}
                 fill
                 priority
+                sizes="(max-width: 640px) 72vw, 84vw"
                 className="object-cover"
               />
             </motion.div>
@@ -49,12 +50,14 @@ export default function DestinationImages({
         {/* Preview */}
         <button
           onClick={onNext}
-          className="relative h-[430px] w-[16%] overflow-hidden rounded-sm"
+          aria-label={`Show ${next.title}`}
+          className="relative h-[300px] w-[28%] overflow-hidden rounded-sm sm:h-[430px] sm:w-[16%]"
         >
           <Image
             src={next.image}
             alt={next.title}
             fill
+            sizes="(max-width: 640px) 28vw, 16vw"
             className="object-cover transition-transform duration-500 hover:scale-105"
           />
         </button>

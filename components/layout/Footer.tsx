@@ -3,6 +3,8 @@ import Link from "next/link";
 import { Mail } from "lucide-react";
 import { SiInstagram, SiWhatsapp } from "react-icons/si";
 
+import { WHATSAPP_NUMBER } from "@/lib/whatsapp";
+
 const navigation = [
   { name: "Houseboats", href: "/houseboats" },
   { name: "Stays", href: "/stays" },
@@ -75,7 +77,7 @@ export default function Footer() {
             </Link>
 
             <Link
-              href="https://wa.me/919495050352"
+              href={`https://wa.me/${WHATSAPP_NUMBER}`}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="WhatsApp"

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { X } from "lucide-react";
 import { format } from "date-fns";
+import { whatsappLink } from "@/lib/whatsapp";
 
 interface InquiryModalProps {
     isOpen: boolean;
@@ -146,9 +147,7 @@ ${specialRequests || "None"}
 Looking forward to your response.
 Thank you!`;
 
-    const whatsappUrl = `https://wa.me/919495050352?text=${encodeURIComponent(
-      message
-    )}`;
+    const whatsappUrl = whatsappLink(message);
 
     window.open(whatsappUrl, "_blank");
 
