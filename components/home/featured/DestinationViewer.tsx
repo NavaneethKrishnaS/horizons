@@ -11,11 +11,6 @@ export default function DestinationViewer() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const current = destinations[activeIndex];
-  const next = destinations[(activeIndex + 1) % destinations.length];
-
-  function handleNext() {
-    setActiveIndex((prev) => (prev + 1) % destinations.length);
-  }
 
   return (
     <div className="mt-12 md:mt-20">
@@ -27,9 +22,9 @@ export default function DestinationViewer() {
       </div>
 
       <DestinationImages
-        current={current}
-        next={next}
-        onNext={handleNext}
+        destinations={destinations}
+        activeIndex={activeIndex}
+        onChange={setActiveIndex}
       />
 
       <DestinationContent
