@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import {
   Geist,
   Geist_Mono,
@@ -31,6 +31,10 @@ export const metadata: Metadata = {
   description: "Luxury travel experiences by Scenic Escapes",
 };
 
+export const viewport: Viewport = {
+  themeColor: "#111111",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -47,7 +51,7 @@ export default function RootLayout({
         antialiased
       `}
     >
-      <body className="flex min-h-full flex-col bg-white">
+      <body className="flex min-h-full flex-col bg-[#111111]">
         <Navbar />
 
         <main className="flex-1">
