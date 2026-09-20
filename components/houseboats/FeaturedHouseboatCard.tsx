@@ -44,7 +44,7 @@ export default function FeaturedHouseboatCard({
           {houseboat.defaultCategory}
         </p>
 
-        <h3 className="mt-3 font-cormorant text-[24px] leading-[1.08] text-neutral-900 sm:mt-4 sm:text-[32px] sm:leading-[1.05] lg:text-[44px]">
+        <h3 className="mt-3 font-cormorant text-[24px] leading-[1.08] text-neutral-900 lining-nums sm:mt-4 sm:text-[32px] sm:leading-[1.05] lg:text-[44px]">
           {houseboat.name}
         </h3>
 
@@ -62,7 +62,7 @@ export default function FeaturedHouseboatCard({
             From
           </span>
 
-          <span className="font-cormorant text-[26px] leading-none text-neutral-900 sm:text-[30px]">
+          <span className="font-sans text-[25px] font-light leading-none tracking-[-0.01em] text-neutral-900 lining-nums tabular-nums sm:text-[29px]">
             &#8377;{price.toLocaleString()}
           </span>
 

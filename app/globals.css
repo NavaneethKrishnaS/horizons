@@ -30,7 +30,9 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* Geist is loaded by next/font in layout.tsx; the Arial that was here
+     came from the Next.js starter and meant Geist was never actually used. */
+  font-family: var(--font-geist-sans), "Helvetica Neue", Arial, sans-serif;
 }
 
 /* ----------------------------- */
