@@ -25,7 +25,7 @@ export default function HouseboatHero() {
             KERALA BACKWATERS
           </p>
 
-          <h1 className="font-serif text-[44px] leading-none sm:text-6xl md:text-8xl xl:text-9xl">
+          <h1 className="font-cormorant text-[44px] leading-none sm:text-6xl md:text-8xl xl:text-9xl">
             Curated
             <br />
             Houseboat

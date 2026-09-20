@@ -35,7 +35,7 @@ export default function FeaturedHouseboats() {
             Featured Collection
           </p>
 
-          <h2 className="mt-4 text-4xl font-light text-white md:text-5xl">
+          <h2 className="mt-4 font-cormorant text-4xl font-light text-white md:text-5xl">
             Featured Houseboats
           </h2>
 

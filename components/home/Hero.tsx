@@ -21,7 +21,7 @@ export default function Hero() {
           BY SCENIC ESCAPES
         </p>
 
-        <h1 className="font-serif text-[72px] font-medium leading-none tracking-[-0.05em] md:text-[118px] lg:text-[150px]">
+        <h1 className="font-cormorant text-[72px] font-medium leading-none tracking-[-0.02em] md:text-[118px] lg:text-[150px]">
           HORIZONS
         </h1>
 

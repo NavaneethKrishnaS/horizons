@@ -107,7 +107,7 @@ export default function GuestStory() {
                     initial={{ opacity: 0, y: 25 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.25 }}
-                    className="mt-8 font-serif text-[26px] leading-[1.2] tracking-[-0.02em] text-white sm:text-[34px] md:text-[46px] md:leading-[1.15] md:tracking-[-0.03em] lg:text-[52px]"
+                    className="mt-8 font-cormorant text-[26px] leading-[1.2] tracking-[-0.02em] text-white sm:text-[34px] md:text-[46px] md:leading-[1.15] md:tracking-[-0.03em] lg:text-[52px]"
                   >
                     {story.title}
                   </motion.blockquote>

@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import { whatsappLink } from "@/lib/whatsapp";
 
 export default function BookingCTA() {
   return (
@@ -22,7 +22,7 @@ export default function BookingCTA() {
                 Begin Your Journey
               </p>
 
-              <h2 className="font-serif text-[34px] leading-[1.1] tracking-[-0.02em] text-neutral-900 sm:text-5xl md:text-6xl md:leading-[1.05] md:tracking-[-0.04em]">
+              <h2 className="font-cormorant text-[34px] leading-[1.1] tracking-[-0.02em] text-neutral-900 sm:text-5xl md:text-6xl md:leading-[1.05] md:tracking-[-0.04em]">
                 Your Journey
                 <br />
                 Begins Here.
@@ -36,9 +36,12 @@ export default function BookingCTA() {
               </p>
 
               <div className="mt-10 md:mt-16">
-                <Link
-                  href="#featured-houseboats"
-                  scroll
+                <a
+                  href={whatsappLink(
+                    "Hello HORIZONS, I would like to check houseboat availability."
+                  )}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="group inline-flex items-center gap-3"
                 >
                   <span className="border-b border-black pb-1 text-lg font-medium text-neutral-900 transition-all duration-300 group-hover:pr-2">
@@ -50,7 +53,7 @@ export default function BookingCTA() {
                     strokeWidth={2}
                     className="text-black transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
                   />
-                </Link>
+                </a>
               </div>
             </div>
           </div>

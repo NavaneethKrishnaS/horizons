@@ -1,5 +1,6 @@
 import Image from "next/image";
-import Link from "next/link";
+
+import { whatsappLink } from "@/lib/whatsapp";
 
 import ExperienceCard from "./ExperienceCard";
 import { experienceCategories } from "@/data/houseboats";
@@ -22,7 +23,7 @@ export default function HouseboatExplorer() {
             Curated Experiences
           </p>
 
-          <h2 className="mt-4 font-serif text-4xl text-neutral-900 md:text-5xl">
+          <h2 className="mt-4 font-cormorant text-4xl text-neutral-900 md:text-5xl">
             Curated For Every Journey
           </h2>
 
@@ -35,7 +36,7 @@ export default function HouseboatExplorer() {
 
         {/* Featured Banner */}
         {featured && (
-          <div className="group relative mt-14 aspect-[4/5] overflow-hidden rounded-[20px] sm:aspect-[16/10] md:mt-20 md:aspect-[21/9] md:rounded-[32px]">
+          <div className="group relative mt-14 aspect-[4/5] overflow-hidden sm:aspect-[16/10] md:mt-20 md:aspect-[21/9]">
             <Image
               src={featured.image}
               alt={featured.title}
@@ -51,7 +52,7 @@ export default function HouseboatExplorer() {
                 {featured.title}
               </p>
 
-              <h3 className="mt-4 max-w-[580px] font-serif text-[30px] leading-[1.08] tracking-[-0.02em] sm:text-[42px] md:text-[64px] md:leading-[1.05] md:tracking-[-0.03em]">
+              <h3 className="mt-4 max-w-[580px] font-cormorant text-[30px] leading-[1.08] tracking-[-0.02em] sm:text-[42px] md:text-[64px] md:leading-[1.05] md:tracking-[-0.03em]">
                 {featured.subtitle}
               </h3>
 
@@ -61,8 +62,12 @@ export default function HouseboatExplorer() {
             </div>
 
             {/* CTA */}
-            <Link
-  href={`/houseboats?experience=${featured.id}`}
+            <a
+  href={whatsappLink(
+    `Hello HORIZONS, I would like to enquire about houseboats \u2014 ${featured.title}.`
+  )}
+  target="_blank"
+  rel="noopener noreferrer"
   className="group/button absolute bottom-6 right-6 inline-flex md:bottom-14 md:right-14 items-center gap-3 text-[13px] font-medium uppercase tracking-[0.3em] text-white/80 transition-colors duration-300 hover:text-white"
 >
   <span>Explore Now</span>
@@ -82,7 +87,7 @@ export default function HouseboatExplorer() {
     <path d="M5 12h14" />
     <path d="m12 5 7 7-7 7" />
   </svg>
-</Link>
+</a>
           </div>
         )}
 

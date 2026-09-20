@@ -32,7 +32,7 @@ export default function WhyChooseHorizons() {
                 Why HORIZONS
               </p>
   
-              <h2 className="mt-5 font-serif text-[34px] leading-[1.1] tracking-[-0.02em] text-neutral-900 sm:text-[42px] lg:text-[52px] lg:leading-[1.08] lg:tracking-[-0.03em] xl:text-[56px]">
+              <h2 className="mt-5 font-cormorant text-[34px] leading-[1.1] tracking-[-0.02em] text-neutral-900 sm:text-[42px] lg:text-[52px] lg:leading-[1.08] lg:tracking-[-0.03em] xl:text-[56px]">
                 Curated with care,
                 <br />
                 designed for
@@ -66,7 +66,7 @@ export default function WhyChooseHorizons() {
                         {String(index + 1).padStart(2, "0")}
                       </span>
   
-                      <h3 className="mt-3 font-serif text-[26px] leading-tight text-neutral-900 transition-colors duration-300 group-hover:text-[#7A8250] md:text-[36px]">
+                      <h3 className="mt-3 font-cormorant text-[26px] leading-tight text-neutral-900 transition-colors duration-300 group-hover:text-[#7A8250] md:text-[36px]">
                         {feature.title}
                       </h3>
                     </div>
