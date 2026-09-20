@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 
 import { Houseboat } from "@/data/houseboat.types";
 
@@ -9,9 +10,12 @@ interface HouseboatHeroProps {
   houseboat: Houseboat;
 }
 
-export default function HouseboatHero({
-  houseboat,
-}: HouseboatHeroProps) {
+export default function HouseboatHero({ houseboat }: HouseboatHeroProps) {
+  const startingPrice =
+    houseboat.categories.find(
+      (category) => category.name === houseboat.defaultCategory,
+    )?.price ?? houseboat.categories[0].price;
+
   return (
     <section className="relative min-h-lvh overflow-hidden md:min-h-[800px]">
       <Image
@@ -25,7 +29,7 @@ export default function HouseboatHero({
       <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/30 to-black/75" />
 
       <div className="absolute inset-0">
-        <div className="mx-auto flex min-h-lvh max-w-7xl items-end justify-between px-6 pb-16 md:min-h-[800px] md:pb-24">
+        <div className="mx-auto flex min-h-lvh max-w-7xl items-end px-6 pb-16 md:min-h-[800px] md:pb-24">
           {/* Left Content */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -50,109 +54,42 @@ export default function HouseboatHero({
               <span>{houseboat.maxGuests} Guests</span>
               <span>{houseboat.crew} Crew</span>
             </div>
-          </motion.div>
 
-          {/* Glass Card */}
-          <motion.div
-            initial={{
-              opacity: 0,
-              y: 35,
-              scale: 0.96,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-              scale: 1,
-            }}
-            transition={{
-              delay: 0.15,
-              duration: 0.9,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-            whileHover={{
-              y: -6,
-              scale: 1.02,
-            }}
-            className="hidden lg:block"
-          >
-            <div
-              className="
-                w-[340px]
-                border
-                border-white/15
-                bg-white/[0.08]
-                p-8
-                backdrop-blur-[40px]
-                shadow-[0_30px_80px_rgba(0,0,0,0.35)]
-                ring-1
-                ring-white/10
-                transition-all
-                duration-500
-              "
-            >
-              <p className="text-sm uppercase tracking-[0.28em] text-white/70">
-                Starting From
-              </p>
-
-              <h2 className="mt-3 text-[40px] font-light tracking-[-0.01em] text-white lining-nums tabular-nums">
-                ₹
-                {houseboat.categories
-                  ?.find((c) => c.name === houseboat.defaultCategory)
-                  ?.price.toLocaleString()}
-              </h2>
-
-              <p className="mt-2 text-base text-white/70">
-                {houseboat.defaultCategory} • From ₹
-                {houseboat.categories
-                  ?.find((c) => c.name === houseboat.defaultCategory)
-                  ?.price.toLocaleString()}
-                /night
+            {/*
+              Replaces the glass price box that used to sit in the corner. It
+              said ₹10,000 twice and repeated the booking card a screen below,
+              which read like a booking marketplace rather than a hotel.
+            */}
+            <div className="mt-7 flex flex-wrap items-center gap-x-8 gap-y-4 md:mt-12">
+              <p className="text-[14px] text-white/70 md:text-[15px]">
+                From{" "}
+                <span className="text-[20px] font-light text-white lining-nums tabular-nums md:text-[22px]">
+                  ₹{startingPrice.toLocaleString()}
+                </span>{" "}
+                per night
               </p>
 
               <button
+                type="button"
                 onClick={() => {
-                  document
-                    .getElementById("booking-card")
-                    ?.scrollIntoView({
-                      behavior: "smooth",
-                      block: "start",
-                    });
+                  document.getElementById("booking-card")?.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center",
+                  });
                 }}
-                className="
-                  mt-8
-                  flex
-                  w-full
-                  items-center
-                  justify-center
-                  bg-black/85
-                  py-4
-                  text-white
-                  backdrop-blur-md
-                  transition-all
-                  duration-500
-                  hover:scale-[1.02]
-                  hover:bg-black
-                  active:scale-[0.98]
-                "
+                className="group hidden items-center gap-2 border-b border-white/40 pb-1.5 text-[12px] uppercase tracking-[0.25em] text-white transition-colors duration-300 hover:border-white lg:inline-flex"
               >
                 Check Availability
+                <ArrowRight
+                  size={14}
+                  strokeWidth={1.5}
+                  className="transition-transform duration-300 group-hover:translate-x-1"
+                />
               </button>
             </div>
           </motion.div>
         </div>
       </div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{
-          delay: 1,
-          duration: 1,
-        }}
-        className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 text-sm uppercase tracking-[0.3em] text-white/70 sm:block"
-      >
-        Scroll
-      </motion.div>
     </section>
   );
 }

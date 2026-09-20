@@ -149,7 +149,21 @@ export default function InquiryModal({
       "Kindly confirm availability at your convenience. Thank you."
     );
 
-    window.open(whatsappLink(lines.join("\n")), "_blank");
+    const url = whatsappLink(lines.join("\n"));
+
+    /*
+      On a phone, WhatsApp takes over the tab it is opened in. A new tab means
+      the visitor comes back to a blank page with no way back to the site, so
+      navigate the current tab instead and let Back return them here. Desktop
+      keeps the new tab, where web.whatsapp.com opens alongside the site.
+    */
+    const isHandheld = window.matchMedia("(max-width: 1023px)").matches;
+
+    if (isHandheld) {
+      window.location.href = url;
+    } else {
+      window.open(url, "_blank", "noopener");
+    }
 
     setFullName("");
     setEmail("");
@@ -178,13 +192,12 @@ export default function InquiryModal({
     },
   ];
 
-  // Portalled for the same reason as the date modal: the sticky booking
-  // column is its own stacking context, so the navbar painted over it.
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => setIsMounted(true), []);
-
-  if (!isMounted) return null;
+  /*
+    Portalled to <body>. The booking card sits inside a `sticky` wrapper, and
+    position: sticky creates a stacking context — which trapped this overlay
+    below the fixed navbar no matter how high its z-index went.
+  */
+  if (typeof document === "undefined") return null;
 
   return createPortal(
     <AnimatePresence>

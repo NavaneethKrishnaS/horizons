@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
@@ -47,14 +47,10 @@ export default function Modal({
 
   /*
     Portalled to <body>. The booking card sits inside a `sticky` wrapper, and
-    position: sticky creates a stacking context — which trapped this modal
+    position: sticky creates a stacking context — which trapped this overlay
     below the fixed navbar no matter how high its z-index went.
   */
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => setIsMounted(true), []);
-
-  if (!isMounted) return null;
+  if (typeof document === "undefined") return null;
 
   return createPortal(
     <AnimatePresence>
