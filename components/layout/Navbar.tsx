@@ -61,12 +61,12 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
+        className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-500 ${
           scrolled
-            ? "bg-[#2F3522]/55 backdrop-blur-3xl border-b border-white/5 py-5"
+            ? "border-white/5 bg-[#2F3522]/55 backdrop-blur-3xl py-5"
             : isHomePage
-            ? "bg-transparent py-8"
-            : "bg-transparent py-6"
+            ? "border-transparent bg-transparent py-8"
+            : "border-transparent bg-transparent py-6"
         }`}
       >
         <Container>

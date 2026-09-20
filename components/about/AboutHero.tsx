@@ -1,12 +1,16 @@
+import Image from "next/image";
+
 export default function AboutHero() {
     return (
       <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
         {/* Background image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: "url('/images/about/hero.jpg')",
-          }}
+        <Image
+          src="/images/about/hero.jpg"
+          alt="A mahout and child with an elephant in the South Indian forest"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
         />
   
         {/* Dark overlay */}

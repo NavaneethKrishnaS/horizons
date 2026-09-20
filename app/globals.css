@@ -20,6 +20,13 @@
   }
 }
 
+/* The canvas behind the page — iOS paints the safe area and any
+   rubber-band overscroll with this. Matches the footer so the bottom
+   of the screen never flashes white. */
+html {
+  background-color: #111111;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
