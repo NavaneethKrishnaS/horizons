@@ -23,11 +23,11 @@ export default function HouseboatExplorer() {
             Curated Experiences
           </p>
 
-          <h2 className="mt-4 font-cormorant text-4xl text-neutral-900 md:text-5xl">
+          <h2 className="mt-3 font-cormorant text-[30px] leading-[1.1] text-neutral-900 sm:text-4xl md:mt-4 md:text-5xl">
             Curated For Every Journey
           </h2>
 
-          <p className="mt-6 text-lg leading-8 text-neutral-600">
+          <p className="mt-4 text-[15px] leading-7 text-neutral-600 sm:mt-6 sm:text-lg sm:leading-8">
             Whether you're celebrating a honeymoon, travelling with family, or
             planning a getaway with friends, discover houseboats carefully
             selected to match every occasion.
@@ -36,7 +36,7 @@ export default function HouseboatExplorer() {
 
         {/* Featured Banner */}
         {featured && (
-          <div className="group relative mt-14 aspect-[4/5] overflow-hidden sm:aspect-[16/10] md:mt-20 md:aspect-[21/9]">
+          <div className="group relative mt-10 aspect-[5/4] overflow-hidden sm:aspect-[16/10] md:mt-20 md:aspect-[21/9]">
             <Image
               src={featured.image}
               alt={featured.title}
@@ -56,7 +56,7 @@ export default function HouseboatExplorer() {
                 {featured.subtitle}
               </h3>
 
-              <p className="mt-6 max-w-xl text-lg leading-8 text-white/80">
+              <p className="mt-4 hidden max-w-xl text-lg leading-8 text-white/80 sm:mt-6 sm:block">
                 {featured.description}
               </p>
             </div>
@@ -93,7 +93,7 @@ export default function HouseboatExplorer() {
 
         {/* Experiences */}
         <div className="mx-auto mt-14 max-w-5xl md:mt-20">
-          <div className="grid gap-12 md:grid-cols-2 md:gap-x-20 md:gap-y-20">
+          <div className="grid grid-cols-2 gap-x-5 gap-y-11 md:gap-x-20 md:gap-y-20">
             {remaining.map((experience) => (
               <ExperienceCard
                 key={experience.id}

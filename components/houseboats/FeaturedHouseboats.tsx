@@ -39,7 +39,7 @@ export default function FeaturedHouseboats() {
             Featured Houseboats
           </h2>
 
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-white/75">
+          <p className="mt-4 max-w-2xl text-[15px] leading-7 text-white/75 sm:mt-6 sm:text-lg sm:leading-8">
             Handpicked luxury houseboats offering exceptional comfort,
             authentic Kerala hospitality, and unforgettable backwater
             experiences.

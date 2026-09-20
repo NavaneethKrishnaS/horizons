@@ -1,66 +1,67 @@
 import { whatsappLink } from "@/lib/whatsapp";
 
 type ExperienceCardProps = {
-    title: string;
-    subtitle: string;
-    description: string;
-    highlights: string[];
-  };
-  
-  export default function ExperienceCard({
-    title,
-    subtitle,
-    description,
-    highlights,
-  }: ExperienceCardProps) {
-    return (
-        <article className="group py-4 transition-all duration-500 hover:-translate-y-1">
-        {/* Category */}
-        <p className="text-[11px] uppercase tracking-[0.45em] text-neutral-500">
-          {title}
-        </p>
-  
-        {/* Heading */}
-        <h3 className="mt-4 max-w-[320px] font-cormorant text-[40px] leading-[1.08] tracking-[-0.03em] text-neutral-900 transition-colors duration-300 group-hover:text-neutral-700">
-          {subtitle}
-        </h3>
-  
-        {/* Description */}
-        <p className="mt-5 max-w-md text-[17px] leading-8 text-neutral-600">
-          {description}
-        </p>
-  
-        {/* Divider */}
-        <div className="mt-8 h-px w-16 bg-neutral-300 transition-all duration-300 group-hover:w-24 group-hover:bg-neutral-900" />
-  
-        {/* Highlights */}
-        <ul className="mt-8 space-y-4">
-          {highlights.map((item) => (
-            <li
-              key={item}
-              className="flex items-center gap-4 text-[15px] text-neutral-700"
-            >
-              <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-[#6B7341]" />
-              {item}
-            </li>
-          ))}
-        </ul>
-  
-        {/* CTA */}
-        <a
-          href={whatsappLink(
-            `Hello HORIZONS, I would like to enquire about houseboats \u2014 ${title}.`
-          )}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group/button mt-10 inline-flex items-center gap-3 text-[13px] font-medium uppercase tracking-[0.3em] text-neutral-700 transition-colors duration-300 hover:text-neutral-900"
-        >
-          <span>Explore Now</span>
+  title: string;
+  subtitle: string;
+  description: string;
+  highlights: string[];
+};
 
-          <span className="transition-transform duration-300 group-hover/button:translate-x-1.5">
-            →
-          </span>
-        </a>
-      </article>
-    );
-  }
+export default function ExperienceCard({
+  title,
+  subtitle,
+  description,
+  highlights,
+}: ExperienceCardProps) {
+  return (
+    <article className="group relative transition-all duration-500 md:py-4 md:hover:-translate-y-1">
+      <p className="text-[10px] uppercase tracking-[0.25em] text-neutral-500 sm:text-[11px] md:tracking-[0.45em]">
+        {title}
+      </p>
+
+      <h3 className="mt-2 max-w-[320px] font-cormorant text-[20px] leading-[1.15] text-neutral-900 transition-colors duration-300 group-hover:text-neutral-700 sm:text-[26px] md:mt-4 md:text-[32px] md:leading-[1.08] md:tracking-[-0.03em] lg:text-[40px]">
+        {subtitle}
+      </h3>
+
+      {/* Below desktop the columns are too narrow for these to be readable */}
+      <p className="mt-5 hidden max-w-md text-[17px] leading-8 text-neutral-600 md:block">
+        {description}
+      </p>
+
+      <div className="mt-8 hidden h-px w-16 bg-neutral-300 transition-all duration-300 group-hover:w-24 group-hover:bg-neutral-900 md:block" />
+
+      <ul className="mt-8 hidden space-y-4 md:block">
+        {highlights.map((item) => (
+          <li
+            key={item}
+            className="flex items-center gap-4 text-[15px] text-neutral-700"
+          >
+            <span className="h-2 w-2 shrink-0 rounded-full bg-[#6B7341]" />
+            {item}
+          </li>
+        ))}
+      </ul>
+
+      <span className="mt-4 inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.18em] text-neutral-500 transition-colors duration-300 group-hover:text-neutral-900 md:mt-10 md:gap-3 md:text-[13px] md:font-medium md:tracking-[0.3em] md:text-neutral-700">
+        Explore Now
+        <span
+          aria-hidden
+          className="transition-transform duration-300 group-hover:translate-x-1.5"
+        >
+          &rarr;
+        </span>
+      </span>
+
+      {/* Whole tile is the tap target */}
+      <a
+        href={whatsappLink(
+          `Hello HORIZONS, I would like to enquire about houseboats — ${title}.`
+        )}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`Enquire about ${title}`}
+        className="absolute inset-0"
+      />
+    </article>
+  );
+}

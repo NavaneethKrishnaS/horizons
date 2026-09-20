@@ -107,7 +107,7 @@ export default function GuestStory() {
                     initial={{ opacity: 0, y: 25 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.25 }}
-                    className="mt-8 font-cormorant text-[26px] leading-[1.2] tracking-[-0.02em] text-white sm:text-[34px] md:text-[46px] md:leading-[1.15] md:tracking-[-0.03em] lg:text-[52px]"
+                    className="mt-5 font-cormorant text-[20px] leading-[1.25] tracking-[-0.01em] text-white sm:mt-8 sm:text-[32px] md:text-[46px] md:leading-[1.15] md:tracking-[-0.03em] lg:text-[52px]"
                   >
                     {story.title}
                   </motion.blockquote>
@@ -116,7 +116,7 @@ export default function GuestStory() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.35 }}
-                    className="mx-auto mt-8 max-w-xl text-lg leading-8 text-white/90 md:text-2xl"
+                    className="mx-auto mt-4 max-w-xl text-[14px] leading-6 text-white/90 sm:mt-8 sm:text-lg sm:leading-8 md:text-2xl"
                   >
                     {story.subtitle}
                   </motion.p>
@@ -125,7 +125,7 @@ export default function GuestStory() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.45 }}
-                    className="mx-auto mt-10 h-px w-24 bg-white/40"
+                    className="mx-auto mt-6 h-px w-16 bg-white/40 sm:mt-10 sm:w-24"
                   />
 
                   <motion.div
@@ -134,16 +134,16 @@ export default function GuestStory() {
                     transition={{ delay: 0.55 }}
                     className="mt-10"
                   >
-                    <p className="text-xl font-medium text-white">
+                    <p className="text-[15px] font-medium text-white sm:text-xl">
                       {story.guest}
                     </p>
 
-                    <p className="mt-3 text-xs uppercase tracking-[0.35em] text-white/75">
+                    <p className="mt-2 text-[10px] uppercase tracking-[0.25em] text-white/75 sm:mt-3 sm:text-xs sm:tracking-[0.35em]">
                       {story.location}
                     </p>
                   </motion.div>
                                     {/* Progress Lines */}
-                                    <div className="mt-12 flex items-center justify-center gap-4">
+                                    <div className="mt-7 flex items-center justify-center gap-3 sm:mt-12 sm:gap-4">
                     {stories.map((_, index) => (
                       <button
                         key={index}

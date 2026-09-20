@@ -32,7 +32,7 @@ export default function WhyChooseHorizons() {
                 Why HORIZONS
               </p>
   
-              <h2 className="mt-5 font-cormorant text-[34px] leading-[1.1] tracking-[-0.02em] text-neutral-900 sm:text-[42px] lg:text-[52px] lg:leading-[1.08] lg:tracking-[-0.03em] xl:text-[56px]">
+              <h2 className="mt-4 font-cormorant text-[28px] leading-[1.12] tracking-[-0.01em] text-neutral-900 sm:mt-5 sm:text-[38px] lg:text-[52px] lg:leading-[1.08] lg:tracking-[-0.03em] xl:text-[56px]">
                 Curated with care,
                 <br />
                 designed for
@@ -40,7 +40,7 @@ export default function WhyChooseHorizons() {
                 unforgettable journeys.
               </h2>
   
-              <p className="mt-8 max-w-md text-lg leading-8 text-neutral-600">
+              <p className="mt-4 max-w-md text-[15px] leading-7 text-neutral-600 sm:mt-8 sm:text-lg sm:leading-8">
                 Every houseboat featured on HORIZONS is personally selected for
                 its hospitality, comfort and authenticity, ensuring every journey
                 across Kerala&apos;s backwaters feels effortless from beginning to
@@ -73,7 +73,7 @@ export default function WhyChooseHorizons() {
   
                     {/* Description */}
                     <div className="md:col-span-7">
-                      <p className="max-w-lg text-lg leading-8 text-neutral-600">
+                      <p className="max-w-lg text-[15px] leading-7 text-neutral-600 sm:text-lg sm:leading-8">
                         {feature.description}
                       </p>
                     </div>

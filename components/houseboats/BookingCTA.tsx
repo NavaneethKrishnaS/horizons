@@ -31,7 +31,7 @@ export default function BookingCTA() {
 
             {/* Right */}
             <div className="flex flex-col justify-between lg:col-span-7">
-              <p className="max-w-2xl text-xl leading-9 text-neutral-600">
+              <p className="max-w-2xl text-[15px] leading-7 text-neutral-600 sm:text-xl sm:leading-9">
               Every journey through Kerala's backwaters is thoughtfully curated around your pace, your people and your idea of luxury. Whether you're celebrating something special or simply escaping the everyday, we'll help you discover the houseboat that's right for you.
               </p>
 
@@ -44,7 +44,7 @@ export default function BookingCTA() {
                   rel="noopener noreferrer"
                   className="group inline-flex items-center gap-3"
                 >
-                  <span className="border-b border-black pb-1 text-lg font-medium text-neutral-900 transition-all duration-300 group-hover:pr-2">
+                  <span className="border-b border-black pb-1 text-[15px] font-medium text-neutral-900 transition-all duration-300 group-hover:pr-2 sm:text-lg">
                     Explore Availability
                   </span>
 
