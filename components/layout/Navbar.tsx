@@ -104,6 +104,17 @@ export default function Navbar() {
             <a href="#" className="transition hover:text-white">
               Journal
             </a>
+
+            <Link
+              href="/about"
+              className={`transition ${
+                pathname.startsWith("/about")
+                  ? "text-white"
+                  : "text-white/90 hover:text-white"
+              }`}
+            >
+              About
+            </Link>
           </div>
 
           {/* CTA */}

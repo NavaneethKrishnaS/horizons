@@ -9,6 +9,7 @@ const navigation = [
   { name: "Destinations", href: "/destinations" },
   { name: "Packages", href: "/packages" },
   { name: "Journal", href: "/journal" },
+  { name: "About", href: "/about" },
 ];
 
 export default function Footer() {
