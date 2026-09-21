@@ -20,11 +20,10 @@ export type Collection =
 /*
   Two lengths of thing, and two people buying them.
 
-  A journey is two or three weeks and is quoted, because it is built
-  around whoever is travelling and because the people who take them
-  expect to be quoted. An escape is a few days, usually for someone
-  who already lives here, and carries a starting price — a family
-  comparing weekends will not write to us to find out what it costs.
+  A journey is two or three weeks, for someone flying in. An escape is
+  a few days, usually for someone who already lives here. Neither is
+  priced on the page: both are built around the people travelling, and
+  quoted when they ask.
 */
 export type Tier = "journey" | "escape";
 
@@ -101,9 +100,6 @@ export interface TourPackage {
   highlights: string[];
   /* Only where we have it day by day. */
   itinerary?: ItineraryDay[];
-  /* Escapes only, in rupees, per person unless priceNote says otherwise. */
-  priceFrom?: number;
-  priceNote?: string;
   image: string;
   imageAlt: string;
   /*
@@ -761,5 +757,87 @@ export const packages: TourPackage[] = [
     ],
     image: `${P}/photo-1602216056096-3b40cc0c9944`,
     imageAlt: "A houseboat on the Kerala backwaters",
+  },
+  {
+    slug: "the-high-range",
+    tier: "escape",
+    title: "The high range",
+    standfirst: "Tea, cardamom, and the highest ground south of the Himalaya.",
+    collection: "kerala",
+    region: "Munnar & Thekkady",
+    duration: "5 days, 4 nights",
+    days: 5,
+    summary:
+      "Up out of the heat into the Kannan Devan hills, where the tea is, and then south along the ridge to Periyar. Anamudi is here — 2,695 metres, the highest peak in the Western Ghats and the highest point in India outside the Himalaya — and so is the largest surviving population of Nilgiri tahr. Two nights in the tea, two beside the lake, and a road between them that is the point rather than the price of getting there.",
+    route: [
+      "Kochi",
+      "Munnar",
+      "Eravikulam",
+      "Mattupetty",
+      "Kumily",
+      "Periyar",
+      "Thekkady",
+    ],
+    highlights: [
+      "Eravikulam, and the tahr that come down to the road in the mornings",
+      "Anamudi at 2,695m, seen from the park below it",
+      "Tea, from the estates that made Munnar, with someone who knows how it is graded",
+      "A cardamom and pepper plantation at Kumily, walked rather than driven past",
+      "Periyar lake at first light, which is when the elephants come to drink",
+      "The drive itself — the ghat road, and where to stop on it",
+    ],
+    itinerary: [
+      { day: "1", text: "Up from Kochi through the ghats. Waterfalls and the first tea near Adimali; into Munnar by afternoon." },
+      { day: "2", text: "Eravikulam early, before the cloud. The afternoon in the estates — Mattupetty, the dam, and how tea is actually made." },
+      { day: "3", text: "South along the ridge to Thekkady. Spice country from Kumily onward; an evening walk in the plantations." },
+      { day: "4", text: "Periyar at dawn, on the lake. The afternoon free, or bamboo rafting in the reserve for anyone who wants the long version." },
+      { day: "5", text: "Down through the cardamom hills and back to Kochi." },
+    ],
+    image: `${P}/photo-1711192702535-eac61a78ecb0`,
+    imageAlt: "Tea-covered hills at Munnar",
+    credit: {
+      photographer: "zablanca_clicks",
+      url: "https://unsplash.com/photos/a-lush-green-hillside-with-trees-and-mountains-in-the-background-JSM39nD0i-8",
+    },
+  },
+  {
+    slug: "coorg-and-bylakuppe",
+    tier: "escape",
+    title: "Coffee country, and a Tibetan town in it",
+    standfirst: "Kodagu, and the monastery an hour from the coffee.",
+    collection: "south",
+    region: "Karnataka",
+    duration: "4 days, 3 nights",
+    days: 4,
+    summary:
+      "Kodagu grows most of India's coffee, on estates under shade trees with pepper vines running up them. An hour away at Bylakuppe is something nobody expects: Tibetan settlements begun in 1961, and Namdroling, founded in 1963 by Penor Rinpoche and now the largest teaching centre of the Nyingma school anywhere, with several thousand monks and nuns. The two things are half a morning apart and neither prepares you for the other.",
+    route: [
+      "Madikeri",
+      "Coffee estates",
+      "Talakaveri",
+      "Abbey Falls",
+      "Bylakuppe",
+      "Namdroling",
+    ],
+    highlights: [
+      "A working coffee estate, at whatever stage of the year you arrive",
+      "Pepper grown up the shade trees, which is why Kodagu smells the way it does",
+      "Talakaveri, where the Kaveri rises",
+      "Namdroling at Bylakuppe, and the prayer hall at the hour it is being used",
+      "Kodava food, which is not like anything else in the south",
+      "Nights on an estate rather than in a town",
+    ],
+    itinerary: [
+      { day: "1", text: "Into Kodagu and up to Madikeri. The afternoon settling in on the estate; a walk through the coffee before dark." },
+      { day: "2", text: "The estate properly — picking, drying, grading, depending on the month. Abbey Falls, and Raja's Seat for the evening." },
+      { day: "3", text: "East to Bylakuppe. Namdroling, the settlements around it, and the long way back through Kushalnagar." },
+      { day: "4", text: "Talakaveri in the morning if the weather is with us, then down out of the hills." },
+    ],
+    image: `${P}/photo-1730621697273-233e874a7f88`,
+    imageAlt: "A road through the coffee estates of Coorg",
+    credit: {
+      photographer: "Praswin Prakashan",
+      url: "https://unsplash.com/photos/an-empty-road-in-the-middle-of-a-lush-green-valley-fXzJvnay0sE",
+    },
   },
 ];
