@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import Container from "@/components/ui/Container";
+import Reveal from "@/components/ui/Reveal";
 import PackageCard from "./PackageCard";
 
 import {
@@ -10,12 +11,54 @@ import {
   packages,
   type Collection,
   type TourPackage,
+  spelled,
 } from "@/data/packages";
 
 type Filter = Collection | "all";
 
 export default function PackageExplorer() {
   const [filter, setFilter] = useState<Filter>("all");
+
+  /*
+    One marker that travels, rather than one per button appearing and
+    disappearing. It is the only moving thing on the row and it makes
+    the row feel like a control instead of a list of links.
+  */
+  const rowRef = useRef<HTMLDivElement>(null);
+  const [marker, setMarker] = useState({ left: 0, width: 0, ready: false });
+
+  useEffect(() => {
+    const row = rowRef.current;
+
+    if (!row) return;
+
+    const place = () => {
+      const active = row.querySelector<HTMLElement>('[aria-pressed="true"]');
+
+      if (!active) return;
+
+      setMarker({
+        left: active.offsetLeft,
+        width: active.offsetWidth,
+        ready: true,
+      });
+    };
+
+    place();
+
+    // The row is a webfont, and it scrolls.
+    document.fonts?.ready.then(place).catch(() => {});
+    row.addEventListener("scroll", place, { passive: true });
+
+    const resize = new ResizeObserver(place);
+
+    resize.observe(row);
+
+    return () => {
+      row.removeEventListener("scroll", place);
+      resize.disconnect();
+    };
+  }, [filter]);
 
   const shown =
     filter === "all"
@@ -36,7 +79,7 @@ export default function PackageExplorer() {
     <section className="border-b border-white/10 py-16 md:py-24">
       <Container>
         {/*
-          Seventeen is too many to scan, so they are grouped the way we
+          Twenty is too many to scan, so they are grouped the way we
           think about them rather than by price or length.
 
           One line that scrolls, never a wrapping block. Seven of these
@@ -46,7 +89,7 @@ export default function PackageExplorer() {
           so on a second row it landed on the labels below it.
         */}
         <div className="relative border-b border-white/10">
-          <div className="j-filters flex gap-8 overflow-x-auto pb-4">
+          <div ref={rowRef} className="j-filters relative flex gap-8 overflow-x-auto pb-4">
             <FilterButton
               label="Everything"
               active={filter === "all"}
@@ -61,6 +104,18 @@ export default function PackageExplorer() {
                 onClick={() => setFilter(group.id)}
               />
             ))}
+
+            <span
+              aria-hidden
+              className="pointer-events-none absolute bottom-0 h-px bg-[#6B7341]"
+              style={{
+                left: marker.left,
+                width: marker.width,
+                opacity: marker.ready ? 1 : 0,
+                transition:
+                  "left 620ms cubic-bezier(0.16,1,0.3,1), width 620ms cubic-bezier(0.16,1,0.3,1), opacity 300ms ease",
+              }}
+            />
           </div>
 
           {/* There is more to the right of a phone screen; say so quietly. */}
@@ -72,11 +127,25 @@ export default function PackageExplorer() {
           <style>{`
             .j-filters { scrollbar-width: none; -ms-overflow-style: none; }
             .j-filters::-webkit-scrollbar { display: none; }
+
+            @keyframes horizons-fade-in {
+              from { opacity: 0; transform: translateY(6px); }
+            }
+            .horizons-fade {
+              animation: horizons-fade-in 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+              .horizons-fade { animation: none; }
+            }
           `}</style>
         </div>
 
-        <p className="mt-7 max-w-xl text-[14px] leading-7 text-white/45">
-          {active ? active.blurb : `Every journey we run, ${packages.length} of them.`}
+        <p
+          key={filter}
+          className="horizons-fade mt-7 max-w-xl text-[14px] leading-7 text-white/45"
+        >
+          {active ? active.blurb : `Everything we run, all ${spelled(packages.length)} of them.`}
         </p>
 
         {journeys.length ? (
@@ -119,8 +188,15 @@ function Tier({
       </div>
 
       <div className="mt-10 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
-        {tours.map((tour) => (
-          <PackageCard key={tour.slug} tour={tour} />
+        {tours.map((tour, index) => (
+          /*
+            Staggered by column rather than by index, so a row arrives
+            left to right and the next row starts over instead of the
+            last card in a long list waiting two seconds for its turn.
+          */
+          <Reveal key={tour.slug} delay={(index % 3) * 110}>
+            <PackageCard tour={tour} />
+          </Reveal>
         ))}
       </div>
     </div>
@@ -146,17 +222,6 @@ function FilterButton({
       }`}
     >
       {label}
-
-      {/*
-        On the button's own bottom edge, not the container's. It can then
-        never be drawn over anything else, whatever the row does.
-      */}
-      <span
-        aria-hidden
-        className={`absolute inset-x-0 bottom-0 h-px transition-colors ${
-          active ? "bg-[#6B7341]" : "bg-transparent"
-        }`}
-      />
     </button>
   );
 }

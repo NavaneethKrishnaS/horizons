@@ -115,6 +115,25 @@ export interface TourPackage {
 
 const P = "https://images.unsplash.com";
 
+/*
+  The hero counts the catalogue out loud, and a numeral in a headline
+  set in Cormorant looks like a price. This spells it, and spells it
+  from the data, so that adding a journey cannot leave the headline
+  quietly lying about how many there are — which is exactly what it did
+  the first time we added one.
+*/
+const WORDS = [
+  "no", "one", "two", "three", "four", "five", "six", "seven", "eight",
+  "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen",
+  "sixteen", "seventeen", "eighteen", "nineteen", "twenty", "twenty-one",
+  "twenty-two", "twenty-three", "twenty-four", "twenty-five", "twenty-six",
+  "twenty-seven", "twenty-eight", "twenty-nine", "thirty",
+];
+
+export function spelled(count: number) {
+  return WORDS[count] ?? String(count);
+}
+
 export const packages: TourPackage[] = [
   /* ——— The Himalaya ——————————————————————————————————————— */
   {

@@ -2,14 +2,40 @@ import Image from "next/image";
 import Link from "next/link";
 
 import Container from "@/components/ui/Container";
-import { whatsappLink } from "@/lib/whatsapp";
+import Reveal from "@/components/ui/Reveal";
+import { CONTACT_EMAIL, emailLink, whatsappLink } from "@/lib/whatsapp";
 import { collections, type TourPackage } from "@/data/packages";
 
 export default function PackageDetail({ tour }: { tour: TourPackage }) {
   const group = collections.find((c) => c.id === tour.collection);
 
+  const subject = `Enquiry — ${tour.title}`;
+  const message = `Hello HORIZONS, I am interested in "${tour.title}" (${tour.duration}, ${tour.region}). Could you send me the details?`;
+
   return (
     <main className="overflow-x-hidden">
+      <style>{`
+        @keyframes horizons-hero-rise {
+          from { opacity: 0; transform: translateY(30px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes horizons-hero-settle {
+          from { transform: scale(1.06); }
+          to   { transform: scale(1); }
+        }
+        .horizons-hero-rise {
+          animation: horizons-hero-rise 1100ms cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        /* The shot settles rather than sits, which reads as arrival. */
+        .horizons-hero-settle {
+          animation: horizons-hero-settle 2400ms cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .horizons-hero-rise,
+          .horizons-hero-settle { animation: none; }
+        }
+      `}</style>
       {/* The shot, and the name of the thing. */}
       <section className="relative flex min-h-[78vh] items-end overflow-hidden md:min-h-[86vh]">
         <Image
@@ -18,23 +44,32 @@ export default function PackageDetail({ tour }: { tour: TourPackage }) {
           fill
           priority
           sizes="100vw"
-          className="object-cover"
+          className="horizons-hero-settle object-cover"
         />
 
         <div className="absolute inset-0 bg-black/40" />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/25 to-black/40" />
 
         <Container className="relative z-10 pb-16 md:pb-24">
-          <p className="text-[10px] uppercase tracking-[0.35em] text-white/60">
+          <p
+            className="horizons-hero-rise text-[10px] uppercase tracking-[0.35em] text-white/60"
+            style={{ animationDelay: "120ms" }}
+          >
             {tour.region} <span className="text-white/30">·</span>{" "}
             {tour.duration}
           </p>
 
-          <h1 className="mt-6 max-w-4xl font-cormorant text-[40px] font-light leading-[1.04] text-white sm:text-6xl md:text-[80px]">
+          <h1
+            className="horizons-hero-rise mt-6 max-w-4xl font-cormorant text-[40px] font-light leading-[1.04] text-white sm:text-6xl md:text-[80px]"
+            style={{ animationDelay: "260ms" }}
+          >
             {tour.title}
           </h1>
 
-          <p className="mt-6 max-w-2xl text-[16px] leading-8 text-white/70 md:text-[19px]">
+          <p
+            className="horizons-hero-rise mt-6 max-w-2xl text-[16px] leading-8 text-white/70 md:text-[19px]"
+            style={{ animationDelay: "420ms" }}
+          >
             {tour.standfirst}
           </p>
         </Container>
@@ -44,7 +79,7 @@ export default function PackageDetail({ tour }: { tour: TourPackage }) {
       <section className="border-b border-white/10 py-16 md:py-24">
         <Container>
           <div className="grid gap-12 lg:grid-cols-[1fr_0.75fr] lg:gap-20">
-            <div>
+            <Reveal>
               <p className="text-[10px] uppercase tracking-[0.35em] text-[#8B9556]">
                 The journey
               </p>
@@ -52,9 +87,9 @@ export default function PackageDetail({ tour }: { tour: TourPackage }) {
               <p className="mt-7 text-[16px] leading-9 text-white/70 md:text-[18px] md:leading-10">
                 {tour.summary}
               </p>
-            </div>
+            </Reveal>
 
-            <div className="lg:pt-10">
+            <Reveal delay={140} className="lg:pt-10">
               <p className="text-[10px] uppercase tracking-[0.35em] text-white/40">
                 Route
               </p>
@@ -73,7 +108,7 @@ export default function PackageDetail({ tour }: { tour: TourPackage }) {
                   </li>
                 ))}
               </ol>
-            </div>
+            </Reveal>
           </div>
         </Container>
       </section>
@@ -87,15 +122,17 @@ export default function PackageDetail({ tour }: { tour: TourPackage }) {
 
           <ul className="mt-10 grid gap-x-14 gap-y-7 md:grid-cols-2">
             {tour.highlights.map((line, index) => (
-              <li key={line} className="flex gap-6">
-                <span className="mt-1 font-cormorant text-[18px] text-[#8B9556]">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
+              <Reveal key={line} delay={(index % 2) * 120} distance={18}>
+                <li className="flex gap-6">
+                  <span className="mt-1 font-cormorant text-[18px] text-[#8B9556]">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
 
-                <span className="text-[15px] leading-8 text-white/65">
-                  {line}
-                </span>
-              </li>
+                  <span className="text-[15px] leading-8 text-white/65">
+                    {line}
+                  </span>
+                </li>
+              </Reveal>
             ))}
           </ul>
         </Container>
@@ -119,9 +156,11 @@ export default function PackageDetail({ tour }: { tour: TourPackage }) {
             </p>
 
             <div className="mt-12 divide-y divide-white/10 border-y border-white/10">
-              {tour.itinerary.map((entry) => (
-                <div
+              {tour.itinerary.map((entry, index) => (
+                <Reveal
                   key={entry.day}
+                  delay={Math.min(index, 4) * 80}
+                  distance={16}
                   className="grid gap-3 py-6 sm:grid-cols-[80px_1fr] sm:gap-8"
                 >
                   <p className="font-cormorant text-[20px] leading-none text-[#8B9556]">
@@ -131,7 +170,7 @@ export default function PackageDetail({ tour }: { tour: TourPackage }) {
                   <p className="text-[15px] leading-8 text-white/65">
                     {entry.text}
                   </p>
-                </div>
+                </Reveal>
               ))}
             </div>
           </Container>
@@ -151,15 +190,35 @@ export default function PackageDetail({ tour }: { tour: TourPackage }) {
           </p>
 
           <a
-            href={whatsappLink(
-              `Hello HORIZONS, I am interested in "${tour.title}" (${tour.duration}, ${tour.region}). Could you send me the details?`
-            )}
+            href={whatsappLink(message)}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-11 inline-block border border-white/25 px-10 py-4 text-[11px] uppercase tracking-[0.3em] text-white transition-colors hover:border-[#6B7341] hover:bg-[#6B7341]"
+            className="group mt-11 inline-flex items-center gap-4 border border-white/25 px-10 py-4 text-[11px] uppercase tracking-[0.3em] text-white transition-colors duration-500 hover:border-[#6B7341] hover:bg-[#6B7341]"
           >
-            Enquire about this journey
+            Enquire on WhatsApp
+            <span
+              aria-hidden
+              className="transition-transform duration-500 group-hover:translate-x-1.5"
+            >
+              →
+            </span>
           </a>
+
+          {/*
+            Not every guest has WhatsApp — it is close to universal for
+            our Indian and European travellers and close to absent for
+            some of the American and British ones. An address, in plain
+            sight, rather than a second button competing with the first.
+          */}
+          <p className="mt-6 text-[13px] text-white/40">
+            No WhatsApp? Write to{" "}
+            <a
+              href={emailLink(subject, message)}
+              className="text-white/60 transition-colors hover:text-[#A8B473]"
+            >
+              {CONTACT_EMAIL}
+            </a>
+          </p>
 
           <div className="mt-16 border-t border-white/10 pt-8">
             <Link
