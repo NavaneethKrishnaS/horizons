@@ -1,87 +1,128 @@
-# Journal artwork brief — engraved objects
+# Journal artwork — every prompt, in order
 
-The Journal is black ink on near-white paper, every object drawn as an
-antique engraving: dense stipple and fine hatching, volume implied by dot
-density rather than grey tone. The reference is emergenceprojects.com,
-whose objects are pre-rendered illustrations, not 3D.
+Black ink on cream paper, every object an antique engraving. Reference:
+emergenceprojects.com, whose objects are pre-rendered illustrations rather
+than 3D.
 
-## The one prompt that matters
+## Before anything else
 
-Every object uses the same tail so the set looks like one hand drew it.
-Change only the first line.
+Open **one** ChatGPT chat and keep every object in it. The model holds the
+style across a conversation; starting fresh chats is the main reason these
+sets end up mismatched.
 
-```
-<SUBJECT>, antique copperplate engraving, dense stipple and fine cross-hatching,
-pure black ink on plain white background, single isolated object, centred,
-no background scenery, no text, no border, no signature, high contrast,
-volumetric shading rendered entirely in dots and lines, scientific
-illustration plate, 19th century natural history engraving
-```
+Paste this first, on its own. It sets the rules once so each object after
+it is a single line.
 
-Generate each at **square, 2048px or larger**. Do not ask for colour, grey
-wash, or a scene — one object, floating, nothing else.
+> For this whole conversation you are producing a matched set of
+> illustrations in one consistent style. Every image: antique copperplate
+> engraving, dense stipple and fine cross-hatching, pure black ink on a
+> plain white background, one isolated object, centred, filling most of the
+> frame. No background scenery, no ground shadow, no text, no border, no
+> frame, no signature. High contrast. All volume and shading made only of
+> dots and lines — never soft grey airbrushed tone. Square image. 19th
+> century natural history plate. Confirm and wait for my first object.
 
-## The objects
+If a result comes back wrong, correct it in plain words rather than
+re-prompting: *too grey, use only black dots* · *remove the border* ·
+*just the object, nothing behind it* · *denser stipple, harder contrast*.
 
-### Act I — The spice coast
-| # | Subject line |
-|---|---|
-| 1 | A cantilevered Chinese fishing net, wooden frame with hanging counterweight stones |
-| 2 | A cluster of black peppercorns on the vine, leaves and berries |
-| 3 | Three cardamom pods, split open, seeds visible |
-| 4 | A wooden trading dhow with a single lateen sail |
+---
 
-### Act II — Kathakali
-| # | Subject line |
-|---|---|
-| 5 | An ornate Kathakali kireedam crown, tall and haloed, covered in beadwork and mirrors |
-| 6 | A single human eye, wide open, heavily outlined in the Kathakali manner, lashes and brow |
-| 7 | A human hand held in a formal dance mudra, fingers precisely arranged |
-| 8 | A chenda, a tall cylindrical South Indian drum, roped and slung |
+## Part A — attach a photograph
 
-### Act III — Vallamkali
-| # | Subject line |
-|---|---|
-| 9 | A snake boat with an enormously tall curved stern prow, long and low in the water |
-| 10 | A single wooden rowing paddle, leaf shaped blade |
-| 11 | Concentric ripple rings on still water, seen from directly above |
-| 12 | A circular flower mandala of concentric petal rings, viewed from above |
+Five objects come out far better redrawn from your own photographs. The
+proportions and the ornament are then genuinely Kerala rather than a
+model's guess. Attach the file, then paste the line.
 
-### Act IV — The kettuvallam
-| # | Subject line |
-|---|---|
-| 13 | A Kerala houseboat with an arched woven bamboo roof over a long wooden hull |
-| 14 | A coiled rope of twisted coconut fibre |
-| 15 | A single coconut palm, leaning, full crown of fronds |
+### 1. Kathakali crown, cylindrical
+**Attach:** `public/images/about/kadhakali-1.jpg`
+> Redraw only the tall ribbed cylindrical crown from this photograph, the
+> kireedam, removing the performer and everything else. Same engraving
+> style as before.
 
-### Act V — The founder
-| # | Subject line |
-|---|---|
-| 16 | A tall brass oil lamp with a wide round bowl and a flame, ornate stem and base |
+### 2. Kathakali crown, halo
+**Attach:** `public/images/about/kadhakali-2.jpg`
+> Redraw only the large circular halo crown from this photograph, the full
+> disc behind the head, removing the performer and the background. Same
+> engraving style.
+
+### 3. The painted face
+**Attach:** `public/images/about/kadhakali-1.jpg`
+> Redraw only the painted face from this photograph — the green pacha
+> makeup, the white chutti frame around the jaw, the outlined eyes — with
+> no crown, no costume, no background. Same engraving style.
+
+### 4. Mudra hand
+**Attach:** `public/images/about/kadhakali-2.jpg`
+> Redraw only the raised hand from this photograph, with its long silver
+> nail extensions, held in the dance gesture. Hand and forearm alone,
+> nothing else. Same engraving style.
+
+### 5. Temple elephant in nettipattam
+**Attach:** `public/images/about/elephant.jpg`
+> Redraw the central elephant from this photograph wearing its golden
+> forehead caparison, side on, the elephant alone with no people, no
+> background, no lamps. Same engraving style.
+
+### 6. The houseboat
+**Attach:** `public/images/houseboats/1-bedroom/cover.jpeg`
+> Redraw this houseboat from the photograph — the long wooden hull and the
+> arched woven bamboo roof — side on, the boat alone on nothing, no water,
+> no background. Same engraving style.
+
+---
+
+## Part B — no attachment, just paste the line
+
+### Act I — the spice coast
+7. A cantilevered Chinese fishing net, a wooden frame on a pivot with hanging counterweight stones, seen from the side.
+8. A cluster of black peppercorns on the vine, with leaves and hanging berry spikes.
+9. Three cardamom pods, one split open with the seeds showing.
+10. A wooden trading dhow with a single lateen sail, side on.
+
+### Act II — kathakali
+11. A chenda, the tall cylindrical South Indian drum, roped along its length and slung on a strap.
+
+### Act III — vallamkali
+12. A snake boat, a chundan vallam, extremely long and low with an enormously tall curved stern prow rising at the back, side on.
+13. A single wooden rowing paddle with a long leaf-shaped blade.
+14. Concentric ripple rings spreading on still water, seen from directly above.
+15. A circular flower mandala of concentric petal rings, a pookkalam, seen from directly above.
+
+### Act IV — the kettuvallam
+16. A coiled rope of twisted coconut fibre, laid flat in a spiral.
+17. A single coconut palm, leaning, with a full crown of fronds and a cluster of nuts.
+
+### Act V — the founder
+18. A tall brass oil lamp with a wide round bowl, a lit flame at the top, an ornate turned stem and a stepped circular base.
 
 ### Recurring — the ambient furniture
-These drift between the acts, the way the stars and beads do on the reference.
+These drift between the acts the way the stars and beads do on the reference.
 
-| # | Subject line |
-|---|---|
-| 17 | A string of hanging round beads on a fine thread, vertical |
-| 18 | A perfect sphere, lit from the upper left |
-| 19 | An eight pointed star burst with sharp spines |
-| 20 | A seamless geometric border tile pattern, interlocking stars and polygons |
+19. A string of round beads hanging on a fine thread, vertical, largest at the top.
+20. A single perfect sphere, lit from the upper left.
+21. An eight-pointed star burst with long sharp spines.
+22. A seamless repeating border tile of interlocking stars and polygons, flat, no perspective.
 
-## After you generate them
+---
 
-Drop everything into `public/images/journal/raw/` with any filenames. I will
-batch process them: knock the white background out to transparency, trim to
-the object, downscale, and export optimised PNGs into
-`public/images/journal/`. You do not need to edit anything yourself.
+## When they are done
+
+Drop every file into `public/images/journal/raw/` with whatever filenames
+they arrive with. Nothing needs renaming, cropping or cleaning up — the
+white background, the trimming, the resizing and the optimising are all
+handled from there.
+
+## Start with two
+
+Do **1** and **3** — the crown and the face — and stop. They will be wired
+into the live page so the style can be judged before an evening goes into
+the other twenty.
 
 ## What makes one unusable
 
 - Grey or coloured tone instead of pure black stipple
-- A scene or horizon behind the object
-- Text, borders, frames, or a signature in the image
-- Several objects in one picture
-- Soft airbrushed shading rather than visible dots and lines
-
-Generate three or four variations of each and keep the cleanest.
+- Scenery, a horizon or a ground shadow behind the object
+- Text, a border, a frame or a signature
+- More than one object in the picture
+- Soft airbrushed shading instead of visible dots and lines
