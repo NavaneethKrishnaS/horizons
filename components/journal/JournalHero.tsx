@@ -80,10 +80,14 @@ export default function JournalHero() {
           }}
         />
 
-        {/* The arch recedes as the story starts. */}
+        {/*
+          The arch recedes as the story starts — but never all the way to
+          nothing before it has left the screen. Emptying it out early is
+          what used to leave a blank page between the title and act one.
+        */}
         <div
           style={{
-            opacity: "calc(1 - var(--e, 0) * 1.4)",
+            opacity: "calc(1 - var(--e, 0))",
             transform: "scale(calc(1 - var(--e, 0) * 0.06))",
           }}
         >

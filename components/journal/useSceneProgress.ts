@@ -8,7 +8,19 @@ import { RefObject, useEffect } from "react";
     --p  progress, 0 to 1
     --e  the same eased
 
-  Three things make this feel like film rather than like a scrollbar.
+  Progress starts when the section first appears at the bottom of the
+  screen, not when it reaches the top of it.
+
+  This matters more than it sounds. A pinned section is only pinned for
+  all but its last screenful; after that it rides up and away while the
+  next one climbs into the space. If progress only began at the pin, the
+  arriving section spent that whole screen at zero — objects still off
+  stage, writing still at zero opacity — and what you actually saw
+  between one act and the next was a screen of blank paper. Starting a
+  screen early means the next act is already alive as it arrives, which
+  is the difference between a cut and a gap.
+
+  Three more things make this feel like film rather than like a scrollbar.
 
   The value is damped. Each frame it moves a fraction of the way toward
   where the scroll actually is, rather than jumping straight there. A wheel
@@ -54,18 +66,31 @@ export function useSceneProgress(ref: RefObject<HTMLElement | null>) {
     let last = 0;
     let written = -1;
 
-    // Where the section sits in the document, and how much scrolling it
-    // takes to cross. Measured outside the frame loop.
-    let top = 0;
+    // Where the run begins and how much scrolling it takes to cross.
+    // Measured outside the frame loop.
+    let begin = 0;
     let span = 1;
 
     const measure = () => {
-      top = node.getBoundingClientRect().top + window.scrollY;
-      span = Math.max(1, node.offsetHeight - window.innerHeight);
+      const top = node.getBoundingClientRect().top + window.scrollY;
+
+      // Clamped at the top of the document, which is what keeps the first
+      // section honest: it has no approach to play, so it starts at zero
+      // rather than already part-way through.
+      begin = Math.max(0, top - window.innerHeight);
+
+      /*
+        One section height of travel, always: a screen of approach and
+        then the pin. For the first section, where there is no approach
+        to be had, the same distance instead carries it through its own
+        exit — so it is still drawn as it rides away rather than being
+        finished and blank while the next act climbs past it.
+      */
+      span = Math.max(1, node.offsetHeight);
     };
 
     const targetNow = () => {
-      const raw = (window.scrollY - top) / span;
+      const raw = (window.scrollY - begin) / span;
 
       return Math.min(1, Math.max(0, raw));
     };
