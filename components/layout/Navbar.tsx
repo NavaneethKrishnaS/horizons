@@ -179,9 +179,12 @@ export default function Navbar() {
                 Stays
               </a>
 
-              <a href="#" className={`transition ${onPaper ? "hover:text-black" : "hover:text-white"}`}>
+              <Link
+                href="/packages"
+                className={`transition ${active("/packages")}`}
+              >
                 Packages
-              </a>
+              </Link>
 
               <Link
                 href="/journal"

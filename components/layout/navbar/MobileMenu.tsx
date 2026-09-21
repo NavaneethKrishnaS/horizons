@@ -18,7 +18,7 @@ const items = [
   { label: "Destinations", href: "#" },
   { label: "Houseboats", href: "/houseboats" },
   { label: "Stays", href: "#" },
-  { label: "Packages", href: "#" },
+  { label: "Packages", href: "/packages" },
   { label: "Journal", href: "/journal" },
   { label: "About", href: "/about" },
 ];
