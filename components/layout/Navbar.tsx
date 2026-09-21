@@ -32,16 +32,23 @@ export default function Navbar() {
   /*
     The bar is fixed, so it sits over the page rather than in it, and any
     layout that has to centre something in the part of the screen you can
-    actually see needs to know how tall it is. It changes with the
-    breakpoint and again when the page scrolls, so it is measured rather
-    than guessed, and published for CSS to read.
+    actually see needs to know how tall it is. It varies by breakpoint,
+    so it is measured rather than guessed, and published for CSS to read.
+
+    Only the compact height is ever published. The bar is at its full
+    height for the first forty pixels of the page and nowhere else, and
+    anything that centres against it is by definition further down than
+    that — publishing the tall height would only make those layouts
+    briefly size themselves against a number that no longer applies by
+    the time anyone sees them. Until the first scroll the variable is
+    simply unset and the stylesheet's own fallback stands.
   */
   const barRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const node = barRef.current;
 
-    if (!node) return;
+    if (!node || !scrolled) return;
 
     const publish = () =>
       document.documentElement.style.setProperty(
@@ -56,7 +63,7 @@ export default function Navbar() {
     observer.observe(node);
 
     return () => observer.disconnect();
-  }, []);
+  }, [scrolled]);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [closeTimeout, setCloseTimeout] = useState<NodeJS.Timeout | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
