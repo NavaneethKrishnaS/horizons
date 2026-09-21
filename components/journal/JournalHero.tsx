@@ -18,15 +18,19 @@ export default function JournalHero() {
       ref={ref}
       className="relative flex min-h-lvh flex-col justify-center overflow-hidden bg-[#F4F2ED] pt-28"
     >
-      {/* Objects hanging in the room, drifting at different rates. */}
-      <SceneObject spec={{ x: 12, y: 18, size: 5, drift: -26, shape: "star" }} />
-      <SceneObject spec={{ x: 22, y: 42, size: 3, drift: -14, shape: "disc" }} />
-      <SceneObject spec={{ x: 8, y: 62, size: 7, drift: -34, spin: 40, shape: "ring" }} />
-      <SceneObject spec={{ x: 88, y: 22, size: 6, drift: -30, shape: "star" }} />
-      <SceneObject spec={{ x: 78, y: 52, size: 3, drift: -18, shape: "disc" }} />
-      <SceneObject spec={{ x: 93, y: 68, size: 4, drift: -22, spin: -30, shape: "star" }} />
-      <SceneObject spec={{ x: 30, y: 8, size: 2.5, drift: -40, shape: "beads" }} />
-      <SceneObject spec={{ x: 70, y: 6, size: 2.5, drift: -46, shape: "beads" }} />
+      {/*
+        Nothing sits above roughly a quarter down: the navbar lives there,
+        and an object crossing the logo reads as a mistake rather than as
+        composition.
+      */}
+      <SceneObject spec={{ x: 10, y: 34, size: 5, drift: -26, src: "/images/journal/star.webp" }} />
+      <SceneObject spec={{ x: 24, y: 54, size: 3, drift: -14, src: "/images/journal/sphere.webp" }} />
+      <SceneObject spec={{ x: 8, y: 74, size: 8, drift: -34, src: "/images/journal/pookkalam.webp" }} />
+      <SceneObject spec={{ x: 91, y: 32, size: 6, drift: -30, src: "/images/journal/star.webp" }} />
+      <SceneObject spec={{ x: 78, y: 58, size: 2.6, drift: -18, src: "/images/journal/sphere.webp" }} />
+      <SceneObject spec={{ x: 90, y: 74, size: 5, drift: -22, src: "/images/journal/lamp.webp" }} />
+      <SceneObject spec={{ x: 33, y: 28, size: 1.3, drift: -40, src: "/images/journal/beads.webp" }} />
+      <SceneObject spec={{ x: 67, y: 26, size: 1.3, drift: -46, src: "/images/journal/beads.webp" }} />
 
       <Arch>
         <p className="text-center text-[10px] uppercase tracking-[0.4em] text-black/45">
