@@ -121,9 +121,8 @@ export const journalFounder = {
   ],
   quote: "Welcome a tourist, and send back a friend.",
   image: {
-    // TODO: replace with a photograph of Surjith.
-    src: "/images/about/hero.jpg",
-    alt: "Surjith Somasundaram",
+    src: "/images/journal/founder-portrait.webp",
+    alt: "An engraved portrait of Surjith Somasundaram",
   },
 };
 

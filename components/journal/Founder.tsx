@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import Reveal from "./Reveal";
+import Tailpiece from "./Tailpiece";
 
 import { journalClosing, journalFounder } from "@/data/journal";
 
@@ -10,13 +11,19 @@ export default function Founder() {
       <section className="border-t border-black/10 bg-[#F4F2ED] py-16 md:py-28">
         <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-[0.85fr_1fr] lg:gap-20">
           <Reveal>
-            <div className="relative aspect-[4/5] overflow-hidden">
+            {/*
+              No crop box and no frame: the plate is drawn on the same
+              paper the page is printed on, and its lower edge is faded
+              into it, so a border would only put it back in a box.
+            */}
+            <div className="mx-auto w-[74%] max-w-[360px] lg:w-full lg:max-w-none">
               <Image
                 src={journalFounder.image.src}
                 alt={journalFounder.image.alt}
-                fill
-                sizes="(max-width: 1024px) 100vw, 40vw"
-                className="object-cover"
+                width={1086}
+                height={1317}
+                sizes="(max-width: 1024px) 74vw, 40vw"
+                className="h-auto w-full"
               />
             </div>
           </Reveal>
@@ -84,13 +91,7 @@ export default function Founder() {
             with the mark, the way a printer closes a book.
           */}
           <Reveal delay={260}>
-            <Image
-              src="/images/journal/peacock.webp"
-              alt="The HORIZONS peacock"
-              width={760}
-              height={653}
-              className="mx-auto mt-20 h-auto w-[180px] md:mt-28 md:w-[240px]"
-            />
+            <Tailpiece />
           </Reveal>
         </div>
       </section>
