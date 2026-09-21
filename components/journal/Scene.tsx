@@ -4,7 +4,6 @@ import { ReactNode, useRef } from "react";
 
 import SceneObject, { SceneObjectSpec } from "./SceneObject";
 import { useSceneProgress } from "./useSceneProgress";
-import { useFitWriting } from "./useFitWriting";
 
 interface SceneProps {
   label: string;
@@ -37,11 +36,8 @@ interface SceneProps {
 */
 export default function Scene({ label, heading, body, objects }: SceneProps) {
   const ref = useRef<HTMLElement>(null);
-  const boxRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<HTMLDivElement>(null);
 
   useSceneProgress(ref);
-  useFitWriting(boxRef, textRef);
 
   return (
     <section
@@ -49,7 +45,6 @@ export default function Scene({ label, heading, body, objects }: SceneProps) {
       className="relative h-[300vh] border-t border-black/10 bg-[#F4F2ED]"
     >
       <div
-        ref={boxRef}
         className="j-stage sticky top-0 flex h-svh items-center overflow-hidden"
       >
         {objects.map((spec, index) => (
@@ -65,7 +60,6 @@ export default function Scene({ label, heading, body, objects }: SceneProps) {
           <div aria-hidden className="j-wash" />
 
           <div
-            ref={textRef}
             className="j-writing relative"
             style={{
               opacity: "clamp(0, calc(var(--p, 0) * 6), 1)",

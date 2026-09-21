@@ -4,6 +4,7 @@ import JournalHero from "@/components/journal/JournalHero";
 import Scene from "@/components/journal/Scene";
 import Founder from "@/components/journal/Founder";
 import SceneStyles from "@/components/journal/SceneStyles";
+import SceneFit from "@/components/journal/SceneFit";
 
 import { journalChapters } from "@/data/journal";
 import { sceneObjects } from "@/components/journal/sceneLayouts";
@@ -18,6 +19,7 @@ export default function JournalPage() {
   return (
     <main className="bg-[#F4F2ED]">
       <SceneStyles />
+      <SceneFit />
 
       <JournalHero />
 

@@ -34,97 +34,66 @@ export default function SceneStyles() {
       }
 
       /*
-        An act's writing is set by three numbers rather than by fixed
-        values, so that a scene can measure itself and settle its own
-        density — see useFitWriting for the order they are spent in.
+        One typographic system for every act. Same type, same measure,
+        same leading, whichever act you are looking at — five scenes set
+        five different ways is not a page, it is five pages.
 
-          --j-t    0 to 1. How hard the act is working to fit. It widens
-                   the measure toward the width the heading already has,
-                   and closes the leading and the gaps. It never touches
-                   the size of the type, and it never changes the width
-                   of the block, only of the lines inside it.
+        The measure and the leading are set so that the longest act has
+        room to breathe at them, rather than so the shortest looks nice
+        and the longest is left to cope. The paragraphs run to the same
+        width as the heading above them, and the leading is the ordinary
+        editorial one; the old settings were narrower and unusually airy,
+        which was generous to the three short acts and left the two long
+        ones with nothing.
 
-          --j-fit  A plain scale on everything, and the only thing that
-                   does change the type size. Last resort.
-
-        Line heights are in em so they follow their font size. None of
-        this is a Tailwind class, because a class cannot be driven by a
-        variable at run time.
+        Sizes are multiples of --j-fit, which is one number for the whole
+        page — see SceneFit. It stays at 1 on any normal screen. Line
+        heights are in em so they follow their font size. None of this is
+        a Tailwind class, because a class cannot be driven by a variable
+        at run time.
       */
-      .j-stage {
-        --j-fit: 1;
-        --j-t: 0;
-      }
-
-      .j-writing {
-        --j-gap: calc(1 - 0.3 * var(--j-t));
-      }
-
       .j-writing .j-label {
-        font-size: calc(10px * var(--j-fit));
+        font-size: calc(10px * var(--j-fit, 1));
       }
 
       .j-writing h2 {
-        margin-top: calc(18px * var(--j-fit) * var(--j-gap));
-        font-size: calc(30px * var(--j-fit));
+        margin-top: calc(18px * var(--j-fit, 1));
+        font-size: calc(30px * var(--j-fit, 1));
         line-height: 1.12;
       }
 
       .j-writing .j-body {
-        margin-top: calc(24px * var(--j-fit) * var(--j-gap));
-        font-size: calc(14.5px * var(--j-fit));
-        line-height: 1.66;
+        margin-top: calc(24px * var(--j-fit, 1));
+        font-size: calc(14.5px * var(--j-fit, 1));
+        line-height: 1.5em;
       }
 
       .j-writing .j-body p + p {
-        margin-top: calc(18px * var(--j-fit) * var(--j-gap));
+        margin-top: calc(18px * var(--j-fit, 1));
       }
 
       @media (min-width: 640px) {
         .j-writing h2 {
-          font-size: calc(48px * var(--j-fit));
+          font-size: calc(48px * var(--j-fit, 1));
         }
       }
 
       @media (min-width: 768px) {
         .j-writing h2 {
-          margin-top: calc(24px * var(--j-fit) * var(--j-gap));
-          font-size: calc(58px * var(--j-fit));
+          margin-top: calc(24px * var(--j-fit, 1));
+          font-size: calc(58px * var(--j-fit, 1));
           line-height: 1.08;
         }
 
         .j-writing .j-body {
-          /*
-            The paragraphs are set narrower than the heading above them.
-            Under pressure they are allowed to grow out to the heading's
-            own width and no further, so the block's silhouette is the
-            same in every act — only the line length inside it changes.
-          */
-          max-width: calc(36rem + 6rem * var(--j-t));
-          margin-top: calc(32px * var(--j-fit) * var(--j-gap));
-          font-size: calc(15px * var(--j-fit));
-          line-height: calc((2.133 - 0.24 * var(--j-t)) * 1em);
+          max-width: 39rem;
+          margin-top: calc(32px * var(--j-fit, 1));
+          font-size: calc(15px * var(--j-fit, 1));
+          line-height: 1.87em;
         }
 
         .j-writing .j-body p + p {
-          margin-top: calc(20px * var(--j-fit) * var(--j-gap));
-        }
-      }
-
-      /*
-        A window wide but short has horizontal room going spare and none
-        at all vertically. There, and only there, an act under pressure
-        may run wider than its heading: a long line at a readable size
-        beats a short one at nine pixels, and the alternative at this
-        height is the type scaling away to nothing.
-      */
-      @media (min-width: 768px) and (max-height: 700px) {
-        .j-column {
-          max-width: calc(42rem + 22rem * var(--j-t));
-        }
-
-        .j-writing .j-body {
-          max-width: calc(36rem + 22rem * var(--j-t));
+          margin-top: calc(20px * var(--j-fit, 1));
         }
       }
 
