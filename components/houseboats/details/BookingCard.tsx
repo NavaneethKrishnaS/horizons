@@ -50,7 +50,13 @@ export default function BookingCard({
   return (
     <>
       <div
-        id="booking-card"
+        /*
+          The desktop column and the mobile sheet both render this card, so
+          only one of them may carry the id — two elements sharing it is
+          invalid, and the hero's scroll-to-booking link would aim at
+          whichever came first, which on a phone is the hidden desktop copy.
+        */
+        id={bare ? undefined : "booking-card"}
         className={bare ? "" : "border border-neutral-200 bg-white p-7 md:p-8"}
       >
         <p className="text-[11px] uppercase tracking-[0.3em] text-neutral-500">
