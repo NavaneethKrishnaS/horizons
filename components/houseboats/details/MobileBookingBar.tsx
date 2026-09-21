@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+
+import { throttle } from "@/lib/throttle";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 
@@ -34,7 +36,6 @@ export default function MobileBookingBar({
     only when it can actually have changed.
   */
   useEffect(() => {
-    let lastRun = 0;
     let pageHeight = document.documentElement.scrollHeight;
 
     const evaluate = () => {
@@ -44,21 +45,20 @@ export default function MobileBookingBar({
       setIsVisible(pastHero && !atFooter);
     };
 
-    // Throttled on the clock rather than on an animation frame: a background
-    // tab runs no animation frames at all, and a handler that silently stops
-    // working there is the kind of thing that leaves an overlay stranded.
-    const onScroll = () => {
-      const now = performance.now();
+    /*
+      Throttled on the clock rather than on an animation frame: a
+      background tab runs no animation frames at all, and a handler that
+      silently stops working there is the kind of thing that leaves an
+      overlay stranded. With a trailing call, so the last event of a
+      gesture is never the one dropped.
+    */
+    const scroll = throttle(evaluate, 100);
 
-      if (now - lastRun < 100) return;
-
-      lastRun = now;
-      evaluate();
-    };
+    const onScroll = scroll.run;
 
     const onResize = () => {
       pageHeight = document.documentElement.scrollHeight;
-      lastRun = 0;
+      scroll.reset();
       onScroll();
     };
 
@@ -78,7 +78,7 @@ export default function MobileBookingBar({
             // Re-decide against the new height. Without this the bar can sit
             // hidden because it was judged against the page as it stood
             // before the photographs loaded.
-            lastRun = 0;
+            scroll.reset();
             onScroll();
           });
 
@@ -88,6 +88,7 @@ export default function MobileBookingBar({
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);
       observer?.disconnect();
+      scroll.cancel();
     };
   }, []);
 

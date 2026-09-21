@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Container from "@/components/ui/Container";
+import { throttle } from "@/lib/throttle";
 import MegaMenu from "./navbar/MegaMenu";
 import MobileMenu from "./navbar/MobileMenu";
 import { AnimatePresence, motion } from "framer-motion";
@@ -69,31 +70,29 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    let lastRun = 0;
-
     function evaluate() {
       setScrolled(window.scrollY > 40);
     }
 
-    // Scroll fires faster than the screen refreshes; a few times a second is
-    // plenty for a bar that only changes once, at 40px.
-    function handleScroll() {
-      const now = performance.now();
-
-      if (now - lastRun < 100) return;
-
-      lastRun = now;
-      evaluate();
-    }
+    /*
+      Scroll fires faster than the screen refreshes, so it is throttled;
+      but with a trailing call, because the last event of a flick back
+      to the top is exactly the one a plain throttle drops, and dropping
+      it leaves the bar blurred and tinted over the top of the page.
+    */
+    const scroll = throttle(evaluate, 100);
 
     // Set the correct state on mount, so a page that loads already
     // scrolled (reload, back navigation, anchor link) doesn't render
     // a transparent navbar over a light section.
     evaluate();
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("scroll", scroll.run, { passive: true });
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", scroll.run);
+      scroll.cancel();
+    };
   }, []);
 
   // Close the mobile menu when the route changes (covers browser
