@@ -74,35 +74,57 @@ model's guess. Attach the file, then paste the line.
 
 ## Part B — no attachment, just paste the line
 
+Each line repeats the style at the end. That is deliberate: the opening
+message alone is not enough, because after a few images the model drifts
+back to colour. If one comes back coloured anyway, reply "black ink
+engraving only, no colour at all" and it corrects itself.
+
 ### Act I — the spice coast
-7. A cantilevered Chinese fishing net, a wooden frame on a pivot with hanging counterweight stones, seen from the side.
-8. A cluster of black peppercorns on the vine, with leaves and hanging berry spikes.
-9. Three cardamom pods, one split open with the seeds showing.
-10. A wooden trading dhow with a single lateen sail, side on.
+7. A cantilevered Chinese fishing net, a wooden frame on a pivot with hanging counterweight stones, seen from the side — black ink engraving on plain white, stipple and cross-hatching only, no colour, single isolated object, no background, no border.
+8. A cluster of black peppercorns on the vine, with leaves and hanging berry spikes — black ink engraving on plain white, stipple and cross-hatching only, no colour, single isolated object, no background, no border.
+9. Three cardamom pods, one split open with the seeds showing — black ink engraving on plain white, stipple and cross-hatching only, no colour, single isolated object, no background, no border.
+10. A wooden trading dhow with a single lateen sail, side on — black ink engraving on plain white, stipple and cross-hatching only, no colour, single isolated object, no background, no border.
 
 ### Act II — kathakali
-11. A chenda, the tall cylindrical South Indian drum, roped along its length and slung on a strap.
+11. A chenda, the tall cylindrical South Indian drum, roped along its length and slung on a strap — black ink engraving on plain white, stipple and cross-hatching only, no colour, single isolated object, no background, no border.
 
-### Act III — vallamkali
-12. A snake boat, a chundan vallam, extremely long and low with an enormously tall curved stern prow rising at the back, side on.
-13. A single wooden rowing paddle with a long leaf-shaped blade.
-14. Concentric ripple rings spreading on still water, seen from directly above.
-15. A circular flower mandala of concentric petal rings, a pookkalam, seen from directly above.
+### Act III — the trained body
+These are figures rather than objects, so the tail says "figure".
 
-### Act IV — the kettuvallam
-16. A coiled rope of twisted coconut fibre, laid flat in a spiral.
-17. A single coconut palm, leaning, with a full crown of fronds and a cluster of nuts.
+23. A solo woman dancer in the mohiniyattam style, wearing a white sari with a wide gold border, her hair gathered in a single bun on the left side of her head with jasmine flowers around it, arms held in a gentle curved pose, full figure standing — black ink engraving on plain white, stipple and cross-hatching only, no colour, single isolated figure, no background, no border.
+24. A theyyam performer from Kerala in a towering tiered headdress far taller than the wearer, face painted in bold ritual patterns, wearing a wide skirt of split palm fronds, full figure facing forward — black ink engraving on plain white, stipple and cross-hatching only, no colour, single isolated figure, no background, no border.
+25. A kalaripayattu martial artist in a low lunging stance holding a curved sword and a small round shield, bare torso, full figure in profile — black ink engraving on plain white, stipple and cross-hatching only, no colour, single isolated figure, no background, no border.
+26. A solo woman dancer in the bharatanatyam style, in the half-sitting aramandi posture with knees turned outward, a pleated silk fan between her legs, temple jewellery and a headpiece, ankle bells, full figure — black ink engraving on plain white, stipple and cross-hatching only, no colour, single isolated figure, no background, no border.
 
-### Act V — the founder
-18. A tall brass oil lamp with a wide round bowl, a lit flame at the top, an ornate turned stem and a stepped circular base.
+Bharatanatyam is Tamil Nadu's, not Kerala's. It earns its place only if
+that act is read as South India rather than Kerala — generate it last, and
+only if the others have gone well.
+
+The detail that makes each one recognisable: mohiniyattam is **the bun on
+the left side of the head**, bharatanatyam is **the bent-knee aramandi and
+the pleated fan**, theyyam is **the headdress taller than the person**. If
+one comes back as a generic Indian dancer, name that feature again.
+
+### Act IV — vallamkali
+12. A snake boat, a chundan vallam, extremely long and low with an enormously tall curved stern prow rising at the back, side on — black ink engraving on plain white, stipple and cross-hatching only, no colour, single isolated object, no background, no border.
+13. A single wooden rowing paddle with a long leaf-shaped blade — black ink engraving on plain white, stipple and cross-hatching only, no colour, single isolated object, no background, no border.
+14. Concentric ripple rings spreading on still water, seen from directly above — black ink engraving on plain white, stipple and cross-hatching only, no colour, single isolated object, no background, no border.
+15. A circular flower mandala of concentric petal rings, a pookkalam, seen from directly above — black ink engraving on plain white, stipple and cross-hatching only, no colour, single isolated object, no background, no border.
+
+### Act V — the kettuvallam
+16. A coiled rope of twisted coconut fibre, laid flat in a spiral — black ink engraving on plain white, stipple and cross-hatching only, no colour, single isolated object, no background, no border.
+17. A single coconut palm, leaning, with a full crown of fronds and a cluster of nuts — black ink engraving on plain white, stipple and cross-hatching only, no colour, single isolated object, no background, no border.
+
+### Act VI — the founder
+18. A tall brass oil lamp with a wide round bowl, a lit flame at the top, an ornate turned stem and a stepped circular base — black ink engraving on plain white, stipple and cross-hatching only, no colour, single isolated object, no background, no border.
 
 ### Recurring — the ambient furniture
 These drift between the acts the way the stars and beads do on the reference.
 
-19. A string of round beads hanging on a fine thread, vertical, largest at the top.
-20. A single perfect sphere, lit from the upper left.
-21. An eight-pointed star burst with long sharp spines.
-22. A seamless repeating border tile of interlocking stars and polygons, flat, no perspective.
+19. A string of round beads hanging on a fine thread, vertical, largest at the top — black ink engraving on plain white, stipple and cross-hatching only, no colour, single isolated object, no background, no border.
+20. A single perfect sphere, lit from the upper left — black ink engraving on plain white, stipple and cross-hatching only, no colour, single isolated object, no background, no border.
+21. An eight-pointed star burst with long sharp spines — black ink engraving on plain white, stipple and cross-hatching only, no colour, single isolated object, no background, no border.
+22. A seamless repeating border tile of interlocking stars and polygons, flat, no perspective — black ink engraving on plain white, stipple and cross-hatching only, no colour, single isolated object, no background, no border.
 
 ---
 

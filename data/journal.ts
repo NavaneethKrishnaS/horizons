@@ -61,8 +61,25 @@ export const journalChapters: JournalChapter[] = [
     },
   },
   {
-    id: "vallamkali",
+    id: "kalakal",
     label: "Three",
+    heading: "A body trained from the age of six.",
+    paragraphs: [
+      "Kerala did not produce one art form. It produced a habit of training the body until it can do something no untrained body can, and then doing that thing for a reason other than applause.",
+      "Mohiniyattam is the state's own classical dance — the name means the dance of the enchantress. It is danced solo, traditionally by women, in a plain white sari bordered in gold, the hair gathered into a single bun on the left side and ringed with jasmine. Where kathakali is declamatory, this is lasya: slow, curved, deliberately unhurried.",
+      "In the far north, theyyam is something else entirely. Across the seven months from October the shrines of Kannur and Kasaragod host some four hundred and fifty distinct forms of it, each with its own face-painting and its own towering mudi. When that headdress is placed on the performer, the belief is not that he is playing the deity. It is that the deity has arrived.",
+      "And in the kalari, the earthen pit where kalaripayattu is taught, children begin at six and learn to fall before they learn to strike.",
+    ],
+    quote:
+      "None of it was invented for visitors. That is precisely why it is worth seeing.",
+    image: {
+      src: "/images/about/kadhakali-2.jpg",
+      alt: "A theyyam performer in a towering headdress at a north Malabar shrine",
+    },
+  },
+  {
+    id: "vallamkali",
+    label: "Four",
     heading: "A hundred men, one heartbeat.",
     paragraphs: [
       "A chundan vallam is between a hundred and a hundred and twenty feet of curved hull, and it carries anywhere from sixty-four to a hundred and twenty-eight rowers. It is the largest vessel in the world raced as sport. The way they are built has not meaningfully changed in eight hundred years; the first was commissioned as a war boat in the thirteenth century.",
@@ -76,7 +93,7 @@ export const journalChapters: JournalChapter[] = [
   },
   {
     id: "kettuvallam",
-    label: "Four",
+    label: "Five",
     heading: "A boat tied together without a single nail.",
     paragraphs: [
       "Kettuvallam means tied boat, and the name is literal. Planks of jackwood are stitched edge to edge with coir rope and sealed with boiled cashew resin. No iron anywhere. Built properly, one lasts generations, and any part of it can be untied and replaced.",
@@ -93,7 +110,7 @@ export const journalChapters: JournalChapter[] = [
 ];
 
 export const journalFounder = {
-  label: "Five",
+  label: "Six",
   name: "Surjith Somasundaram",
   role: "Founder, Scenic Escapes India",
   heading: "The man who answers the phone.",
