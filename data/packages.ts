@@ -859,4 +859,43 @@ export const packages: TourPackage[] = [
       url: "https://unsplash.com/photos/an-empty-road-in-the-middle-of-a-lush-green-valley-fXzJvnay0sE",
     },
   },
+  {
+    slug: "chettinad-and-madurai",
+    tier: "escape",
+    title: "Chettinad, and the temple at Madurai",
+    standfirst: "Merchants' mansions, tiles made by hand, and one of the great living temples.",
+    collection: "south",
+    region: "Tamil Nadu",
+    duration: "4 days, 3 nights",
+    days: 4,
+    summary:
+      "In the nineteenth century the Nattukottai Chettiars banked across Burma, Ceylon, Vietnam and Malaya, and brought the money home to seventy-odd villages in Sivaganga and Pudukottai. What they built there is unlike anything else in India: courtyard houses of Burmese teak and Italian marble, Belgian mirrors and Indonesian crockery, many of them now half empty. An hour and a half away is Madurai, and the Meenakshi temple, which is the opposite — never empty for a day.",
+    route: [
+      "Madurai",
+      "Meenakshi temple",
+      "Karaikudi",
+      "Kanadukathan",
+      "Athangudi",
+    ],
+    highlights: [
+      "The Meenakshi temple: fourteen gopurams, the southern one 52 metres, built in the late sixteenth century",
+      "Chettiar mansions at Kanadukathan, entered rather than photographed from the gate",
+      "Athangudi tiles, still pressed by hand on sheets of glass, one at a time",
+      "Chettinad cooking, which is a cuisine rather than a spice level",
+      "Karaikudi's antique quarter, where the houses are being sold off piece by piece",
+      "A night in one of the mansions, because several are now the only way they survive",
+    ],
+    itinerary: [
+      { day: "1", text: "Into Madurai. The Meenakshi temple in the evening, which is when the city uses it." },
+      { day: "2", text: "The temple again at first light, then east to Chettinad and into a mansion for the night." },
+      { day: "3", text: "Kanadukathan and the houses. The tile works at Athangudi in the afternoon, and the antique shops at Karaikudi." },
+      { day: "4", text: "A last village or two, and back to Madurai or on to Thanjavur." },
+    ],
+    image: `${P}/photo-1660915223003-7df0db2e57d8`,
+    imageAlt: "A Chettinad house in Tamil Nadu",
+    credit: {
+      photographer: "Nakkeeran Raveendran",
+      url: "https://unsplash.com/photos/a-building-with-a-red-roof-c6SNid8b-nQ",
+    },
+  },
 ];

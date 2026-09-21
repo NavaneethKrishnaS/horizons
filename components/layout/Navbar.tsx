@@ -131,11 +131,19 @@ export default function Navbar() {
           every other page at py-6, so moving between them animated a 16px
           jump in the navbar.
         */
+        /*
+          The scrolled bar used to be #2F3522, a distinctly olive green.
+          Over a photograph that reads as a warm scrim, which is what it
+          was for; over a page whose background is flat near-black it
+          reads as a green bar someone forgot to remove. It is now dark
+          enough to disappear into #111111 and still warm enough to tint
+          a hero photograph.
+        */
         className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-500 ${
           scrolled
             ? onPaper
               ? "border-black/10 bg-[#F4F2ED]/80 py-5 backdrop-blur-xl"
-              : "border-white/5 bg-[#2F3522]/55 py-5 backdrop-blur-3xl"
+              : "border-white/5 bg-[#16180F]/70 py-5 backdrop-blur-3xl"
             : "border-transparent bg-transparent py-8"
         }`}
       >
