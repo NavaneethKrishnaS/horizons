@@ -13,8 +13,20 @@ export type Collection =
   | "north"
   | "sacred"
   | "south"
+  | "kerala"
   | "craft"
   | "wellness";
+
+/*
+  Two lengths of thing, and two people buying them.
+
+  A journey is two or three weeks and is quoted, because it is built
+  around whoever is travelling and because the people who take them
+  expect to be quoted. An escape is a few days, usually for someone
+  who already lives here, and carries a starting price — a family
+  comparing weekends will not write to us to find out what it costs.
+*/
+export type Tier = "journey" | "escape";
 
 export interface CollectionMeta {
   id: Collection;
@@ -52,6 +64,12 @@ export const collections: CollectionMeta[] = [
     blurb: "Journeys built around the people who still make things by hand.",
   },
   {
+    id: "kerala",
+    label: "Kerala",
+    blurb:
+      "Home. The backwaters, the hills behind them, and the coast on the other side.",
+  },
+  {
     id: "wellness",
     label: "Stillness",
     blurb: "Somewhere to stop, in a country that does not often let you.",
@@ -66,6 +84,7 @@ export interface ItineraryDay {
 
 export interface TourPackage {
   slug: string;
+  tier: Tier;
   title: string;
   /* One line, under the title. */
   standfirst: string;
@@ -82,6 +101,9 @@ export interface TourPackage {
   highlights: string[];
   /* Only where we have it day by day. */
   itinerary?: ItineraryDay[];
+  /* Escapes only, in rupees, per person unless priceNote says otherwise. */
+  priceFrom?: number;
+  priceNote?: string;
   image: string;
   imageAlt: string;
   /*
@@ -101,6 +123,7 @@ export const packages: TourPackage[] = [
   /* ——— The Himalaya ——————————————————————————————————————— */
   {
     slug: "zanskar-traverse",
+    tier: "journey",
     title: "Across the Himalaya by Zanskar",
     standfirst: "Leh to Lahaul, over a pass at five thousand one hundred metres.",
     collection: "himalaya",
@@ -147,6 +170,7 @@ export const packages: TourPackage[] = [
   },
   {
     slug: "ladakh-archaeology",
+    tier: "journey",
     title: "Ladakh, an archaeology",
     standfirst: "A dig, and the country around it.",
     collection: "himalaya",
@@ -171,6 +195,7 @@ export const packages: TourPackage[] = [
   },
   {
     slug: "kashmir-to-ladakh",
+    tier: "journey",
     title: "Kashmir to Ladakh",
     standfirst: "The road the Buddhist pilgrims took, in the order they took it.",
     collection: "himalaya",
@@ -195,6 +220,7 @@ export const packages: TourPackage[] = [
   },
   {
     slug: "nubra-and-pangong",
+    tier: "journey",
     title: "Nubra and Pangong",
     standfirst: "Three days on Bactrian camels, on a road that used to matter.",
     collection: "himalaya",
@@ -219,6 +245,7 @@ export const packages: TourPackage[] = [
   },
   {
     slug: "ladakh-at-village-pace",
+    tier: "journey",
     title: "Ladakh, at village pace",
     standfirst: "Staying in people's houses, and walking between them.",
     collection: "himalaya",
@@ -243,6 +270,7 @@ export const packages: TourPackage[] = [
   },
   {
     slug: "sikkim-and-darjeeling",
+    tier: "journey",
     title: "Sikkim and Darjeeling",
     standfirst: "The old Buddhist kingdom, and the hill station below it.",
     collection: "himalaya",
@@ -288,6 +316,7 @@ export const packages: TourPackage[] = [
   },
   {
     slug: "sikkim-david-neel",
+    tier: "journey",
     title: "Sikkim, after Alexandra David-Néel",
     standfirst: "Following the woman who walked to Lhasa.",
     collection: "himalaya",
@@ -313,6 +342,7 @@ export const packages: TourPackage[] = [
   /* ——— Sacred India ——————————————————————————————————————— */
   {
     slug: "the-ganges",
+    tier: "journey",
     title: "A journey down the Ganges",
     standfirst: "From where it comes out of the mountains to where it is burned beside.",
     collection: "sacred",
@@ -359,6 +389,7 @@ export const packages: TourPackage[] = [
   },
   {
     slug: "footsteps-of-the-buddha",
+    tier: "journey",
     title: "In the footsteps of the Buddha",
     standfirst: "The places, in the order they happened.",
     collection: "sacred",
@@ -390,6 +421,7 @@ export const packages: TourPackage[] = [
   },
   {
     slug: "taj-mahal-to-calcutta",
+    tier: "journey",
     title: "From the Taj Mahal to Calcutta",
     standfirst: "Three weeks across the north, ending at the delta.",
     collection: "sacred",
@@ -422,6 +454,7 @@ export const packages: TourPackage[] = [
   },
   {
     slug: "deccan-rock-temples",
+    tier: "journey",
     title: "The rock temples of the Deccan",
     standfirst: "Ajanta, Ellora, Elephanta — and the kingdoms that followed them.",
     collection: "sacred",
@@ -456,6 +489,7 @@ export const packages: TourPackage[] = [
   /* ——— Rajasthan ——————————————————————————————————————————— */
   {
     slug: "rajasthan-and-the-thar",
+    tier: "journey",
     title: "Rajasthan and the Thar",
     standfirst: "Three weeks of maharajas, and the desert they built against.",
     collection: "north",
@@ -488,6 +522,7 @@ export const packages: TourPackage[] = [
   },
   {
     slug: "rajasthan-sketchbook",
+    tier: "journey",
     title: "Rajasthan, drawn by hand",
     standfirst: "A fortnight with a sketchbook, and someone to teach you.",
     collection: "north",
@@ -533,6 +568,7 @@ export const packages: TourPackage[] = [
   /* ——— Craft & Cloth ——————————————————————————————————————— */
   {
     slug: "rajput-textiles",
+    tier: "journey",
     title: "The textile trail of the Rajputs",
     standfirst: "Thirteen days of block prints, tie-dye and pearl embroidery.",
     collection: "craft",
@@ -583,6 +619,7 @@ export const packages: TourPackage[] = [
   /* ——— The South ——————————————————————————————————————————— */
   {
     slug: "south-india-by-rail",
+    tier: "journey",
     title: "South India by rail",
     standfirst: "The Konkan line, Kerala to Mumbai, with a sketchbook.",
     collection: "south",
@@ -627,6 +664,7 @@ export const packages: TourPackage[] = [
   },
   {
     slug: "dravidian-india",
+    tier: "journey",
     title: "Dravidian India, east to west",
     standfirst: "A thousand years of temple building, coast to coast.",
     collection: "south",
@@ -659,6 +697,7 @@ export const packages: TourPackage[] = [
   /* ——— Stillness ——————————————————————————————————————————— */
   {
     slug: "kerala-ayurveda",
+    tier: "journey",
     title: "Ayurveda in Kerala",
     standfirst: "Fourteen days at Chowara, and about three hours of it each day is treatment.",
     collection: "wellness",
@@ -682,5 +721,45 @@ export const packages: TourPackage[] = [
       url: "https://unsplash.com/photos/a-boat-on-the-water-o7S72bq6S1E",
     },
     imageAlt: "The Kerala coast near Chowara",
+  },
+  /* ——— Short escapes ——————————————————————————————————————— */
+  {
+    slug: "kochi-to-kollam",
+    tier: "escape",
+    title: "Kochi to Kollam, the whole backwater",
+    standfirst:
+      "Five days on one boat, ending at the village where the houseboat was invented.",
+    collection: "kerala",
+    region: "Kerala backwaters",
+    duration: "5 days, 4 nights",
+    days: 5,
+    summary:
+      "Most people see the backwaters for a night. This runs their entire length — from Kumbalam below Kochi down through Kumarakom, Kuttanad and Kayamkulam to Alumkadavu, which is where the kettuvallam was first converted and where our own boats still come from. One boat, four nights, and the canals get narrower as you go.",
+    route: [
+      "Kumbalam",
+      "Kumarakom",
+      "Pulincunno",
+      "Kavalam",
+      "Champakulam",
+      "Kayamkulam",
+      "Alumkadavu",
+    ],
+    highlights: [
+      "Four nights moored in four different villages, not one jetty",
+      "Kuttanad, farmed below sea level, from the canals that drain it",
+      "Kayaking into water the houseboat cannot reach",
+      "Kathakali one evening and kalaripayattu another",
+      "The church at Champakulam, and the paddy bunds around Nedumudy",
+      "Alumkadavu at the end, and the yard the boats are built in",
+    ],
+    itinerary: [
+      { day: "1", text: "Board at Kumbalam at midday. Through the Kochi backwaters, and the first night at Kumarakom on the Vembanad." },
+      { day: "2", text: "A village walk, then kayaking the small canals. Slowly into the Kuttanad paddy country; the night at Pulincunno." },
+      { day: "3", text: "Out early, when the light and the canal traffic are both worth being up for. Interior Kuttanad by canoe. The night at Kavalam." },
+      { day: "4", text: "Kainakary, the church at Champakulam, then Nedumudy, Thottappally and Thrikkunnapuzha. Kayamkulam by evening." },
+      { day: "5", text: "An early cruise past Amritapuri, and off the boat at Alumkadavu between half nine and eleven." },
+    ],
+    image: `${P}/photo-1602216056096-3b40cc0c9944`,
+    imageAlt: "A houseboat on the Kerala backwaters",
   },
 ];

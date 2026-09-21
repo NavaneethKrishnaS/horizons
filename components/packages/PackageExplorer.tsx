@@ -5,7 +5,12 @@ import { useState } from "react";
 import Container from "@/components/ui/Container";
 import PackageCard from "./PackageCard";
 
-import { collections, packages, type Collection } from "@/data/packages";
+import {
+  collections,
+  packages,
+  type Collection,
+  type TourPackage,
+} from "@/data/packages";
 
 type Filter = Collection | "all";
 
@@ -18,6 +23,14 @@ export default function PackageExplorer() {
       : packages.filter((tour) => tour.collection === filter);
 
   const active = collections.find((group) => group.id === filter);
+
+  /*
+    Two lengths, kept apart. An eighteen-day traverse of the Himalaya and
+    five days on a boat are not competing for the same afternoon, and a
+    grid that mixes them serves neither.
+  */
+  const journeys = shown.filter((tour) => tour.tier === "journey");
+  const escapes = shown.filter((tour) => tour.tier === "escape");
 
   return (
     <section className="border-b border-white/10 py-16 md:py-24">
@@ -66,13 +79,51 @@ export default function PackageExplorer() {
           {active ? active.blurb : `Every journey we run, ${packages.length} of them.`}
         </p>
 
-        <div className="mt-12 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3 md:mt-16">
-          {shown.map((tour) => (
-            <PackageCard key={tour.slug} tour={tour} />
-          ))}
-        </div>
+        {journeys.length ? (
+          <Tier
+            label="Journeys"
+            note="Two or three weeks. Quoted, and built around whoever is travelling."
+            tours={journeys}
+          />
+        ) : null}
+
+        {escapes.length ? (
+          <Tier
+            label="Short escapes"
+            note="A few days. For anyone already here, or with a week to spare at the end of something else."
+            tours={escapes}
+          />
+        ) : null}
       </Container>
     </section>
+  );
+}
+
+function Tier({
+  label,
+  note,
+  tours,
+}: {
+  label: string;
+  note: string;
+  tours: TourPackage[];
+}) {
+  return (
+    <div className="mt-14 md:mt-20">
+      <div className="flex flex-wrap items-baseline gap-x-6 gap-y-2">
+        <h2 className="font-cormorant text-[26px] font-light text-white md:text-[32px]">
+          {label}
+        </h2>
+
+        <p className="text-[13px] text-white/35">{note}</p>
+      </div>
+
+      <div className="mt-10 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+        {tours.map((tour) => (
+          <PackageCard key={tour.slug} tour={tour} />
+        ))}
+      </div>
+    </div>
   );
 }
 
