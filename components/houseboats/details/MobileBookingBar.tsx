@@ -8,6 +8,8 @@ import BookingCard from "./BookingCard";
 
 import { Houseboat } from "@/data/houseboat.types";
 
+import { useScrollLock } from "@/lib/scrollLock";
+
 interface MobileBookingBarProps {
   houseboat: Houseboat;
 }
@@ -18,31 +20,78 @@ export default function MobileBookingBar({
   const [isVisible, setIsVisible] = useState(false);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 
-  // The bar stays out of the way until the hero has scrolled past, so the
-  // first thing a visitor sees is still the photograph.
-  useEffect(() => {
-    const update = () => {
-      const pastHero = window.scrollY > window.innerHeight * 0.7;
+  /*
+    The bar stays out of the way until the hero has scrolled past, and stands
+    down near the foot of the page so it never covers the footer.
 
-      // Stand down near the foot of the page so the bar never covers the
-      // footer.
-      const atFooter =
-        window.scrollY + window.innerHeight >
-        document.documentElement.scrollHeight - 260;
+    Both checks used to run straight out of the scroll event, and the footer
+    one reads scrollHeight — which forces the browser to lay the page out
+    there and then. Scroll events fire several times per frame, so on a long
+    page of large photographs that was several full layouts per frame, which
+    is what made scrolling stutter on a phone.
+
+    Now it runs at most ten times a second, and the page height is measured
+    only when it can actually have changed.
+  */
+  useEffect(() => {
+    let lastRun = 0;
+    let pageHeight = document.documentElement.scrollHeight;
+
+    const evaluate = () => {
+      const pastHero = window.scrollY > window.innerHeight * 0.7;
+      const atFooter = window.scrollY + window.innerHeight > pageHeight - 260;
 
       setIsVisible(pastHero && !atFooter);
     };
 
-    update();
+    // Throttled on the clock rather than on an animation frame: a background
+    // tab runs no animation frames at all, and a handler that silently stops
+    // working there is the kind of thing that leaves an overlay stranded.
+    const onScroll = () => {
+      const now = performance.now();
 
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
+      if (now - lastRun < 100) return;
+
+      lastRun = now;
+      evaluate();
+    };
+
+    const onResize = () => {
+      pageHeight = document.documentElement.scrollHeight;
+      lastRun = 0;
+      onScroll();
+    };
+
+    evaluate();
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onResize);
+
+    // Images finishing their download change the page height; without this
+    // the footer cut-off would be measured against the height at load.
+    const observer =
+      typeof ResizeObserver === "undefined"
+        ? null
+        : new ResizeObserver(() => {
+            pageHeight = document.documentElement.scrollHeight;
+
+            // Re-decide against the new height. Without this the bar can sit
+            // hidden because it was judged against the page as it stood
+            // before the photographs loaded.
+            lastRun = 0;
+            onScroll();
+          });
+
+    observer?.observe(document.body);
 
     return () => {
-      window.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
+      observer?.disconnect();
     };
   }, []);
+
+  useScrollLock(isSheetOpen);
 
   useEffect(() => {
     if (!isSheetOpen) return;
@@ -53,13 +102,9 @@ export default function MobileBookingBar({
       }
     };
 
-    document.documentElement.style.overflow = "hidden";
     window.addEventListener("keydown", handleEscape);
 
-    return () => {
-      document.documentElement.style.overflow = "";
-      window.removeEventListener("keydown", handleEscape);
-    };
+    return () => window.removeEventListener("keydown", handleEscape);
   }, [isSheetOpen]);
 
   // Close the sheet if the viewport grows past lg, where the sticky card takes

@@ -8,6 +8,8 @@ import { format } from "date-fns";
 
 import { whatsappLink } from "@/lib/whatsapp";
 
+import { useScrollLock } from "@/lib/scrollLock";
+
 interface InquiryModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -65,14 +67,12 @@ export default function InquiryModal({
       }
     };
 
-    document.documentElement.style.overflow = "hidden";
     window.addEventListener("keydown", handleEscape);
 
-    return () => {
-      document.documentElement.style.overflow = "";
-      window.removeEventListener("keydown", handleEscape);
-    };
+    return () => window.removeEventListener("keydown", handleEscape);
   }, [isOpen, onClose]);
+
+  useScrollLock(isOpen);
 
   const totalGuests = adults + childCount;
 

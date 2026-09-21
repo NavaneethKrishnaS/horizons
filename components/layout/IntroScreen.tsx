@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 
 import { PEACOCK_KEYFRAMES, paintPeacock } from "./peacock";
 
+import { useScrollLock } from "@/lib/scrollLock";
+
 /*
   First-arrival intro. Black screen, the peacock opens out feather by feather,
   the wordmark settles underneath, then the screen opens onto the site.
@@ -50,10 +52,18 @@ export default function IntroScreen() {
       // Private mode or blocked storage — treat it as a first visit.
     }
 
+    /*
+      Not requestAnimationFrame. A browser runs no animation frames at all
+      while its tab is in the background, so on a phone — where opening a
+      link and glancing at another app is normal — the callback that takes
+      this screen down would never run. The visitor came back to a black
+      screen over a page they could not scroll or tap. A timeout still fires
+      in a background tab, throttled but reliably.
+    */
     if (alreadyShown) {
-      const frame = requestAnimationFrame(() => setPhase("done"));
+      const immediately = setTimeout(() => setPhase("done"), 0);
 
-      return () => cancelAnimationFrame(frame);
+      return () => clearTimeout(immediately);
     }
 
     try {
@@ -62,24 +72,39 @@ export default function IntroScreen() {
       // Ignore.
     }
 
+    const startedAt = Date.now();
+
     const leave = setTimeout(() => setPhase("leaving"), HOLD_MS);
     const remove = setTimeout(() => setPhase("done"), HOLD_MS + EXIT_TOTAL_MS);
+
+    /*
+      Background tabs also throttle timers, and CSS animations stop entirely,
+      so someone returning after a while would find the intro frozen part-way
+      through. If its time is already up when they come back, end it at once.
+    */
+    const handleVisibility = () => {
+      if (document.visibilityState !== "visible") return;
+      if (Date.now() - startedAt < HOLD_MS) return;
+
+      setPhase("done");
+    };
+
+    // And whatever else happens, a tap takes it away. No visitor should ever
+    // be stuck behind this.
+    const dismiss = () => setPhase("done");
+
+    document.addEventListener("visibilitychange", handleVisibility);
+    window.addEventListener("pointerdown", dismiss);
 
     return () => {
       clearTimeout(leave);
       clearTimeout(remove);
+      document.removeEventListener("visibilitychange", handleVisibility);
+      window.removeEventListener("pointerdown", dismiss);
     };
   }, []);
 
-  useEffect(() => {
-    if (phase === "done") return;
-
-    document.documentElement.style.overflow = "hidden";
-
-    return () => {
-      document.documentElement.style.overflow = "";
-    };
-  }, [phase]);
+  useScrollLock(phase !== "done");
 
   useEffect(() => {
     if (phase !== "intro" || !markRef.current) return;

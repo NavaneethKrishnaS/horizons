@@ -5,6 +5,8 @@ import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 
+import { useScrollLock } from "@/lib/scrollLock";
+
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -36,14 +38,12 @@ export default function Modal({
       }
     };
 
-    document.body.style.overflow = "hidden";
     window.addEventListener("keydown", handleEscape);
 
-    return () => {
-      document.body.style.overflow = "";
-      window.removeEventListener("keydown", handleEscape);
-    };
+    return () => window.removeEventListener("keydown", handleEscape);
   }, [isOpen, onClose]);
+
+  useScrollLock(isOpen);
 
   /*
     Portalled to <body>. The booking card sits inside a `sticky` wrapper, and

@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
+import { useScrollLock } from "@/lib/scrollLock";
+
 type MobileMenuProps = {
   open: boolean;
   onClose: () => void;
@@ -24,19 +26,8 @@ const items = [
 export default function MobileMenu({ open, onClose }: MobileMenuProps) {
   const reduceMotion = useReducedMotion();
 
-  // Lock page scrolling while the overlay is open. The scrolling element
-  // is <html>, so the lock goes there rather than on <body>.
-  useEffect(() => {
-    if (!open) return;
-
-    const root = document.documentElement;
-    const previous = root.style.overflow;
-    root.style.overflow = "hidden";
-
-    return () => {
-      root.style.overflow = previous;
-    };
-  }, [open]);
+  // Shared, counted lock — see lib/scrollLock.
+  useScrollLock(open);
 
   // Close if the viewport grows past the mobile breakpoint. Without this
   // the overlay is hidden by `md:hidden` while its scroll lock stays on,

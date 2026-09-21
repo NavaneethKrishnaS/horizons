@@ -17,16 +17,29 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    function handleScroll() {
+    let lastRun = 0;
+
+    function evaluate() {
       setScrolled(window.scrollY > 40);
+    }
+
+    // Scroll fires faster than the screen refreshes; a few times a second is
+    // plenty for a bar that only changes once, at 40px.
+    function handleScroll() {
+      const now = performance.now();
+
+      if (now - lastRun < 100) return;
+
+      lastRun = now;
+      evaluate();
     }
 
     // Set the correct state on mount, so a page that loads already
     // scrolled (reload, back navigation, anchor link) doesn't render
     // a transparent navbar over a light section.
-    handleScroll();
+    evaluate();
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);

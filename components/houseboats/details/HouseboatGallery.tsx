@@ -10,6 +10,8 @@ import GalleryLightbox from "./GalleryLightbox";
 
 import { Houseboat } from "@/data/houseboat.types";
 
+import { useScrollLock } from "@/lib/scrollLock";
+
 interface HouseboatGalleryProps {
   houseboat: Houseboat;
 }
@@ -58,15 +60,12 @@ export default function HouseboatGallery({
       }
     };
 
-    document.body.style.overflow = "hidden";
-
     window.addEventListener("keydown", handleKeyDown);
 
-    return () => {
-      document.body.style.overflow = "";
-      window.removeEventListener("keydown", handleKeyDown);
-    };
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [selectedImage]);
+
+  useScrollLock(selectedImage !== null);
 
   if (houseboat.gallery.length === 0) {
     return null;
