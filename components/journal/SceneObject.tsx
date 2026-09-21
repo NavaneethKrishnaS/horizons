@@ -28,6 +28,10 @@ export interface SceneObjectSpec {
 
   /* Objects further back move less and sit paler, which reads as depth. */
   depth?: number;
+
+  /* Intrinsic pixels, so the srcset is built against the real picture. */
+  w?: number;
+  h?: number;
 }
 
 const value = (frame: Keyframe, key: keyof Keyframe, fallback: number) =>
@@ -40,7 +44,7 @@ const value = (frame: Keyframe, key: keyof Keyframe, fallback: number) =>
   calc() on the compositor, which is why a dozen of these cost nothing.
 */
 export default function SceneObject({ spec }: { spec: SceneObjectSpec }) {
-  const { ax, ay, size, from, to, src, depth = 1 } = spec;
+  const { ax, ay, size, from, to, src, depth = 1, w = 760, h = 760 } = spec;
 
   const x0 = value(from, "x", 0) * depth;
   const x1 = value(to, "x", 0) * depth;
@@ -65,20 +69,25 @@ export default function SceneObject({ spec }: { spec: SceneObjectSpec }) {
         top: `${ay}%`,
         width: `${size}%`,
         opacity: `calc(${o0} + (${o1} - ${o0}) * var(--e, 0))`,
+        /*
+          No will-change here. Two dozen objects each asking for their own
+          compositor layer costs more memory than it saves, and the
+          translate3d below already promotes the ones that move.
+        */
         transform: [
           "translate(-50%, -50%)",
           `translate3d(${lerp(x0, x1, "vw")}, ${lerp(y0, y1, "vh")}, 0)`,
           `scale(calc(${s0} + (${s1} - ${s0}) * var(--e, 0)))`,
           `rotate(${lerp(r0, r1, "deg")})`,
         ].join(" "),
-        willChange: "transform, opacity",
       }}
     >
       <Image
         src={src}
         alt=""
-        width={760}
-        height={760}
+        width={w}
+        height={h}
+        sizes={`${Math.ceil(size * Math.max(s0, s1))}vw`}
         className="h-auto w-full select-none"
       />
     </div>

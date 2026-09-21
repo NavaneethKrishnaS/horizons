@@ -25,56 +25,56 @@ export default function JournalHero() {
         */}
         <SceneObject
           spec={{
-            ax: 10, ay: 36, size: 6, src: `${J}/star.webp`, depth: 0.9,
+            ax: 10, ay: 36, size: 6, src: `${J}/star.webp`, w: 751, h: 760, depth: 0.9,
             from: { y: 10, rotate: -30, opacity: 0.9 },
             to: { y: -44, rotate: 30, opacity: 0 },
           }}
         />
         <SceneObject
           spec={{
-            ax: 90, ay: 33, size: 7, src: `${J}/star.webp`, depth: 1.1,
+            ax: 90, ay: 33, size: 7, src: `${J}/star.webp`, w: 751, h: 760, depth: 1.1,
             from: { y: 14, rotate: 20, opacity: 0.9 },
             to: { y: -52, rotate: -26, opacity: 0 },
           }}
         />
         <SceneObject
           spec={{
-            ax: 24, ay: 56, size: 3, src: `${J}/sphere.webp`, depth: 0.6,
+            ax: 24, ay: 56, size: 3, src: `${J}/sphere.webp`, w: 751, h: 760, depth: 0.6,
             from: { y: 6, opacity: 1 },
             to: { y: -30, opacity: 0 },
           }}
         />
         <SceneObject
           spec={{
-            ax: 77, ay: 60, size: 2.6, src: `${J}/sphere.webp`, depth: 0.5,
+            ax: 77, ay: 60, size: 2.6, src: `${J}/sphere.webp`, w: 751, h: 760, depth: 0.5,
             from: { y: 4, opacity: 1 },
             to: { y: -24, opacity: 0 },
           }}
         />
         <SceneObject
           spec={{
-            ax: 8, ay: 76, size: 9, src: `${J}/rosette.webp`, depth: 0.7,
+            ax: 8, ay: 76, size: 9, src: `${J}/rosette.webp`, w: 760, h: 759, depth: 0.7,
             from: { y: 12, rotate: 0, opacity: 0.85 },
             to: { y: -40, rotate: 45, opacity: 0 },
           }}
         />
         <SceneObject
           spec={{
-            ax: 91, ay: 76, size: 5, src: `${J}/lamp.webp`, depth: 0.8,
+            ax: 91, ay: 76, size: 5, src: `${J}/lamp.webp`, w: 244, h: 760, depth: 0.8,
             from: { y: 14, opacity: 0.9 },
             to: { y: -42, opacity: 0 },
           }}
         />
         <SceneObject
           spec={{
-            ax: 33, ay: 22, size: 1.3, src: `${J}/beads.webp`, depth: 1.3,
+            ax: 33, ay: 22, size: 1.3, src: `${J}/beads.webp`, w: 106, h: 760, depth: 1.3,
             from: { y: -4, opacity: 0.9 },
             to: { y: -58, opacity: 0 },
           }}
         />
         <SceneObject
           spec={{
-            ax: 67, ay: 20, size: 1.3, src: `${J}/beads.webp`, depth: 1.5,
+            ax: 67, ay: 20, size: 1.3, src: `${J}/beads.webp`, w: 106, h: 760, depth: 1.5,
             from: { y: -6, opacity: 0.9 },
             to: { y: -66, opacity: 0 },
           }}
