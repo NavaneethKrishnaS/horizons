@@ -46,11 +46,19 @@ export default function Founder() {
                   className="mx-auto block h-px w-10 bg-[#111111]/20"
                 />
 
-                <p className="mt-5 font-cormorant text-[24px] font-light leading-none text-[#111111] md:text-[30px]">
+                {/*
+                  Set narrower than the line beneath it on purpose: the
+                  role is letterspaced wide, and a name that matches its
+                  width makes the pair read as two labels rather than as
+                  a name with its title under it. A little weight holds
+                  it up at the smaller size, and the line height leaves
+                  room for the descender in Surjith.
+                */}
+                <p className="mt-5 font-cormorant text-[22px] font-medium leading-[1.15] text-[#111111] md:mt-6 md:text-[26px]">
                   {journalFounder.name}
                 </p>
 
-                <p className="mt-3.5 text-[10px] uppercase tracking-[0.25em] text-black/45 md:text-[11px]">
+                <p className="mt-2 text-[10px] uppercase tracking-[0.25em] text-black/45 md:text-[11px]">
                   {journalFounder.role}
                 </p>
               </div>
