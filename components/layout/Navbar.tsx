@@ -128,9 +128,16 @@ export default function Navbar() {
                 Packages
               </a>
 
-              <a href="#" className="transition hover:text-white">
+              <Link
+                href="/journal"
+                className={`transition ${
+                  pathname.startsWith("/journal")
+                    ? "text-white"
+                    : "text-white/90 hover:text-white"
+                }`}
+              >
                 Journal
-              </a>
+              </Link>
 
               <Link
                 href="/about"
