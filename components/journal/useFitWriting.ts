@@ -12,11 +12,21 @@ import { RefObject, useEffect } from "react";
   than the room it had, and its heading sat under the navbar where nobody
   could ever see it.
 
-  Tuning the type small enough for the longest act would have made the
-  other five needlessly cramped, so instead every size and margin in the
-  block is a multiple of one number, and this measures the block and sets
-  that number. An act that fits is left alone at 1; only one that does
-  not is brought down, and only as far as it needs.
+  An act that fits is left alone entirely. One that does not is given
+  room in the order that costs the reading least, and the size of the
+  type is the last thing to give way, not the first:
+
+    1. The measure. The paragraphs are set narrower than the heading
+       above them, so there is width to be had without the block itself
+       getting any wider — the same silhouette, longer lines inside it.
+    2. The leading and the gaps, closed by up to a fifth. Perceptible
+       side by side, invisible one screen at a time. On a window short
+       enough that the block is fighting for every line, the measure is
+       allowed past the heading's width as well — silhouette matters
+       less than legibility once there is nothing else left to spend.
+    3. Only then the type, scaled down as a whole.
+
+  In practice the first two are enough and the third never runs.
 
   It aims a little short of the full height rather than at it. Filling
   the box exactly is what made the two long acts feel cramped next to
@@ -47,6 +57,12 @@ const WIDE = "(min-width: 768px)";
 const TRIGGER = { wide: 0.92, narrow: 1 };
 const TARGET = { wide: 0.9, narrow: 0.98 };
 
+/*
+  Coarse on purpose. Each step costs a layout, and the difference
+  between neighbouring steps is not something anyone can see.
+*/
+const STEPS = [0.34, 0.67, 1];
+
 const FLOOR = 0.72;
 
 export function useFitWriting(
@@ -63,7 +79,8 @@ export function useFitWriting(
 
     const fit = () => {
       // Measure at full size, or each pass would compound the last one.
-      text.style.setProperty("--j-fit", "1");
+      box.style.setProperty("--j-fit", "1");
+      box.style.setProperty("--j-t", "0");
 
       const style = getComputedStyle(box);
       const available =
@@ -80,9 +97,21 @@ export function useFitWriting(
 
       if (needed <= available * TRIGGER[room]) return;
 
-      text.style.setProperty(
+      const target = available * TARGET[room];
+
+      if (room === "wide") {
+        for (const step of STEPS) {
+          box.style.setProperty("--j-t", String(step));
+
+          // Reading it back forces the reflow, so this is the new height.
+          if (text.scrollHeight <= target) return;
+        }
+      }
+
+      // Everything else is spent and it is still over. Only now the type.
+      box.style.setProperty(
         "--j-fit",
-        Math.max(FLOOR, (available * TARGET[room]) / needed).toFixed(3)
+        Math.max(FLOOR, target / text.scrollHeight).toFixed(3)
       );
     };
 
