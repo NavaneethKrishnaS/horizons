@@ -8,52 +8,109 @@ import { useSceneProgress } from "./useSceneProgress";
 
 import { journalIntro } from "@/data/journal";
 
+const J = "/images/journal";
+
 export default function JournalHero() {
   const ref = useRef<HTMLElement>(null);
 
   useSceneProgress(ref);
 
   return (
-    <section
-      ref={ref}
-      className="relative flex min-h-lvh flex-col justify-center overflow-hidden bg-[#F4F2ED] pt-28"
-    >
-      {/*
-        Nothing sits above roughly a quarter down: the navbar lives there,
-        and an object crossing the logo reads as a mistake rather than as
-        composition.
-      */}
-      <SceneObject spec={{ x: 10, y: 34, size: 5, drift: -26, src: "/images/journal/star.webp" }} />
-      <SceneObject spec={{ x: 24, y: 54, size: 3, drift: -14, src: "/images/journal/sphere.webp" }} />
-      <SceneObject spec={{ x: 8, y: 74, size: 8, drift: -34, src: "/images/journal/pookkalam.webp" }} />
-      <SceneObject spec={{ x: 91, y: 32, size: 6, drift: -30, src: "/images/journal/star.webp" }} />
-      <SceneObject spec={{ x: 78, y: 58, size: 2.6, drift: -18, src: "/images/journal/sphere.webp" }} />
-      <SceneObject spec={{ x: 90, y: 74, size: 5, drift: -22, src: "/images/journal/lamp.webp" }} />
-      <SceneObject spec={{ x: 33, y: 28, size: 1.3, drift: -40, src: "/images/journal/beads.webp" }} />
-      <SceneObject spec={{ x: 67, y: 26, size: 1.3, drift: -46, src: "/images/journal/beads.webp" }} />
+    <section ref={ref} className="relative h-[220vh] bg-[#F4F2ED]">
+      <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden pt-20">
+        {/*
+          The room the page opens in. Nothing sits above roughly a third
+          down: the navbar lives there, and an object crossing the logo
+          reads as a mistake rather than as composition.
+        */}
+        <SceneObject
+          spec={{
+            ax: 10, ay: 36, size: 6, src: `${J}/star.webp`, depth: 0.9,
+            from: { y: 10, rotate: -30, opacity: 0.9 },
+            to: { y: -44, rotate: 30, opacity: 0 },
+          }}
+        />
+        <SceneObject
+          spec={{
+            ax: 90, ay: 33, size: 7, src: `${J}/star.webp`, depth: 1.1,
+            from: { y: 14, rotate: 20, opacity: 0.9 },
+            to: { y: -52, rotate: -26, opacity: 0 },
+          }}
+        />
+        <SceneObject
+          spec={{
+            ax: 24, ay: 56, size: 3, src: `${J}/sphere.webp`, depth: 0.6,
+            from: { y: 6, opacity: 1 },
+            to: { y: -30, opacity: 0 },
+          }}
+        />
+        <SceneObject
+          spec={{
+            ax: 77, ay: 60, size: 2.6, src: `${J}/sphere.webp`, depth: 0.5,
+            from: { y: 4, opacity: 1 },
+            to: { y: -24, opacity: 0 },
+          }}
+        />
+        <SceneObject
+          spec={{
+            ax: 8, ay: 76, size: 9, src: `${J}/rosette.webp`, depth: 0.7,
+            from: { y: 12, rotate: 0, opacity: 0.85 },
+            to: { y: -40, rotate: 45, opacity: 0 },
+          }}
+        />
+        <SceneObject
+          spec={{
+            ax: 91, ay: 76, size: 5, src: `${J}/lamp.webp`, depth: 0.8,
+            from: { y: 14, opacity: 0.9 },
+            to: { y: -42, opacity: 0 },
+          }}
+        />
+        <SceneObject
+          spec={{
+            ax: 33, ay: 22, size: 1.3, src: `${J}/beads.webp`, depth: 1.3,
+            from: { y: -4, opacity: 0.9 },
+            to: { y: -58, opacity: 0 },
+          }}
+        />
+        <SceneObject
+          spec={{
+            ax: 67, ay: 20, size: 1.3, src: `${J}/beads.webp`, depth: 1.5,
+            from: { y: -6, opacity: 0.9 },
+            to: { y: -66, opacity: 0 },
+          }}
+        />
 
-      <Arch>
-        <p className="text-center text-[10px] uppercase tracking-[0.4em] text-black/45">
-          {journalIntro.label}
-        </p>
+        {/* The arch recedes as the story starts. */}
+        <div
+          style={{
+            opacity: "calc(1 - var(--e, 0) * 1.4)",
+            transform: "scale(calc(1 - var(--e, 0) * 0.06))",
+          }}
+        >
+          <Arch>
+            <p className="text-center text-[10px] uppercase tracking-[0.4em] text-black/45">
+              {journalIntro.label}
+            </p>
 
-        <h1 className="mt-8 text-center font-cormorant text-[36px] font-light leading-[1.06] text-[#111111] sm:text-5xl md:text-[62px]">
-          {journalIntro.heading}
-        </h1>
+            <h1 className="mt-8 text-center font-cormorant text-[36px] font-light leading-[1.06] text-[#111111] sm:text-5xl md:text-[62px]">
+              {journalIntro.heading}
+            </h1>
 
-        <p className="mx-auto mt-8 max-w-lg text-center text-[14px] leading-7 text-black/60 md:text-[15px] md:leading-8">
-          {journalIntro.standfirst}
-        </p>
+            <p className="mx-auto mt-8 max-w-lg text-center text-[14px] leading-7 text-black/60 md:text-[15px] md:leading-8">
+              {journalIntro.standfirst}
+            </p>
 
-        <div className="mt-14 flex justify-center">
-          <span className="text-[10px] uppercase tracking-[0.35em] text-black/35">
-            Scroll
-          </span>
+            <div className="mt-14 flex justify-center">
+              <span className="text-[10px] uppercase tracking-[0.35em] text-black/35">
+                Scroll
+              </span>
+            </div>
+          </Arch>
         </div>
-      </Arch>
 
-      <div className="mt-16 md:mt-24">
-        <OrnamentBand />
+        <div className="absolute inset-x-0 bottom-0">
+          <OrnamentBand />
+        </div>
       </div>
     </section>
   );

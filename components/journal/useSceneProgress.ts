@@ -3,27 +3,25 @@
 import { RefObject, useEffect } from "react";
 
 /*
-  Writes a single number onto a section as the CSS variable --p: 0 when the
-  section's top reaches the bottom of the screen, 1 when its bottom leaves
-  the top. Objects inside then position themselves with calc() against it.
+  Publishes two numbers on the section as it passes through the screen:
 
-  One listener for the whole page, coalesced into one animation frame, and
-  one style write per section per frame. Everything downstream is a
-  transform, so the compositor does the rest — no layout, no paint. This is
-  the shape that scroll animation has to take on this site; the version that
-  read scrollHeight inside the scroll event is what made it stutter before.
+    --p  linear progress, 0 to 1
+    --e  the same eased, so entrances settle rather than arriving at a
+         constant speed
+
+  One listener for the page, coalesced into a single animation frame, and
+  one style write per section per frame. Everything downstream is a CSS
+  calc() on a transform, so no layout and no paint while scrolling.
 */
-export function useSceneProgress(
-  ref: RefObject<HTMLElement | null>,
-  enabled = true
-) {
+export function useSceneProgress(ref: RefObject<HTMLElement | null>) {
   useEffect(() => {
     const node = ref.current;
 
-    if (!node || !enabled) return;
+    if (!node) return;
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       node.style.setProperty("--p", "0.5");
+      node.style.setProperty("--e", "0.5");
       return;
     }
 
@@ -33,10 +31,16 @@ export function useSceneProgress(
       frame = 0;
 
       const rect = node.getBoundingClientRect();
-      const span = rect.height + window.innerHeight;
-      const progress = (window.innerHeight - rect.top) / span;
+      const span = rect.height - window.innerHeight;
 
-      node.style.setProperty("--p", String(Math.min(1, Math.max(0, progress))));
+      const raw = span > 0 ? -rect.top / span : 0;
+      const p = Math.min(1, Math.max(0, raw));
+
+      // easeInOutCubic
+      const e = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+
+      node.style.setProperty("--p", p.toFixed(4));
+      node.style.setProperty("--e", e.toFixed(4));
     };
 
     const onScroll = () => {
@@ -56,5 +60,5 @@ export function useSceneProgress(
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
-  }, [ref, enabled]);
+  }, [ref]);
 }

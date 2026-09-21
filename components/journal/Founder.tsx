@@ -78,6 +78,20 @@ export default function Founder() {
               {journalClosing.body}
             </p>
           </Reveal>
+
+          {/*
+            The tailpiece. The page has been Kerala's story; it signs off
+            with the mark, the way a printer closes a book.
+          */}
+          <Reveal delay={260}>
+            <Image
+              src="/images/journal/peacock.webp"
+              alt="The HORIZONS peacock"
+              width={760}
+              height={653}
+              className="mx-auto mt-20 h-auto w-[180px] md:mt-28 md:w-[240px]"
+            />
+          </Reveal>
         </div>
       </section>
     </>

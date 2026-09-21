@@ -2,96 +2,85 @@
 
 import Image from "next/image";
 
+/* Where an object is at one end of the shot. */
+export interface Keyframe {
+  /* Offset from the anchor, in viewport widths/heights. */
+  x?: number;
+  y?: number;
+  scale?: number;
+  rotate?: number;
+  opacity?: number;
+}
+
 export interface SceneObjectSpec {
-  /* Where it sits, in percentages of the scene. */
-  x: number;
-  y: number;
+  /* Anchor, as a percentage of the scene. */
+  ax: number;
+  ay: number;
 
   /* Width as a percentage of the scene's width. */
   size: number;
 
-  /* How far it travels vertically across the scene, in vh. Negative rises. */
-  drift: number;
+  /* The shot: where it comes from and where it goes. */
+  from: Keyframe;
+  to: Keyframe;
 
-  /* Degrees of rotation across the scene. */
-  spin?: number;
+  src: string;
 
-  src?: string;
-  alt?: string;
-
-  /* Placeholder shape used until the engraving exists. */
-  shape?: "disc" | "star" | "ring" | "beads";
+  /* Objects further back move less and sit paler, which reads as depth. */
+  depth?: number;
 }
 
+const value = (frame: Keyframe, key: keyof Keyframe, fallback: number) =>
+  frame[key] ?? fallback;
+
 /*
-  A single floating object. Its position is derived from the scene's --p, so
-  it moves as one transform per frame and never triggers layout.
+  Every object is a single element whose transform is written entirely in
+  CSS, interpolated against the --e the scene publishes each frame. Nothing
+  here runs JavaScript while scrolling: the browser is only re-evaluating a
+  calc() on the compositor, which is why a dozen of these cost nothing.
 */
 export default function SceneObject({ spec }: { spec: SceneObjectSpec }) {
-  const { x, y, size, drift, spin = 0, src, alt, shape = "disc" } = spec;
+  const { ax, ay, size, from, to, src, depth = 1 } = spec;
+
+  const x0 = value(from, "x", 0) * depth;
+  const x1 = value(to, "x", 0) * depth;
+  const y0 = value(from, "y", 0) * depth;
+  const y1 = value(to, "y", 0) * depth;
+  const s0 = value(from, "scale", 1);
+  const s1 = value(to, "scale", 1);
+  const r0 = value(from, "rotate", 0);
+  const r1 = value(to, "rotate", 0);
+  const o0 = value(from, "opacity", 1);
+  const o1 = value(to, "opacity", 1);
+
+  const lerp = (a: number, b: number, unit: string) =>
+    `calc((${a} + (${b} - ${a}) * var(--e, 0)) * 1${unit})`;
 
   return (
     <div
       aria-hidden
       className="pointer-events-none absolute"
       style={{
-        left: `${x}%`,
-        top: `${y}%`,
+        left: `${ax}%`,
+        top: `${ay}%`,
         width: `${size}%`,
-        transform: `translate3d(-50%, calc(-50% + var(--p, 0) * ${drift}vh), 0) rotate(calc(var(--p, 0) * ${spin}deg))`,
-        willChange: "transform",
+        opacity: `calc(${o0} + (${o1} - ${o0}) * var(--e, 0))`,
+        transform: [
+          "translate(-50%, -50%)",
+          `translate3d(${lerp(x0, x1, "vw")}, ${lerp(y0, y1, "vh")}, 0)`,
+          `scale(calc(${s0} + (${s1} - ${s0}) * var(--e, 0)))`,
+          `rotate(${lerp(r0, r1, "deg")})`,
+        ].join(" "),
+        willChange: "transform, opacity",
       }}
     >
-      {src ? (
-        <Image
-          src={src}
-          alt={alt ?? ""}
-          width={600}
-          height={600}
-          className="h-auto w-full select-none"
-        />
-      ) : (
-        <Placeholder shape={shape} />
-      )}
+      <Image
+        src={src}
+        alt=""
+        width={760}
+        height={760}
+        className="h-auto w-full select-none"
+      />
     </div>
-  );
-}
-
-/*
-  Stand-ins so the motion can be judged before the artwork exists. Drawn as
-  inline SVG with a stipple filter, which is roughly the register the real
-  engravings will sit in.
-*/
-function Placeholder({ shape }: { shape: NonNullable<SceneObjectSpec["shape"]> }) {
-  const common = { fill: "#111111", stroke: "none" };
-
-  return (
-    <svg viewBox="0 0 100 100" className="h-auto w-full opacity-80">
-      {shape === "disc" && <circle cx="50" cy="50" r="42" {...common} />}
-
-      {shape === "ring" && (
-        <>
-          <circle cx="50" cy="50" r="46" fill="none" stroke="#111111" strokeWidth="1.5" />
-          <circle cx="50" cy="50" r="34" fill="none" stroke="#111111" strokeWidth="1" />
-          <circle cx="50" cy="50" r="22" fill="none" stroke="#111111" strokeWidth="0.6" />
-        </>
-      )}
-
-      {shape === "star" && (
-        <path
-          d="M50 2 L58 38 L96 50 L58 62 L50 98 L42 62 L4 50 L42 38 Z"
-          {...common}
-        />
-      )}
-
-      {shape === "beads" && (
-        <>
-          <line x1="50" y1="0" x2="50" y2="100" stroke="#111111" strokeWidth="0.8" />
-          {[14, 34, 54, 74, 92].map((cy, i) => (
-            <circle key={cy} cx="50" cy={cy} r={6 - i * 0.7} {...common} />
-          ))}
-        </>
-      )}
-    </svg>
   );
 }
