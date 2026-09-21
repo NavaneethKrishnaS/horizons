@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import Plate from "./Plate";
 import Reveal from "./Reveal";
 import Tailpiece from "./Tailpiece";
 
@@ -10,13 +11,13 @@ export default function Founder() {
     <>
       <section className="border-t border-black/10 bg-[#F4F2ED] py-16 md:py-28">
         <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-[0.85fr_1fr] lg:gap-20">
-          <Reveal>
-            {/*
-              No crop box and no frame: the plate is drawn on the same
-              paper the page is printed on, and its lower edge is faded
-              into it, so a border would only put it back in a box.
-            */}
-            <div className="mx-auto w-[74%] max-w-[360px] lg:w-full lg:max-w-none">
+          {/*
+            No crop box and no frame: the plate is drawn on the same paper
+            the page is printed on, and its lower edge is faded into it,
+            so a border would only put it back in a box.
+          */}
+          <div className="mx-auto w-[74%] max-w-[360px] lg:w-full lg:max-w-none">
+            <Plate>
               <Image
                 src={journalFounder.image.src}
                 alt={journalFounder.image.alt}
@@ -25,12 +26,15 @@ export default function Founder() {
                 sizes="(max-width: 1024px) 74vw, 40vw"
                 className="h-auto w-full"
               />
+            </Plate>
 
-              {/*
-                Pulled up, because the plate's lower edge is faded and the
-                image box carries on past where the ink stops.
-              */}
-              <div className="mt-1 text-center md:-mt-6">
+            {/*
+              The caption waits for the ink to finish. Its margin is pulled
+              up because the plate's lower edge is faded and the image box
+              carries on past where the ink stops.
+            */}
+            <Reveal delay={1100} className="mt-1 md:-mt-6">
+              <div className="text-center">
                 <p className="text-[15px] text-[#111111] md:text-[16px]">
                   {journalFounder.name}
                 </p>
@@ -39,8 +43,8 @@ export default function Founder() {
                   {journalFounder.role}
                 </p>
               </div>
-            </div>
-          </Reveal>
+            </Reveal>
+          </div>
 
           <div>
             <Reveal>

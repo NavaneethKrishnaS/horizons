@@ -23,6 +23,21 @@ const APPEAR_AFTER_MS = 260;
 // Once it appears it stays long enough for the bird to finish opening.
 const MINIMUM_VISIBLE_MS = 720;
 
+/*
+  Two pages that are different worlds need a beat between them whether or
+  not there is anything to load. The Journal is printed paper; the rest of
+  the site is charcoal. Cutting straight from one to the other reads as a
+  flash rather than as a change of scene, so crossing that line always
+  gets the curtain, and gets it for a little longer — long enough for the
+  bird to open properly and for the eye to let go of the page it left.
+*/
+const SEPARATE_WORLD = /^\/journal(\/|$)/;
+
+const crossesWorlds = (from: string, to: string) =>
+  SEPARATE_WORLD.test(from) !== SEPARATE_WORLD.test(to);
+
+const CROSSING_MINIMUM_MS = 1150;
+
 // Nothing should ever trap the visitor behind the curtain. If a navigation is
 // cancelled or fails, it lifts anyway.
 const MAXIMUM_VISIBLE_MS = 8000;
@@ -51,6 +66,7 @@ export default function RouteTransition() {
   const shownAt = useRef(0);
   const destination = useRef<string | null>(null);
   const appearTimer = useRef<number | undefined>(undefined);
+  const minimumMs = useRef(MINIMUM_VISIBLE_MS);
 
   // Arm the curtain the moment an internal link is clicked.
   useEffect(() => {
@@ -94,15 +110,23 @@ export default function RouteTransition() {
 
       destination.current = url.pathname;
 
+      const crossing = crossesWorlds(window.location.pathname, url.pathname);
+
+      minimumMs.current = crossing ? CROSSING_MINIMUM_MS : MINIMUM_VISIBLE_MS;
+
       window.clearTimeout(appearTimer.current);
 
-      appearTimer.current = window.setTimeout(() => {
-        // Still waiting when the delay elapsed — show the curtain.
-        if (destination.current) {
-          shownAt.current = Date.now();
-          setPhase("showing");
-        }
-      }, APPEAR_AFTER_MS);
+      appearTimer.current = window.setTimeout(
+        () => {
+          // Still waiting when the delay elapsed — show the curtain. On a
+          // crossing the delay is zero, so it is already up by now.
+          if (destination.current) {
+            shownAt.current = Date.now();
+            setPhase("showing");
+          }
+        },
+        crossing ? 0 : APPEAR_AFTER_MS
+      );
     };
 
     /*
@@ -154,7 +178,7 @@ export default function RouteTransition() {
 
     const remaining = Math.max(
       0,
-      MINIMUM_VISIBLE_MS - (Date.now() - shownAt.current)
+      minimumMs.current - (Date.now() - shownAt.current)
     );
 
     const leave = setTimeout(() => setPhase("leaving"), remaining);
