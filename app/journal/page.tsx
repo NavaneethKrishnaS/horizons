@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 
 import JournalHero from "@/components/journal/JournalHero";
-import Chapter from "@/components/journal/Chapter";
+import Scene from "@/components/journal/Scene";
 import Founder from "@/components/journal/Founder";
 
 import { journalChapters } from "@/data/journal";
+import { sceneObjects } from "@/components/journal/sceneLayouts";
 
 export const metadata: Metadata = {
   title: "The Journal | HORIZONS by Scenic Escapes",
@@ -14,11 +15,19 @@ export const metadata: Metadata = {
 
 export default function JournalPage() {
   return (
-    <main className="bg-[#111111]">
+    <main className="bg-[#F4F2ED]">
       <JournalHero />
 
-      {journalChapters.map((chapter, index) => (
-        <Chapter key={chapter.id} chapter={chapter} index={index} />
+      {journalChapters.map((chapter) => (
+        <Scene
+          key={chapter.id}
+          label={chapter.label}
+          heading={chapter.heading}
+          objects={sceneObjects[chapter.id] ?? []}
+          body={chapter.paragraphs.map((paragraph) => (
+            <p key={paragraph.slice(0, 24)}>{paragraph}</p>
+          ))}
+        />
       ))}
 
       <Founder />

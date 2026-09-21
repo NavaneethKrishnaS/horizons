@@ -11,6 +11,22 @@ import { AnimatePresence, motion } from "framer-motion";
 export default function Navbar() {
   const pathname = usePathname();
 
+  /*
+    The Journal is printed on paper rather than shot at night, so the navbar
+    has to invert over it — white type on cream is invisible.
+  */
+  const onPaper = pathname.startsWith("/journal");
+
+  const active = (href: string) => {
+    const isHere = pathname.startsWith(href);
+
+    if (onPaper) {
+      return isHere ? "text-black" : "text-black/70 hover:text-black";
+    }
+
+    return isHere ? "text-white" : "text-white/90 hover:text-white";
+  };
+
   const [scrolled, setScrolled] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [closeTimeout, setCloseTimeout] = useState<NodeJS.Timeout | null>(null);
@@ -80,7 +96,9 @@ export default function Navbar() {
         */
         className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-500 ${
           scrolled
-            ? "border-white/5 bg-[#2F3522]/55 py-5 backdrop-blur-3xl"
+            ? onPaper
+              ? "border-black/10 bg-[#F4F2ED]/80 py-5 backdrop-blur-xl"
+              : "border-white/5 bg-[#2F3522]/55 py-5 backdrop-blur-3xl"
             : "border-transparent bg-transparent py-8"
         }`}
       >
@@ -93,59 +111,51 @@ export default function Navbar() {
                 alt="HORIZONS"
                 className={`w-auto transition-all duration-500 ${
                   scrolled ? "h-11" : "h-14"
-                }`}
+                } ${onPaper ? "invert" : ""}`}
               />
             </Link>
 
             {/* Navigation */}
-            <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-16 text-[15px] font-light text-white/90 md:flex">
+            <div
+              className={`absolute left-1/2 hidden -translate-x-1/2 items-center gap-16 text-[15px] font-light md:flex ${
+                onPaper ? "text-black/70" : "text-white/90"
+              }`}
+            >
               {/* Destinations */}
               <div
                 onMouseEnter={() => openMenu("Destinations")}
                 onMouseLeave={closeMenu}
               >
-                <button className="transition hover:text-white">
+                <button className={`transition ${onPaper ? "hover:text-black" : "hover:text-white"}`}>
                   Destinations
                 </button>
               </div>
 
               <Link
                 href="/houseboats"
-                className={`transition ${
-                  pathname.startsWith("/houseboats")
-                    ? "text-white"
-                    : "text-white/90 hover:text-white"
-                }`}
+                className={`transition ${active("/houseboats")}`}
               >
                 Houseboats
               </Link>
 
-              <a href="#" className="transition hover:text-white">
+              <a href="#" className={`transition ${onPaper ? "hover:text-black" : "hover:text-white"}`}>
                 Stays
               </a>
 
-              <a href="#" className="transition hover:text-white">
+              <a href="#" className={`transition ${onPaper ? "hover:text-black" : "hover:text-white"}`}>
                 Packages
               </a>
 
               <Link
                 href="/journal"
-                className={`transition ${
-                  pathname.startsWith("/journal")
-                    ? "text-white"
-                    : "text-white/90 hover:text-white"
-                }`}
+                className={`transition ${active("/journal")}`}
               >
                 Journal
               </Link>
 
               <Link
                 href="/about"
-                className={`transition ${
-                  pathname.startsWith("/about")
-                    ? "text-white"
-                    : "text-white/90 hover:text-white"
-                }`}
+                className={`transition ${active("/about")}`}
               >
                 About
               </Link>
@@ -156,7 +166,9 @@ export default function Navbar() {
               {/* CTA — desktop only; on mobile it lives inside the menu */}
               <Link
                 href="/houseboats"
-                className="group hidden items-center gap-2 text-[15px] font-light text-white md:flex"
+                className={`group hidden items-center gap-2 text-[15px] font-light md:flex ${
+                  onPaper ? "text-black" : "text-white"
+                }`}
               >
                 <span>Check Availability</span>
 
