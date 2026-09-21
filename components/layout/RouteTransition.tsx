@@ -158,20 +158,33 @@ export default function RouteTransition() {
     );
 
     const leave = setTimeout(() => setPhase("leaving"), remaining);
-    const remove = setTimeout(
-      () => setPhase("hidden"),
-      remaining + EXIT_TOTAL_MS
-    );
 
-    return () => {
-      clearTimeout(leave);
-      clearTimeout(remove);
-    };
+    return () => clearTimeout(leave);
   }, [pathname, phase]);
 
-  // Failsafe.
+  /*
+    Unmounting gets an effect of its own, and this matters.
+
+    Both timers used to live in the effect above, which depends on `phase`.
+    So the moment the first timer set the phase to "leaving", that effect
+    re-ran — and its cleanup cancelled the second timer before it could fire.
+    The curtain never reached "hidden". It stayed mounted at z-2000, fully
+    transparent and covering the entire viewport, swallowing every tap on the
+    page while scrolling still chained through to the page underneath. After
+    one navigation, nothing on the site was clickable again.
+  */
   useEffect(() => {
-    if (phase !== "showing") return;
+    if (phase !== "leaving") return;
+
+    const remove = setTimeout(() => setPhase("hidden"), EXIT_TOTAL_MS);
+
+    return () => clearTimeout(remove);
+  }, [phase]);
+
+  // Failsafe, covering both visible phases rather than just "showing" — the
+  // stuck state above was one the old failsafe could not reach.
+  useEffect(() => {
+    if (phase === "hidden") return;
 
     const timeout = setTimeout(() => {
       destination.current = null;
@@ -196,6 +209,9 @@ export default function RouteTransition() {
         background:
           "radial-gradient(85% 65% at 50% 50%, #0b0b0b 0%, #000000 62%)",
         opacity: isLeaving ? 0 : 1,
+        // Whatever happens to the timers, a fading curtain does not take
+        // taps with it.
+        pointerEvents: isLeaving ? "none" : "auto",
         transition: isLeaving
           ? `opacity ${VEIL_EXIT_MS}ms ease-out ${VEIL_EXIT_DELAY_MS}ms`
           : "opacity 180ms ease-out",
