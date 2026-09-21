@@ -4,6 +4,7 @@ import { ReactNode, useRef } from "react";
 
 import SceneObject, { SceneObjectSpec } from "./SceneObject";
 import { useSceneProgress } from "./useSceneProgress";
+import { useFitWriting } from "./useFitWriting";
 
 interface SceneProps {
   label: string;
@@ -23,18 +24,30 @@ interface SceneProps {
   Sticky costs nothing — the browser keeps the pinned layer in place on the
   compositor. Nothing here runs per frame except the single variable the
   section publishes.
+
+  The pinned box is one small viewport tall, not one large one. On a phone
+  those differ by the height of the browser's own bars, and using the
+  large one meant the bottom of every act was behind the address bar. The
+  padding at the top is the site's navbar: the box still fills the screen,
+  but the writing centres in what is left under it.
 */
 export default function Scene({ label, heading, body, objects }: SceneProps) {
   const ref = useRef<HTMLElement>(null);
+  const boxRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
 
   useSceneProgress(ref);
+  useFitWriting(boxRef, textRef);
 
   return (
     <section
       ref={ref}
       className="relative h-[300vh] border-t border-black/10 bg-[#F4F2ED]"
     >
-      <div className="sticky top-0 flex h-screen items-center overflow-hidden">
+      <div
+        ref={boxRef}
+        className="sticky top-0 flex h-svh items-center overflow-hidden pt-[88px] md:pt-0"
+      >
         {objects.map((spec, index) => (
           <SceneObject key={`${spec.src}-${index}`} spec={spec} />
         ))}
@@ -44,28 +57,27 @@ export default function Scene({ label, heading, body, objects }: SceneProps) {
           so each act has a beginning and an end rather than simply sitting
           there while the pictures move.
         */}
-        <div className="relative mx-auto w-full max-w-2xl px-6 text-center">
+        <div className="relative mx-auto w-full max-w-2xl px-5 text-center md:px-6">
           <div aria-hidden className="j-wash" />
 
           <div
-            className="relative"
+            ref={textRef}
+            className="j-writing relative"
             style={{
               opacity: "clamp(0, calc(var(--p, 0) * 6), 1)",
               transform:
                 "translate3d(0, calc((1 - clamp(0, calc(var(--p, 0) * 6), 1)) * 24px), 0)",
             }}
           >
-            <p className="text-[10px] uppercase tracking-[0.4em] text-black/45">
+            <p className="j-label uppercase tracking-[0.4em] text-black/45">
               {label}
             </p>
 
-            <h2 className="mt-6 font-cormorant text-[34px] font-light leading-[1.08] text-[#111111] sm:text-5xl md:text-[58px]">
+            <h2 className="font-cormorant font-light text-[#111111]">
               {heading}
             </h2>
 
-            <div className="mx-auto mt-8 max-w-xl space-y-5 text-[14px] leading-7 text-black/60 md:text-[15px] md:leading-8">
-              {body}
-            </div>
+            <div className="j-body mx-auto max-w-xl text-black/60">{body}</div>
           </div>
         </div>
       </div>

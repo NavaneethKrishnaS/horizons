@@ -22,6 +22,62 @@ export default function SceneStyles() {
         width: var(--j-w);
       }
 
+      /*
+        Every size and margin in an act's writing is a multiple of one
+        number, so that useFitWriting can bring a block that is taller
+        than its pinned screen down to fit by setting that one number.
+        Line heights are unitless and follow their font size on their
+        own. Nothing here is a Tailwind class, because a class cannot be
+        scaled by a variable at run time.
+      */
+      .j-writing {
+        --j-fit: 1;
+      }
+
+      .j-writing .j-label {
+        font-size: calc(10px * var(--j-fit));
+      }
+
+      .j-writing h2 {
+        margin-top: calc(18px * var(--j-fit));
+        font-size: calc(30px * var(--j-fit));
+        line-height: 1.12;
+      }
+
+      .j-writing .j-body {
+        margin-top: calc(24px * var(--j-fit));
+        font-size: calc(14.5px * var(--j-fit));
+        line-height: 1.66;
+      }
+
+      .j-writing .j-body p + p {
+        margin-top: calc(18px * var(--j-fit));
+      }
+
+      @media (min-width: 640px) {
+        .j-writing h2 {
+          font-size: calc(48px * var(--j-fit));
+        }
+      }
+
+      @media (min-width: 768px) {
+        .j-writing h2 {
+          margin-top: calc(24px * var(--j-fit));
+          font-size: calc(58px * var(--j-fit));
+          line-height: 1.08;
+        }
+
+        .j-writing .j-body {
+          margin-top: calc(32px * var(--j-fit));
+          font-size: calc(15px * var(--j-fit));
+          line-height: 2.133;
+        }
+
+        .j-writing .j-body p + p {
+          margin-top: calc(20px * var(--j-fit));
+        }
+      }
+
       @media (max-width: 767px) {
         .j-object {
           top: var(--j-y-phone);
