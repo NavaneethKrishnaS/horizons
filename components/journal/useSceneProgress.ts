@@ -8,18 +8,23 @@ import { RefObject, useEffect } from "react";
     --p  progress, 0 to 1
     --e  the same eased
 
-  Two things make this feel like film rather than like a scrollbar.
+  Three things make this feel like film rather than like a scrollbar.
 
   The value is damped. Each frame it moves a fraction of the way toward
-  where the scroll actually is, rather than jumping straight there. A
-  trackpad delivers scroll in coarse, uneven steps; following them exactly
-  is what makes scroll-driven motion look mechanical. Chasing them smooths
-  the steps out without touching native scrolling at all — no scroll
-  hijacking, no broken trackpad momentum, no accessibility cost.
+  where the scroll actually is, rather than jumping straight there. A wheel
+  or a trackpad delivers scroll in coarse, uneven steps; following them
+  exactly is what makes scroll-driven motion look mechanical. Chasing them
+  smooths the steps out without touching native scrolling at all — no
+  scroll hijacking, no broken trackpad momentum, no accessibility cost.
 
-  And the loop only runs for sections actually on screen. An observer
-  starts and stops it, so at most two sections are doing any work; the
-  other four cost nothing.
+  Nothing is measured while scrolling. The section's position is taken
+  once and re-taken only when the layout actually changes, so the frame
+  loop never asks the browser to lay the page out mid-scroll — which is
+  the usual reason a scroll-driven page stutters.
+
+  And the loop only runs for sections on screen. An observer starts and
+  stops it, so at most two sections are doing any work; the rest cost
+  nothing.
 */
 
 // How far the value closes on the target in one 60Hz frame. Lower is
@@ -47,11 +52,20 @@ export function useSceneProgress(ref: RefObject<HTMLElement | null>) {
     let onScreen = false;
     let current = -1;
     let last = 0;
+    let written = -1;
+
+    // Where the section sits in the document, and how much scrolling it
+    // takes to cross. Measured outside the frame loop.
+    let top = 0;
+    let span = 1;
+
+    const measure = () => {
+      top = node.getBoundingClientRect().top + window.scrollY;
+      span = Math.max(1, node.offsetHeight - window.innerHeight);
+    };
 
     const targetNow = () => {
-      const rect = node.getBoundingClientRect();
-      const span = rect.height - window.innerHeight;
-      const raw = span > 0 ? -rect.top / span : 0;
+      const raw = (window.scrollY - top) / span;
 
       return Math.min(1, Math.max(0, raw));
     };
@@ -62,6 +76,7 @@ export function useSceneProgress(ref: RefObject<HTMLElement | null>) {
 
       node.style.setProperty("--p", p.toFixed(4));
       node.style.setProperty("--e", e.toFixed(4));
+      written = p;
     };
 
     const tick = (now: number) => {
@@ -72,13 +87,12 @@ export function useSceneProgress(ref: RefObject<HTMLElement | null>) {
 
       last = now;
 
-      const follow = 1 - Math.pow(1 - FOLLOW, dt / FRAME);
-
-      current += (target - current) * follow;
+      current += (target - current) * (1 - Math.pow(1 - FOLLOW, dt / FRAME));
 
       if (Math.abs(target - current) < SETTLED) current = target;
 
-      write(current);
+      // Skip the style write when nothing visible would change.
+      if (Math.abs(current - written) >= 0.00005) write(current);
 
       // Keep going while it is on screen, or while it is still catching up.
       if (onScreen || Math.abs(target - current) >= SETTLED) {
@@ -96,6 +110,7 @@ export function useSceneProgress(ref: RefObject<HTMLElement | null>) {
     };
 
     // Land on the right value immediately rather than sliding in from zero.
+    measure();
     current = targetNow();
     write(current);
 
@@ -110,18 +125,31 @@ export function useSceneProgress(ref: RefObject<HTMLElement | null>) {
 
     observer.observe(node);
 
-    const onResize = () => {
-      current = targetNow();
-      write(current);
+    // The page grows as artwork loads and fonts settle; remeasure then
+    // rather than every frame.
+    const remeasure = () => {
+      measure();
+
+      if (onScreen) start();
+      else {
+        current = targetNow();
+        write(current);
+      }
     };
 
-    window.addEventListener("resize", onResize);
+    const resize = new ResizeObserver(remeasure);
+
+    resize.observe(document.documentElement);
+    resize.observe(node);
+
+    window.addEventListener("resize", remeasure);
 
     return () => {
       if (frame) cancelAnimationFrame(frame);
 
       observer.disconnect();
-      window.removeEventListener("resize", onResize);
+      resize.disconnect();
+      window.removeEventListener("resize", remeasure);
     };
   }, [ref]);
 }
