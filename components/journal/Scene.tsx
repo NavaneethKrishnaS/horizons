@@ -45,7 +45,10 @@ export default function Scene({ label, heading, body, objects }: SceneProps) {
           there while the pictures move.
         */}
         <div className="relative mx-auto w-full max-w-2xl px-6 text-center">
+          <div aria-hidden className="j-wash" />
+
           <div
+            className="relative"
             style={{
               opacity: "clamp(0, calc(var(--p, 0) * 6), 1)",
               transform:

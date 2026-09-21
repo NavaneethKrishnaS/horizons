@@ -25,6 +25,20 @@ export default function Founder() {
                 sizes="(max-width: 1024px) 74vw, 40vw"
                 className="h-auto w-full"
               />
+
+              {/*
+                Pulled up, because the plate's lower edge is faded and the
+                image box carries on past where the ink stops.
+              */}
+              <div className="mt-1 text-center md:-mt-6">
+                <p className="text-[15px] text-[#111111] md:text-[16px]">
+                  {journalFounder.name}
+                </p>
+
+                <p className="mt-1.5 text-[10px] uppercase tracking-[0.25em] text-black/45 md:text-[11px]">
+                  {journalFounder.role}
+                </p>
+              </div>
             </div>
           </Reveal>
 
@@ -59,15 +73,6 @@ export default function Founder() {
               </blockquote>
             </Reveal>
 
-            <Reveal delay={160}>
-              <div className="mt-10 border-t border-black/15 pt-6 md:mt-14">
-                <p className="text-[16px] text-[#111111]">{journalFounder.name}</p>
-
-                <p className="mt-1 text-[12px] uppercase tracking-[0.2em] text-black/45">
-                  {journalFounder.role}
-                </p>
-              </div>
-            </Reveal>
           </div>
         </div>
       </section>
