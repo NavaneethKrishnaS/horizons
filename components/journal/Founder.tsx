@@ -33,13 +33,24 @@ export default function Founder() {
               up because the plate's lower edge is faded and the image box
               carries on past where the ink stops.
             */}
-            <Reveal delay={1100} className="mt-1 md:-mt-6">
+            <Reveal delay={1100} className="mt-3 md:mt-1">
               <div className="text-center">
-                <p className="text-[15px] text-[#111111] md:text-[16px]">
+                {/*
+                  A hairline the width of a signature, then the name in
+                  the page's own face. Set in the body sans it read as a
+                  credit line on a form; the plate above it is engraving
+                  and the caption should be of a piece with it.
+                */}
+                <span
+                  aria-hidden
+                  className="mx-auto block h-px w-10 bg-[#111111]/20"
+                />
+
+                <p className="mt-5 font-cormorant text-[24px] font-light leading-none text-[#111111] md:text-[30px]">
                   {journalFounder.name}
                 </p>
 
-                <p className="mt-1.5 text-[10px] uppercase tracking-[0.25em] text-black/45 md:text-[11px]">
+                <p className="mt-3.5 text-[10px] uppercase tracking-[0.25em] text-black/45 md:text-[11px]">
                   {journalFounder.role}
                 </p>
               </div>
