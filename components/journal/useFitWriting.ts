@@ -18,10 +18,11 @@ import { RefObject, useEffect } from "react";
   that number. An act that fits is left alone at 1; only one that does
   not is brought down, and only as far as it needs.
 
-  The floor is there because past a point the honest answer is that the
-  act is too long for the screen, not that the type should be smaller.
+  The floor is low because clipping is never the better outcome: small
+  type you can read beats a heading you cannot reach. It is only ever
+  approached on a window short enough that nothing would have fitted.
 */
-const FLOOR = 0.8;
+const FLOOR = 0.72;
 
 export function useFitWriting(
   boxRef: RefObject<HTMLElement | null>,

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Container from "@/components/ui/Container";
@@ -28,6 +28,35 @@ export default function Navbar() {
   };
 
   const [scrolled, setScrolled] = useState(false);
+
+  /*
+    The bar is fixed, so it sits over the page rather than in it, and any
+    layout that has to centre something in the part of the screen you can
+    actually see needs to know how tall it is. It changes with the
+    breakpoint and again when the page scrolls, so it is measured rather
+    than guessed, and published for CSS to read.
+  */
+  const barRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const node = barRef.current;
+
+    if (!node) return;
+
+    const publish = () =>
+      document.documentElement.style.setProperty(
+        "--horizons-nav",
+        `${Math.round(node.getBoundingClientRect().height)}px`
+      );
+
+    publish();
+
+    const observer = new ResizeObserver(publish);
+
+    observer.observe(node);
+
+    return () => observer.disconnect();
+  }, []);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [closeTimeout, setCloseTimeout] = useState<NodeJS.Timeout | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -89,6 +118,7 @@ export default function Navbar() {
   return (
     <>
       <nav
+        ref={barRef}
         /*
           One resting height for every page. Home used to sit at py-8 and
           every other page at py-6, so moving between them animated a 16px

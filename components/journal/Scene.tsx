@@ -27,9 +27,13 @@ interface SceneProps {
 
   The pinned box is one small viewport tall, not one large one. On a phone
   those differ by the height of the browser's own bars, and using the
-  large one meant the bottom of every act was behind the address bar. The
-  padding at the top is the site's navbar: the box still fills the screen,
-  but the writing centres in what is left under it.
+  large one meant the bottom of every act was behind the address bar.
+
+  The stage also carries the navbar's height as padding, at every width.
+  The bar is fixed, so it covers the top of the box; without this the
+  writing centres behind it. That is not a phone problem — a desktop
+  window only has to be short enough and the heading goes under the bar
+  there too.
 */
 export default function Scene({ label, heading, body, objects }: SceneProps) {
   const ref = useRef<HTMLElement>(null);
@@ -46,7 +50,7 @@ export default function Scene({ label, heading, body, objects }: SceneProps) {
     >
       <div
         ref={boxRef}
-        className="sticky top-0 flex h-svh items-center overflow-hidden pt-[88px] md:pt-0"
+        className="j-stage sticky top-0 flex h-svh items-center overflow-hidden"
       >
         {objects.map((spec, index) => (
           <SceneObject key={`${spec.src}-${index}`} spec={spec} />
@@ -57,7 +61,7 @@ export default function Scene({ label, heading, body, objects }: SceneProps) {
           so each act has a beginning and an end rather than simply sitting
           there while the pictures move.
         */}
-        <div className="relative mx-auto w-full max-w-2xl px-5 text-center md:px-6">
+        <div className="j-column relative mx-auto w-full max-w-2xl px-5 text-center md:px-6">
           <div aria-hidden className="j-wash" />
 
           <div

@@ -17,6 +17,17 @@
 export default function SceneStyles() {
   return (
     <style>{`
+      /*
+        The navbar is fixed and therefore covers the top of every pinned
+        stage. Its measured height is published by the navbar itself; the
+        fallback is only for the first paint. The artwork is positioned
+        against the padding box and so is not moved by this — only the
+        writing is, which is the point.
+      */
+      .j-stage {
+        padding-top: var(--horizons-nav, 88px);
+      }
+
       .j-object {
         top: var(--j-y);
         width: var(--j-w);
@@ -75,6 +86,22 @@ export default function SceneStyles() {
 
         .j-writing .j-body p + p {
           margin-top: calc(20px * var(--j-fit));
+        }
+      }
+
+      /*
+        A window that is wide but short has horizontal room going spare
+        and none to spare vertically. Spending the width buys back lines,
+        which is cheaper than shrinking the type to fit: a wider measure
+        at a readable size beats a narrow one at nine pixels.
+      */
+      @media (min-width: 768px) and (max-height: 700px) {
+        .j-column {
+          max-width: 64rem;
+        }
+
+        .j-writing .j-body {
+          max-width: 52rem;
         }
       }
 
