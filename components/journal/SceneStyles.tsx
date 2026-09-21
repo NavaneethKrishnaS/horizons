@@ -9,9 +9,10 @@
   added to globals.css in this project have twice failed to reach the
   browser.
 
-  On a phone the artwork also sits back a little. It is nearly twice the
-  size there relative to the screen, and at full strength it would be
-  competing with the writing rather than surrounding it.
+  On a phone the artwork keeps almost all of its weight. Holding it back
+  far enough to protect the writing made it look washed out and wrong;
+  the wash under the text does that job instead, only where it is
+  actually needed.
 */
 export default function SceneStyles() {
   return (
@@ -25,7 +26,7 @@ export default function SceneStyles() {
         .j-object {
           top: var(--j-y-phone);
           width: var(--j-w-phone);
-          --j-fade: 0.55;
+          --j-fade: 0.92;
         }
 
         /*
@@ -40,8 +41,8 @@ export default function SceneStyles() {
           inset: -10% -8%;
           background: radial-gradient(
             62% 52% at 50% 50%,
-            rgba(244, 242, 237, 0.92) 0%,
-            rgba(244, 242, 237, 0.78) 48%,
+            rgba(244, 242, 237, 0.95) 0%,
+            rgba(244, 242, 237, 0.86) 48%,
             rgba(244, 242, 237, 0) 100%
           );
           pointer-events: none;
