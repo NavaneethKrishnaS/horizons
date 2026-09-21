@@ -172,21 +172,6 @@ export default function PackageDetail({ tour }: { tour: TourPackage }) {
             {group ? (
               <p className="mt-4 text-[12px] text-white/25">{group.label}</p>
             ) : null}
-
-            {tour.credit ? (
-              <p className="mt-6 text-[11px] text-white/20">
-                Photograph by{" "}
-                <a
-                  href={tour.credit.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline underline-offset-2 transition-colors hover:text-white/40"
-                >
-                  {tour.credit.photographer}
-                </a>{" "}
-                on Unsplash
-              </p>
-            ) : null}
           </div>
         </Container>
       </section>

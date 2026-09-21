@@ -85,8 +85,12 @@ export interface TourPackage {
   image: string;
   imageAlt: string;
   /*
-    Placeholder photography until our own arrives. Replacing one is a
-    two-line change: point `image` at a local file and drop `credit`.
+    Who took the placeholder photograph. Not rendered — the Unsplash
+    licence covers commercial use with no credit, and their API rule
+    that does require it binds the application that queries the API,
+    which the site does not. It is kept so we know whose picture is
+    whose, can credit anyone who asks, and can see at a glance which
+    journeys are still waiting for a photograph of our own.
   */
   credit?: { photographer: string; url: string };
 }
