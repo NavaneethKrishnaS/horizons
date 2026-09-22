@@ -28,6 +28,12 @@ export type Collection =
 export interface CollectionMeta {
   id: Collection;
   label: string;
+  /*
+    The label reads as a heading; this one reads inside a sentence. "Also
+    in Further north, and out to sea" is a heading dropped into prose and
+    sounds like it.
+  */
+  short: string;
   blurb: string;
 }
 
@@ -39,47 +45,55 @@ export const collections: CollectionMeta[] = [
   {
     id: "backwaters",
     label: "The backwaters",
+    short: "the backwaters",
     blurb:
       "Vembanad and the canals that feed it. Farm islands, teak houses, and boats that are somewhere to sleep rather than something to look at.",
   },
   {
     id: "kochi",
     label: "Fort Kochi",
+    short: "Fort Kochi",
     blurb:
       "Four hundred years of trading port, and the handful of houses in it that have been brought back properly.",
   },
   {
     id: "coast",
     label: "The Kerala coast",
+    short: "the Kerala coast",
     blurb:
       "Marari, Varkala and the Malabar shore north of them — the parts of the coast that never became a strip.",
   },
   {
     id: "hills",
     label: "The hill country",
+    short: "the hill country",
     blurb:
       "Cardamom, tea and the Periyar. Two thousand metres of height between the backwaters and Tamil Nadu.",
   },
   {
     id: "konkan",
     label: "Goa & the Konkan",
+    short: "Goa and the Konkan",
     blurb:
       "The coast north of us: Gokarna, Goa, and the Maharashtrian shore almost nobody stops on.",
   },
   {
     id: "cities",
     label: "The cities",
+    short: "the cities",
     blurb: "Somewhere good to land, and somewhere good to leave from.",
   },
   {
     id: "rajasthan",
     label: "Rajasthan",
+    short: "Rajasthan",
     blurb:
       "Forts, havelis, tented camps on dam walls, and the leopard country in between.",
   },
   {
     id: "north",
     label: "Further north, and out to sea",
+    short: "the north",
     blurb:
       "The Ganges, Dal Lake, the Darjeeling tea gardens, and an island in the Andamans.",
   },

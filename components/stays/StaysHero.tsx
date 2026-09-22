@@ -10,9 +10,44 @@ import { collections, stays } from "@/data/stays";
   somebody, set out as a gazetteer and drawn from the data, so the band
   cannot go stale when a property is added or dropped.
 */
+/* Spelled, because a numeral in a line of Cormorant reads as a price. */
+const UNITS = [
+  "no", "one", "two", "three", "four", "five", "six", "seven", "eight",
+  "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen",
+  "sixteen", "seventeen", "eighteen", "nineteen",
+];
+const TENS = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
+
+function spelled(count: number) {
+  if (count < 20) return UNITS[count] ?? String(count);
+  if (count > 99) return String(count);
+
+  const unit = count % 10;
+
+  return unit
+    ? `${TENS[Math.floor(count / 10)]}-${UNITS[unit]}`
+    : TENS[Math.floor(count / 10)];
+}
+
 export default function StaysHero() {
   /* Distinct localities, in the order the catalogue is sorted — Kerala out. */
   const places = Array.from(new Set(stays.map((stay) => stay.place)));
+
+  /*
+    A phone gets a different band, not a shortened one.
+
+    All fifty-five names run to twenty-five lines at that width, and
+    clamping them just leaves a list cut off mid-thought. So the small
+    screen gets one locality per region instead — eight names, picked by
+    the data rather than by me, still in Kerala-first order — and then
+    says how many it is leaving out. That is a sentence rather than a
+    truncation, and it carries the same point in three lines.
+  */
+  const oneEach = collections
+    .map((group) => stays.find((stay) => stay.collection === group.id)?.place)
+    .filter((place): place is string => Boolean(place));
+
+  const remaining = places.length - oneEach.length;
 
   const kerala = stays.filter((stay) => stay.from === 0).length;
 
@@ -83,15 +118,29 @@ export default function StaysHero() {
               {places.length} localities
             </p>
 
-            {/*
-              All fifty-five on a laptop, where the band is four lines and
-              reads as an index. On a phone the same list runs to
-              twenty-five lines, so it is clamped to six — the point is
-              made by then, and nobody should scroll a screenful of place
-              names before reaching a single place.
-            */}
+            {/* Phone: one locality per region, then the count of the rest. */}
             <p
-              className="horizons-stays-in line-clamp-6 max-w-5xl text-[13px] leading-[2.1] tracking-[0.06em] text-white/45 md:line-clamp-none md:text-[14px]"
+              className="horizons-stays-in text-[13px] leading-[2.1] tracking-[0.06em] text-white/45 md:hidden"
+              style={{ animationDelay: "520ms" }}
+            >
+              {oneEach.map((place, index) => (
+                <span key={place}>
+                  {place}
+                  {index < oneEach.length - 1 ? (
+                    <span aria-hidden className="px-2.5 text-[#6B7341]">
+                      ·
+                    </span>
+                  ) : null}
+                </span>
+              ))}
+              <span className="text-white/30">
+                {" "}— and {spelled(remaining)} more.
+              </span>
+            </p>
+
+            {/* Laptop: the whole index, which is four lines at this width. */}
+            <p
+              className="horizons-stays-in hidden max-w-5xl text-[14px] leading-[2.1] tracking-[0.06em] text-white/45 md:block"
               style={{ animationDelay: "520ms" }}
             >
               {places.map((place, index) => (

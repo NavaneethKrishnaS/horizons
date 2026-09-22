@@ -51,8 +51,22 @@ export default function StaysExplorer() {
     <section className="border-b border-white/10 py-14 md:py-20">
       <Container>
         <div className="lg:grid lg:grid-cols-[210px_1fr] lg:gap-16 xl:grid-cols-[240px_1fr] xl:gap-20">
-          {/* ——— The index ——— */}
-          <div className="lg:sticky lg:top-28 lg:self-start">
+          {/*
+            ——— The index ———
+
+            Sticky at every width, for different reasons. Beside the grid
+            on a laptop it is a contents page that stays put. On a phone,
+            where sixty-five cards in one column run to thirty thousand
+            pixels, it is the thing that saves you from scrolling them:
+            the filter row stays under the navbar wherever you have got
+            to. The negative margin lets its background reach the edges
+            of the screen while the buttons stay on the text column.
+          */}
+          <div
+            className="sticky z-20 -mx-6 bg-[#111111] px-6 pt-3 sm:-mx-8 sm:px-8 lg:mx-0 lg:self-start lg:bg-transparent lg:px-0 lg:pt-0"
+            /* Under the navbar, whatever height it is reporting today. */
+            style={{ top: "calc(var(--horizons-nav, 72px) + 8px)" }}
+          >
             <p className="hidden text-[10px] uppercase tracking-[0.3em] text-white/30 lg:block">
               Index
             </p>
@@ -78,6 +92,11 @@ export default function StaysExplorer() {
                 />
               ))}
             </nav>
+
+            <span
+              aria-hidden
+              className="block h-px w-full bg-white/10 lg:hidden"
+            />
 
             {/*
               Said out loud rather than hidden. Anyone can see there are no

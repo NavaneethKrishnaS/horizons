@@ -4,10 +4,30 @@ import Link from "next/link";
 import Container from "@/components/ui/Container";
 import Reveal from "@/components/ui/Reveal";
 import { CONTACT_EMAIL, emailLink, whatsappLink } from "@/lib/whatsapp";
-import { collections, type Stay } from "@/data/stays";
+import { collections, stays, type Stay } from "@/data/stays";
 
 export default function StayDetail({ stay }: { stay: Stay }) {
   const group = collections.find((c) => c.id === stay.collection);
+
+  /*
+    Four facts, unless one of them says the same thing twice — a stay in
+    Fort Kochi is in the Fort Kochi region, and printing both makes the
+    strip look padded.
+  */
+  const facts: [string, string][] = [
+    ["Kind", stay.kind],
+    ["Rooms", stay.rooms],
+    ["Where", stay.place],
+  ];
+
+  if (group && group.label !== stay.place) facts.push(["Region", group.short]);
+
+  const inRegion = group ? group.short : "";
+
+  /* The two or three others somebody would weigh this one against. */
+  const nearby = stays
+    .filter((o) => o.collection === stay.collection && o.slug !== stay.slug)
+    .slice(0, 3);
 
   const subject = `Enquiry — ${stay.name}`;
   const message = `Hello HORIZONS, I am interested in staying at ${stay.name} (${stay.place}). Could you send me the details?`;
@@ -104,6 +124,33 @@ export default function StayDetail({ stay }: { stay: Stay }) {
         </Container>
       </section>
 
+      {/*
+        The fact strip. A journey is a shape over time and needs prose; a
+        hotel is four things you want before you read a word — what it is,
+        how big, where, and how far the airport is. So they go first, on
+        one line, the way a fact sheet would give them.
+      */}
+      <section className="border-b border-white/10">
+        <Container>
+          <dl
+            className={`grid grid-cols-2 gap-x-8 gap-y-8 py-10 md:py-12 ${
+              facts.length === 4 ? "md:grid-cols-4" : "md:grid-cols-3"
+            }`}
+          >
+            {facts.map(([term, value], index) => (
+              <Reveal key={term} delay={index * 90} distance={14}>
+                <dt className="text-[10px] uppercase tracking-[0.3em] text-white/30">
+                  {term}
+                </dt>
+                <dd className="mt-3 text-[14px] leading-6 text-white/75">
+                  {value}
+                </dd>
+              </Reveal>
+            ))}
+          </dl>
+        </Container>
+      </section>
+
       {/* What it is. */}
       <section className="border-b border-white/10 py-16 md:py-24">
         <Container>
@@ -138,17 +185,24 @@ export default function StayDetail({ stay }: { stay: Stay }) {
             What is there
           </p>
 
-          <ul className="mt-10 grid gap-x-14 gap-y-7 md:grid-cols-2">
+          {/*
+            Ruled rows rather than the numbered column the journeys page
+            uses. Numbering implies an order, and the sixth thing about a
+            hotel is not the sixth thing that happens to you — it is just
+            another thing that is there.
+          */}
+          <ul className="mt-10 grid gap-x-16 md:grid-cols-2">
             {stay.features.map((line, index) => (
-              <li key={line} className="flex gap-6">
+              <li key={line} className="border-t border-white/10">
                 <Reveal
-                  delay={(index % 2) * 120}
-                  distance={18}
-                  className="flex gap-6"
+                  delay={(index % 2) * 110}
+                  distance={16}
+                  className="group flex items-baseline gap-5 py-5"
                 >
-                  <span className="mt-1 font-cormorant text-[18px] text-[#8B9556]">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
+                  <span
+                    aria-hidden
+                    className="h-px w-4 shrink-0 translate-y-[-5px] bg-[#6B7341]"
+                  />
 
                   <span className="text-[15px] leading-8 text-white/65">
                     {line}
@@ -159,6 +213,55 @@ export default function StayDetail({ stay }: { stay: Stay }) {
           </ul>
         </Container>
       </section>
+
+      {/*
+        Nearby. Nobody picks a hotel in isolation — they pick it against
+        the two or three others in the same place. The journeys page has
+        no equivalent, because you do not book two Himalayan traverses.
+      */}
+      {nearby.length > 0 ? (
+        <section className="border-b border-white/10 py-16 md:py-24">
+          <Container>
+            <div className="flex flex-wrap items-baseline justify-between gap-4">
+              <p className="text-[10px] uppercase tracking-[0.35em] text-white/40">
+                Also in {inRegion}
+              </p>
+
+              <Link
+                href="/stays"
+                className="text-[11px] uppercase tracking-[0.25em] text-white/35 transition-colors hover:text-white"
+              >
+                All stays →
+              </Link>
+            </div>
+
+            <div className="mt-10 grid gap-x-8 gap-y-10 sm:grid-cols-3">
+              {nearby.map((other, index) => (
+                <Reveal key={other.slug} delay={index * 110}>
+                  <Link href={`/stays/${other.slug}`} className="group block">
+                    <p className="text-[10px] uppercase tracking-[0.3em] text-[#8B9556]">
+                      {other.kind}
+                    </p>
+
+                    <h3 className="mt-3 font-cormorant text-[24px] font-light leading-[1.1] text-white transition-colors duration-500 group-hover:text-[#A8B473] md:text-[28px]">
+                      {other.name}
+                    </h3>
+
+                    <span
+                      aria-hidden
+                      className="mt-4 block h-px w-8 origin-left bg-white/20 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:w-16 group-hover:bg-[#6B7341]"
+                    />
+
+                    <p className="mt-4 text-[13px] leading-7 text-white/45">
+                      {other.standfirst}
+                    </p>
+                  </Link>
+                </Reveal>
+              ))}
+            </div>
+          </Container>
+        </section>
+      ) : null}
 
       {/* Ask. */}
       <section className="py-20 md:py-32">
