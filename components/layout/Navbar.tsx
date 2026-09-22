@@ -182,9 +182,9 @@ export default function Navbar() {
                 Houseboats
               </Link>
 
-              <a href="#" className={`transition ${onPaper ? "hover:text-black" : "hover:text-white"}`}>
+              <Link href="/stays" className={`transition ${active("/stays")}`}>
                 Stays
-              </a>
+              </Link>
 
               <Link
                 href="/packages"
