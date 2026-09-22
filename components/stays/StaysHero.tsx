@@ -118,9 +118,9 @@ export default function StaysHero() {
               {places.length} localities
             </p>
 
-            {/* Phone: one locality per region, then the count of the rest. */}
+            {/* Narrow: one locality per region, then the count of the rest. */}
             <p
-              className="horizons-stays-in text-[13px] leading-[2.1] tracking-[0.06em] text-white/45 md:hidden"
+              className="horizons-stays-in text-[13px] leading-[1.95] tracking-[0.06em] text-white/45 lg:hidden"
               style={{ animationDelay: "520ms" }}
             >
               {oneEach.map((place, index) => (
@@ -138,9 +138,14 @@ export default function StaysHero() {
               </span>
             </p>
 
-            {/* Laptop: the whole index, which is four lines at this width. */}
+            {/*
+              Laptop: the whole index. The swap is at lg rather than md
+              because the full list only settles into a readable block
+              once the column is wide — at tablet width it was still
+              twenty-two lines, which is the phone problem again.
+            */}
             <p
-              className="horizons-stays-in hidden max-w-5xl text-[14px] leading-[2.1] tracking-[0.06em] text-white/45 md:block"
+              className="horizons-stays-in hidden max-w-5xl text-[13.5px] leading-[1.95] tracking-[0.06em] text-white/45 lg:block"
               style={{ animationDelay: "520ms" }}
             >
               {places.map((place, index) => (

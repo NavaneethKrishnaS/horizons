@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 
 import StaysHero from "@/components/stays/StaysHero";
 import StaysExplorer from "@/components/stays/StaysExplorer";
@@ -21,7 +22,16 @@ export default function StaysPage() {
     */
     <main className="overflow-x-clip">
       <StaysHero />
-      <StaysExplorer />
+
+      {/*
+        The explorer reads ?region= to open on the group the navbar
+        named, and useSearchParams needs a boundary on a statically
+        rendered page. Nothing is fetched, so the fallback never shows
+        for long enough to be worth designing.
+      */}
+      <Suspense fallback={null}>
+        <StaysExplorer />
+      </Suspense>
       <StaysCTA />
     </main>
   );

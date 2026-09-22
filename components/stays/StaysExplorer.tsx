@@ -1,5 +1,6 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 import Container from "@/components/ui/Container";
@@ -22,7 +23,27 @@ type Filter = Collection | "all";
   before you touch anything. On a phone it lies down and becomes a row.
 */
 export default function StaysExplorer() {
-  const [filter, setFilter] = useState<Filter>("all");
+  /*
+    The navbar's Stays menu names four regions, so it should land on
+    them: ?region=backwaters opens on that group. Anything unrecognised
+    is ignored and the page opens on everything, which is what a stale
+    or hand-typed link should do.
+
+    Derived rather than pushed into state by an effect — the URL is the
+    starting position and a click overrides it, so there is nothing to
+    synchronise and no render that shows the wrong group first.
+  */
+  const params = useSearchParams();
+  const asked = params.get("region");
+
+  const fromUrl: Filter = collections.some((group) => group.id === asked)
+    ? (asked as Collection)
+    : "all";
+
+  const [chosen, setChosen] = useState<Filter | null>(null);
+
+  const filter = chosen ?? fromUrl;
+  const setFilter = setChosen;
 
   const shown =
     filter === "all" ? stays : stays.filter((stay) => stay.collection === filter);
