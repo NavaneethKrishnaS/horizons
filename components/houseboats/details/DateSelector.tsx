@@ -31,22 +31,22 @@ export default function DateSelector({
     }
   }, [isOpen]);
 
-  const label =
+  /*
+    Only a real range gets a label. Clicking one day twice leaves from and
+    to on the same date, and the old version happily printed "0 Night"
+    before the second date had been chosen.
+  */
+  const nights =
     selected?.from && selected?.to
+      ? differenceInCalendarDays(selected.to, selected.from)
+      : 0;
+
+  const label =
+    selected?.from && selected?.to && nights > 0
       ? `${format(selected.from, "dd MMM")} – ${format(
           selected.to,
           "dd MMM"
-        )} • ${differenceInCalendarDays(
-          selected.to,
-          selected.from
-        )} Night${
-          differenceInCalendarDays(
-            selected.to,
-            selected.from
-          ) > 1
-            ? "s"
-            : ""
-        }`
+        )} • ${nights} Night${nights > 1 ? "s" : ""}`
       : "Select your dates";
 
   return (

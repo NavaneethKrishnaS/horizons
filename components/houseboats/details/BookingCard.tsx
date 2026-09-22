@@ -11,6 +11,7 @@ import DateSelector from "./DateSelector";
 import InquiryModal from "./InquiryModal";
 
 import { Houseboat } from "@/data/houseboat.types";
+import { CONTACT_EMAIL } from "@/lib/whatsapp";
 
 interface BookingCardProps {
   houseboat: Houseboat;
@@ -162,7 +163,7 @@ export default function BookingCard({
           <p className="mt-4 text-[13px] leading-6 text-neutral-500">
             Need a custom itinerary?{" "}
             <a
-              href="mailto:scenicescapesindia@gmail.com"
+              href={`mailto:${CONTACT_EMAIL}`}
               className="border-b border-neutral-300 pb-0.5 text-neutral-900 transition-colors duration-300 hover:border-[#6B7341] hover:text-[#6B7341]"
             >
               Email our concierge

@@ -1,3 +1,5 @@
+import Reveal from "@/components/ui/Reveal";
+
 export default function WhyChooseHorizons() {
     const features = [
       {
@@ -27,7 +29,7 @@ export default function WhyChooseHorizons() {
         <div className="mx-auto max-w-7xl px-6">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-20">
             {/* Left Column */}
-            <div className="h-fit lg:sticky lg:top-32 lg:col-span-5">
+            <Reveal className="h-fit lg:sticky lg:top-32 lg:col-span-5">
               <p className="text-[13px] font-medium uppercase tracking-[0.35em] text-[#7A8250]">
                 Why HORIZONS
               </p>
@@ -46,20 +48,27 @@ export default function WhyChooseHorizons() {
                 across Kerala&apos;s backwaters feels effortless from beginning to
                 end.
               </p>
-            </div>
+            </Reveal>
   
             {/* Right Column */}
             <div className="lg:col-span-7">
               {features.map((feature, index) => (
-                <div
+                <Reveal
                   key={feature.title}
-                  className={`group py-8 transition-all duration-300 hover:pl-2 md:py-10 ${
-                    index !== 0
-                      ? "border-t border-neutral-400/60"
-                      : ""
-                  }`}
+                  delay={index * 90}
+                  distance={18}
+                  className={
+                    index !== 0 ? "border-t border-neutral-400/60" : undefined
+                  }
                 >
-                  <div className="grid grid-cols-1 items-start gap-3 md:grid-cols-12 md:gap-8">
+                  {/*
+                    The nudge on hover used to be hover:pl-2 — padding, which
+                    is layout, and which re-laid the column out on every frame
+                    of the transition. A transform does the same thing on the
+                    compositor. It lives on this inner element because Reveal
+                    owns the transform on the one above it.
+                  */}
+                  <div className="group grid grid-cols-1 items-start gap-3 py-8 transition-transform duration-300 hover:translate-x-2 md:grid-cols-12 md:gap-8 md:py-10">
                     {/* Title */}
                     <div className="md:col-span-5">
                       <span className="text-sm uppercase tracking-[0.25em] text-[#7A8250]">
@@ -78,7 +87,7 @@ export default function WhyChooseHorizons() {
                       </p>
                     </div>
                   </div>
-                </div>
+                </Reveal>
               ))}
   
               <div className="border-t border-neutral-400/60" />

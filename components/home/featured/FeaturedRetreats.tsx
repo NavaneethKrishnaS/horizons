@@ -1,4 +1,5 @@
 import Container from "@/components/ui/Container";
+import Reveal from "@/components/ui/Reveal";
 import SectionHeading from "@/components/ui/SectionHeading";
 import DestinationViewer from "./DestinationViewer";
 
@@ -7,16 +8,18 @@ export default function FeaturedRetreats() {
     <section className="bg-[#F7F4EE] py-20 md:py-28">
       <Container>
         {/* Heading */}
-        <div className="mb-10 md:mb-16">
+        <Reveal className="mb-10 md:mb-16">
           <SectionHeading
             eyebrow="DESTINATIONS"
             title={`Three destinations.
 One unforgettable journey.`}
           />
-        </div>
+        </Reveal>
 
         {/* Destination Viewer */}
-        <DestinationViewer />
+        <Reveal delay={140}>
+          <DestinationViewer />
+        </Reveal>
       </Container>
     </section>
   );

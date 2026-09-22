@@ -2,15 +2,23 @@
 
 import { useRef } from "react";
 import Image from "next/image";
-import {
-  motion,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-} from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+
+import { useReducedMotion } from "@/lib/useReducedMotion";
 
 export default function WhereWeComeFrom() {
   const pageRef = useRef<HTMLDivElement>(null);
+
+  /*
+    Our own hook rather than Framer's.
+
+    Framer's answers null on the server and true on the client's very first
+    render, so with reduced motion switched on the server sent the motion
+    styles and the client hydrated without them — React logged a hydration
+    mismatch and gave up patching this subtree. Ours reports false during
+    hydration on both sides, matching the markup, and flips to the real
+    answer on the render straight after.
+  */
   const reduceMotion = useReducedMotion();
 
   // Progress runs from the moment the dark page begins rising into

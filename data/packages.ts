@@ -1204,11 +1204,11 @@ const catalogue: TourPackage[] = [
       { day: "10", text: "Mahabalipuram — the shore temple, the rathas, and the stone carvers still working." },
       { day: "11", text: "Up to Chennai and out." },
     ],
-    image: `${P}/photo-1642516861335-97971622499e`,
-    imageAlt: "The Brihadeeswarar temple at Thanjavur",
+    image: `${P}/photo-1693134322630-8c3510d215f6`,
+    imageAlt: "The vimana of the Brihadeeswarar temple at Thanjavur",
     credit: {
-      photographer: "Avin CP",
-      url: "https://unsplash.com/photos/a-very-large-building-with-a-very-tall-tower-dGu_b4S7DXM",
+      photographer: "Suriya Narayanan",
+      url: "https://unsplash.com/photos/a-tall-tower-with-a-clock-on-the-top-of-it-b3xbvAXeV9w",
     },
   },
   {

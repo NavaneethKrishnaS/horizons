@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import Reveal from "@/components/ui/Reveal";
 import { whatsappLink } from "@/lib/whatsapp";
 
 import ExperienceCard from "./ExperienceCard";
@@ -18,7 +19,7 @@ export default function HouseboatExplorer() {
     <section className="bg-white py-20 md:py-36">
       <div className="mx-auto max-w-7xl px-6">
         {/* Section Heading */}
-        <div className="max-w-3xl">
+        <Reveal className="max-w-3xl">
           <p className="text-[13px] font-medium uppercase tracking-[0.35em] text-[#7A8250]">
             Curated Experiences
           </p>
@@ -32,11 +33,11 @@ export default function HouseboatExplorer() {
             planning a getaway with friends, discover houseboats carefully
             selected to match every occasion.
           </p>
-        </div>
+        </Reveal>
 
         {/* Featured Banner */}
         {featured && (
-          <div className="group relative mt-10 aspect-[5/4] overflow-hidden sm:aspect-[16/10] md:mt-20 md:aspect-[21/9]">
+          <Reveal delay={120} className="group relative mt-10 block aspect-[5/4] overflow-hidden sm:aspect-[16/10] md:mt-20 md:aspect-[21/9]">
             <Image
               src={featured.image}
               alt={featured.title}
@@ -88,20 +89,21 @@ export default function HouseboatExplorer() {
     <path d="m12 5 7 7-7 7" />
   </svg>
 </a>
-          </div>
+          </Reveal>
         )}
 
         {/* Experiences */}
         <div className="mx-auto mt-14 max-w-5xl md:mt-20">
           <div className="grid grid-cols-2 gap-x-5 gap-y-11 md:gap-x-20 md:gap-y-20">
-            {remaining.map((experience) => (
-              <ExperienceCard
-                key={experience.id}
-                title={experience.title}
-                subtitle={experience.subtitle}
-                description={experience.description}
-                highlights={experience.highlights}
-              />
+            {remaining.map((experience, index) => (
+              <Reveal key={experience.id} delay={(index % 2) * 110}>
+                <ExperienceCard
+                  title={experience.title}
+                  subtitle={experience.subtitle}
+                  description={experience.description}
+                  highlights={experience.highlights}
+                />
+              </Reveal>
             ))}
           </div>
         </div>

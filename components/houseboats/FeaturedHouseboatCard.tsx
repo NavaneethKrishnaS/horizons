@@ -10,9 +10,15 @@ interface FeaturedHouseboatCardProps {
 export default function FeaturedHouseboatCard({
   houseboat,
 }: FeaturedHouseboatCardProps) {
-  const price = houseboat.categories.find(
-    (category) => category.name === houseboat.defaultCategory
-  )!.price;
+  /*
+    The same fallback the hero and the mobile bar use. A houseboat whose
+    defaultCategory no longer matches a category name would otherwise take
+    the whole listing page down from here.
+  */
+  const price =
+    houseboat.categories.find(
+      (category) => category.name === houseboat.defaultCategory
+    )?.price ?? houseboat.categories[0].price;
 
   // Built in JS rather than JSX: a line break inside JSX text swallows the
   // space next to it, and this also keeps the plurals right.
