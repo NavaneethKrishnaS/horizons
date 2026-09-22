@@ -11,9 +11,15 @@
   some other backwater sitting under a named property would mislead the
   person deciding whether to book it. Until a property sends its own, its
   card is set in type instead — which reads as a decision rather than as
-  a missing image, and leaves the gap visible so it gets filled. Add the
-  `image` field and the card becomes a photograph.
+  a missing image, and leaves the gap visible so it gets filled.
+
+  The photographs themselves live in ./stayPhotos.ts, keyed by slug and
+  generated from what each property sent; they are attached at the bottom
+  of this file. Two properties sent nothing usable and are absent from it
+  on purpose, so their cards are still set in type.
 */
+
+import { stayPhotos } from "./stayPhotos";
 
 export type Collection =
   | "backwaters"
@@ -129,9 +135,9 @@ export interface Stay {
     stock.
 
     `image` is the one that leads: the card, the masthead, the share
-    preview. `images` is everything else it sent, in the order it should
-    be shown. Setting `image` alone is enough; the gallery simply does
-    not appear until there is more than one.
+    preview. `images` is the full set in the order it should be shown,
+    that one first. Setting `image` alone is enough; the gallery simply
+    does not appear until there is more than one.
   */
   image?: string;
   imageAlt?: string;
@@ -1521,4 +1527,25 @@ const catalogue: Stay[] = [
   not have to scroll past Rajasthan to find it. Sort is stable, so places
   the same distance out keep the order they were written in above.
 */
-export const stays: Stay[] = [...catalogue].sort((a, b) => a.from - b.from);
+export const stays: Stay[] = [...catalogue]
+  .sort((a, b) => a.from - b.from)
+  .map((stay) => {
+    const shots = stayPhotos[stay.slug];
+
+    if (!shots?.length) return stay;
+
+    /*
+      One alt line per property rather than one per frame. A description
+      written per photograph would be better; a made-up one would be
+      worse than this, so this is what it gets until the captions are
+      written by someone who has seen the rooms.
+    */
+    const alt = `${stay.name}, ${stay.place}`;
+
+    return {
+      ...stay,
+      image: shots[0],
+      imageAlt: alt,
+      images: shots.map((src) => ({ src, alt })),
+    };
+  });
