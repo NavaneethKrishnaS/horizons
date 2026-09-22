@@ -1916,6 +1916,27 @@ const catalogue: TourPackage[] = [
 ];
 
 /*
+  Unsplash stopped serving the bare form.
+
+  Every placeholder here is written as images.unsplash.com/photo-<id>,
+  with no query string — which worked until it did not. Unsplash now
+  answers those with an error, so Next's optimiser 500s and all
+  thirty-nine cards come up blank. Their documented form carries sizing
+  parameters, and that is still served, so the parameters are appended
+  here in one place rather than pasted onto thirty-nine lines. A URL
+  that already has a query string is left alone, so a property's own
+  photograph is never rewritten.
+*/
+const UNSPLASH_PARAMS = "auto=format&fit=crop&w=1600&q=80";
+
+function served(url: string) {
+  if (!url.startsWith("https://images.unsplash.com/")) return url;
+  if (url.includes("?")) return url;
+
+  return `${url}?${UNSPLASH_PARAMS}`;
+}
+
+/*
   Sorted outward from Kerala.
 
   We are a Kerala company. Someone in Kochi or Kollam looking at this page
@@ -1924,6 +1945,6 @@ const catalogue: TourPackage[] = [
   stable, so journeys the same distance out keep the order they were
   written in above.
 */
-export const packages: TourPackage[] = [...catalogue].sort(
-  (a, b) => a.from - b.from
-);
+export const packages: TourPackage[] = [...catalogue]
+  .sort((a, b) => a.from - b.from)
+  .map((tour) => ({ ...tour, image: served(tour.image) }));

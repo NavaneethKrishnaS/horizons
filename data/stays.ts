@@ -124,11 +124,18 @@ export interface Stay {
   /* Getting to it. */
   getting: string;
   /*
-    The property's own photograph, once it has sent one. Left off until
-    then — see the note at the top of the file. Nothing here uses stock.
+    The property's own photographs, once it has sent them. Left off
+    until then — see the note at the top of the file. Nothing here uses
+    stock.
+
+    `image` is the one that leads: the card, the masthead, the share
+    preview. `images` is everything else it sent, in the order it should
+    be shown. Setting `image` alone is enough; the gallery simply does
+    not appear until there is more than one.
   */
   image?: string;
   imageAlt?: string;
+  images?: { src: string; alt: string }[];
 }
 
 const catalogue: Stay[] = [

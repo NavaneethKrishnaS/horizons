@@ -11,6 +11,21 @@ import { collections, stays, type Collection, type Stay } from "@/data/stays";
 
 type Filter = Collection | "all";
 
+/* Palhaços and Palhacos are the same hotel. */
+function normalise(value: string) {
+  return value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
+}
+
+function haystack(stay: Stay) {
+  return normalise(
+    [stay.name, stay.place, stay.kind, stay.standfirst, stay.collection].join(" ")
+  );
+}
+
 /*
   Deliberately not the journeys control.
 
@@ -45,11 +60,34 @@ export default function StaysExplorer() {
   const filter = chosen ?? fromUrl;
   const setFilter = setChosen;
 
-  const shown =
+  /*
+    Search, because sixty-five is past the number anybody scans.
+
+    Matches the name, the locality, what kind of place it is and the
+    region it sits in — somebody who half-remembers "that farm near
+    Kumarakom" should find it by either half. Folded to lowercase and
+    stripped of accents so Palhacos finds Palhaços.
+  */
+  const [query, setQuery] = useState("");
+
+  const needle = normalise(query);
+
+  const byRegion =
     filter === "all" ? stays : stays.filter((stay) => stay.collection === filter);
 
+  const shown = needle
+    ? byRegion.filter((stay) => haystack(stay).includes(needle))
+    : byRegion;
+
+  /* Searching across everything is more use than searching inside one region. */
+  const searchedEverywhere = needle
+    ? stays.filter((stay) => haystack(stay).includes(needle))
+    : [];
+
+  const pool = needle ? searchedEverywhere : stays;
+
   const count = (id: Filter) =>
-    id === "all" ? stays.length : stays.filter((s) => s.collection === id).length;
+    id === "all" ? pool.length : pool.filter((s) => s.collection === id).length;
 
   /*
     Showing everything means running heads, so sixty-five cards read as a
@@ -61,7 +99,7 @@ export default function StaysExplorer() {
       ? collections
           .map((group) => ({
             ...group,
-            items: stays.filter((stay) => stay.collection === group.id),
+            items: shown.filter((stay) => stay.collection === group.id),
           }))
           .filter((group) => group.items.length > 0)
       : [];
@@ -91,6 +129,39 @@ export default function StaysExplorer() {
             <p className="hidden text-[10px] uppercase tracking-[0.3em] text-white/30 lg:block">
               Index
             </p>
+
+            <div className="relative lg:mt-6">
+              <label htmlFor="stay-search" className="sr-only">
+                Search the stays
+              </label>
+
+              <input
+                id="stay-search"
+                type="search"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="Search a name or a place"
+                className="w-full border-b border-white/15 bg-transparent pb-2.5 pr-7 text-[13px] text-white placeholder:text-white/30 transition-colors duration-300 focus:border-[#6B7341] focus:outline-none"
+              />
+
+              {query ? (
+                <button
+                  type="button"
+                  onClick={() => setQuery("")}
+                  aria-label="Clear the search"
+                  className="absolute right-0 top-0 text-[11px] uppercase tracking-[0.2em] text-white/35 transition-colors hover:text-white"
+                >
+                  Clear
+                </button>
+              ) : (
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute right-0 top-0 text-[13px] text-white/25"
+                >
+                  ⌕
+                </span>
+              )}
+            </div>
 
             <nav
               aria-label="Filter stays by region"
@@ -173,7 +244,32 @@ export default function StaysExplorer() {
               </>
             )}
 
-            {waiting > 0 ? (
+            {needle && shown.length === 0 ? (
+              <p className="max-w-xl text-[15px] leading-8 text-white/45">
+                Nothing here matches “{query.trim()}”.{" "}
+                {searchedEverywhere.length > 0 ? (
+                  <>
+                    There {searchedEverywhere.length === 1 ? "is" : "are"}{" "}
+                    {searchedEverywhere.length} elsewhere —{" "}
+                    <button
+                      type="button"
+                      onClick={() => setFilter("all")}
+                      className="text-[#A8B473] underline underline-offset-4 transition-colors hover:text-white"
+                    >
+                      look everywhere
+                    </button>
+                    .
+                  </>
+                ) : (
+                  <>
+                    Tell us what you are after and we will find it — most of
+                    what we book is not on a page.
+                  </>
+                )}
+              </p>
+            ) : null}
+
+            {waiting > 0 && shown.length > 0 ? (
               <p className="mt-14 max-w-xl text-[12px] leading-6 text-white/25 lg:hidden">
                 {waiting === shown.length ? "These are" : `${waiting} of these are`}{" "}
                 waiting on photographs from the properties themselves.
