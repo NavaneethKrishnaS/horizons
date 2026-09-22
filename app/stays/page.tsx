@@ -12,7 +12,14 @@ export const metadata: Metadata = {
 
 export default function StaysPage() {
   return (
-    <main className="overflow-x-hidden">
+    /*
+      clip rather than hidden. overflow-x: hidden makes this a scrolling
+      box, and a scrolling box is what a sticky descendant sticks inside —
+      so the index column scrolled away with the page instead of standing
+      still beside it. clip contains the same overflow without creating
+      the scroll container.
+    */
+    <main className="overflow-x-clip">
       <StaysHero />
       <StaysExplorer />
       <StaysCTA />
