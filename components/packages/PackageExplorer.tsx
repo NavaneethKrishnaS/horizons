@@ -6,6 +6,8 @@ import Container from "@/components/ui/Container";
 import Reveal from "@/components/ui/Reveal";
 import PackageCard from "./PackageCard";
 
+import { useKeepResultsInView } from "@/lib/keepInView";
+
 import {
   collections,
   packages,
@@ -85,6 +87,15 @@ export default function PackageExplorer() {
   const journeys = shown.filter((tour) => tour.tier === "journey");
   const escapes = shown.filter((tour) => tour.tier === "escape");
 
+  /*
+    Filtering thirty-nine journeys down to two shortens the page by most
+    of its height, the browser clamps the scroll to the new bottom, and
+    you end up in the footer. See lib/keepInView.ts.
+  */
+  const resultsRef = useRef<HTMLDivElement>(null);
+
+  useKeepResultsInView(resultsRef, filter);
+
   return (
     <section className="border-b border-white/10 py-16 md:py-24">
       <Container>
@@ -163,21 +174,23 @@ export default function PackageExplorer() {
           {active ? active.blurb : `Everything we run, all ${spelled(packages.length)} of them.`}
         </p>
 
-        {journeys.length ? (
-          <Tier
-            label="Journeys"
-            note="Two or three weeks. Quoted, and built around whoever is travelling."
-            tours={journeys}
-          />
-        ) : null}
+        <div ref={resultsRef}>
+          {journeys.length ? (
+            <Tier
+              label="Journeys"
+              note="Two or three weeks. Quoted, and built around whoever is travelling."
+              tours={journeys}
+            />
+          ) : null}
 
-        {escapes.length ? (
-          <Tier
-            label="Short escapes"
-            note="A few days. For anyone already here, or with a week to spare at the end of something else."
-            tours={escapes}
-          />
-        ) : null}
+          {escapes.length ? (
+            <Tier
+              label="Short escapes"
+              note="A few days. For anyone already here, or with a week to spare at the end of something else."
+              tours={escapes}
+            />
+          ) : null}
+        </div>
       </Container>
     </section>
   );

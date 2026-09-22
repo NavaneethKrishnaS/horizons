@@ -43,3 +43,6 @@ horizons-stays-photo-sourcing.xlsx
 
 # Raw photography sourced from properties — selected + compressed into public/images/stays
 _source-photos/
+
+# Files the Claude desktop app drops here when it delivers something
+Claude outputs/

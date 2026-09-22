@@ -1,11 +1,13 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import Container from "@/components/ui/Container";
 import Reveal from "@/components/ui/Reveal";
 import StayCard from "./StayCard";
+
+import { useKeepResultsInView } from "@/lib/keepInView";
 
 import { collections, stays, type Collection, type Stay } from "@/data/stays";
 
@@ -106,6 +108,100 @@ export default function StaysExplorer() {
 
   const waiting = shown.filter((stay) => !stay.image).length;
 
+  /*
+    One marker that travels, rather than one per line appearing and
+    disappearing. Moved and stretched by transform: left and width are
+    both layout, and animating them laid the index out again on every
+    frame of the half-second it travels.
+
+    It needs no breakpoint of its own. Lying down as a row the buttons
+    sit side by side and it underlines the active one; standing up as a
+    column they are full width and it lands on that line's rule — the
+    same two numbers off the same element either way.
+  */
+  const indexRef = useRef<HTMLElement>(null);
+  const [marker, setMarker] = useState({ x: 0, y: 0, w: 0, ready: false });
+
+  useEffect(() => {
+    const nav = indexRef.current;
+
+    if (!nav) return;
+
+    const place = () => {
+      const active = nav.querySelector<HTMLElement>('[aria-pressed="true"]');
+
+      if (!active) return;
+
+      const x = active.offsetLeft;
+      const y = active.offsetTop + active.offsetHeight - 1;
+      const w = active.offsetWidth;
+
+      /*
+        The row fires a scroll event several times per frame while it is
+        being dragged and the answer almost never changes — the marker
+        scrolls with the content, so its offset is already right.
+        Writing state anyway re-rendered the whole explorer each time.
+      */
+      setMarker((current) =>
+        current.ready && current.x === x && current.y === y && current.w === w
+          ? current
+          : { x, y, w, ready: true }
+      );
+    };
+
+    /*
+      Lying down as a row, the eight regions are twice the width of a
+      phone. The navbar's Stays menu deep-links into four of them, and
+      ?region=rajasthan opened with Rajasthan twelve hundred pixels off
+      the right-hand end: a row with nothing apparently selected, above
+      a grid of twenty-two Rajasthan hotels and no explanation. So the
+      active line is brought into the row — once, when it changes, never
+      while the reader is dragging it.
+    */
+    const bring = () => {
+      const active = nav.querySelector<HTMLElement>('[aria-pressed="true"]');
+
+      if (!active || nav.scrollWidth <= nav.clientWidth) return;
+
+      const left = active.offsetLeft;
+      const right = left + active.offsetWidth;
+
+      if (left < nav.scrollLeft + 8) {
+        nav.scrollLeft = Math.max(0, left - 16);
+      } else if (right > nav.scrollLeft + nav.clientWidth - 8) {
+        nav.scrollLeft = right - nav.clientWidth + 16;
+      }
+    };
+
+    place();
+    bring();
+
+    /* The index is set in a webfont, and it scrolls. */
+    document.fonts?.ready
+      .then(() => {
+        place();
+        bring();
+      })
+      .catch(() => {});
+
+    nav.addEventListener("scroll", place, { passive: true });
+
+    const resize = new ResizeObserver(place);
+
+    resize.observe(nav);
+
+    return () => {
+      nav.removeEventListener("scroll", place);
+      resize.disconnect();
+    };
+  }, [filter]);
+
+  /* See lib/keepInView.ts — filtering must not strand you in the footer. */
+  const stickyRef = useRef<HTMLDivElement>(null);
+  const resultsRef = useRef<HTMLDivElement>(null);
+
+  useKeepResultsInView(resultsRef, `${filter}|${needle}`, stickyRef);
+
   return (
     <section className="border-b border-white/10 py-14 md:py-20">
       <Container>
@@ -122,6 +218,7 @@ export default function StaysExplorer() {
             of the screen while the buttons stay on the text column.
           */}
           <div
+            ref={stickyRef}
             className="sticky z-20 -mx-6 bg-[#111111] px-6 pt-3 sm:-mx-8 sm:px-8 lg:mx-0 lg:self-start lg:bg-transparent lg:px-0 lg:pt-0"
             /* Under the navbar, whatever height it is reporting today. */
             style={{ top: "calc(var(--horizons-nav, 72px) + 8px)" }}
@@ -164,8 +261,9 @@ export default function StaysExplorer() {
             </div>
 
             <nav
+              ref={indexRef}
               aria-label="Filter stays by region"
-              className="j-stayindex mt-0 flex gap-7 overflow-x-auto pb-4 lg:mt-7 lg:flex-col lg:gap-0 lg:overflow-visible lg:pb-0"
+              className="j-stayindex relative mt-0 flex gap-7 overflow-x-auto pb-4 lg:mt-7 lg:flex-col lg:gap-0 lg:overflow-visible lg:pb-0"
             >
               <IndexItem
                 label="Everywhere"
@@ -183,6 +281,15 @@ export default function StaysExplorer() {
                   onClick={() => setFilter(group.id)}
                 />
               ))}
+
+              <span
+                aria-hidden
+                className="horizons-index-marker pointer-events-none absolute left-0 top-0 h-px w-px origin-left bg-[#6B7341]"
+                style={{
+                  transform: `translate3d(${marker.x}px, ${marker.y}px, 0) scaleX(${marker.w})`,
+                  opacity: marker.ready ? 1 : 0,
+                }}
+              />
             </nav>
 
             <span
@@ -204,7 +311,7 @@ export default function StaysExplorer() {
           </div>
 
           {/* ——— The places ——— */}
-          <div className="mt-10 lg:mt-0">
+          <div ref={resultsRef} className="mt-10 lg:mt-0">
             {filter === "all" ? (
               groups.map((group, groupIndex) => (
                 <div
@@ -235,7 +342,10 @@ export default function StaysExplorer() {
             ) : (
               <>
                 <Reveal>
-                  <p className="max-w-2xl border-b border-white/10 pb-5 text-[14px] leading-7 text-white/45">
+                  <p
+                    key={filter}
+                    className="horizons-fade max-w-2xl border-b border-white/10 pb-5 text-[14px] leading-7 text-white/45"
+                  >
                     {collections.find((c) => c.id === filter)?.blurb}
                   </p>
                 </Reveal>
@@ -281,6 +391,23 @@ export default function StaysExplorer() {
         <style>{`
           .j-stayindex { scrollbar-width: none; -ms-overflow-style: none; }
           .j-stayindex::-webkit-scrollbar { display: none; }
+
+          .horizons-index-marker {
+            transition: transform 620ms cubic-bezier(0.16, 1, 0.3, 1),
+                        opacity 300ms ease;
+          }
+
+          @keyframes horizons-fade-in {
+            from { opacity: 0; transform: translateY(6px); }
+          }
+          .horizons-fade {
+            animation: horizons-fade-in 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+          }
+
+          @media (prefers-reduced-motion: reduce) {
+            .horizons-index-marker { transition: none; }
+            .horizons-fade { animation: none; }
+          }
         `}</style>
       </Container>
     </section>
@@ -319,17 +446,6 @@ function IndexItem({
         active ? "text-white" : "text-white/40 hover:text-white/75"
       }`}
     >
-      {/*
-        The marker lives on the index rather than travelling across a row:
-        a rule that grows out of the left edge of the active line.
-      */}
-      <span
-        aria-hidden
-        className={`pointer-events-none absolute left-0 hidden h-px bg-[#6B7341] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] lg:block ${
-          active ? "-bottom-px w-full opacity-100" : "-bottom-px w-0 opacity-0"
-        }`}
-      />
-
       <span className="lg:pr-2">{label}</span>
 
       <span
