@@ -9,9 +9,9 @@
   To regenerate after new photographs arrive, re-run the selection over
   _source-photos/ (gitignored) and replace this file.
 
-  Two properties are absent on purpose: old-harbour-hotel and
-  the-beach-houses sent nothing usable, so their cards stay set in type.
-  See the note at the top of stays.ts.
+  All 65 properties are here. Anything that arrives without usable
+  photographs stays out of this file rather than getting stock, and its
+  card is set in type instead — see the note at the top of stays.ts.
 */
 
 export const stayPhotos: Record<string, string[]> = {
@@ -235,6 +235,15 @@ export const stayPhotos: Record<string, string[]> = {
     "/images/stays/neeleshwar-hermitage/05.webp",
     "/images/stays/neeleshwar-hermitage/06.webp",
   ],
+  "old-harbour-hotel": [
+    "/images/stays/old-harbour-hotel/cover.webp",
+    "/images/stays/old-harbour-hotel/01.webp",
+    "/images/stays/old-harbour-hotel/02.webp",
+    "/images/stays/old-harbour-hotel/03.webp",
+    "/images/stays/old-harbour-hotel/04.webp",
+    "/images/stays/old-harbour-hotel/05.webp",
+    "/images/stays/old-harbour-hotel/06.webp",
+  ],
   "otter-creek-tents": [
     "/images/stays/otter-creek-tents/cover.webp",
     "/images/stays/otter-creek-tents/01.webp",
@@ -383,6 +392,13 @@ export const stayPhotos: Record<string, string[]> = {
     "/images/stays/tea-bungalow/01.webp",
     "/images/stays/tea-bungalow/02.webp",
     "/images/stays/tea-bungalow/03.webp",
+  ],
+  "the-beach-houses": [
+    "/images/stays/the-beach-houses/cover.webp",
+    "/images/stays/the-beach-houses/01.webp",
+    "/images/stays/the-beach-houses/02.webp",
+    "/images/stays/the-beach-houses/03.webp",
+    "/images/stays/the-beach-houses/04.webp",
   ],
   "the-glenburn-penthouse": [
     "/images/stays/the-glenburn-penthouse/cover.webp",

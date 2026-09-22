@@ -15,8 +15,8 @@
 
   The photographs themselves live in ./stayPhotos.ts, keyed by slug and
   generated from what each property sent; they are attached at the bottom
-  of this file. Two properties sent nothing usable and are absent from it
-  on purpose, so their cards are still set in type.
+  of this file. A property absent from it has sent nothing usable, and its
+  card is set in type rather than given stock.
 */
 
 import { stayPhotos } from "./stayPhotos";
