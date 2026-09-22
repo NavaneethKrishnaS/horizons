@@ -118,29 +118,48 @@ export default function StayDetail({ stay }: { stay: Stay }) {
       </header>
 
       {/*
-        The photographs, if the property has sent any — below the name
-        rather than behind it, the way a review runs its pictures.
+        The photographs, below the name rather than behind it, the way a
+        review runs its pictures.
+
+        The slot is always here. With several photographs it is the
+        gallery; with one it is a single plate; with none it says so —
+        because a hotel page with no visible pictures and no explanation
+        reads as broken, while one that tells you the property's own are
+        on the way reads as a house style. It is also the thing that
+        reminds us which properties still owe us a media kit.
       */}
-      {stay.image || plates.length > 0 ? (
-        <div className="mt-14 md:mt-20">
-          <Container>
-            {plates.length > 0 ? (
-              <StayGallery plates={plates} name={stay.name} />
-            ) : (
-              <div className="relative aspect-[16/9] overflow-hidden bg-white/5">
-                <Image
-                  src={stay.image as string}
-                  alt={stay.imageAlt ?? stay.name}
-                  fill
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 1200px"
-                  className="object-cover"
-                />
+      <div className="mt-14 md:mt-20">
+        <Container>
+          {plates.length > 0 ? (
+            <StayGallery plates={plates} name={stay.name} />
+          ) : stay.image ? (
+            <div className="relative aspect-[16/9] overflow-hidden bg-white/5">
+              <Image
+                src={stay.image}
+                alt={stay.imageAlt ?? stay.name}
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 1200px"
+                className="object-cover"
+              />
+            </div>
+          ) : (
+            <div className="border-t border-white/10 pt-8">
+              <div className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3">
+                <p className="text-[10px] uppercase tracking-[0.35em] text-white/30">
+                  Photographs
+                </p>
+
+                <p className="max-w-lg text-[13px] leading-7 text-white/35">
+                  {stay.name}&rsquo;s own, when they reach us. We do not put
+                  stock photography under the name of a place you might
+                  sleep in.
+                </p>
               </div>
-            )}
-          </Container>
-        </div>
-      ) : null}
+            </div>
+          )}
+        </Container>
+      </div>
 
       {/* ——— The dossier ——— */}
       <Container>
