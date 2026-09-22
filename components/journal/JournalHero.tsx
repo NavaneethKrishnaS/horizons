@@ -17,7 +17,7 @@ export default function JournalHero() {
 
   return (
     <section ref={ref} className="relative h-[220vh] bg-[#F4F2ED]">
-      <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden pt-20">
+      <div className="sticky top-0 flex h-svh flex-col justify-center overflow-hidden pt-20">
         {/*
           The room the page opens in. Nothing sits above roughly a third
           down: the navbar lives there, and an object crossing the logo

@@ -32,7 +32,7 @@ export default function BookingCTA() {
             {/* Right */}
             <div className="flex flex-col justify-between lg:col-span-7">
               <p className="max-w-2xl text-[15px] leading-7 text-neutral-600 sm:text-xl sm:leading-9">
-              Every journey through Kerala's backwaters is thoughtfully curated around your pace, your people and your idea of luxury. Whether you're celebrating something special or simply escaping the everyday, we'll help you discover the houseboat that's right for you.
+              Every journey through Kerala’s backwaters is thoughtfully curated around your pace, your people and your idea of luxury. Whether you’re celebrating something special or simply escaping the everyday, we’ll help you discover the houseboat that’s right for you.
               </p>
 
               <div className="mt-10 md:mt-16">

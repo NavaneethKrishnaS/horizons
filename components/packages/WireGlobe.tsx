@@ -30,7 +30,7 @@ export default function WireGlobe() {
   return (
     <div
       aria-hidden
-      className="horizons-globe-stage pointer-events-none absolute right-[-20%] top-[-2%] w-[58vw] max-w-[620px] select-none sm:right-[-16%] sm:top-[4%] sm:w-[70vw] lg:right-[2%] lg:top-[6%] lg:w-[86vw]"
+      className="horizons-globe-stage pointer-events-none absolute left-[8vw] top-[-11vw] w-[82vw] max-w-[620px] select-none sm:left-auto sm:right-[-16%] sm:top-[4%] sm:w-[70vw] lg:right-[2%] lg:top-[6%] lg:w-[86vw]"
     >
       <style>{`
         .horizons-globe-stage {

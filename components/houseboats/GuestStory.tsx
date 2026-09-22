@@ -27,7 +27,7 @@ export default function GuestStory() {
         <>
           Every sunrise reminded us
           <br />
-          that luxury isn't measured
+          that luxury isn’t measured
           <br />
           in stars—but in moments.
         </>

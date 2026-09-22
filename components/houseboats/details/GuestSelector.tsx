@@ -118,12 +118,21 @@ export default function GuestSelector({
   }, []);
 
   useEffect(() => {
-    if (!isOpen || !containerRef.current) return;
+    if (!isOpen) return;
 
-    setTimeout(() => {
-      const rect = containerRef.current!.getBoundingClientRect();
+    /*
+      Waits for the panel to open before deciding whether it would fall
+      off the bottom of the screen. The timer is cleared on the way out:
+      closing the selector — or leaving the page — inside those 150ms
+      used to leave it to fire against a node that was no longer there.
+    */
+    const timer = window.setTimeout(() => {
+      const node = containerRef.current;
 
-      const bottomOverflow = rect.bottom + 330 - window.innerHeight;
+      if (!node) return;
+
+      const bottomOverflow =
+        node.getBoundingClientRect().bottom + 330 - window.innerHeight;
 
       if (bottomOverflow > 0) {
         window.scrollBy({
@@ -132,6 +141,8 @@ export default function GuestSelector({
         });
       }
     }, 150);
+
+    return () => window.clearTimeout(timer);
   }, [isOpen]);
 
   return (

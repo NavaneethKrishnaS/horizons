@@ -28,7 +28,7 @@ export default function HouseboatExplorer() {
           </h2>
 
           <p className="mt-4 text-[15px] leading-7 text-neutral-600 sm:mt-6 sm:text-lg sm:leading-8">
-            Whether you're celebrating a honeymoon, travelling with family, or
+            Whether you’re celebrating a honeymoon, travelling with family, or
             planning a getaway with friends, discover houseboats carefully
             selected to match every occasion.
           </p>

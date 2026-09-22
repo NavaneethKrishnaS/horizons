@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
@@ -21,28 +21,30 @@ export default function HouseboatGallery({
 }: HouseboatGalleryProps) {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
 
-  const showPrevious = () => {
-    if (selectedImage === null) return;
+  const total = houseboat.gallery.length;
 
-    setSelectedImage(
-      selectedImage === 0
-        ? houseboat.gallery.length - 1
-        : selectedImage - 1
+  /*
+    Both steps move from whatever is current at the moment of the press
+    rather than from what was current when the handler was made. That
+    keeps the arrow keys bound once while the lightbox is open, instead
+    of being torn down and re-bound on every photograph.
+  */
+  const showPrevious = useCallback(() => {
+    setSelectedImage((current) =>
+      current === null ? current : current === 0 ? total - 1 : current - 1
     );
-  };
+  }, [total]);
 
-  const showNext = () => {
-    if (selectedImage === null) return;
-
-    setSelectedImage(
-      selectedImage === houseboat.gallery.length - 1
-        ? 0
-        : selectedImage + 1
+  const showNext = useCallback(() => {
+    setSelectedImage((current) =>
+      current === null ? current : current === total - 1 ? 0 : current + 1
     );
-  };
+  }, [total]);
+
+  const isOpen = selectedImage !== null;
 
   useEffect(() => {
-    if (selectedImage === null) return;
+    if (!isOpen) return;
 
     const handleKeyDown = (event: KeyboardEvent) => {
       switch (event.key) {
@@ -63,7 +65,7 @@ export default function HouseboatGallery({
     window.addEventListener("keydown", handleKeyDown);
 
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selectedImage]);
+  }, [isOpen, showNext, showPrevious]);
 
   useScrollLock(selectedImage !== null);
 

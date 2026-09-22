@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import Image from "next/image";
 import { useReducedMotion } from "framer-motion";
 
@@ -22,35 +22,95 @@ export default function DestinationImages({
   const animation = useRef<number | null>(null);
   const reduceMotion = useReducedMotion();
 
-  function slides() {
-    // Only real slides — the trailing spacer is excluded so the index can
-    // never run past the end of the data.
-    return Array.from(
-      trackRef.current?.querySelectorAll<HTMLElement>("[data-slide]") ?? []
-    );
-  }
+  /*
+    Where each slide sits, and how wide the window onto them is.
+
+    This used to be measured inside the scroll handler: every slide's
+    offsetLeft and offsetWidth, on every scroll event, several times a
+    frame — and during the arrow tween, which writes scrollLeft each
+    frame, that read came straight after a write. Now it is measured
+    when the track changes size and read from memory while scrolling.
+  */
+  const geometry = useRef({ centres: [] as number[], window: 0 });
+  const pending = useRef<number | null>(null);
+
+  const slides = useCallback(
+    () =>
+      // Only real slides — the trailing spacer is excluded so the index
+      // can never run past the end of the data.
+      Array.from(
+        trackRef.current?.querySelectorAll<HTMLElement>("[data-slide]") ?? []
+      ),
+    []
+  );
+
+  const measure = useCallback(() => {
+    const track = trackRef.current;
+
+    if (!track) return;
+
+    geometry.current = {
+      centres: slides().map(
+        (slide) => slide.offsetLeft - track.offsetLeft + slide.offsetWidth / 2
+      ),
+      window: track.clientWidth,
+    };
+  }, [slides]);
+
+  useEffect(() => {
+    measure();
+
+    const track = trackRef.current;
+
+    if (!track) return;
+
+    const observer =
+      typeof ResizeObserver === "undefined"
+        ? null
+        : new ResizeObserver(measure);
+
+    observer?.observe(track);
+
+    // A webfont or a late photograph can change a slide's width.
+    document.fonts?.ready.then(measure).catch(() => {});
+
+    return () => {
+      observer?.disconnect();
+
+      if (pending.current !== null) cancelAnimationFrame(pending.current);
+      if (animation.current !== null) cancelAnimationFrame(animation.current);
+    };
+  }, [measure]);
 
   // Keeps the heading, description and progress bar in step with the swipe.
   function handleScroll() {
-    const track = trackRef.current;
-    if (!track) return;
+    // At most one decision per frame, however many events arrive.
+    if (pending.current !== null) return;
 
-    const trackCentre = track.scrollLeft + track.clientWidth / 2;
+    pending.current = requestAnimationFrame(() => {
+      pending.current = null;
 
-    let closest = 0;
-    let smallestGap = Infinity;
+      const track = trackRef.current;
+      const { centres, window: windowWidth } = geometry.current;
 
-    slides().forEach((slide, index) => {
-      const centre = slide.offsetLeft - track.offsetLeft + slide.offsetWidth / 2;
-      const gap = Math.abs(centre - trackCentre);
+      if (!track || !centres.length) return;
 
-      if (gap < smallestGap) {
-        smallestGap = gap;
-        closest = index;
-      }
+      const trackCentre = track.scrollLeft + windowWidth / 2;
+
+      let closest = 0;
+      let smallestGap = Infinity;
+
+      centres.forEach((centre, index) => {
+        const gap = Math.abs(centre - trackCentre);
+
+        if (gap < smallestGap) {
+          smallestGap = gap;
+          closest = index;
+        }
+      });
+
+      if (closest !== activeIndex) onChange(closest);
     });
-
-    if (closest !== activeIndex) onChange(closest);
   }
 
   function goTo(index: number) {

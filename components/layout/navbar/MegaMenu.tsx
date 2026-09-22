@@ -18,11 +18,17 @@ export default function MegaMenu({ menu }: Props) {
 
   const section = navigation.find((item) => item.label === menu);
 
-  if (!section) return null;
-
-  const featuredItems = section.items.slice(0, 5);
+  /*
+    Every hook runs before the first return, always. The guard below used
+    to sit above this one, which meant a menu key with no matching
+    navigation entry would render one fewer hook than the render before
+    it and take the whole navbar down with it.
+  */
+  const featuredItems = section ? section.items.slice(0, 5) : [];
 
   const [activeItem, setActiveItem] = useState(featuredItems[0]);
+
+  if (!section || !activeItem) return null;
 
   return (
     <div className="w-[88vw] max-w-[940px] overflow-hidden rounded-md bg-[#FCFBF8] shadow-[0_24px_80px_rgba(0,0,0,0.15)]">

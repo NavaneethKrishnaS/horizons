@@ -2,6 +2,8 @@
 
 import { ReactNode, useEffect, useRef, useState } from "react";
 
+import { useReducedMotion } from "@/lib/useReducedMotion";
+
 interface RevealProps {
   children: ReactNode;
   delay?: number;
@@ -20,10 +22,17 @@ export default function Reveal({ children, delay = 0, className }: RevealProps) 
   const ref = useRef<HTMLDivElement>(null);
   const [shown, setShown] = useState(false);
 
+  /*
+    Someone who has asked for less movement gets the finished state
+    straight away. Every other animation on the page respects this;
+    this one, the most used of them, did not.
+  */
+  const still = useReducedMotion();
+
   useEffect(() => {
     const node = ref.current;
 
-    if (!node) return;
+    if (!node || still) return;
 
     // No observer means a browser old enough that the safe thing is simply
     // to show the content. Deferred by a tick so it is not a synchronous
@@ -47,16 +56,18 @@ export default function Reveal({ children, delay = 0, className }: RevealProps) 
     observer.observe(node);
 
     return () => observer.disconnect();
-  }, []);
+  }, [still]);
 
   return (
     <div
       ref={ref}
       className={className}
       style={{
-        opacity: shown ? 1 : 0,
-        transform: shown ? "translateY(0)" : "translateY(18px)",
-        transition: `opacity 900ms cubic-bezier(0.16,1,0.3,1) ${delay}ms, transform 900ms cubic-bezier(0.16,1,0.3,1) ${delay}ms`,
+        opacity: shown || still ? 1 : 0,
+        transform: shown || still ? "translateY(0)" : "translateY(18px)",
+        transition: still
+          ? "none"
+          : `opacity 900ms cubic-bezier(0.16,1,0.3,1) ${delay}ms, transform 900ms cubic-bezier(0.16,1,0.3,1) ${delay}ms`,
       }}
     >
       {children}

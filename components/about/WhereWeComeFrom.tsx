@@ -28,7 +28,7 @@ export default function WhereWeComeFrom() {
     <section className="relative bg-neutral-950">
 
       {/* ─── PINNED PHOTOGRAPH ─────────────────────────────── */}
-      <div className="sticky top-0 h-screen overflow-hidden">
+      <div className="sticky top-0 h-svh overflow-hidden">
 
         {/* Inset top/bottom by 8% so the 6% drift never exposes an edge */}
         <motion.div

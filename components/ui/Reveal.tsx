@@ -2,6 +2,8 @@
 
 import { ReactNode, useEffect, useRef, useState } from "react";
 
+import { useReducedMotion } from "@/lib/useReducedMotion";
+
 interface RevealProps {
   children: ReactNode;
   /* Milliseconds. Use it to stagger a row or a list. */
@@ -28,10 +30,17 @@ export default function Reveal({
   const ref = useRef<HTMLDivElement>(null);
   const [shown, setShown] = useState(false);
 
+  /*
+    Someone who has asked for less movement gets the finished state
+    straight away. Every other animation on the page respects this;
+    this one, the most used of them, did not.
+  */
+  const still = useReducedMotion();
+
   useEffect(() => {
     const node = ref.current;
 
-    if (!node) return;
+    if (!node || still) return;
 
     if (typeof IntersectionObserver === "undefined") {
       const timeout = setTimeout(() => setShown(true), 0);
@@ -52,16 +61,18 @@ export default function Reveal({
     observer.observe(node);
 
     return () => observer.disconnect();
-  }, []);
+  }, [still]);
 
   return (
     <div
       ref={ref}
       className={className}
       style={{
-        opacity: shown ? 1 : 0,
-        transform: shown ? "translateY(0)" : `translateY(${distance}px)`,
-        transition: `opacity 1000ms cubic-bezier(0.16,1,0.3,1) ${delay}ms, transform 1000ms cubic-bezier(0.16,1,0.3,1) ${delay}ms`,
+        opacity: shown || still ? 1 : 0,
+        transform: shown || still ? "translateY(0)" : `translateY(${distance}px)`,
+        transition: still
+          ? "none"
+          : `opacity 1000ms cubic-bezier(0.16,1,0.3,1) ${delay}ms, transform 1000ms cubic-bezier(0.16,1,0.3,1) ${delay}ms`,
       }}
     >
       {children}

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import AboutHero from "@/components/about/AboutHero";
 import WhereWeComeFrom from "@/components/about/WhereWeComeFrom";
 

@@ -122,8 +122,8 @@ export default function PackageDetail({ tour }: { tour: TourPackage }) {
 
           <ul className="mt-10 grid gap-x-14 gap-y-7 md:grid-cols-2">
             {tour.highlights.map((line, index) => (
-              <Reveal key={line} delay={(index % 2) * 120} distance={18}>
-                <li className="flex gap-6">
+              <li key={line} className="flex gap-6">
+                <Reveal delay={(index % 2) * 120} distance={18} className="flex gap-6">
                   <span className="mt-1 font-cormorant text-[18px] text-[#8B9556]">
                     {String(index + 1).padStart(2, "0")}
                   </span>
@@ -131,8 +131,8 @@ export default function PackageDetail({ tour }: { tour: TourPackage }) {
                   <span className="text-[15px] leading-8 text-white/65">
                     {line}
                   </span>
-                </li>
-              </Reveal>
+                </Reveal>
+              </li>
             ))}
           </ul>
         </Container>

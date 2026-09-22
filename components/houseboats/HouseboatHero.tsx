@@ -35,7 +35,7 @@ export default function HouseboatHero() {
 
           <p className="mx-auto mt-8 max-w-2xl text-lg leading-8 text-white/80">
             Discover handpicked luxury and traditional houseboats from trusted
-            local operators across Kerala's serene backwaters.
+            local operators across Kerala’s serene backwaters.
           </p>
         </div>
       </div>

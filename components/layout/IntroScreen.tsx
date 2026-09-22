@@ -94,7 +94,7 @@ export default function IntroScreen() {
     const dismiss = () => setPhase("done");
 
     document.addEventListener("visibilitychange", handleVisibility);
-    window.addEventListener("pointerdown", dismiss);
+    window.addEventListener("pointerdown", dismiss, { passive: true });
 
     return () => {
       clearTimeout(leave);

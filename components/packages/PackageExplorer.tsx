@@ -32,16 +32,26 @@ export default function PackageExplorer() {
 
     if (!row) return;
 
+    /*
+      The row fires a scroll event several times per frame while it is
+      being dragged, and the measurement almost never changes — an
+      absolutely positioned child scrolls with the content, so its
+      offset is already right. Writing state anyway re-rendered the
+      whole explorer on every one of those events.
+    */
     const place = () => {
       const active = row.querySelector<HTMLElement>('[aria-pressed="true"]');
 
       if (!active) return;
 
-      setMarker({
-        left: active.offsetLeft,
-        width: active.offsetWidth,
-        ready: true,
-      });
+      const left = active.offsetLeft;
+      const width = active.offsetWidth;
+
+      setMarker((current) =>
+        current.left === left && current.width === width && current.ready
+          ? current
+          : { left, width, ready: true }
+      );
     };
 
     place();
@@ -105,15 +115,20 @@ export default function PackageExplorer() {
               />
             ))}
 
+            {/*
+              One pixel wide, moved and stretched by transform rather than
+              by left and width. Both of those are layout, and animating
+              them made the browser lay the row out again on every frame
+              of the six hundred milliseconds it travels.
+            */}
             <span
               aria-hidden
-              className="pointer-events-none absolute bottom-0 h-px bg-[#6B7341]"
+              className="pointer-events-none absolute bottom-0 left-0 h-px w-px origin-left bg-[#6B7341]"
               style={{
-                left: marker.left,
-                width: marker.width,
+                transform: `translate3d(${marker.left}px, 0, 0) scaleX(${marker.width})`,
                 opacity: marker.ready ? 1 : 0,
                 transition:
-                  "left 620ms cubic-bezier(0.16,1,0.3,1), width 620ms cubic-bezier(0.16,1,0.3,1), opacity 300ms ease",
+                  "transform 620ms cubic-bezier(0.16,1,0.3,1), opacity 300ms ease",
               }}
             />
           </div>
