@@ -5,6 +5,7 @@ import { useState } from "react";
 import Container from "@/components/ui/Container";
 import Reveal from "@/components/ui/Reveal";
 import { faq } from "@/data/faq";
+import GettingHerePanel from "./GettingHerePanel";
 
 /*
   One open at a time, and none open to begin with.
@@ -109,6 +110,14 @@ export default function FaqList() {
                 );
               })}
             </div>
+
+            {/*
+              The short answers on arriving are useful; the whole story
+              needs a page. It goes here rather than at the foot of the
+              FAQ so it is in front of the person who was just asking
+              about airports.
+            */}
+            {group.id === "getting-here" ? <GettingHerePanel /> : null}
           </div>
         ))}
       </Container>
