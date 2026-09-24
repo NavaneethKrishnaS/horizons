@@ -39,8 +39,15 @@ export default function EnquiryActions({
   subject,
   layout = "row",
   align = "left",
-  whatsapp = "Ask on WhatsApp",
-  email = "Ask by email",
+  /*
+    "Enquire" rather than "Ask": it is the word this end of the trade
+    uses, and it was already the site's own — the package detail page
+    said "Enquire on WhatsApp" before these two were paired up. The
+    contact page and the houseboat sheet still say "Send", because
+    there the message is already written and the button sends it.
+  */
+  whatsapp = "Enquire on WhatsApp",
+  email = "Enquire by email",
   className = "",
 }: Props) {
   /*
