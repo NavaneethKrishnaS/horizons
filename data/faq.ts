@@ -71,6 +71,58 @@ export const faq: FaqGroup[] = [
     ],
   },
   {
+    id: "when",
+    label: "When to come",
+    questions: [
+      {
+        q: "When is the best time to visit Kerala?",
+        a: "October to March, and December to February most of all: dry, clear, and warm without being punishing. It is also when everybody else comes, so the good rooms go early.",
+      },
+      {
+        q: "What is it like during the monsoon?",
+        a: "The south-west monsoon runs roughly June to September and a second, lighter one comes through in October and November. It rains hard and then stops; the state turns an almost unreasonable green, the light is extraordinary, and there is nobody about. It is not the wrong time to come — it is simply a different trip.",
+      },
+      {
+        q: "And April and May?",
+        a: "Hot and humid at sea level. The hill country — Munnar, Wayanad, the tea estates — is the sensible answer in those months, and it is beautiful in a way the coast is not.",
+      },
+      {
+        q: "Will I need English?",
+        a: "You will manage in English almost everywhere in Kerala; literacy here is among the highest in India and English is widely spoken. The state's own language is Malayalam, and a word or two of it is received very warmly.",
+      },
+    ],
+  },
+  {
+    id: "getting-here",
+    label: "Getting here",
+    questions: [
+      {
+        q: "Which airport should I fly into?",
+        a: "Cochin (COK) for the backwaters and for most of what we run — it is the closest to the water and the best connected. Thiruvananthapuram (TRV) if you are starting in the south, Kozhikode (CCJ) or Kannur (CNN) for the north. Kerala has four international airports for a state you can drive the length of in a day, which tells you something about how much of it people want to reach.",
+      },
+      {
+        q: "How do I get to Kerala from Europe?",
+        a: "With one change, almost always. The usual routes are through a Gulf hub — Doha, Dubai, Abu Dhabi — or through Istanbul, and there are good onward connections from Delhi, Mumbai and Bengaluru if you are already in India. Nobody flies direct from Europe to Kochi; anyone offering you a non-stop is selling you a connection.",
+      },
+      {
+        q: "How far is the airport from the backwaters?",
+        a: "Cochin airport to Alappuzha is about 85 kilometres. Allow two hours rather than the ninety minutes the map promises — the road is single carriageway in places and goes through towns. Thiruvananthapuram to Alappuzha is roughly 150 kilometres and closer to three hours.",
+      },
+      {
+        q: "Is the train worth taking?",
+        a: "Often, yes. The coastal line runs almost the whole length of Kerala and both Alappuzha and Kollam sit on it, with Ernakulam Junction as the hub. It is not fast — Ernakulam to Alappuzha is about forty minutes when the road can take twice that — and it is one of the better ways to watch the state go by. We will tell you when the train is the better answer and when it is not.",
+      },
+      {
+        q: "How long does it take to get around?",
+        a: "Longer than the distances suggest. Kerala is long and narrow, the roads are busy, and forty kilometres an hour is a realistic average rather than a pessimistic one. It is the single thing most first itineraries get wrong, and the reason we will usually argue for one fewer place and one more night.",
+      },
+      {
+        q: "Will I need a visa?",
+        a: "Almost certainly. Most British and European passport holders travel on India's e-Visa, which is applied for online before you leave and takes a few days. The rules and the fees change, so check the current position for your own nationality rather than trusting a travel page — including this one.",
+      },
+    ],
+  },
+  {
     id: "houseboats",
     label: "Houseboats",
     questions: [
@@ -115,28 +167,6 @@ export const faq: FaqGroup[] = [
       {
         q: "Whose photographs are on the site?",
         a: "Each property's own. We do not put stock photography under the name of a place somebody might sleep in — if a property has not sent us its pictures, its page says so rather than borrowing somebody else's backwater.",
-      },
-    ],
-  },
-  {
-    id: "when",
-    label: "When to come",
-    questions: [
-      {
-        q: "When is the best time to visit Kerala?",
-        a: "October to March, and December to February most of all: dry, clear, and warm without being punishing. It is also when everybody else comes, so the good rooms go early.",
-      },
-      {
-        q: "What is it like during the monsoon?",
-        a: "The south-west monsoon runs roughly June to September and a second, lighter one comes through in October and November. It rains hard and then stops; the state turns an almost unreasonable green, the light is extraordinary, and there is nobody about. It is not the wrong time to come — it is simply a different trip.",
-      },
-      {
-        q: "And April and May?",
-        a: "Hot and humid at sea level. The hill country — Munnar, Wayanad, the tea estates — is the sensible answer in those months, and it is beautiful in a way the coast is not.",
-      },
-      {
-        q: "Will I need English?",
-        a: "You will manage in English almost everywhere in Kerala; literacy here is among the highest in India and English is widely spoken. The state's own language is Malayalam, and a word or two of it is received very warmly.",
       },
     ],
   },
