@@ -56,38 +56,42 @@ export default function ContactForm() {
     Built on every render rather than on submit, so both routes are
     always carrying whatever has been typed so far.
 
-    Written as a note, not dumped as a form. The first version opened
-    with the company's own name — which it is being sent to — and then
-    listed "Name:" and "Email:" like a database row, so an enquiry with
-    nothing optional filled in arrived as two labelled lines saying
-    nothing about the trip. A greeting, a sentence asking for the thing,
-    the details that were actually given, and a signature underneath
-    reads like somebody wrote it, and still scans in two seconds on a
-    phone.
+    Written as correspondence, not dumped as a form. The first version
+    opened with the company's own name — which it is being sent to —
+    and then listed "Name:" and "Email:" like a database row, so an
+    enquiry with nothing optional filled in arrived as two labelled
+    lines saying nothing at all about the trip.
+
+    It is set out as a letter now: an address, the request in a
+    sentence, the particulars given, a sign-off. That is the register
+    the rest of the business writes in, and it is what an enquiry from
+    a stranger asking to be taken across India should read like. Empty
+    or full, it still scans in two seconds on a phone.
 
     No asterisks. WhatsApp would render them as bold; email shows them
     as asterisks, and this same text goes down both routes.
   */
   const trip = where.trim() ? ` to ${where.trim()}` : "";
 
-  const detail = [
-    when.trim() ? `When — ${when.trim()}` : null,
-    party.trim() ? `Who — ${party.trim()}` : null,
+  const particulars = [
+    when.trim() ? `Dates: ${when.trim()}` : null,
+    party.trim() ? `Party: ${party.trim()}` : null,
   ].filter(Boolean) as string[];
 
   /* Validation guarantees the first two by the time this is sent. */
   const signature = [name.trim(), email.trim(), phone.trim()].filter(Boolean);
 
   const message = [
-    "Hello HORIZONS,",
+    "Dear HORIZONS,",
     "",
-    `I would like some help planning a trip${trip}.`,
-    ...(detail.length ? ["", ...detail] : []),
+    `I am writing to enquire about arranging a journey${trip}, and would be glad of your advice.`,
+    ...(particulars.length ? ["", ...particulars] : []),
     ...(note.trim() ? ["", note.trim()] : []),
     "",
+    "Kind regards,",
     ...signature,
     "",
-    "Sent from the HORIZONS website.",
+    "Sent via the HORIZONS website",
   ].join("\n");
 
   /*
@@ -95,8 +99,8 @@ export default function ContactForm() {
     the website" thirty times over is a folder you stop opening.
   */
   const subject = where.trim()
-    ? `Enquiry — ${where.trim()}`.slice(0, 80)
-    : "Enquiry from the HORIZONS website";
+    ? `Travel enquiry — ${where.trim()}`.slice(0, 80)
+    : "Travel enquiry — HORIZONS website";
 
   /* Returns the id of the first field that needs attention, or null. */
   const check = () => {
