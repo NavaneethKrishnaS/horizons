@@ -34,6 +34,56 @@ const BAD = "border-[#C08457]/70 focus:border-[#C08457]";
 
 type Errors = { name?: string; email?: string };
 
+/*
+  What the message has to fit inside.
+
+  A mailto: carries its body in the URL, and Outlook on the desktop
+  stops reading at about 2,048 characters. What costs the budget is not
+  characters but bytes once encoded: é becomes %C3%A9, six for one, and
+  a Malayalam letter becomes nine. A realistic French note at the first
+  1,200-character limit built a 2,649-character link, and the message
+  arrived cut off mid-sentence with nothing to say it had been.
+
+  So the ceiling is measured where it actually bites — on the encoded
+  length — rather than on a character count that means one thing in
+  English, a third of that in French and a ninth in Malayalam, which is
+  the language a good share of the domestic enquiries will arrive in.
+  1,900 leaves the client a margin on its own limit.
+*/
+const URL_BUDGET = 1900;
+
+/* A generous coarse cap as well, so nobody pastes an essay. */
+const NOTE_LIMIT = 1200;
+
+/*
+  What a string costs in the URL. A slice can land between the two
+  halves of a surrogate pair — an emoji cut down the middle — and
+  encodeURIComponent throws on the orphan rather than returning a
+  length, so an unaffordable answer sends the search the right way.
+*/
+function cost(value: string) {
+  try {
+    return encodeURIComponent(value).length;
+  } catch {
+    return Number.POSITIVE_INFINITY;
+  }
+}
+
+/*
+  The short fields are bounded too, for the same reason: they all end up
+  in the same URL, and the destination also becomes the subject line.
+  These are far past what anyone types and still leave the note its
+  budget however florid the rest gets.
+*/
+const LIMITS = {
+  name: 80,
+  email: 120,
+  phone: 40,
+  where: 120,
+  when: 120,
+  party: 120,
+};
+
 /* Declared once, so the two cannot drift apart in size or wording. */
 const ROUTES = [
   { id: "whatsapp" as const, label: "Send on WhatsApp" },
@@ -101,6 +151,48 @@ export default function ContactForm() {
   const subject = where.trim()
     ? `Travel enquiry — ${where.trim()}`.slice(0, 80)
     : "Travel enquiry — HORIZONS website";
+
+  /*
+    What is left for the note once everything else has been paid for.
+    Recomputed as they type, because the destination they name goes in
+    the subject line as well as the body.
+  */
+  const spentElsewhere =
+    encodeURIComponent(message.replace(note.trim(), "")).length +
+    encodeURIComponent(subject).length +
+    CONTACT_EMAIL.length +
+    24;
+
+  const noteBudget = Math.max(150, URL_BUDGET - spentElsewhere);
+  const noteSpent = cost(note);
+  const nearlyFull = noteSpent > noteBudget * 0.85;
+
+  /*
+    Keeps as much of what arrives as will fit, rather than refusing it.
+
+    Rejecting the whole value when it was too long meant a pasted
+    paragraph produced an empty field — it is only over budget as a
+    whole, so nothing was ever accepted. Typing filled up and stopped,
+    which is right; pasting silently did nothing, which is not.
+  */
+  const fit = (value: string) => {
+    if (cost(value) <= noteBudget) return value;
+
+    let low = 0;
+    let high = value.length;
+
+    while (low < high) {
+      const middle = Math.ceil((low + high) / 2);
+
+      if (cost(value.slice(0, middle)) <= noteBudget) {
+        low = middle;
+      } else {
+        high = middle - 1;
+      }
+    }
+
+    return value.slice(0, low);
+  };
 
   /* Returns the id of the first field that needs attention, or null. */
   const check = () => {
@@ -217,6 +309,7 @@ export default function ContactForm() {
                     id="contact-name"
                     name="name"
                     autoComplete="name"
+                    maxLength={LIMITS.name}
                     value={name}
                     onChange={(event) => {
                       setName(event.target.value);
@@ -245,6 +338,7 @@ export default function ContactForm() {
                     type="email"
                     inputMode="email"
                     autoComplete="email"
+                    maxLength={LIMITS.email}
                     value={email}
                     onChange={(event) => {
                       setEmail(event.target.value);
@@ -273,6 +367,7 @@ export default function ContactForm() {
                     type="tel"
                     inputMode="tel"
                     autoComplete="tel"
+                    maxLength={LIMITS.phone}
                     value={phone}
                     onChange={(event) => setPhone(event.target.value)}
                     className={`${FIELD} ${OK}`}
@@ -287,6 +382,7 @@ export default function ContactForm() {
                   <input
                     id="contact-where"
                     name="where"
+                    maxLength={LIMITS.where}
                     value={where}
                     onChange={(event) => setWhere(event.target.value)}
                     placeholder="Kerala, or somewhere you have not decided"
@@ -302,6 +398,7 @@ export default function ContactForm() {
                   <input
                     id="contact-when"
                     name="when"
+                    maxLength={LIMITS.when}
                     value={when}
                     onChange={(event) => setWhen(event.target.value)}
                     placeholder="February, or two weeks in the winter"
@@ -317,6 +414,7 @@ export default function ContactForm() {
                   <input
                     id="contact-party"
                     name="party"
+                    maxLength={LIMITS.party}
                     value={party}
                     onChange={(event) => setParty(event.target.value)}
                     placeholder="Two adults, one child"
@@ -333,12 +431,30 @@ export default function ContactForm() {
                     id="contact-note"
                     name="note"
                     rows={4}
-                    maxLength={1200}
+                    maxLength={NOTE_LIMIT}
                     value={note}
-                    onChange={(event) => setNote(event.target.value)}
+                    onChange={(event) => setNote(fit(event.target.value))}
                     placeholder="What you like the sound of, what you would rather avoid, anything we should know."
                     className={`${FIELD} ${OK} resize-y leading-8`}
+                    aria-describedby="contact-note-count"
                   />
+
+                  {/*
+                    No number: "180 characters left" would be a lie in
+                    any script that is not English, since what is being
+                    counted is bytes in a URL. It says the true thing
+                    instead, and only once it is nearly true.
+                  */}
+                  <p
+                    id="contact-note-count"
+                    aria-live="polite"
+                    className={`mt-2.5 text-[12px] text-white/30 transition-opacity duration-300 ${
+                      nearlyFull ? "opacity-100" : "opacity-0"
+                    }`}
+                  >
+                    That is about as much as this form can carry — there is
+                    room for the rest once the conversation is open.
+                  </p>
                 </div>
               </div>
 

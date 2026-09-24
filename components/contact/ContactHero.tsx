@@ -22,7 +22,14 @@ export default function ContactHero() {
   */
   const ways = [
     {
-      label: "Call or WhatsApp",
+      /*
+        Labelled for what the link does. It said "Call or WhatsApp" and
+        opened WhatsApp, so anyone tapping a printed telephone number
+        expecting it to ring got an app instead. Calling lives in the
+        details block below, where the same number is a tel: link under
+        a label that says so.
+      */
+      label: "WhatsApp",
       value: PHONE_DISPLAY,
       href: `https://wa.me/${WHATSAPP_NUMBER}`,
       external: true,

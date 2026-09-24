@@ -28,7 +28,17 @@ export default function ContactDetails() {
           </p>
         </Reveal>
 
-        <div className="mt-12 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+        {/*
+          Four columns were hard-coded for four blocks, and the office
+          block only renders once there is an address to put in it — so
+          the row sat three across with a three-hundred-pixel hole at the
+          right. The count follows what is actually there.
+        */}
+        <div
+          className={`mt-12 grid gap-x-10 gap-y-12 sm:grid-cols-2 ${
+            ADDRESS.length > 0 ? "lg:grid-cols-4" : "lg:grid-cols-3"
+          }`}
+        >
           <Reveal>
             <p className="text-[10px] uppercase tracking-[0.3em] text-white/30">
               Write
