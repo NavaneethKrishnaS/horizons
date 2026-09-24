@@ -53,23 +53,50 @@ export default function ContactForm() {
   const [handedOver, setHandedOver] = useState<"whatsapp" | "email" | null>(null);
 
   /*
-    Built on every render rather than on submit, so the email link beside
-    the button is always carrying whatever has been typed so far.
-  */
-  const lines = [
-    "*HORIZONS by Scenic Escapes*",
-    "Enquiry from the website",
-    "",
-    `Name: ${name.trim() || "—"}`,
-    `Email: ${email.trim() || "—"}`,
-    ...(phone.trim() ? [`Phone: ${phone.trim()}`] : []),
-    ...(where.trim() ? [`Where: ${where.trim()}`] : []),
-    ...(when.trim() ? [`When: ${when.trim()}`] : []),
-    ...(party.trim() ? [`Travelling: ${party.trim()}`] : []),
-    ...(note.trim() ? ["", note.trim()] : []),
-  ];
+    Built on every render rather than on submit, so both routes are
+    always carrying whatever has been typed so far.
 
-  const message = lines.join("\n");
+    Written as a note, not dumped as a form. The first version opened
+    with the company's own name — which it is being sent to — and then
+    listed "Name:" and "Email:" like a database row, so an enquiry with
+    nothing optional filled in arrived as two labelled lines saying
+    nothing about the trip. A greeting, a sentence asking for the thing,
+    the details that were actually given, and a signature underneath
+    reads like somebody wrote it, and still scans in two seconds on a
+    phone.
+
+    No asterisks. WhatsApp would render them as bold; email shows them
+    as asterisks, and this same text goes down both routes.
+  */
+  const trip = where.trim() ? ` to ${where.trim()}` : "";
+
+  const detail = [
+    when.trim() ? `When — ${when.trim()}` : null,
+    party.trim() ? `Who — ${party.trim()}` : null,
+  ].filter(Boolean) as string[];
+
+  /* Validation guarantees the first two by the time this is sent. */
+  const signature = [name.trim(), email.trim(), phone.trim()].filter(Boolean);
+
+  const message = [
+    "Hello HORIZONS,",
+    "",
+    `I would like some help planning a trip${trip}.`,
+    ...(detail.length ? ["", ...detail] : []),
+    ...(note.trim() ? ["", note.trim()] : []),
+    "",
+    ...signature,
+    "",
+    "Sent from the HORIZONS website.",
+  ].join("\n");
+
+  /*
+    A subject line that says something in a full inbox. "Enquiry from
+    the website" thirty times over is a folder you stop opening.
+  */
+  const subject = where.trim()
+    ? `Enquiry — ${where.trim()}`.slice(0, 80)
+    : "Enquiry from the HORIZONS website";
 
   /* Returns the id of the first field that needs attention, or null. */
   const check = () => {
@@ -126,7 +153,7 @@ export default function ContactForm() {
     const url =
       route === "whatsapp"
         ? whatsappLink(message)
-        : emailLink("Enquiry from the HORIZONS website", message);
+        : emailLink(subject, message);
 
     /*
       A mail client takes the link in this tab whatever the device — it
