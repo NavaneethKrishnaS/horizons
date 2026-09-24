@@ -34,6 +34,12 @@ const BAD = "border-[#C08457]/70 focus:border-[#C08457]";
 
 type Errors = { name?: string; email?: string };
 
+/* Declared once, so the two cannot drift apart in size or wording. */
+const ROUTES = [
+  { id: "whatsapp" as const, label: "Send on WhatsApp" },
+  { id: "email" as const, label: "Send by email" },
+];
+
 export default function ContactForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -44,7 +50,7 @@ export default function ContactForm() {
   const [note, setNote] = useState("");
 
   const [errors, setErrors] = useState<Errors>({});
-  const [handedOver, setHandedOver] = useState(false);
+  const [handedOver, setHandedOver] = useState<"whatsapp" | "email" | null>(null);
 
   /*
     Built on every render rather than on submit, so the email link beside
@@ -97,9 +103,13 @@ export default function ContactForm() {
       current[field] ? { ...current, [field]: undefined } : current
     );
 
-  const send = (event: React.FormEvent) => {
-    event.preventDefault();
-
+  /*
+    Two ways out, and they have to be genuinely equal — which means the
+    email route checks the form exactly as the WhatsApp route does. An
+    address link that skipped validation would be the lesser of the two
+    however the buttons were drawn.
+  */
+  const send = (route: "whatsapp" | "email") => {
     const found = check();
 
     if (found) {
@@ -113,21 +123,35 @@ export default function ContactForm() {
       return;
     }
 
-    const url = whatsappLink(message);
+    const url =
+      route === "whatsapp"
+        ? whatsappLink(message)
+        : emailLink("Enquiry from the HORIZONS website", message);
 
     /*
-      On a phone WhatsApp takes over the tab it opens in, so a new tab
-      would leave the visitor on a blank page with no way back. Navigate
-      the current one and let Back return them here; on a laptop the new
-      tab sits alongside the site, which is what you want.
+      A mail client takes the link in this tab whatever the device — it
+      opens an application or a compose window, and the page is still
+      behind it.
+
+      WhatsApp on a phone is different: it takes over the tab it opens
+      in, so a new tab would leave the visitor on a blank page with no
+      way back. Navigate the current one and let Back return them here.
+      On a laptop the new tab sits alongside the site, which is what you
+      want.
     */
-    if (window.matchMedia("(max-width: 1023px)").matches) {
+    if (route === "email" || window.matchMedia("(max-width: 1023px)").matches) {
       window.location.href = url;
     } else {
       window.open(url, "_blank", "noopener");
     }
 
-    setHandedOver(true);
+    setHandedOver(route);
+  };
+
+  /* Enter in a field picks the first button, the way a form always has. */
+  const onSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    send("whatsapp");
   };
 
   return (
@@ -151,7 +175,7 @@ export default function ContactForm() {
           </Reveal>
 
           <Reveal delay={140}>
-            <form onSubmit={send} noValidate>
+            <form onSubmit={onSubmit} noValidate>
               <div className="grid gap-x-10 gap-y-9 sm:grid-cols-2">
                 <div>
                   <label className={LABEL} htmlFor="contact-name">
@@ -287,32 +311,52 @@ export default function ContactForm() {
                 </div>
               </div>
 
-              <button
-                type="submit"
-                className="group mt-12 inline-flex items-center gap-4 border border-white/25 px-10 py-4 text-[11px] uppercase tracking-[0.3em] text-white transition-colors duration-500 hover:border-[#6B7341] hover:bg-[#6B7341]"
-              >
-                Send on WhatsApp
-                <span
-                  aria-hidden
-                  className="transition-transform duration-500 group-hover:translate-x-1.5"
-                >
-                  →
-                </span>
-              </button>
+              {/*
+                Two buttons, drawn the same and weighted the same.
+
+                WhatsApp is close to universal for our Indian and European
+                guests and close to absent for some of the British and
+                American ones, so neither can be the real button with the
+                other underneath it as a consolation. Same border, same
+                width, same type, side by side: a choice, not a default and
+                an escape hatch. A grid sized to its content, so the two
+                come out exactly the same width even though the labels are
+                not the same length — and neither one wraps to do it.
+              */}
+              <div className="mt-12 grid w-full gap-4 sm:w-fit sm:grid-cols-2">
+                {ROUTES.map((route) => (
+                  <button
+                    key={route.id}
+                    type={route.id === "whatsapp" ? "submit" : "button"}
+                    onClick={
+                      route.id === "whatsapp" ? undefined : () => send("email")
+                    }
+                    className="group flex items-center justify-between gap-5 whitespace-nowrap border border-white/25 px-8 py-4 text-[11px] uppercase tracking-[0.3em] text-white transition-colors duration-500 hover:border-[#6B7341] hover:bg-[#6B7341]"
+                  >
+                    {route.label}
+                    <span
+                      aria-hidden
+                      className="transition-transform duration-500 group-hover:translate-x-1.5"
+                    >
+                      →
+                    </span>
+                  </button>
+                ))}
+              </div>
 
               {/*
-                Said before the button is pressed, not after. Being handed
-                to another app unannounced is the part people dislike.
+                Said before a button is pressed, not after. Being handed to
+                another app unannounced is the part people dislike.
               */}
-              <p className="mt-6 max-w-md text-[13px] leading-7 text-white/40">
-                This opens WhatsApp with the message already written out.
-                Nothing leaves your phone until you press send there.
+              <p className="mt-7 max-w-md text-[13px] leading-7 text-white/40">
+                Either one writes the message out for you and opens the app.
+                Nothing is sent until you press send there.
               </p>
 
               <p className="mt-4 max-w-md text-[13px] leading-7 text-white/40">
-                No WhatsApp? Send the same thing to{" "}
+                Or write to us yourself, at{" "}
                 <a
-                  href={emailLink("Enquiry from the HORIZONS website", message)}
+                  href={`mailto:${CONTACT_EMAIL}`}
                   className="text-white/60 transition-colors hover:text-[#A8B473]"
                 >
                   {CONTACT_EMAIL}
@@ -326,9 +370,11 @@ export default function ContactForm() {
                   handedOver ? "opacity-100" : "pointer-events-none opacity-0"
                 }`}
               >
-                {handedOver
-                  ? "WhatsApp should have opened with your message in it. If it did not, the email link above carries the same words."
-                  : " "}
+                {handedOver === "whatsapp"
+                  ? "WhatsApp should have opened with your message in it. If it did not, the email button carries exactly the same words."
+                  : handedOver === "email"
+                    ? "Your mail app should have opened with the message in it. If it did not, the WhatsApp button carries exactly the same words."
+                    : " "}
               </p>
             </form>
           </Reveal>
