@@ -19,6 +19,7 @@ const navigation = [
     looks for it.
   */
   { name: "Contact", href: "/contact" },
+  { name: "FAQ", href: "/faq" },
 ];
 
 export default function Footer() {

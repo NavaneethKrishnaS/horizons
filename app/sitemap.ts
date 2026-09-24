@@ -21,6 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/packages",
     "/stays",
     "/contact",
+    "/faq",
   ];
 
   return [
