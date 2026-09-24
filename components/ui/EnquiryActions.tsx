@@ -19,11 +19,6 @@ type Props = {
      WhatsApp and literal asterisks in an email. */
   message: string;
   subject: string;
-  /*
-    Side by side where there is room, one above the other in a narrow
-    column such as the enquiry rail on a stay.
-  */
-  layout?: "row" | "stack";
   /* Centred under a centred section. */
   align?: "left" | "center";
   whatsapp?: string;
@@ -31,13 +26,21 @@ type Props = {
   className?: string;
 };
 
+/*
+  Content centred rather than pushed to the two ends.
+
+  justify-between pinned the label left and the arrow right, so the gap
+  between them was a different size in each button — "ENQUIRE BY EMAIL"
+  is shorter than "ENQUIRE ON WHATSAPP" and the equal widths made the
+  difference obvious. Centred, each button is symmetrical about its own
+  middle and the pair reads as one thing.
+*/
 const ACTION =
-  "group flex items-center justify-between gap-5 whitespace-nowrap border border-white/25 px-8 py-4 text-[11px] uppercase tracking-[0.3em] text-white transition-colors duration-500 hover:border-[#6B7341] hover:bg-[#6B7341]";
+  "group flex w-full items-center justify-center gap-4 whitespace-nowrap border border-white/25 px-6 py-4 text-[11px] uppercase tracking-[0.3em] text-white transition-colors duration-500 hover:border-[#6B7341] hover:bg-[#6B7341]";
 
 export default function EnquiryActions({
   message,
   subject,
-  layout = "row",
   align = "left",
   /*
     "Enquire" rather than "Ask": it is the word this end of the trade
@@ -50,44 +53,57 @@ export default function EnquiryActions({
   email = "Enquire by email",
   className = "",
 }: Props) {
-  /*
-    A grid sized to its content rather than a flex row, so the two come
-    out exactly the same width even though the labels are not the same
-    length — and neither has to wrap to manage it.
-  */
-  const shape =
-    layout === "stack"
-      ? "grid gap-3"
-      : `grid w-full gap-4 sm:w-fit sm:grid-cols-2 ${
-          align === "center" ? "sm:mx-auto" : ""
-        }`;
-
   return (
-    <div className={`${shape} ${className}`}>
-      <a
-        href={whatsappLink(message)}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={ACTION}
-      >
-        {whatsapp}
-        <span
-          aria-hidden
-          className="transition-transform duration-500 group-hover:translate-x-1.5"
-        >
-          →
-        </span>
-      </a>
+    /*
+      Side by side only when there is genuinely room for two, measured
+      against this container rather than against the window.
 
-      <a href={emailLink(subject, message)} className={ACTION}>
-        {email}
-        <span
-          aria-hidden
-          className="transition-transform duration-500 group-hover:translate-x-1.5"
+      A viewport breakpoint cannot know that the stays CTA puts these in
+      a 390px column at 1024px wide. It laid them out two across anyway,
+      squeezed each to 187px, and because the labels must not wrap the
+      text and the arrow spilled 70px past their own borders. A
+      container query asks the only question that matters — is there
+      room here — so the same component is right in a full-width section
+      and in the 340px enquiry rail on a stay, with nothing passed in to
+      say which.
+    */
+    <div className={`@container ${className}`}>
+      <div
+        /*
+          Two caps, because the two arrangements want different ones.
+          Stacked, a 500px-wide button holding eleven-point type reads
+          as an empty bar; side by side, the pair needs the full 576 or
+          the columns fall below the width of their own labels.
+        */
+        className={`grid max-w-md gap-3 @[34rem]:max-w-xl @[34rem]:grid-cols-2 @[34rem]:gap-4 ${
+          align === "center" ? "mx-auto" : ""
+        }`}
+      >
+        <a
+          href={whatsappLink(message)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={ACTION}
         >
-          →
-        </span>
-      </a>
+          {whatsapp}
+          <span
+            aria-hidden
+            className="transition-transform duration-500 group-hover:translate-x-1.5"
+          >
+            →
+          </span>
+        </a>
+
+        <a href={emailLink(subject, message)} className={ACTION}>
+          {email}
+          <span
+            aria-hidden
+            className="transition-transform duration-500 group-hover:translate-x-1.5"
+          >
+            →
+          </span>
+        </a>
+      </div>
     </div>
   );
 }

@@ -253,15 +253,13 @@ export default function StayDetail({ stay }: { stay: Stay }) {
                 </p>
 
                 {/*
-                  Stacked rather than side by side: the rail is 340px
-                  wide and two of these across it would have to shrink
-                  the type to fit, which is the one thing that cannot
-                  vary from page to page.
+                  No layout to choose: the pair measures the rail it is
+                  in and stacks itself, because 340px is not room for
+                  two of them side by side.
                 */}
                 <EnquiryActions
                   message={message}
                   subject={subject}
-                  layout="stack"
                   className="mt-7"
                 />
 
