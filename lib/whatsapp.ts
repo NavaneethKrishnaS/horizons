@@ -12,10 +12,18 @@ export function whatsappLink(message: string) {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }
 
+/*
+  Encoded by hand rather than with URLSearchParams, which writes a space
+  as "+". That is correct for a form post and wrong for a mailto: mail
+  clients read the query per RFC 3986, where "+" is a literal plus — so
+  "Two weeks in February" arrived in the compose window as
+  "Two+weeks+in+February". encodeURIComponent writes %20, which every
+  client reads back as a space.
+*/
 export function emailLink(subject: string, body?: string) {
-  const query = new URLSearchParams({ subject });
+  const query = [`subject=${encodeURIComponent(subject)}`];
 
-  if (body) query.set("body", body);
+  if (body) query.push(`body=${encodeURIComponent(body)}`);
 
-  return `mailto:${CONTACT_EMAIL}?${query.toString()}`;
+  return `mailto:${CONTACT_EMAIL}?${query.join("&")}`;
 }

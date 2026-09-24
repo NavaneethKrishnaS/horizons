@@ -13,7 +13,15 @@ const SITE = "https://horizonsindia.com";
   crawler reaches without working through a filter control first.
 */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const pages = ["", "/about", "/journal", "/houseboats", "/packages", "/stays"];
+  const pages = [
+    "",
+    "/about",
+    "/journal",
+    "/houseboats",
+    "/packages",
+    "/stays",
+    "/contact",
+  ];
 
   return [
     ...pages.map((path) => ({

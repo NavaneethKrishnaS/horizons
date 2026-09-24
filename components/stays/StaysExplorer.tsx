@@ -238,7 +238,7 @@ export default function StaysExplorer() {
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
                 placeholder="Search a name or a place"
-                className="w-full border-b border-white/15 bg-transparent pb-2.5 pr-7 text-[13px] text-white placeholder:text-white/30 transition-colors duration-300 focus:border-[#6B7341] focus:outline-none"
+                className="field-dark w-full border-b border-white/15 bg-transparent pb-2.5 pr-7 text-[13px] text-white placeholder:text-white/30 transition-colors duration-300 focus:border-[#6B7341] focus:outline-none"
               />
 
               {query ? (

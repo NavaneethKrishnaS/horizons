@@ -36,20 +36,42 @@ body {
 }
 
 /* ----------------------------- */
-/* Safari Autofill Fix */
+/* Form fields, and Safari autofill */
 /* ----------------------------- */
 
-input,
-textarea {
-  color: #171717;
-  caret-color: #171717;
+/*
+  These defaults are for the forms that sit on white — the booking card
+  and the enquiry sheet on the houseboat pages.
+
+  They belong in a layer. Written unlayered, as they were, they beat
+  every Tailwind utility no matter how specific: utilities live in a
+  cascade layer, and unlayered CSS always wins over layered CSS. So
+  `text-white` on a field did nothing, and every input on a dark page
+  was typing #171717 on #111111 — invisible. That was the search on the
+  stays index, and it would have been the whole contact form.
+
+  Inside @layer base the utilities come later and win, and the light
+  forms keep exactly the colours they had.
+*/
+@layer base {
+  input,
+  textarea {
+    color: #171717;
+    caret-color: #171717;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: #a3a3a3;
+  }
 }
 
-input::placeholder,
-textarea::placeholder {
-  color: #a3a3a3;
-}
-
+/*
+  Autofill is a different problem. Chrome's yellow fill can only be
+  pushed back with !important, and !important ignores layer order — so a
+  field on a dark page cannot override this by being more specific and
+  has to be named instead. That is what .field-dark is for.
+*/
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
@@ -61,5 +83,35 @@ textarea:-webkit-autofill:focus {
   box-shadow: 0 0 0 1000px #ffffff inset !important;
   caret-color: #171717;
   border-color: #d4d4d4;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+/*
+  A field on one of the dark pages.
+
+  Stated outright rather than left to a Tailwind utility. The defaults
+  above are unlayered and utilities are layered, and unlayered CSS beats
+  layered CSS whatever its specificity — so `text-white` on an input lost
+  and the field typed #171717 on #111111. A class here outranks the bare
+  `input` selector on its own terms, which holds however the layers are
+  compiled.
+*/
+.field-dark {
+  color: #ffffff;
+  caret-color: #ffffff;
+}
+
+.field-dark::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.field-dark:-webkit-autofill,
+.field-dark:-webkit-autofill:hover,
+.field-dark:-webkit-autofill:focus {
+  -webkit-text-fill-color: #ffffff !important;
+  -webkit-box-shadow: 0 0 0 1000px #111111 inset !important;
+  box-shadow: 0 0 0 1000px #111111 inset !important;
+  caret-color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.15);
   transition: background-color 9999s ease-in-out 0s;
 }

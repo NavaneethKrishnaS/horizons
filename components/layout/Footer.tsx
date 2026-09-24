@@ -12,6 +12,13 @@ const navigation = [
   { name: "Packages", href: "/packages" },
   { name: "Journal", href: "/journal" },
   { name: "About", href: "/about" },
+  /*
+    Contact lives here rather than in the navbar. The top of the site is
+    for the things people browse; this is the thing they look for once
+    they have decided to ask, and the foot of the page is where everyone
+    looks for it.
+  */
+  { name: "Contact", href: "/contact" },
 ];
 
 export default function Footer() {
