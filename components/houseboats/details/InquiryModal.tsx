@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import { format } from "date-fns";
 
-import { whatsappLink } from "@/lib/whatsapp";
+import { emailLink, whatsappLink } from "@/lib/whatsapp";
 
 import { useScrollLock } from "@/lib/scrollLock";
 
@@ -104,7 +104,7 @@ export default function InquiryModal({
     return !newErrors.fullName && !newErrors.email && !newErrors.phone;
   };
 
-  const handleContinue = () => {
+  const handleContinue = (route: "whatsapp" | "email") => {
     if (!validateForm()) return;
 
     const guests = [
@@ -116,50 +116,58 @@ export default function InquiryModal({
     ].join(", ");
 
     /*
-      Written as a formal note rather than a form dump: no emoji, no divider
-      bars, and an optional field is left out entirely instead of being sent
+      Set out as correspondence, the same as the enquiry on the contact
+      page: an address, the request in a sentence, the particulars, a
+      sign-off. An optional field is left out entirely rather than sent
       as "Not provided".
+
+      No asterisks. WhatsApp reads them as bold; email prints them, and
+      this same text now goes down both routes.
     */
     const lines = [
-      "*HORIZONS by Scenic Escapes*",
-      "Availability Enquiry",
+      "Dear HORIZONS,",
       "",
-      "*Stay*",
-      `Houseboat: ${houseboatName}`,
+      `I am writing to enquire about availability on ${houseboatName}.`,
+      "",
       `Category: ${selectedCategory}`,
       `Check-in: ${format(checkIn, "dd MMM yyyy")}`,
       `Check-out: ${format(checkOut, "dd MMM yyyy")}`,
-      `Duration: ${nights} Night${nights === 1 ? "" : "s"}`,
+      `Duration: ${nights} night${nights === 1 ? "" : "s"}`,
       `Guests: ${guests}`,
-      `Estimated Total: ₹${totalPrice.toLocaleString()}`,
+      `Estimated total: ₹${totalPrice.toLocaleString()}`,
+      ...(specialRequests.trim() ? ["", specialRequests.trim()] : []),
       "",
-      "*Guest Details*",
-      `Name: ${fullName.trim()}`,
-      `Email: ${email.trim()}`,
-      `Phone: ${phone.trim()}`,
-      ...(country.trim() ? [`Country: ${country.trim()}`] : []),
+      "I should be grateful if you could confirm availability.",
+      "",
+      "Kind regards,",
+      fullName.trim(),
+      email.trim(),
+      phone.trim(),
+      ...(country.trim() ? [country.trim()] : []),
+      "",
+      "Sent via the HORIZONS website",
     ];
 
-    if (specialRequests.trim()) {
-      lines.push("", "*Special Requests*", specialRequests.trim());
-    }
+    const body = lines.join("\n");
 
-    lines.push(
-      "",
-      "Kindly confirm availability at your convenience. Thank you."
-    );
-
-    const url = whatsappLink(lines.join("\n"));
+    const url =
+      route === "whatsapp"
+        ? whatsappLink(body)
+        : emailLink(`Availability enquiry — ${houseboatName}`, body);
 
     /*
-      On a phone, WhatsApp takes over the tab it is opened in. A new tab means
-      the visitor comes back to a blank page with no way back to the site, so
-      navigate the current tab instead and let Back return them here. Desktop
-      keeps the new tab, where web.whatsapp.com opens alongside the site.
+      A mail client takes the link in this tab on any device; it opens
+      over the page rather than replacing it.
+
+      WhatsApp on a phone takes over the tab it is opened in, so a new
+      tab means the visitor comes back to a blank page with no way back
+      to the site. Navigate the current tab instead and let Back return
+      them here. On a laptop the new tab opens alongside the site, where
+      web.whatsapp.com belongs.
     */
     const isHandheld = window.matchMedia("(max-width: 1023px)").matches;
 
-    if (isHandheld) {
+    if (route === "email" || isHandheld) {
       window.location.href = url;
     } else {
       window.open(url, "_blank", "noopener");
@@ -380,21 +388,40 @@ export default function InquiryModal({
                 </div>
               </div>
 
-              <div className="flex gap-3 border-t border-neutral-200 px-6 py-5 md:px-9">
-                <button
-                  type="button"
-                  onClick={onClose}
-                  className="flex-1 border border-neutral-300 py-4 text-[12px] uppercase tracking-[0.25em] text-neutral-900 transition-colors duration-300 hover:border-neutral-900"
-                >
-                  Cancel
-                </button>
+              {/*
+                Two ways to send it, drawn the same and weighted the
+                same. WhatsApp is close to universal for our Indian and
+                European guests and close to absent for some of the
+                British and American ones, so neither can be the real
+                button with the other offered as a consolation. Cancel
+                steps back to plain text underneath, where a way out
+                belongs.
+              */}
+              <div className="border-t border-neutral-200 px-6 py-5 md:px-9">
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <button
+                    type="button"
+                    onClick={() => handleContinue("whatsapp")}
+                    className="w-full bg-neutral-900 py-4 text-[12px] uppercase tracking-[0.25em] text-white transition-colors duration-300 hover:bg-black"
+                  >
+                    Send on WhatsApp
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => handleContinue("email")}
+                    className="w-full bg-neutral-900 py-4 text-[12px] uppercase tracking-[0.25em] text-white transition-colors duration-300 hover:bg-black"
+                  >
+                    Send by email
+                  </button>
+                </div>
 
                 <button
                   type="button"
-                  onClick={handleContinue}
-                  className="flex-[1.4] bg-neutral-900 py-4 text-[12px] uppercase tracking-[0.25em] text-white transition-colors duration-300 hover:bg-black"
+                  onClick={onClose}
+                  className="mt-4 w-full py-1 text-[12px] uppercase tracking-[0.25em] text-neutral-500 transition-colors duration-300 hover:text-neutral-900"
                 >
-                  Send Enquiry
+                  Cancel
                 </button>
               </div>
             </motion.div>

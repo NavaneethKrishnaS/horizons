@@ -3,13 +3,13 @@ import Link from "next/link";
 
 import Container from "@/components/ui/Container";
 import Reveal from "@/components/ui/Reveal";
-import { CONTACT_EMAIL, emailLink, whatsappLink } from "@/lib/whatsapp";
+import EnquiryActions, { EnquiryAddress } from "@/components/ui/EnquiryActions";
 import { collections, type TourPackage } from "@/data/packages";
 
 export default function PackageDetail({ tour }: { tour: TourPackage }) {
   const group = collections.find((c) => c.id === tour.collection);
 
-  const subject = `Enquiry — ${tour.title}`;
+  const subject = `Travel enquiry — ${tour.title}`;
   const message = `Hello HORIZONS, I am interested in "${tour.title}" (${tour.duration}, ${tour.region}). Could you send me the details?`;
 
   return (
@@ -189,36 +189,14 @@ export default function PackageDetail({ tour }: { tour: TourPackage }) {
             with dates, a price and anything we would change about the route.
           </p>
 
-          <a
-            href={whatsappLink(message)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group mt-11 inline-flex items-center gap-4 border border-white/25 px-10 py-4 text-[11px] uppercase tracking-[0.3em] text-white transition-colors duration-500 hover:border-[#6B7341] hover:bg-[#6B7341]"
-          >
-            Enquire on WhatsApp
-            <span
-              aria-hidden
-              className="transition-transform duration-500 group-hover:translate-x-1.5"
-            >
-              →
-            </span>
-          </a>
+          <EnquiryActions
+            message={message}
+            subject={subject}
+            align="center"
+            className="mt-11"
+          />
 
-          {/*
-            Not every guest has WhatsApp — it is close to universal for
-            our Indian and European travellers and close to absent for
-            some of the American and British ones. An address, in plain
-            sight, rather than a second button competing with the first.
-          */}
-          <p className="mt-6 text-[13px] text-white/40">
-            No WhatsApp? Write to{" "}
-            <a
-              href={emailLink(subject, message)}
-              className="text-white/60 transition-colors hover:text-[#A8B473]"
-            >
-              {CONTACT_EMAIL}
-            </a>
-          </p>
+          <EnquiryAddress className="mt-7" />
 
           <div className="mt-16 border-t border-white/10 pt-8">
             <Link

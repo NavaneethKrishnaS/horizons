@@ -1,6 +1,6 @@
 import Container from "@/components/ui/Container";
 import Reveal from "@/components/ui/Reveal";
-import { CONTACT_EMAIL, emailLink, whatsappLink } from "@/lib/whatsapp";
+import EnquiryActions, { EnquiryAddress } from "@/components/ui/EnquiryActions";
 
 /*
   The journeys page closes on a centred invitation. This one closes the
@@ -34,30 +34,13 @@ export default function StaysCTA() {
               out of.
             </p>
 
-            <a
-              href={whatsappLink(message)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group mt-10 inline-flex items-center gap-4 border border-white/25 px-10 py-4 text-[11px] uppercase tracking-[0.3em] text-white transition-colors duration-500 hover:border-[#6B7341] hover:bg-[#6B7341]"
-            >
-              Start a conversation
-              <span
-                aria-hidden
-                className="transition-transform duration-500 group-hover:translate-x-1.5"
-              >
-                →
-              </span>
-            </a>
+            <EnquiryActions
+              message={message}
+              subject="Travel enquiry — where to stay in India"
+              className="mt-10"
+            />
 
-            <p className="mt-6 text-[13px] text-white/40">
-              No WhatsApp? Write to{" "}
-              <a
-                href={emailLink("Enquiry — where to stay in India", message)}
-                className="text-white/60 transition-colors hover:text-[#A8B473]"
-              >
-                {CONTACT_EMAIL}
-              </a>
-            </p>
+            <EnquiryAddress className="mt-7" />
           </Reveal>
         </div>
       </Container>

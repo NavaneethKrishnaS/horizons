@@ -1,8 +1,11 @@
 import Container from "@/components/ui/Container";
 import Reveal from "@/components/ui/Reveal";
-import { CONTACT_EMAIL, emailLink, whatsappLink } from "@/lib/whatsapp";
+import EnquiryActions, { EnquiryAddress } from "@/components/ui/EnquiryActions";
 
 export default function PackagesCTA() {
+  const message =
+    "Hello HORIZONS, I would like to talk about a journey in India.";
+
   return (
     <section className="py-20 md:py-32">
       <Container className="max-w-3xl text-center">
@@ -17,35 +20,14 @@ export default function PackagesCTA() {
             or two of them joined.
           </p>
 
-          <a
-            href={whatsappLink(
-              "Hello HORIZONS, I would like to talk about a journey in India.",
-            )}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group mt-11 inline-flex items-center gap-4 border border-white/25 px-10 py-4 text-[11px] uppercase tracking-[0.3em] text-white transition-colors duration-500 hover:border-[#6B7341] hover:bg-[#6B7341]"
-          >
-            Start a conversation
-            <span
-              aria-hidden
-              className="transition-transform duration-500 group-hover:translate-x-1.5"
-            >
-              →
-            </span>
-          </a>
+          <EnquiryActions
+            message={message}
+            subject="Travel enquiry — a journey in India"
+            align="center"
+            className="mt-11"
+          />
 
-          <p className="mt-6 text-[13px] text-white/40">
-            No WhatsApp? Write to{" "}
-            <a
-              href={emailLink(
-                "Enquiry — a journey in India",
-                "Hello HORIZONS, I would like to talk about a journey in India.",
-              )}
-              className="text-white/60 transition-colors hover:text-[#A8B473]"
-            >
-              {CONTACT_EMAIL}
-            </a>
-          </p>
+          <EnquiryAddress className="mt-7" />
         </Reveal>
       </Container>
     </section>

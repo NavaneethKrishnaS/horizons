@@ -4,7 +4,7 @@ import Link from "next/link";
 import Container from "@/components/ui/Container";
 import Reveal from "@/components/ui/Reveal";
 import StayGallery from "./StayGallery";
-import { CONTACT_EMAIL, emailLink, whatsappLink } from "@/lib/whatsapp";
+import EnquiryActions, { EnquiryAddress } from "@/components/ui/EnquiryActions";
 import { collections, stays, type Stay } from "@/data/stays";
 
 /*
@@ -40,7 +40,7 @@ export default function StayDetail({ stay }: { stay: Stay }) {
 
   const plates = stay.images ?? [];
 
-  const subject = `Enquiry — ${stay.name}`;
+  const subject = `Travel enquiry — ${stay.name}`;
   const message = `Hello HORIZONS, I am interested in staying at ${stay.name} (${stay.place}). Could you send me the details?`;
 
   return (
@@ -252,30 +252,20 @@ export default function StayDetail({ stay }: { stay: Stay }) {
                   or somewhere else.
                 </p>
 
-                <a
-                  href={whatsappLink(message)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group mt-7 flex items-center justify-between gap-4 border border-white/25 px-6 py-4 text-[11px] uppercase tracking-[0.25em] text-white transition-colors duration-500 hover:border-[#6B7341] hover:bg-[#6B7341]"
-                >
-                  Enquire
-                  <span
-                    aria-hidden
-                    className="transition-transform duration-500 group-hover:translate-x-1.5"
-                  >
-                    →
-                  </span>
-                </a>
+                {/*
+                  Stacked rather than side by side: the rail is 340px
+                  wide and two of these across it would have to shrink
+                  the type to fit, which is the one thing that cannot
+                  vary from page to page.
+                */}
+                <EnquiryActions
+                  message={message}
+                  subject={subject}
+                  layout="stack"
+                  className="mt-7"
+                />
 
-                <p className="mt-5 text-[12px] leading-6 text-white/35">
-                  No WhatsApp?{" "}
-                  <a
-                    href={emailLink(subject, message)}
-                    className="text-white/55 transition-colors hover:text-[#A8B473]"
-                  >
-                    {CONTACT_EMAIL}
-                  </a>
-                </p>
+                <EnquiryAddress className="mt-5 text-[12px] leading-6 text-white/35" />
               </div>
             </Reveal>
           </aside>
