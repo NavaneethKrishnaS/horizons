@@ -24,7 +24,7 @@ export default function FaqList() {
   const [open, setOpen] = useState<string | null>(null);
 
   return (
-    <section className="py-16 md:py-24">
+    <section className="py-12 md:py-16">
       <Container>
         {faq.map((group, groupIndex) => (
           <div
