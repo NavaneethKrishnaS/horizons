@@ -140,12 +140,6 @@ export default async function DistrictPage({
                 </p>
               </Reveal>
             ))}
-
-            {place.image?.credit ? (
-              <p className="mt-12 text-[11px] leading-6 text-white/20">
-                Photograph: {place.image.credit}
-              </p>
-            ) : null}
           </div>
         </Container>
       </section>

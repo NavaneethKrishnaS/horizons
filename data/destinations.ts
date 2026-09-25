@@ -40,7 +40,7 @@ export type Destination = {
   stays: string[];
   /* Stops as they are written in a journey's route, in data/packages.ts. */
   routeStops: string[];
-  image?: { src: string; alt: string; credit?: string };
+  image?: { src: string; alt: string };
   boats?: boolean;
 };
 
@@ -70,7 +70,6 @@ export const KERALA: Destination[] = [
     image: {
       src: `${UNSPLASH}/photo-1677216713977-50421d083abf?auto=format&fit=crop&w=2400&q=80`,
       alt: "The Varkala cliff and the beach below it, from the air",
-      credit: "cymatics.in",
     },
   },
   {
@@ -97,7 +96,6 @@ export const KERALA: Destination[] = [
     image: {
       src: `${UNSPLASH}/photo-1583482011546-c327a8076798?auto=format&fit=crop&w=2400&q=80`,
       alt: "Sunrise at Munroe Thuruthu, a boatman poling between the islets",
-      credit: "Marieke Weller",
     },
   },
   {
@@ -151,7 +149,6 @@ export const KERALA: Destination[] = [
     image: {
       src: `${UNSPLASH}/photo-1609828913552-f9138ed9e42d?auto=format&fit=crop&w=2400&q=80`,
       alt: "A kettuvallam moored under the palms on the Alappuzha backwaters",
-      credit: "Dileep M",
     },
   },
   {
@@ -175,7 +172,6 @@ export const KERALA: Destination[] = [
     image: {
       src: `${UNSPLASH}/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=2400&q=80`,
       alt: "A houseboat on the Vembanad backwaters",
-      credit: "Nature Photographer",
     },
   },
   {
@@ -201,7 +197,6 @@ export const KERALA: Destination[] = [
     image: {
       src: `${UNSPLASH}/photo-1711192702535-eac61a78ecb0?auto=format&fit=crop&w=2400&q=80`,
       alt: "Tea slopes and the high range above Munnar",
-      credit: "zablanca_clicks",
     },
   },
   {
@@ -234,7 +229,6 @@ export const KERALA: Destination[] = [
     image: {
       src: `${UNSPLASH}/photo-1590123732197-e7079d2ceb89?auto=format&fit=crop&w=2400&q=80`,
       alt: "A Chinese fishing net on the Kochi waterfront",
-      credit: "gaurav kumar",
     },
   },
   {
@@ -260,7 +254,6 @@ export const KERALA: Destination[] = [
     image: {
       src: `${UNSPLASH}/photo-1575305327780-a887f284432f?auto=format&fit=crop&w=2400&q=80`,
       alt: "The Athirappilly falls on the Chalakudy river",
-      credit: "Rashi Raffi",
     },
   },
   {
@@ -285,7 +278,6 @@ export const KERALA: Destination[] = [
     image: {
       src: `${UNSPLASH}/photo-1662535330891-877130e86a23?auto=format&fit=crop&w=2400&q=80`,
       alt: "Paddy and hills at Akathethara, under a monsoon sky",
-      credit: "Hariprasad B",
     },
   },
   {
@@ -350,7 +342,6 @@ export const KERALA: Destination[] = [
     image: {
       src: `${UNSPLASH}/photo-1607025188828-be77a08aa372?auto=format&fit=crop&w=2400&q=80`,
       alt: "Banasura Sagar and the hills of Wayanad",
-      credit: "Jyoti Singh",
     },
   },
   {
@@ -375,7 +366,6 @@ export const KERALA: Destination[] = [
     image: {
       src: `${UNSPLASH}/photo-1551292083-5d458a10336d?auto=format&fit=crop&w=2400&q=80`,
       alt: "A Theyyam being dressed in north Malabar",
-      credit: "Vineeth Vinod",
     },
   },
   {
@@ -400,7 +390,6 @@ export const KERALA: Destination[] = [
     image: {
       src: `${UNSPLASH}/photo-1698070010241-1ac4d4273dff?auto=format&fit=crop&w=2400&q=80`,
       alt: "Fishing boats on the Kasaragod shore",
-      credit: "Praswin Prakashan",
     },
   },
 ];
