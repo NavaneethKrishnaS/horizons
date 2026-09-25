@@ -150,6 +150,14 @@ export default function Navbar() {
           <div className="relative flex items-center">
             {/* Logo */}
             <Link href="/" className="flex items-center">
+              {/*
+                A plain img on purpose, so the lint warning is not noise
+                hiding a real one: the mark is an SVG, which the image
+                optimiser cannot make smaller, and its height animates
+                between two values as the page scrolls — which is exactly
+                what next/image objects to.
+              */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/logo/horizons-logo.svg"
                 alt="HORIZONS"
