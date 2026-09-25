@@ -25,13 +25,12 @@ import { MAP, districts } from "@/data/keralaMap";
   arc lands in the right place at any width.
 */
 
-const HELI_RATIO = 58 / 104;
-/* Where the skids sit inside the drawing, as a fraction of its height. */
-const SKID_LINE = 45.5 / 58;
-/* Parked, it is about twice the width of the letter it stands on. */
-const PARKED = 2.1;
-/* And this much bigger by the time it reaches the island. */
-const GROW = 1.55;
+/* The helicopter box is square: the plan view needs room to turn in it.
+   Parked it is a little under three letters wide, which puts its skids
+   inside the H and its blades out over the quiet diagonals. */
+const PARKED = 2.7;
+/* And this much bigger again by the time it reaches the island. */
+const GROW = 1.25;
 
 /* Where the helicopter ends up, in the road drawing's own coordinates:
    over the island, clear above the palm tops. */
@@ -56,24 +55,25 @@ export default function GettingHerePanel() {
       const h = letter.getBoundingClientRect();
       const drawing = road.getBoundingClientRect();
 
-      const width = Math.max(40, Math.round(h.width * PARKED));
-      const height = width * HELI_RATIO;
+      const size = Math.max(44, Math.round(h.width * PARKED));
 
-      /* The skids have to rest on the top of the H itself, which is a good
-         deal lower than the top of the line box the letter sits in. Ask the
-         font where the cap actually starts. */
+      /* It stands on the letter itself, so it wants the middle of the cap —
+         which is nowhere near the middle of the line box the letter sits in.
+         Ask the font where the cap actually starts and how tall it is. */
       const type = getComputedStyle(letter);
       const ink = document.createElement("canvas").getContext("2d");
       let capTop = h.top - box.top;
+      let capHeight = h.height;
       if (ink) {
         ink.font = `${type.fontStyle} ${type.fontWeight} ${type.fontSize} ${type.fontFamily}`;
         const m = ink.measureText("H");
         const lead = (h.height - (m.fontBoundingBoxAscent + m.fontBoundingBoxDescent)) / 2;
         capTop += lead + m.fontBoundingBoxAscent - m.actualBoundingBoxAscent;
+        capHeight = m.actualBoundingBoxAscent;
       }
 
-      const left = h.left - box.left + h.width / 2 - width / 2;
-      const top = capTop - height * SKID_LINE;
+      const left = h.left - box.left + h.width / 2 - size / 2;
+      const top = capTop + capHeight / 2 - size / 2;
 
       /* The island, converted out of the drawing's viewBox. */
       const unit = drawing.height / ROAD_VIEWBOX.height;
@@ -83,10 +83,11 @@ export default function GettingHerePanel() {
       setSeat({
         left,
         top,
-        width,
+        width: size,
+        height: size,
         opacity: 1,
-        "--hk-dx": `${Math.round(toX - (left + width / 2))}px`,
-        "--hk-dy": `${Math.round(toY - (top + height / 2))}px`,
+        "--hk-dx": `${Math.round(toX - (left + size / 2))}px`,
+        "--hk-dy": `${Math.round(toY - (top + size / 2))}px`,
         "--hk-grow": GROW,
       } as React.CSSProperties);
     };
