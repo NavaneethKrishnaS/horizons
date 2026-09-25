@@ -1,16 +1,19 @@
 import type { Metadata } from "next";
 
+import { pageMeta } from "@/lib/meta";
+
 import FaqHero from "@/components/faq/FaqHero";
 import FaqList from "@/components/faq/FaqList";
 import FaqCTA from "@/components/faq/FaqCTA";
 import { allQuestions } from "@/data/faq";
 
-export const metadata: Metadata = {
-  title: "Questions | HORIZONS by Scenic Escapes",
+export const metadata: Metadata = pageMeta({
+  title:
+    "Questions | HORIZONS by Scenic Escapes",
   description:
     "Check-in times, meals, when the boats anchor, the best months to come, how a journey is planned and quoted — the things people ask us first, answered plainly.",
-  alternates: { canonical: "/faq" },
-};
+  path: "/faq",
+});
 
 export default function FaqPage() {
   /*

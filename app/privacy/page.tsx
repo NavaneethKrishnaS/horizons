@@ -1,16 +1,19 @@
 import type { Metadata } from "next";
 
+import { pageMeta } from "@/lib/meta";
+
 import LegalHero from "@/components/legal/LegalHero";
 import LegalSections from "@/components/legal/LegalSections";
 import LegalCTA from "@/components/legal/LegalCTA";
 import { LAST_UPDATED, SECTIONS, SUMMARY } from "@/data/privacy";
 
-export const metadata: Metadata = {
-  title: "Privacy | HORIZONS by Scenic Escapes",
+export const metadata: Metadata = pageMeta({
+  title:
+    "Privacy | HORIZONS by Scenic Escapes",
   description:
     "No cookies, no analytics, nothing collected by the website at all. What we hold is what you write to us, we use it to arrange your journey, and you can have it deleted by asking.",
-  alternates: { canonical: "/privacy" },
-};
+  path: "/privacy",
+});
 
 export default function PrivacyPage() {
   return (

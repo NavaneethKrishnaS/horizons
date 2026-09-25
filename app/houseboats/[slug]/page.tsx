@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+
+import { pageMeta } from "@/lib/meta";
 import { notFound } from "next/navigation";
 
 
@@ -38,11 +40,11 @@ export async function generateMetadata({
     return { title: "Houseboat not found | HORIZONS by Scenic Escapes" };
   }
 
-  return {
+  return pageMeta({
     title: `${houseboat.name}, Alleppey | HORIZONS by Scenic Escapes`,
     description: `${houseboat.shortDescription} Sleeps ${houseboat.maxGuests}, with a crew of ${houseboat.crew} aboard.`,
-    alternates: { canonical: `/houseboats/${houseboat.slug}` },
-  };
+    path: `/houseboats/${houseboat.slug}`,
+  });
 }
 
 export default async function HouseboatPage({

@@ -1,16 +1,19 @@
 import type { Metadata } from "next";
 
+import { pageMeta } from "@/lib/meta";
+
 import LegalHero from "@/components/legal/LegalHero";
 import LegalSections from "@/components/legal/LegalSections";
 import LegalCTA from "@/components/legal/LegalCTA";
 import { LAST_UPDATED, SECTIONS, SUMMARY } from "@/data/terms";
 
-export const metadata: Metadata = {
-  title: "Terms & Conditions | HORIZONS by Scenic Escapes",
+export const metadata: Metadata = pageMeta({
+  title:
+    "Terms & Conditions | HORIZONS by Scenic Escapes",
   description:
     "How a booking is made, what it costs and when, what comes back if you cancel, and what we answer for. Plain conditions for a small company you are trusting with a journey.",
-  alternates: { canonical: "/terms" },
-};
+  path: "/terms",
+});
 
 export default function TermsPage() {
   return (

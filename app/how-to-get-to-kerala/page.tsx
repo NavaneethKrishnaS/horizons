@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+import { pageMeta } from "@/lib/meta";
+
 import GettingHereHero from "@/components/getting-here/GettingHereHero";
 import Arrival from "@/components/getting-here/Arrival";
 import Chapters from "@/components/getting-here/Chapters";
@@ -8,12 +10,13 @@ import { airports, legs } from "@/data/gettingHere";
 
 const SITE = "https://horizonsindia.com";
 
-export const metadata: Metadata = {
-  title: "How to get to Kerala | HORIZONS by Scenic Escapes",
+export const metadata: Metadata = pageMeta({
+  title:
+    "How to get to Kerala | HORIZONS by Scenic Escapes",
   description:
     "Which of Kerala's four international airports to fly into, how far each one really is from the backwaters, when the train beats the road, and what to do about the visa — written by people who make the journey every week.",
-  alternates: { canonical: `${SITE}/how-to-get-to-kerala` },
-};
+  path: "/how-to-get-to-kerala",
+});
 
 export default function HowToGetToKeralaPage() {
   /*

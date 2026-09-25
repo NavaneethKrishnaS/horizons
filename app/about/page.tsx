@@ -1,27 +1,17 @@
 import type { Metadata } from "next";
+
+import { pageMeta } from "@/lib/meta";
 import Reveal from "@/components/ui/Reveal";
 import AboutHero from "@/components/about/AboutHero";
 import WhereWeComeFrom from "@/components/about/WhereWeComeFrom";
 
-export const metadata: Metadata = {
-  title: "About HORIZONS | Luxury Travel in Kerala & South India",
+export const metadata: Metadata = pageMeta({
+  title:
+    "About HORIZONS | Luxury Travel in Kerala & South India",
   description:
     "Discover HORIZONS by Scenic Escapes India — a specialist travel company with more than 28 years of experience creating tailor-made journeys across Kerala, South India and beyond.",
-  keywords: [
-    "Kerala luxury travel",
-    "South India luxury travel",
-    "tailor-made Kerala holidays",
-    "Kerala travel specialist",
-    "Kerala backwater holidays",
-    "Kerala houseboat experiences",
-    "South India tailor-made travel",
-    "luxury travel India",
-    "Kerala private tours",
-    "Scenic Escapes India",
-    "HORIZONS Kerala",
-  ],
-  alternates: { canonical: "/about" },
-};
+  path: "/about",
+});
 
 /*
   Every section lifts into place as it is reached.

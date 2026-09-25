@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+
+import { pageMeta } from "@/lib/meta";
 import { notFound } from "next/navigation";
 
 import StayDetail from "@/components/stays/StayDetail";
@@ -18,11 +20,11 @@ export async function generateMetadata({
 
   if (!stay) return { title: "Stay not found | HORIZONS" };
 
-  return {
+  return pageMeta({
     title: `${stay.name}, ${stay.place} | HORIZONS by Scenic Escapes`,
     description: stay.summary,
-    alternates: { canonical: `/stays/${stay.slug}` },
-  };
+    path: `/stays/${stay.slug}`,
+  });
 }
 
 export default async function StayPage({

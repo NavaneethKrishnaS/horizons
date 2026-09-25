@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+
+import { pageMeta } from "@/lib/meta";
 import { notFound } from "next/navigation";
 
 import PackageDetail from "@/components/packages/PackageDetail";
@@ -18,11 +20,11 @@ export async function generateMetadata({
 
   if (!tour) return { title: "Journey not found | HORIZONS" };
 
-  return {
+  return pageMeta({
     title: `${tour.title} | HORIZONS by Scenic Escapes`,
     description: tour.summary,
-    alternates: { canonical: `/packages/${tour.slug}` },
-  };
+    path: `/packages/${tour.slug}`,
+  });
 }
 
 export default async function PackagePage({

@@ -1,16 +1,19 @@
 import type { Metadata } from "next";
+
+import { pageMeta } from "@/lib/meta";
 import { Suspense } from "react";
 
 import StaysHero from "@/components/stays/StaysHero";
 import StaysExplorer from "@/components/stays/StaysExplorer";
 import StaysCTA from "@/components/stays/StaysCTA";
 
-export const metadata: Metadata = {
-  title: "Where to stay in India | HORIZONS by Scenic Escapes",
+export const metadata: Metadata = pageMeta({
+  title:
+    "Where to stay in India | HORIZONS by Scenic Escapes",
   description:
     "Sixty-five small hotels, family houses, houseboats and camps across India — eighteen of them in Kerala, alongside Goa and the Konkan, Rajasthan, the cities, Kashmir, Darjeeling and the Andamans.",
-  alternates: { canonical: "/stays" },
-};
+  path: "/stays",
+});
 
 export default function StaysPage() {
   return (
