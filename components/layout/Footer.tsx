@@ -36,8 +36,10 @@ export default function Footer() {
             <Image
               src="/logo/horizons-logo.svg"
               alt="HORIZONS"
+              /* 3743 x 2703 in the file: declare that ratio, or next/image
+                 warns on every page that the rendered height disagrees. */
               width={190}
-              height={120}
+              height={137}
               priority
               className="h-auto w-[190px]"
             />
