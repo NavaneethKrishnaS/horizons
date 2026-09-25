@@ -2,20 +2,26 @@ import Link from "next/link";
 
 import Container from "@/components/ui/Container";
 import Reveal from "@/components/ui/Reveal";
-import { SECTIONS } from "@/data/privacy";
+
+export type LegalSection = {
+  id: string;
+  heading: string;
+  body: string[];
+  list?: string[];
+  links?: { label: string; href: string; external?: boolean }[];
+};
 
 /*
-  Set in the same two columns as the company register — the heading small
-  and lettered in the left margin, the prose in the reading size on the
-  right — so the two legal pages of the site look like one thought rather
-  than two templates. Legal text people cannot read is the same as legal
+  Two columns — the heading small and lettered in the left margin, the
+  prose in the reading size on the right — which is the same rhythm as
+  the company register. Legal text nobody can read is the same as legal
   text that is not there.
 */
-export default function PrivacyBody() {
+export default function LegalSections({ sections }: { sections: LegalSection[] }) {
   return (
     <section className="py-20 md:py-28">
       <Container>
-        {SECTIONS.map((section, index) => (
+        {sections.map((section, index) => (
           <Reveal key={section.id} delay={Math.min(index, 4) * 60}>
             <div
               id={section.id}
@@ -38,6 +44,19 @@ export default function PrivacyBody() {
                     {paragraph}
                   </p>
                 ))}
+
+                {section.list ? (
+                  <ul className="mt-7 border-t border-white/10">
+                    {section.list.map((item) => (
+                      <li
+                        key={item.slice(0, 32)}
+                        className="border-b border-white/10 py-3.5 text-[14px] leading-7 text-white/50 md:text-[15px]"
+                      >
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
 
                 {section.links ? (
                   <div className="mt-7 flex flex-col gap-3">

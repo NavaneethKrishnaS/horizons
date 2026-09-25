@@ -24,6 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/faq",
     "/company",
     "/privacy",
+    "/terms",
     "/how-to-get-to-kerala",
   ];
 

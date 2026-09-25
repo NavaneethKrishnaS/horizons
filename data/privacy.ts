@@ -18,6 +18,8 @@
   map, this file is what has to change first.
 */
 
+import type { LegalSection } from "@/components/legal/LegalSections";
+
 export const LAST_UPDATED = "25 September 2026";
 
 export const SUMMARY = [
@@ -26,14 +28,7 @@ export const SUMMARY = [
   { label: "Sold or shared for advertising", value: "Never" },
 ];
 
-export type PolicySection = {
-  id: string;
-  heading: string;
-  body: string[];
-  links?: { label: string; href: string; external?: boolean }[];
-};
-
-export const SECTIONS: PolicySection[] = [
+export const SECTIONS: LegalSection[] = [
   {
     id: "who",
     heading: "Who this is",
