@@ -117,6 +117,18 @@ export default function Footer() {
           <p>© 2026 HORIZONS by Scenic Escapes. All rights reserved.</p>
 
           <div className="flex items-center gap-8">
+            {/*
+              The legal row, in the order people look for it: who the
+              company is, then how it handles their data, then what they
+              are agreeing to.
+            */}
+            <Link
+              href="/company"
+              className="transition-colors duration-300 hover:text-[#6B7341]"
+            >
+              Company details
+            </Link>
+
             <Link
               href="/privacy"
               className="transition-colors duration-300 hover:text-[#6B7341]"

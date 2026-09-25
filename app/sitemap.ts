@@ -22,6 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/stays",
     "/contact",
     "/faq",
+    "/company",
     "/how-to-get-to-kerala",
   ];
 

@@ -29,7 +29,12 @@ export const REPLY = {
   The registered office, line by line. Left empty until the exact
   wording is to hand; the block simply does not render.
 */
-export const ADDRESS: string[] = [];
+export const ADDRESS: string[] = [
+  "Pratheeksha, 364/3",
+  "Charamuri Junction, Alumkadavu",
+  "Karunagappally, Kollam",
+  "Kerala 690573, India",
+];
 
 /* Google Maps, or anywhere the address can be opened. Optional. */
 export const MAP_LINK = "";
@@ -38,4 +43,7 @@ export const MAP_LINK = "";
   CIN, GSTIN and any tourism registration. Printed small, at the foot of
   the page, for the planners and agents who look for them.
 */
-export const REGISTRATION: { term: string; value: string }[] = [];
+export const REGISTRATION: { term: string; value: string }[] = [
+  { term: "CIN", value: "U79110KL2024PTC090388" },
+  { term: "GSTIN", value: "32ABOCS6035R1ZN" },
+];
