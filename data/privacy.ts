@@ -18,7 +18,7 @@
   map, this file is what has to change first.
 */
 
-import type { LegalSection } from "@/components/legal/LegalSections";
+import type { LegalSection } from "@/data/legal.types";
 
 export const LAST_UPDATED = "25 September 2026";
 

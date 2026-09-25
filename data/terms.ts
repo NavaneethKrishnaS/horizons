@@ -13,7 +13,7 @@
   journey. Neither should be edited without meaning it.
 */
 
-import type { LegalSection } from "@/components/legal/LegalSections";
+import type { LegalSection } from "@/data/legal.types";
 
 export const LAST_UPDATED = "25 September 2026";
 

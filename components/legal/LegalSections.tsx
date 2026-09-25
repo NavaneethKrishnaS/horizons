@@ -2,14 +2,7 @@ import Link from "next/link";
 
 import Container from "@/components/ui/Container";
 import Reveal from "@/components/ui/Reveal";
-
-export type LegalSection = {
-  id: string;
-  heading: string;
-  body: string[];
-  list?: string[];
-  links?: { label: string; href: string; external?: boolean }[];
-};
+import type { LegalSection } from "@/data/legal.types";
 
 /*
   Two columns — the heading small and lettered in the left margin, the
@@ -36,7 +29,7 @@ export default function LegalSections({ sections }: { sections: LegalSection[] }
               <div className="max-w-2xl">
                 {section.body.map((paragraph, line) => (
                   <p
-                    key={paragraph.slice(0, 32)}
+                    key={`${section.id}-p${line}`}
                     className={`text-[15px] leading-8 text-white/60 md:text-[16px] md:leading-9 ${
                       line === 0 ? "" : "mt-6"
                     }`}
@@ -47,9 +40,9 @@ export default function LegalSections({ sections }: { sections: LegalSection[] }
 
                 {section.list ? (
                   <ul className="mt-7 border-t border-white/10">
-                    {section.list.map((item) => (
+                    {section.list.map((item, row) => (
                       <li
-                        key={item.slice(0, 32)}
+                        key={`${section.id}-l${row}`}
                         className="border-b border-white/10 py-3.5 text-[14px] leading-7 text-white/50 md:text-[15px]"
                       >
                         {item}
