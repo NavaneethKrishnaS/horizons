@@ -2,17 +2,16 @@ import type { Metadata } from "next";
 
 import { pageMeta } from "@/lib/meta";
 import DestinationsHero from "@/components/destinations/DestinationsHero";
-import KeralaPlaces from "@/components/destinations/KeralaPlaces";
+import DistrictGrid from "@/components/destinations/DistrictGrid";
 import BeyondKerala from "@/components/destinations/BeyondKerala";
 import EnquiryActions from "@/components/ui/EnquiryActions";
 import Container from "@/components/ui/Container";
 import Reveal from "@/components/ui/Reveal";
 
 export const metadata: Metadata = pageMeta({
-  title:
-    "Destinations in Kerala and across India | HORIZONS by Scenic Escapes",
+  title: "Destinations in Kerala and across India | HORIZONS by Scenic Escapes",
   description:
-    "All fourteen districts of Kerala — the backwaters, Fort Kochi, Munnar, Munroe Thuruthu, Wayanad, Theyyam country and the rest — what each is, when to come, how long to give it and where we would put you. Then the rest of India.",
+    "All fourteen districts of Kerala, one page each — the backwaters, Munroe Thuruthu, Fort Kochi, Munnar, Theyyam country and the rest. What each is, when to come, and how long to give it.",
   path: "/destinations",
 });
 
@@ -23,7 +22,7 @@ export default function DestinationsPage() {
   return (
     <main className="overflow-x-clip">
       <DestinationsHero />
-      <KeralaPlaces />
+      <DistrictGrid />
       <BeyondKerala />
 
       <section className="border-t border-white/10 py-20 md:py-28">
