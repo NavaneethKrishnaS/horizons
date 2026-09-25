@@ -27,6 +27,16 @@ export default function FaqList() {
   return (
     <section className="py-12 md:py-16">
       <Container>
+        {/*
+          The guide goes at the top, ahead of the first question. It is
+          the one thing on this page that is not an answer but a door,
+          and somebody who has scrolled as far as the airports has
+          usually already decided to ask us instead of reading on.
+        */}
+        <div className="mb-16 md:mb-24">
+          <GettingHerePanel />
+        </div>
+
         {faq.map((group, groupIndex) => (
           <div
             key={group.id}
@@ -55,6 +65,7 @@ export default function FaqList() {
                       <h3>
                         <button
                           type="button"
+                          id={`${id}-question`}
                           onClick={() => setOpen(isOpen ? null : id)}
                           aria-expanded={isOpen}
                           aria-controls={`${id}-answer`}
@@ -88,9 +99,17 @@ export default function FaqList() {
                         </button>
                       </h3>
 
+                      {/*
+                        inert while it is shut, or a screen reader reads
+                        all twenty-five answers straight through as if
+                        nothing were collapsed; and named by its question,
+                        so the region announces what it belongs to.
+                      */}
                       <div
                         id={`${id}-answer`}
                         role="region"
+                        aria-labelledby={`${id}-question`}
+                        inert={!isOpen}
                         className={`grid transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                           isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
                         }`}
@@ -110,14 +129,6 @@ export default function FaqList() {
                 );
               })}
             </div>
-
-            {/*
-              The short answers on arriving are useful; the whole story
-              needs a page. It goes here rather than at the foot of the
-              FAQ so it is in front of the person who was just asking
-              about airports.
-            */}
-            {group.id === "getting-here" ? <GettingHerePanel /> : null}
           </div>
         ))}
       </Container>

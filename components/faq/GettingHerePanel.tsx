@@ -116,7 +116,7 @@ export default function GettingHerePanel() {
         onMouseLeave={() => setLit(false)}
         onFocus={lift}
         onBlur={() => setLit(false)}
-        className="group relative isolate mt-12 flex items-center gap-8 overflow-hidden border border-white/12 p-7 transition-colors duration-500 hover:border-[#6B7341] focus-visible:border-[#6B7341] md:gap-12 md:p-9"
+        className="group relative isolate flex items-center gap-8 overflow-hidden border border-white/12 p-7 transition-colors duration-500 hover:border-[#6B7341] focus-visible:border-[#6B7341] md:gap-12 md:p-9"
       >
         <Helicopter lit={lit} flown={flown} style={seat} />
 
