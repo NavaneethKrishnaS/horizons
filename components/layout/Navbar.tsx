@@ -54,7 +54,7 @@ export default function Navbar() {
     const publish = () =>
       document.documentElement.style.setProperty(
         "--horizons-nav",
-        `${Math.round(node.getBoundingClientRect().height)}px`
+        `${Math.round(node.getBoundingClientRect().height)}px`,
       );
 
     publish();
@@ -178,9 +178,12 @@ export default function Navbar() {
                 onMouseEnter={() => openMenu("Destinations")}
                 onMouseLeave={closeMenu}
               >
-                <button className={`transition ${onPaper ? "hover:text-black" : "hover:text-white"}`}>
+                <Link
+                  href="/destinations"
+                  className={`transition ${active("/destinations")}`}
+                >
                   Destinations
-                </button>
+                </Link>
               </div>
 
               <Link
@@ -208,10 +211,7 @@ export default function Navbar() {
                 Journal
               </Link>
 
-              <Link
-                href="/about"
-                className={`transition ${active("/about")}`}
-              >
+              <Link href="/about" className={`transition ${active("/about")}`}>
                 About
               </Link>
             </div>

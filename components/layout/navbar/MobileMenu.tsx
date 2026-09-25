@@ -11,11 +11,10 @@ type MobileMenuProps = {
   onClose: () => void;
 };
 
-// Mirrors the desktop navigation. Items whose pages do not exist yet
-// point at "#", exactly as they do on desktop.
+// Mirrors the desktop navigation.
 const items = [
   { label: "Home", href: "/" },
-  { label: "Destinations", href: "#" },
+  { label: "Destinations", href: "/destinations" },
   { label: "Houseboats", href: "/houseboats" },
   { label: "Stays", href: "/stays" },
   { label: "Packages", href: "/packages" },

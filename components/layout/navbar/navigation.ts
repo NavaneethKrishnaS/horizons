@@ -1,36 +1,37 @@
 export const navigation = [
   {
     label: "Destinations",
+    /*
+      Each row leads to the district page that actually covers it. Two
+      rows carry two place names because one district holds both — the
+      high range is Munnar and Thekkady, and the southern coast is
+      Kovalam and Varkala — which is better than two rows landing on
+      the same page.
+    */
     items: [
-      {
-        label: "Munnar",
-        description: "Tea gardens & mountain retreats",
-        image: "/images/menu/destinations/munnar.png",
-        href: "/destinations/munnar",
-      },
       {
         label: "Alleppey",
         description: "Backwaters & houseboats",
         image: "/images/menu/destinations/alleppey.png",
-        href: "/destinations/alleppey",
+        href: "/destinations/alappuzha",
       },
       {
         label: "Kumarakom",
         description: "Lakeside escapes",
         image: "/images/menu/destinations/kumarakom.png",
-        href: "/destinations/kumarakom",
+        href: "/destinations/kottayam",
       },
       {
-        label: "Varkala",
-        description: "Cliffs & Arabian Sea",
+        label: "Munnar & Thekkady",
+        description: "Tea gardens, spice hills & the lake",
+        image: "/images/menu/destinations/munnar.png",
+        href: "/destinations/idukki",
+      },
+      {
+        label: "Kovalam & Varkala",
+        description: "Cliffs & the Arabian Sea",
         image: "/images/menu/destinations/varkala.png",
-        href: "/destinations/varkala",
-      },
-      {
-        label: "Thekkady",
-        description: "Forests & spice plantations",
-        image: "/images/menu/destinations/thekkady.png",
-        href: "/destinations/thekkady",
+        href: "/destinations/thiruvananthapuram",
       },
       {
         label: "Wayanad",
@@ -39,16 +40,10 @@ export const navigation = [
         href: "/destinations/wayanad",
       },
       {
-        label: "Kovalam",
-        description: "Beaches & coastal stays",
-        image: "/images/menu/destinations/kovalam.png",
-        href: "/destinations/kovalam",
-      },
-      {
         label: "Athirappilly",
         description: "Waterfalls & rainforest",
         image: "/images/menu/destinations/athirappilly.png",
-        href: "/destinations/athirappilly",
+        href: "/destinations/thrissur",
       },
     ],
   },
