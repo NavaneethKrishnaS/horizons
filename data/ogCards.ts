@@ -58,6 +58,11 @@ export const OG_CARDS: Record<string, OgCardCopy> = {
     title: "Who you are dealing with.",
     note: "Scenic Escapes India Private Limited — the register, and the certificates to check it against.",
   },
+  destinations: {
+    label: "Destinations",
+    title: "Where we would take you.",
+    note: "The backwaters, Fort Kochi, Munnar, Thekkady, the coast and north Malabar — and the rest of India.",
+  },
   privacy: {
     label: "Privacy",
     title: "What happens to what you tell us.",
