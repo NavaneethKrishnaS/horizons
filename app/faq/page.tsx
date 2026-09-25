@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "Questions | HORIZONS by Scenic Escapes",
   description:
     "Check-in times, meals, when the boats anchor, the best months to come, how a journey is planned and quoted — the things people ask us first, answered plainly.",
+  alternates: { canonical: "/faq" },
 };
 
 export default function FaqPage() {

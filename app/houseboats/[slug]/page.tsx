@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 
@@ -19,6 +20,29 @@ interface HouseboatPageProps {
   params: Promise<{
     slug: string;
   }>;
+}
+
+/*
+  Every boat was inheriting the site-wide fallback, so all three of them
+  came up in a search result as "HORIZONS — Luxury travel experiences by
+  Scenic Escapes", which says nothing and competes with itself. The boat
+  describes itself perfectly well; it only had to be asked.
+*/
+export async function generateMetadata({
+  params,
+}: HouseboatPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const houseboat = houseboats.find((boat) => boat.slug === slug);
+
+  if (!houseboat) {
+    return { title: "Houseboat not found | HORIZONS by Scenic Escapes" };
+  }
+
+  return {
+    title: `${houseboat.name}, Alleppey | HORIZONS by Scenic Escapes`,
+    description: `${houseboat.shortDescription} Sleeps ${houseboat.maxGuests}, with a crew of ${houseboat.crew} aboard.`,
+    alternates: { canonical: `/houseboats/${houseboat.slug}` },
+  };
 }
 
 export default async function HouseboatPage({

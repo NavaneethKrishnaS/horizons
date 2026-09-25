@@ -21,6 +21,7 @@ export async function generateMetadata({
   return {
     title: `${stay.name}, ${stay.place} | HORIZONS by Scenic Escapes`,
     description: stay.summary,
+    alternates: { canonical: `/stays/${stay.slug}` },
   };
 }
 

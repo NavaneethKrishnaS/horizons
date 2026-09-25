@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "Contact | HORIZONS by Scenic Escapes",
   description:
     "Tell us where you want to go. Write, call or send a WhatsApp to the people who plan the journeys — we answer within a day, usually the same one.",
+  alternates: { canonical: "/contact" },
 };
 
 export default function ContactPage() {

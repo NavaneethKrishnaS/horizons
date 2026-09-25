@@ -20,6 +20,7 @@ export const metadata: Metadata = {
     "Scenic Escapes India",
     "HORIZONS Kerala",
   ],
+  alternates: { canonical: "/about" },
 };
 
 /*

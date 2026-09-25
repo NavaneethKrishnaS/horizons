@@ -29,8 +29,21 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "HORIZONS",
-  description: "Luxury travel experiences by Scenic Escapes",
+  /*
+    Absolute URLs are built from this. Without it, a canonical written as
+    "/company" is emitted exactly like that — valid, but Google would
+    rather be told plainly, and og: images cannot be resolved at all.
+  */
+  metadataBase: new URL("https://horizonsindia.com"),
+
+  /*
+    The fallback for any page that does not set its own, which should be
+    none of them: a search result reading HORIZONS and nothing else tells
+    a person nothing about what they are about to open.
+  */
+  title: "HORIZONS by Scenic Escapes | Luxury travel in Kerala and India",
+  description:
+    "Kettuvallam houseboats on the Kerala backwaters, small hotels and family houses across India, and journeys arranged by the people who run them.",
 };
 
 export const viewport: Viewport = {

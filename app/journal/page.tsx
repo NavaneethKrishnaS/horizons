@@ -13,6 +13,7 @@ export const metadata: Metadata = {
   title: "The Journal | HORIZONS by Scenic Escapes",
   description:
     "The story of Kerala's water — the spice coast, kathakali, the snake boats of Onam, and the kettuvallam that became our houseboats.",
+  alternates: { canonical: "/journal" },
 };
 
 export default function JournalPage() {

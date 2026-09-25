@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "Journeys across India | HORIZONS by Scenic Escapes",
   description:
     "Itineraries we run on the ground — Ladakh and Zanskar, the Ganges, Rajasthan, Sikkim and the temple country of the south, alongside shorter escapes into the Kerala high range, the backwaters and the coffee country of Kodagu.",
+  alternates: { canonical: "/packages" },
 };
 
 export default function PackagesPage() {

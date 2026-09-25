@@ -21,6 +21,7 @@ export async function generateMetadata({
   return {
     title: `${tour.title} | HORIZONS by Scenic Escapes`,
     description: tour.summary,
+    alternates: { canonical: `/packages/${tour.slug}` },
   };
 }
 
