@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Container from "@/components/ui/Container";
 import { throttle } from "@/lib/throttle";
-import MegaMenu from "./navbar/MegaMenu";
+import DestinationsMenu from "./navbar/DestinationsMenu";
 import MobileMenu from "./navbar/MobileMenu";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -255,28 +255,30 @@ export default function Navbar() {
                 />
               </button>
             </div>
-
-            {/* Mega Menu */}
-            <AnimatePresence>
-              {activeMenu === "Destinations" && (
-                <motion.div
-                  initial={{ opacity: 0, y: -12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -12 }}
-                  transition={{
-                    duration: 0.22,
-                    ease: "easeOut",
-                  }}
-                  className="absolute left-1/2 top-full mt-6 -translate-x-1/2"
-                  onMouseEnter={() => openMenu("Destinations")}
-                  onMouseLeave={closeMenu}
-                >
-                  <MegaMenu menu="Destinations" />
-                </motion.div>
-              )}
-            </AnimatePresence>
           </div>
         </Container>
+
+        {/*
+          The Destinations panel, outside the Container so it can run the
+          full width of the screen, and flush against the bar so there is
+          no gap for the pointer to cross on its way into it. Desktop
+          only: the bar's own menu button covers the small screens.
+        */}
+        <AnimatePresence>
+          {activeMenu === "Destinations" && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.24, ease: "easeOut" }}
+              className="absolute inset-x-0 top-full hidden md:block"
+              onMouseEnter={() => openMenu("Destinations")}
+              onMouseLeave={closeMenu}
+            >
+              <DestinationsMenu onNavigate={() => setActiveMenu(null)} />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
 
       {/*
