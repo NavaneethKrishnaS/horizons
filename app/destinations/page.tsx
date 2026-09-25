@@ -12,7 +12,7 @@ export const metadata: Metadata = pageMeta({
   title:
     "Destinations in Kerala and across India | HORIZONS by Scenic Escapes",
   description:
-    "The backwaters, Fort Kochi, Munnar, Thekkady, the coast and north Malabar — what each place is, when to come, how long to give it and where we would put you. Then the rest of India.",
+    "All fourteen districts of Kerala — the backwaters, Fort Kochi, Munnar, Munroe Thuruthu, Wayanad, Theyyam country and the rest — what each is, when to come, how long to give it and where we would put you. Then the rest of India.",
   path: "/destinations",
 });
 

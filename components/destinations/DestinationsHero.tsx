@@ -10,7 +10,7 @@ import { packages } from "@/data/packages";
 */
 export default function DestinationsHero() {
   const facts = [
-    { label: "Places in Kerala", value: `${KERALA.length}` },
+    { label: "Districts of Kerala", value: `All ${KERALA.length}` },
     { label: "Houses on the books", value: `${stays.length}` },
     { label: "Journeys across India", value: `${packages.length}` },
   ];
@@ -60,9 +60,9 @@ export default function DestinationsHero() {
           className="horizons-dest-in mt-9 max-w-2xl text-[15px] leading-8 text-white/60 md:text-[17px] md:leading-9"
           style={{ animationDelay: "360ms" }}
         >
-          Kerala first and at length, because it is where we are from and
-          where we can tell you which side of the lake to sleep on. Then the
-          rest of the country, arranged the way we work in it.
+          All fourteen districts of Kerala, because it is where we are from
+          and where we can tell you which side of the lake to sleep on — then
+          the rest of the country, arranged the way we work in it.
         </p>
       </Container>
 
