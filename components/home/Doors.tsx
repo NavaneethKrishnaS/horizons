@@ -175,8 +175,16 @@ export default function Doors() {
                           the navbar's own word, so nobody has to work
                           out that "a house to come back to" is filed
                           under Stays.
+
+                          Set in Cormorant rather than in the site's
+                          tracked capitals. That shape means "section
+                          label" everywhere else here and is always
+                          olive, so a grey one floating at the right
+                          margin read as a stray tag. In the heading's
+                          own face it reads as the other half of the
+                          line.
                         */}
-                        <span className="shrink-0 whitespace-nowrap text-[10px] uppercase tracking-[0.28em] text-white/30">
+                        <span className="shrink-0 whitespace-nowrap font-cormorant text-[17px] font-light leading-none text-white/30 transition-colors duration-500 group-hover:text-white/55 md:text-[19px]">
                           {door.label}
                         </span>
                       </div>

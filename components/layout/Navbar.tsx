@@ -16,7 +16,21 @@ export default function Navbar() {
     The Journal is printed on paper rather than shot at night, so the navbar
     has to invert over it — white type on cream is invisible.
   */
-  const onPaper = pathname.startsWith("/journal");
+  const paperPage = pathname.startsWith("/journal");
+
+  const [activeMenu, setActiveMenu] = useState<string | null>(null);
+
+  /*
+    While the Destinations panel is down, the bar takes the panel's own
+    colour and drops the rule between them, so the two read as one
+    sheet of charcoal rather than as a bar with something hanging off
+    it. On the Journal that also means the bar stops being cream for
+    as long as the panel is open — a dark panel under a cream bar is
+    the seam this exists to remove.
+  */
+  const panelOpen = activeMenu === "Destinations";
+
+  const onPaper = paperPage && !panelOpen;
 
   const active = (href: string) => {
     const isHere = pathname.startsWith(href);
@@ -65,7 +79,7 @@ export default function Navbar() {
 
     return () => observer.disconnect();
   }, [scrolled]);
-  const [activeMenu, setActiveMenu] = useState<string | null>(null);
+
   const [closeTimeout, setCloseTimeout] = useState<NodeJS.Timeout | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -139,11 +153,16 @@ export default function Navbar() {
           a hero photograph.
         */
         className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-500 ${
-          scrolled
-            ? onPaper
-              ? "border-black/10 bg-[#F4F2ED]/80 py-5 backdrop-blur-xl"
-              : "border-white/5 bg-[#16180F]/70 py-5 backdrop-blur-3xl"
-            : "border-transparent bg-transparent py-8"
+          scrolled ? "py-5" : "py-8"
+        } ${
+          panelOpen
+            ? /* The panel's own colour, and no rule between them. */
+              "border-transparent bg-[#0E0E0E]"
+            : scrolled
+              ? onPaper
+                ? "border-black/10 bg-[#F4F2ED]/80 backdrop-blur-xl"
+                : "border-white/5 bg-[#16180F]/70 backdrop-blur-3xl"
+              : "border-transparent bg-transparent"
         }`}
       >
         <Container>
