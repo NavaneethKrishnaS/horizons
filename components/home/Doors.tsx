@@ -141,38 +141,42 @@ export default function Doors() {
                         />
                       </div>
 
-                      <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-                        <span
-                          className="font-cormorant text-[19px] font-light leading-none transition-colors duration-500 lining-nums"
-                          style={{
-                            color:
-                              active === index
-                                ? "#A8B473"
-                                : "rgba(255,255,255,0.18)",
-                          }}
-                        >
-                          {door.index}
-                        </span>
+                      <div className="flex items-baseline justify-between gap-5">
+                        <div className="flex items-baseline gap-4">
+                          <span
+                            className="font-cormorant text-[19px] font-light leading-none transition-colors duration-500 lining-nums"
+                            style={{
+                              color:
+                                active === index
+                                  ? "#A8B473"
+                                  : "rgba(255,255,255,0.18)",
+                            }}
+                          >
+                            {door.index}
+                          </span>
 
-                        <h2
-                          className="font-cormorant text-[27px] font-light leading-tight transition-colors duration-500 sm:text-[31px] md:text-[34px]"
-                          style={{
-                            color:
-                              active === index
-                                ? "#FFFFFF"
-                                : "rgba(255,255,255,0.55)",
-                          }}
-                        >
-                          {door.title}
-                        </h2>
+                          <h2
+                            className="font-cormorant text-[27px] font-light leading-tight transition-colors duration-500 sm:text-[31px] md:text-[34px]"
+                            style={{
+                              color:
+                                active === index
+                                  ? "#FFFFFF"
+                                  : "rgba(255,255,255,0.55)",
+                            }}
+                          >
+                            {door.title}
+                          </h2>
+                        </div>
 
                         {/*
-                          The heading says what happens; this says
-                          which page it is, in the navbar's own word,
-                          so nobody has to work out that "a house to
-                          come back to" is filed under Stays.
+                          Out at the right margin, where a contents
+                          page puts the page number. The heading says
+                          what happens; this says which page it is, in
+                          the navbar's own word, so nobody has to work
+                          out that "a house to come back to" is filed
+                          under Stays.
                         */}
-                        <span className="text-[10px] uppercase tracking-[0.28em] text-white/30">
+                        <span className="shrink-0 whitespace-nowrap text-[10px] uppercase tracking-[0.28em] text-white/30">
                           {door.label}
                         </span>
                       </div>
