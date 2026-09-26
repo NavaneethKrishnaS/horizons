@@ -17,9 +17,11 @@
 
   Photographs: ours where we have one of that district, Unsplash where
   we do not, and nothing at all rather than a photograph of somewhere
-  else. Three districts are waiting for a picture — Pathanamthitta,
-  Malappuram and Kozhikode — and they will look thin until one of ours
-  arrives, which is the right kind of thin.
+  else. All fourteen have one now. The last three to arrive —
+  Pathanamthitta, Malappuram, Kozhikode — are landscape rather than
+  landmark, chosen because they are honestly of that kind of country
+  rather than of a place we can name, and they should be the first
+  replaced when one of ours turns up.
 */
 
 import type { Collection } from "./stays";
@@ -119,6 +121,10 @@ export const KERALA: Destination[] = [
     collection: "hills",
     stays: [],
     routeStops: [],
+    image: {
+      src: `${UNSPLASH}/photo-1679934409073-838c884261fb?auto=format&fit=crop&w=2400&q=80`,
+      alt: "Mist in the palms at first light",
+    },
   },
   {
     id: "alappuzha",
@@ -299,6 +305,10 @@ export const KERALA: Destination[] = [
     collection: "coast",
     stays: [],
     routeStops: [],
+    image: {
+      src: `${UNSPLASH}/photo-1705690525766-421e4dfa0f48?auto=format&fit=crop&w=2400&q=80`,
+      alt: "Areca palms above a paddy field",
+    },
   },
   {
     id: "kozhikode",
@@ -319,6 +329,10 @@ export const KERALA: Destination[] = [
     collection: "coast",
     stays: [],
     routeStops: ["Kozhikode", "Calicut"],
+    image: {
+      src: `${UNSPLASH}/photo-1678780926989-3271d349134d?auto=format&fit=crop&w=2400&q=80`,
+      alt: "A wooded headland where the river meets the sea",
+    },
   },
   {
     id: "wayanad",
