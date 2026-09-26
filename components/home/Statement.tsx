@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 import Container from "@/components/ui/Container";
 import Reveal from "@/components/ui/Reveal";
 
@@ -13,24 +11,8 @@ import Reveal from "@/components/ui/Reveal";
 */
 export default function Statement() {
   return (
-    <section className="relative overflow-hidden bg-[#111111] py-24 md:py-36">
-      {/*
-        A palm from the Journal's plates, very faint and running off
-        the right edge. It is the only thing standing between the
-        hero and a page of type on black, and at six per cent it
-        reads as texture in the corner of the eye rather than as an
-        illustration anyone is meant to look at.
-      */}
-      <Image
-        src="/images/journal/palm.webp"
-        alt=""
-        aria-hidden
-        width={760}
-        height={1100}
-        className="pointer-events-none absolute -right-16 -top-10 hidden w-[380px] opacity-[0.06] invert lg:block xl:w-[460px]"
-      />
-
-      <Container className="relative">
+    <section className="bg-[#111111] pb-32 pt-24 md:pb-44 md:pt-40">
+      <Container>
         <Reveal>
           <p className="text-[10px] uppercase tracking-[0.35em] text-[#8B9556]">
             Kerala, and the rest of India
