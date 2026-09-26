@@ -21,7 +21,16 @@ import { stays } from "@/data/stays";
   hand that will be wrong the next time a house is added.
 */
 export default function Doors() {
-  const kerala = packages.find((tour) => tour.slug === "kerala-unhurried");
+  /*
+    Not kerala-unhurried: that photograph now leads the journeys list
+    further down, and the same picture twice on one page reads as a
+    mistake. Mehrangarh above Jodhpur at dusk also does the job the
+    copy is doing — the two bands over it are Kerala water and a
+    Kerala house, and this one has to say the rest of the country. A
+    gopuram was the other candidate and lost on the power lines
+    across it and a green nobody else on the page is wearing.
+  */
+  const journey = packages.find((tour) => tour.slug === "havelis-and-palaces");
   const house = stays.find((stay) => stay.image);
 
   const doors = [
@@ -29,7 +38,7 @@ export default function Doors() {
       index: "01",
       href: "/houseboats",
       label: "Houseboats",
-      title: "The boats are ours",
+      title: "We own the boats",
       body: `${houseboats.length} kettuvallam on the Alleppey backwaters, one bedroom to six. Crewed, cooked for, and moored somewhere quiet for the night rather than in a line with forty others.`,
       cta: "See the boats",
       image: "/images/houseboats/1-bedroom/cover.jpeg",
@@ -39,7 +48,7 @@ export default function Doors() {
       index: "02",
       href: "/stays",
       label: "Stays",
-      title: "Houses we have slept in",
+      title: "Houses, not listings",
       body: `${stays.length} hotels, homestays and family houses across India. None of them chosen from a brochure, and most of them known to us by the name of whoever runs the place.`,
       cta: "See the houses",
       image: house?.image ?? "/images/houseboats/2-bedroom/cover.jpeg",
@@ -50,10 +59,10 @@ export default function Doors() {
       href: "/packages",
       label: "Journeys",
       title: "Or one made for you",
-      body: `${packages.length} routes we run already, from a fortnight in Kerala to three weeks from Delhi to the bottom of the country — and every one of them a starting point rather than a menu.`,
+      body: `${packages.length} routes we run already, from a fortnight in Kerala to three weeks from Delhi to the bottom of the country. Every one a starting point rather than a menu.`,
       cta: "See the journeys",
-      image: kerala?.image ?? packages[0].image,
-      alt: kerala?.imageAlt ?? packages[0].imageAlt,
+      image: journey?.image ?? packages[0].image,
+      alt: journey?.imageAlt ?? packages[0].imageAlt,
     },
   ];
 
@@ -72,7 +81,7 @@ export default function Doors() {
               href={door.href}
               aria-hidden
               tabIndex={-1}
-              className="group relative block aspect-[4/3] w-full overflow-hidden md:h-[560px] md:aspect-auto lg:h-[640px]"
+              className="group relative block aspect-[16/10] w-full overflow-hidden md:aspect-auto md:h-[380px] lg:h-[430px]"
             >
               <Image
                 src={door.image}
@@ -89,10 +98,10 @@ export default function Doors() {
             </Link>
           </Reveal>
 
-          <div className="px-6 py-14 sm:px-10 md:px-14 md:py-16 lg:px-20 xl:px-28">
+          <div className="px-6 py-12 sm:px-10 md:px-12 md:py-10 lg:px-16 xl:px-20">
             <Reveal delay={90}>
               <div className="flex items-baseline gap-5">
-                <span className="font-cormorant text-[34px] font-light leading-none text-white/15 lining-nums md:text-[42px]">
+                <span className="font-cormorant text-[26px] font-light leading-none text-white/15 lining-nums md:text-[30px]">
                   {door.index}
                 </span>
 
@@ -101,17 +110,17 @@ export default function Doors() {
                 </p>
               </div>
 
-              <h2 className="mt-7 max-w-md font-cormorant text-[34px] font-light leading-[1.08] text-white sm:text-[44px] md:text-[50px] lg:text-[56px]">
+              <h2 className="mt-5 max-w-sm font-cormorant text-[30px] font-light leading-[1.1] text-white sm:text-[36px] lg:text-[40px]">
                 {door.title}
               </h2>
 
-              <p className="mt-7 max-w-md text-[15px] leading-8 text-white/50 md:text-[17px] md:leading-9">
+              <p className="mt-5 max-w-md text-[14px] leading-7 text-white/50 md:text-[15px] md:leading-8">
                 {door.body}
               </p>
 
               <Link
                 href={door.href}
-                className="group mt-9 inline-flex items-center gap-2 border-b border-white/20 pb-2 text-[11px] uppercase tracking-[0.25em] text-white/80 transition-colors hover:border-white/60 hover:text-white"
+                className="group mt-7 inline-flex items-center gap-2 border-b border-white/20 pb-2 text-[11px] uppercase tracking-[0.25em] text-white/80 transition-colors hover:border-white/60 hover:text-white"
               >
                 {door.cta}
                 <span className="transition-transform duration-300 group-hover:translate-x-1">
