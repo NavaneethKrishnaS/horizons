@@ -37,66 +37,75 @@ export default function HouseboatExplorer() {
         {featured && (
           <Reveal
             delay={120}
-            className="group relative mt-10 block aspect-[5/4] overflow-hidden sm:aspect-[16/10] md:mt-20 md:aspect-[21/9]"
+            className="group relative mt-10 block aspect-[4/5] overflow-hidden sm:aspect-[16/10] md:mt-16 md:aspect-[2/1]"
           >
             {/*
               Not featured.image. That one was an AI composite — a
               boat and an interior that do not exist in the same
               place, or anywhere — on a page whose whole argument is
-              that these are our boats. This is the five-bedroom, as
-              photographed.
+              that these are our boats. This is the open upper deck of
+              the four-bedroom, table laid, as photographed.
             */}
             <Image
-              src="/images/houseboats/5-bedroom/cover.jpg"
-              alt="The five-bedroom houseboat on the Alleppey backwaters"
+              src="/images/houseboats/4-bedroom/gallery-6.jpg"
+              alt="The open upper deck of the four-bedroom houseboat, table laid, backwaters ahead"
               fill
+              sizes="(max-width: 768px) 100vw, 1200px"
               className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
             />
 
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+            {/*
+              Two gradients, not one. The photograph is bright on the
+              left where the words go, so the darkness has to come in
+              from the side as well as the bottom.
+            */}
+            <div
+              aria-hidden
+              className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent"
+            />
+            <div
+              aria-hidden
+              className="absolute inset-0 bg-gradient-to-r from-black/65 via-transparent to-transparent"
+            />
 
-            {/* Content */}
-            <div className="absolute bottom-20 left-6 right-6 max-w-[640px] text-white md:bottom-14 md:left-14 md:right-auto">
-              <p className="text-xs uppercase tracking-[0.4em]">
-                {featured.title}
-              </p>
+            {/*
+              One stack, bottom left — label, title, line, and the way
+              in. The link used to sit alone in the opposite corner,
+              aligned to nothing.
+            */}
+            <div className="absolute inset-x-0 bottom-0 p-6 text-white sm:p-10 md:p-14">
+              <div className="max-w-2xl">
+                <p className="text-[10px] uppercase tracking-[0.35em] text-white/70">
+                  {featured.title}
+                </p>
 
-              <h3 className="mt-4 max-w-[580px] font-cormorant text-[30px] leading-[1.08] tracking-[-0.02em] sm:text-[42px] md:text-[64px] md:leading-[1.05] md:tracking-[-0.03em]">
-                {featured.subtitle}
-              </h3>
+                <h3 className="mt-5 font-cormorant text-[30px] font-light leading-[1.08] tracking-[-0.01em] sm:text-[40px] md:text-[48px]">
+                  {featured.subtitle}
+                </h3>
 
-              <p className="mt-4 hidden max-w-xl text-lg leading-8 text-white/80 sm:mt-6 sm:block">
-                {featured.description}
-              </p>
+                <p className="mt-5 hidden max-w-lg text-[15px] leading-8 text-white/65 sm:block md:text-[16px]">
+                  {featured.description}
+                </p>
+
+                <a
+                  href={whatsappLink(
+                    `Hello HORIZONS, I would like to enquire about houseboats \u2014 ${featured.title}.`,
+                  )}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group/button mt-7 inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.3em] text-white/70 transition-colors duration-300 hover:text-white md:mt-9"
+                >
+                  <span>Explore Now</span>
+
+                  <span
+                    aria-hidden
+                    className="transition-transform duration-300 group-hover/button:translate-x-1.5"
+                  >
+                    &rarr;
+                  </span>
+                </a>
+              </div>
             </div>
-
-            {/* CTA */}
-            <a
-              href={whatsappLink(
-                `Hello HORIZONS, I would like to enquire about houseboats \u2014 ${featured.title}.`,
-              )}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group/button absolute bottom-6 right-6 inline-flex md:bottom-14 md:right-14 items-center gap-3 text-[13px] font-medium uppercase tracking-[0.3em] text-white/80 transition-colors duration-300 hover:text-white"
-            >
-              <span>Explore Now</span>
-
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="transition-transform duration-300 group-hover/button:translate-x-1.5"
-              >
-                <path d="M5 12h14" />
-                <path d="m12 5 7 7-7 7" />
-              </svg>
-            </a>
           </Reveal>
         )}
 
