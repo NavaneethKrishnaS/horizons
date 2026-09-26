@@ -5,6 +5,8 @@ import { pageMeta } from "@/lib/meta";
 import Hero from "@/components/home/Hero";
 import Statement from "@/components/home/Statement";
 import Doors from "@/components/home/Doors";
+import Journeys from "@/components/home/Journeys";
+import Craft from "@/components/home/Craft";
 import WhereWeGo from "@/components/home/WhereWeGo";
 import HomeClosing from "@/components/home/HomeClosing";
 
@@ -21,6 +23,8 @@ export default function Home() {
       <Hero />
       <Statement />
       <Doors />
+      <Journeys />
+      <Craft />
       <WhereWeGo />
       <HomeClosing />
     </>
