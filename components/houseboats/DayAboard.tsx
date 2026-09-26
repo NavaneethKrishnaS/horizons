@@ -26,23 +26,21 @@ export default function DayAboard() {
     <section className="border-y border-white/[0.06] bg-[#0E0E0E] py-24 md:py-32">
       <Container>
         <Reveal>
-          <div className="grid gap-8 md:grid-cols-12">
-            <div className="md:col-span-7">
-              <p className="text-[10px] uppercase tracking-[0.35em] text-[#8B9556]">
-                A night on board
-              </p>
+          <p className="text-[10px] uppercase tracking-[0.35em] text-[#8B9556]">
+            A night on board
+          </p>
 
-              <h2 className="mt-7 font-cormorant text-[30px] font-light leading-[1.1] text-white sm:text-[40px] md:text-[48px]">
-                Noon to nine the next morning.
-              </h2>
-            </div>
+          <h2 className="mt-7 font-cormorant text-[30px] font-light leading-[1.1] text-white sm:text-[40px] md:text-[48px]">
+            Noon to nine the next morning.
+          </h2>
 
-            <p className="text-[15px] leading-8 text-white/45 md:col-span-4 md:col-start-9 md:self-end md:text-[16px]">
-              The same shape on every boat. What changes is the size of the
-              boat, the size of the crew, and how far you go before the light
-              does.
-            </p>
-          </div>
+          {/* The note the heading cannot carry, hung off a short rule */}
+          <div aria-hidden className="mt-9 h-px w-10 bg-white/20" />
+
+          <p className="mt-6 max-w-xl text-[15px] leading-8 text-white/45 md:text-[16px]">
+            The same shape on every boat. What changes is the size of the boat,
+            the size of the crew, and how far you go before the light does.
+          </p>
         </Reveal>
 
         <div className="mt-14 grid gap-x-14 gap-y-12 md:mt-20 md:grid-cols-2">

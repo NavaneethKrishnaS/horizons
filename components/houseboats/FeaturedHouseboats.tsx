@@ -30,23 +30,22 @@ export default function FeaturedHouseboats() {
     <section className="bg-[#111111] py-24 md:py-32">
       <Container>
         <Reveal>
-          <div className="grid gap-8 md:grid-cols-12">
-            <div className="md:col-span-7">
-              <p className="text-[10px] uppercase tracking-[0.35em] text-[#8B9556]">
-                The fleet
-              </p>
+          <p className="text-[10px] uppercase tracking-[0.35em] text-[#8B9556]">
+            The fleet
+          </p>
 
-              <h2 className="mt-7 font-cormorant text-[30px] font-light leading-[1.1] text-white sm:text-[40px] md:text-[48px]">
-                {houseboats.length} boats, one bedroom to six.
-              </h2>
-            </div>
+          <h2 className="mt-7 font-cormorant text-[30px] font-light leading-[1.1] text-white sm:text-[40px] md:text-[48px]">
+            {houseboats.length} boats, one bedroom to six.
+          </h2>
 
-            <p className="text-[15px] leading-8 text-white/45 md:col-span-4 md:col-start-9 md:self-end md:text-[16px]">
-              Prices are for the whole boat for one night, all meals included.
-              Deluxe, Premium and Luxury are the same hull and a different
-              standard of fit-out.
-            </p>
-          </div>
+          {/* The note the heading cannot carry, hung off a short rule */}
+          <div aria-hidden className="mt-9 h-px w-10 bg-white/20" />
+
+          <p className="mt-6 max-w-xl text-[15px] leading-8 text-white/45 md:text-[16px]">
+            Prices are for the whole boat for one night, all meals included.
+            Deluxe, Premium and Luxury are the same hull and a different
+            standard of fit-out.
+          </p>
         </Reveal>
 
         <div className="mt-14 grid gap-8 md:mt-20 md:gap-10">
