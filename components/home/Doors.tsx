@@ -67,7 +67,7 @@ export default function Doors() {
     {
       index: "03",
       href: "/packages",
-      label: "Journeys",
+      label: "Packages",
       title: "Or the whole thing, arranged",
       line: `${packages.length} routes we run already, from a fortnight in Kerala to three weeks down the length of the country.`,
       image: journey?.image ?? packages[0].image,
@@ -141,7 +141,7 @@ export default function Doors() {
                         />
                       </div>
 
-                      <div className="flex items-baseline gap-4">
+                      <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
                         <span
                           className="font-cormorant text-[19px] font-light leading-none transition-colors duration-500 lining-nums"
                           style={{
@@ -165,6 +165,16 @@ export default function Doors() {
                         >
                           {door.title}
                         </h2>
+
+                        {/*
+                          The heading says what happens; this says
+                          which page it is, in the navbar's own word,
+                          so nobody has to work out that "a house to
+                          come back to" is filed under Stays.
+                        */}
+                        <span className="text-[10px] uppercase tracking-[0.28em] text-white/30">
+                          {door.label}
+                        </span>
                       </div>
 
                       <div className="mt-3 flex items-end justify-between gap-6 pl-[35px]">
