@@ -81,37 +81,53 @@ export default function Craft() {
         <div className="mt-16 grid grid-cols-2 gap-x-8 gap-y-14 md:mt-20 md:grid-cols-3 md:gap-x-12 lg:grid-cols-6">
           {THINGS.map((thing, index) => (
             <Reveal key={thing.label} delay={Math.min(index, 5) * 70}>
-              <figure>
-                <div className="relative h-[92px] w-full md:h-[112px]">
-                  <Image
-                    src={thing.image}
-                    alt=""
-                    fill
-                    sizes="(min-width: 1024px) 160px, 40vw"
-                    /*
-                      The plates are dark ink for paper. Inverted they
-                      are white line on black, and they keep their
-                      tone rather than flattening to a silhouette the
-                      way brightness(0) would.
-                    */
-                    className="object-contain object-bottom opacity-70 invert"
-                  />
-                </div>
+              <Link href="/journal" className="group block">
+                <figure>
+                  <div className="relative h-[92px] w-full md:h-[112px]">
+                    <Image
+                      src={thing.image}
+                      alt=""
+                      fill
+                      sizes="(min-width: 1024px) 160px, 40vw"
+                      /*
+                        The plates are dark ink for paper. Inverted
+                        they are white line on black, and they keep
+                        their tone rather than flattening to a
+                        silhouette the way brightness(0) would.
 
-                <figcaption className="mt-6">
-                  {/*
-                    A floor under the label so a name that wraps does
-                    not push its own line down and break the row.
-                  */}
-                  <p className="min-h-[2.2em] text-[10px] uppercase leading-[1.1] tracking-[0.28em] text-[#8B9556]">
-                    {thing.label}
-                  </p>
+                        On hover the plate lifts a little and comes up
+                        to full strength, which is as much as an
+                        engraving should ever do.
+                      */
+                      className="object-contain object-bottom opacity-65 transition-all duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] invert group-hover:-translate-y-1.5 group-hover:opacity-100"
+                    />
+                  </div>
 
-                  <p className="mt-3 font-cormorant text-[18px] font-light leading-snug text-white/70 md:text-[19px]">
-                    {thing.line}
-                  </p>
-                </figcaption>
-              </figure>
+                  <figcaption className="mt-6">
+                    {/*
+                      A floor under the label so a name that wraps does
+                      not push its own line down and break the row.
+                    */}
+                    <p className="min-h-[2.2em] text-[10px] uppercase leading-[1.1] tracking-[0.28em] text-[#8B9556] transition-colors duration-500 group-hover:text-[#C3D08A]">
+                      {thing.label}
+                    </p>
+
+                    <p className="mt-3 font-cormorant text-[18px] font-light leading-snug text-white/70 transition-colors duration-500 group-hover:text-white md:text-[19px]">
+                      {thing.line}
+                    </p>
+
+                    {/*
+                      A hairline that draws itself under the entry, so
+                      there is something to aim at rather than a
+                      picture that happens to be clickable.
+                    */}
+                    <span
+                      aria-hidden
+                      className="mt-4 block h-px w-0 bg-white/40 transition-all duration-[700ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:w-10"
+                    />
+                  </figcaption>
+                </figure>
+              </Link>
             </Reveal>
           ))}
         </div>

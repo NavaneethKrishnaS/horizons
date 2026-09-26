@@ -152,7 +152,21 @@ export default function Navbar() {
           enough to disappear into #111111 and still warm enough to tint
           a hero photograph.
         */
-        className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-500 ${
+        /*
+          Two speeds on purpose. The height eases over half a second,
+          which is the scroll behaviour and wants to be unhurried. The
+          colour has to match the panel, which arrives in 240ms with
+          the same easing — at 500 the bar was still going dark after
+          the photographs had finished appearing, and the join showed.
+        */
+        style={{
+          transition:
+            "padding 500ms cubic-bezier(0.4, 0, 0.2, 1)," +
+            " background-color 240ms cubic-bezier(0, 0, 0.58, 1)," +
+            " border-color 240ms cubic-bezier(0, 0, 0.58, 1)," +
+            " backdrop-filter 240ms cubic-bezier(0, 0, 0.58, 1)",
+        }}
+        className={`fixed inset-x-0 top-0 z-50 border-b ${
           scrolled ? "py-5" : "py-8"
         } ${
           panelOpen
