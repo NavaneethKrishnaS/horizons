@@ -1,18 +1,14 @@
 import Image from "next/image";
 
 /*
-  The masthead, kept as it was written.
-
-  One phrase had to go. "From trusted local operators" describes a
-  marketplace booking somebody else's boats, which is what every
-  aggregator in Alleppey is, and is not what this is — the home page
-  says six kettuvallam of our own and the About page says where they
-  are from. A visitor who reads both finds a contradiction, and the
-  one that costs us is the one on this page.
+  The masthead, back to how it was written: the three-line title, the
+  original line beneath it, and the two overlays — a flat tint and a
+  gradient over it — that gave the photograph its darkness.
 */
 export default function HouseboatHero() {
   return (
-    <section className="relative flex min-h-lvh items-center justify-center overflow-hidden bg-[#111111]">
+    <section className="relative min-h-lvh overflow-hidden bg-[#111111]">
+      {/* Background image */}
       <Image
         src="/images/houseboats/hero.png"
         alt="A kettuvallam on the Alleppey backwaters"
@@ -22,24 +18,33 @@ export default function HouseboatHero() {
         className="object-cover"
       />
 
+      {/* The tint, and the gradient over it */}
+      <div aria-hidden className="absolute inset-0 bg-black/45" />
       <div
         aria-hidden
-        className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/25 to-black/60"
+        className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30"
       />
 
-      <div className="relative z-10 mx-auto max-w-4xl px-6 text-center text-[#F7F4EE]">
-        <p className="text-[10px] uppercase tracking-[0.35em] text-white/65">
-          Alleppey · The backwaters
-        </p>
+      {/* Content */}
+      <div className="relative z-10 flex min-h-lvh items-center justify-center px-6">
+        <div className="max-w-4xl text-center text-white">
+          <p className="text-[10px] uppercase tracking-[0.35em] text-white/65">
+            Alleppey · The backwaters
+          </p>
 
-        <h1 className="mt-7 font-cormorant text-[44px] font-light leading-[1.05] sm:text-[62px] md:text-[86px] lg:text-[104px]">
-          Six boats of our own
-        </h1>
+          <h1 className="mt-6 font-cormorant text-[44px] font-light leading-none sm:text-6xl md:text-8xl xl:text-9xl">
+            Curated
+            <br />
+            Houseboat
+            <br />
+            Experiences
+          </h1>
 
-        <p className="mx-auto mt-8 max-w-xl font-cormorant text-[21px] font-light leading-snug text-white/85 sm:text-[25px] md:text-[29px]">
-          One bedroom to six, crewed and cooked for, and moored somewhere quiet
-          for the night.
-        </p>
+          <p className="mx-auto mt-8 max-w-2xl text-lg leading-8 text-white/80">
+            Discover handpicked luxury and traditional houseboats from trusted
+            local operators across Kerala&rsquo;s serene backwaters.
+          </p>
+        </div>
       </div>
     </section>
   );
