@@ -7,7 +7,6 @@ import {
   PHONE_DISPLAY,
   PHONE_HREF,
   REGISTRATION,
-  REPLY,
 } from "@/data/contact";
 import { CONTACT_EMAIL, WHATSAPP_NUMBER } from "@/lib/whatsapp";
 
@@ -177,10 +176,6 @@ export default function Footer() {
                 </a>
               </li>
             </ul>
-
-            <p className="mt-6 max-w-[220px] text-[12px] leading-6 text-white/30">
-              {REPLY.hours}
-            </p>
           </div>
         </div>
 
