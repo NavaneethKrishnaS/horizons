@@ -19,12 +19,18 @@ export default function ExperienceCard({
         {title}
       </p>
 
-      <h3 className="mt-2 max-w-[320px] font-cormorant text-[20px] leading-[1.15] text-white transition-colors duration-300 group-hover:text-white/60 sm:text-[26px] md:mt-4 md:text-[32px] md:leading-[1.08] md:tracking-[-0.03em] lg:text-[40px]">
+      {/*
+        Two lines' worth of room whether the title needs it or not, so
+        the rule, the list and the link line up across a row. One
+        title runs to two lines and the rest do not, and without this
+        every second card sat a line lower than its neighbour.
+      */}
+      <h3 className="mt-2 min-h-[2.3em] max-w-[320px] font-cormorant text-[20px] leading-[1.15] text-white transition-colors duration-300 group-hover:text-white/60 sm:text-[26px] md:mt-4 md:min-h-[2.16em] md:text-[32px] md:leading-[1.08] md:tracking-[-0.03em] lg:text-[40px]">
         {subtitle}
       </h3>
 
       {/* Below desktop the columns are too narrow for these to be readable */}
-      <p className="mt-5 hidden max-w-md text-[17px] leading-8 text-white/50 md:block">
+      <p className="mt-5 hidden max-w-md text-[17px] leading-8 text-white/50 md:block md:min-h-[6rem]">
         {description}
       </p>
 

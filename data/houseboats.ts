@@ -1,10 +1,10 @@
 import { Houseboat } from "./houseboat.types";
 import {
-    commonMeals,
-    commonItinerary,
-    commonExclusions,
-    commonPolicies,
-  } from "./houseboat.shared";
+  commonMeals,
+  commonItinerary,
+  commonExclusions,
+  commonPolicies,
+} from "./houseboat.shared";
 
 export const experienceCategories = [
   {
@@ -14,7 +14,11 @@ export const experienceCategories = [
     description:
       "Spacious private houseboats designed for memorable family holidays with comfort, local cuisine and serene cruising.",
     image: "/images/houseboats/experiences/families.png",
-    highlights: [],
+    highlights: [
+      "Up to six bedrooms",
+      "All meals included",
+      "Experienced crew",
+    ],
   },
   {
     id: "honeymoon",
@@ -23,11 +27,7 @@ export const experienceCategories = [
     description:
       "Private cruises with peaceful sunsets, candlelit dinners and intimate experiences.",
     image: "/images/houseboats/experiences/couples.png",
-    highlights: [
-      "Private cruise",
-      "Sunset views",
-      "Candlelight dinner",
-    ],
+    highlights: ["Private cruise", "Sunset views", "Candlelight dinner"],
   },
   {
     id: "friends",
@@ -36,11 +36,7 @@ export const experienceCategories = [
     description:
       "Luxury houseboats perfect for groups looking to relax, celebrate and explore Alleppey's backwaters.",
     image: "/images/houseboats/experiences/groups.png",
-    highlights: [
-      "Large deck",
-      "Music system",
-      "Group dining",
-    ],
+    highlights: ["Large deck", "Music system", "Group dining"],
   },
   {
     id: "luxury",
@@ -49,11 +45,7 @@ export const experienceCategories = [
     description:
       "Handpicked premium and luxury houseboats with elevated interiors and curated hospitality.",
     image: "/images/houseboats/experiences/luxury.png",
-    highlights: [
-      "Premium interiors",
-      "Private chef",
-      "Upper deck",
-    ],
+    highlights: ["Premium interiors", "Private chef", "Upper deck"],
   },
   {
     id: "daycruise",
@@ -62,11 +54,7 @@ export const experienceCategories = [
     description:
       "Celebrate birthdays, anniversaries and special occasions with curated private cruises across Kerala's backwaters.",
     image: "/images/houseboats/experiences/celebrations.png",
-    highlights: [
-      "Private celebrations",
-      "Decor options",
-      "Curated dining",
-    ],
+    highlights: ["Private celebrations", "Decor options", "Curated dining"],
   },
 ];
 
@@ -77,7 +65,6 @@ export const houseboats: Houseboat[] = [
     slug: "1-bedroom",
 
     name: "1 Bedroom Houseboat",
-
 
     featured: true,
 
@@ -93,25 +80,23 @@ export const houseboats: Houseboat[] = [
 
     defaultCategory: "Deluxe",
 
-   
-
-categories: [
-  {
-    id: "deluxe",
-    name: "Deluxe",
-    price: 10000,
-  },
-  {
-    id: "premium",
-    name: "Premium",
-    price: 15000,
-  },
-  {
-    id: "luxury",
-    name: "Luxury",
-    price: 20000,
-  },
-],
+    categories: [
+      {
+        id: "deluxe",
+        name: "Deluxe",
+        price: 10000,
+      },
+      {
+        id: "premium",
+        name: "Premium",
+        price: 15000,
+      },
+      {
+        id: "luxury",
+        name: "Luxury",
+        price: 20000,
+      },
+    ],
 
     shortDescription:
       "Private one-bedroom houseboat designed for couples seeking a peaceful backwater cruise.",
@@ -206,25 +191,25 @@ categories: [
   },
   {
     id: "/houseboats/2-bedroom",
-  
+
     slug: "2-bedroom",
-  
+
     name: "2 Bedroom Houseboat",
-  
+
     featured: true,
-  
+
     bedrooms: 2,
-  
+
     bathrooms: 2,
-  
+
     maxGuests: 7,
-  
+
     crew: 3,
-  
+
     yearBuilt: 2022,
-  
+
     defaultCategory: "Deluxe",
-  
+
     categories: [
       {
         id: "deluxe",
@@ -237,13 +222,13 @@ categories: [
         price: 22500,
       },
     ],
-  
+
     shortDescription:
       "Spacious two-bedroom private houseboat designed for families and small groups exploring Kerala's tranquil backwaters.",
-  
+
     longDescription:
       "A beautifully designed two-bedroom houseboat featuring two air-conditioned bedrooms with attached bathrooms, a spacious living area, elegant dining space and an open upper deck for a memorable cruise through Alleppey's backwaters.",
-  
+
     gallery: [
       {
         src: "/images/houseboats/2-bedroom/cover.jpeg",
@@ -274,7 +259,7 @@ categories: [
         alt: "Upper deck",
       },
     ],
-  
+
     amenities: [
       "2 Air-conditioned bedrooms",
       "2 Private bathrooms",
@@ -288,11 +273,11 @@ categories: [
       "3 crew members",
       "Shower",
     ],
-  
+
     meals: commonMeals,
-  
+
     itinerary: commonItinerary,
-  
+
     inclusions: [
       "Welcome drink on arrival",
       "Accommodation in a private houseboat",
@@ -304,11 +289,11 @@ categories: [
       "Services of experienced crew",
       "Parking for the houseboat",
     ],
-  
+
     exclusions: commonExclusions,
-  
+
     policies: commonPolicies,
-  
+
     faqs: [
       {
         question: "What time is check-in and check-out?",
@@ -339,25 +324,25 @@ categories: [
   },
   {
     id: "/houseboats/3-bedroom",
-  
+
     slug: "3-bedroom",
-  
+
     name: "3 Bedroom Houseboat",
-  
+
     featured: true,
-  
+
     bedrooms: 3,
-  
+
     bathrooms: 3,
-  
+
     maxGuests: 9,
-  
+
     crew: 3,
-  
+
     yearBuilt: 2022,
-  
+
     defaultCategory: "Deluxe",
-  
+
     categories: [
       {
         id: "deluxe",
@@ -375,13 +360,13 @@ categories: [
         price: 36000,
       },
     ],
-  
+
     shortDescription:
       "Elegant three-bedroom private houseboat designed for families and larger groups seeking an unforgettable luxury backwater experience.",
-  
+
     longDescription:
       "Experience Alleppey's serene backwaters aboard a spacious three-bedroom private houseboat featuring air-conditioned bedrooms with attached bathrooms, a stylish living lounge, traditional dining area, open upper deck and warm Kerala hospitality. Perfect for family vacations, celebrations and group getaways.",
-  
+
     gallery: [
       {
         src: "/images/houseboats/3-bedroom/cover.jpeg",
@@ -412,7 +397,7 @@ categories: [
         alt: "Upper deck",
       },
     ],
-  
+
     amenities: [
       "3 Air-conditioned bedrooms",
       "3 Private bathrooms",
@@ -431,11 +416,11 @@ categories: [
       "Board games",
       "Shower",
     ],
-  
+
     meals: commonMeals,
-  
+
     itinerary: commonItinerary,
-  
+
     inclusions: [
       "Welcome drink on arrival",
       "Accommodation in a private houseboat",
@@ -447,11 +432,11 @@ categories: [
       "Services of experienced crew",
       "Parking for the houseboat",
     ],
-  
+
     exclusions: commonExclusions,
-  
+
     policies: commonPolicies,
-  
+
     faqs: [
       {
         question: "What time is check-in and check-out?",
@@ -483,25 +468,25 @@ categories: [
 
   {
     id: "/houseboats/4-bedroom",
-  
+
     slug: "4-bedroom",
-  
+
     name: "4 Bedroom Houseboat",
-  
+
     featured: true,
-  
+
     bedrooms: 4,
-  
+
     bathrooms: 4,
-  
+
     maxGuests: 12,
-  
+
     crew: 4,
-  
+
     yearBuilt: 2022,
-  
+
     defaultCategory: "Deluxe",
-  
+
     categories: [
       {
         id: "deluxe",
@@ -519,13 +504,13 @@ categories: [
         price: 55000,
       },
     ],
-  
+
     shortDescription:
       "Spacious four-bedroom private houseboat crafted for large families and groups seeking a premium backwater experience in Alleppey.",
-  
+
     longDescription:
       "Cruise through the enchanting backwaters of Alleppey aboard a beautifully designed four-bedroom private houseboat. Featuring four air-conditioned bedrooms with attached bathrooms, a generous living lounge, elegant dining area, panoramic lake views and a spacious upper deck, it offers the perfect setting for family holidays, reunions and celebrations with authentic Kerala hospitality.",
-  
+
     gallery: [
       {
         src: "/images/houseboats/4-bedroom/cover.jpeg",
@@ -556,7 +541,7 @@ categories: [
         alt: "Upper deck",
       },
     ],
-  
+
     amenities: [
       "4 Air-conditioned bedrooms",
       "4 Private bathrooms",
@@ -576,11 +561,11 @@ categories: [
       "Private cruise",
       "Shower",
     ],
-  
+
     meals: commonMeals,
-  
+
     itinerary: commonItinerary,
-  
+
     inclusions: [
       "Welcome drink on arrival",
       "Accommodation in a private houseboat",
@@ -592,11 +577,11 @@ categories: [
       "Services of experienced crew",
       "Parking for the houseboat",
     ],
-  
+
     exclusions: commonExclusions,
-  
+
     policies: commonPolicies,
-  
+
     faqs: [
       {
         question: "What time is check-in and check-out?",
@@ -628,25 +613,25 @@ categories: [
 
   {
     id: "/houseboats/5-bedroom",
-  
+
     slug: "5-bedroom",
-  
+
     name: "5 Bedroom Houseboat",
-  
+
     featured: true,
-  
+
     bedrooms: 5,
-  
+
     bathrooms: 5,
-  
+
     maxGuests: 10,
-  
+
     crew: 4,
-  
+
     yearBuilt: 2022,
-  
+
     defaultCategory: "Deluxe",
-  
+
     categories: [
       {
         id: "deluxe",
@@ -664,13 +649,13 @@ categories: [
         price: 70000,
       },
     ],
-  
+
     shortDescription:
       "An ultra-luxury five-bedroom private houseboat designed for large families, celebrations and corporate groups seeking an unforgettable backwater experience.",
-  
+
     longDescription:
       "Discover the finest way to experience Kerala's backwaters aboard this luxurious five-bedroom private houseboat. Featuring five spacious air-conditioned cabins with attached bathrooms, elegant interiors, a modern kitchenette, a large fully air-conditioned upper deck and authentic Kerala hospitality, it offers the perfect setting for family reunions, celebrations and premium group vacations.",
-  
+
     gallery: [
       {
         src: "/images/houseboats/5-bedroom/cover.jpg",
@@ -701,7 +686,7 @@ categories: [
         alt: "Upper deck",
       },
     ],
-  
+
     amenities: [
       "5 Air-conditioned bedrooms",
       "5 Private bathrooms",
@@ -723,11 +708,11 @@ categories: [
       "Wheelchair accessible dining area",
       "Shower",
     ],
-  
+
     meals: commonMeals,
-  
+
     itinerary: commonItinerary,
-  
+
     inclusions: [
       "Welcome drink on arrival",
       "Accommodation in a private luxury houseboat",
@@ -739,11 +724,11 @@ categories: [
       "Services of experienced crew",
       "Parking for the houseboat",
     ],
-  
+
     exclusions: commonExclusions,
-  
+
     policies: commonPolicies,
-  
+
     faqs: [
       {
         question: "What time is check-in and check-out?",
@@ -775,25 +760,25 @@ categories: [
 
   {
     id: "/houseboats/6-bedroom",
-  
+
     slug: "6-bedroom",
-  
+
     name: "6 Bedroom Houseboat",
-  
+
     featured: true,
-  
+
     bedrooms: 6,
-  
+
     bathrooms: 6,
-  
+
     maxGuests: 18,
-  
+
     crew: 4,
-  
+
     yearBuilt: 2016,
-  
+
     defaultCategory: "Deluxe",
-  
+
     categories: [
       {
         id: "deluxe",
@@ -811,13 +796,13 @@ categories: [
         price: 72000,
       },
     ],
-  
+
     shortDescription:
       "A spectacular six-bedroom luxury houseboat crafted for weddings, corporate retreats and large family gatherings on the serene backwaters of Alleppey.",
-  
+
     longDescription:
       "Experience Kerala's backwaters aboard an exceptional six-bedroom private houseboat featuring six luxurious air-conditioned bedrooms with attached bathrooms, elegant interiors, a spacious lounge, panoramic upper deck, modern kitchenette and authentic Kerala hospitality. Perfect for destination celebrations, corporate events and unforgettable group vacations.",
-  
+
     gallery: [
       {
         src: "/images/houseboats/6-bedroom/cover.jpeg",
@@ -848,7 +833,7 @@ categories: [
         alt: "Upper deck",
       },
     ],
-  
+
     amenities: [
       "6 Air-conditioned bedrooms",
       "6 Private bathrooms",
@@ -871,11 +856,11 @@ categories: [
       "4 professional crew members",
       "Shower",
     ],
-  
+
     meals: commonMeals,
-  
+
     itinerary: commonItinerary,
-  
+
     inclusions: [
       "Welcome drink on arrival",
       "Accommodation in a private luxury houseboat",
@@ -887,11 +872,11 @@ categories: [
       "Services of experienced crew",
       "Parking for the houseboat",
     ],
-  
+
     exclusions: commonExclusions,
-  
+
     policies: commonPolicies,
-  
+
     faqs: [
       {
         question: "What time is check-in and check-out?",
