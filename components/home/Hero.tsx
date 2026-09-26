@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -512,23 +511,36 @@ export default function Hero() {
 
   return (
     <section className="relative flex min-h-lvh items-center justify-center overflow-hidden bg-[#111111]">
-      <Image
-        src={HERO_POSTER.landscape}
-        alt={HERO_POSTER.alt}
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover portrait:hidden"
-      />
+      {/*
+        The photograph, as a plain picture element.
 
-      <Image
-        src={HERO_POSTER.portrait}
-        alt=""
-        fill
-        priority
-        sizes="100vw"
-        className="hidden object-cover portrait:block"
-      />
+        It was two next/image layers, one hidden by CSS in each
+        orientation — which meant the browser preloaded both and threw
+        one away on every visit, and warned about the sizes of the one
+        it could not measure. A picture element lets the preload
+        scanner read the media query and fetch exactly the one that
+        will be shown. Both files are already cut to the size they are
+        displayed at, 288KB and 132KB, so the optimiser was adding
+        little beyond the second download.
+      */}
+      <picture>
+        <source
+          media="(orientation: portrait)"
+          srcSet={HERO_POSTER.portrait}
+          width={1080}
+          height={1922}
+        />
+
+        <img
+          src={HERO_POSTER.landscape}
+          alt={HERO_POSTER.alt}
+          width={1920}
+          height={1080}
+          fetchPriority="high"
+          decoding="async"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+      </picture>
 
       {/*
         Written out twice rather than mapped. The two layers are two
