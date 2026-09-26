@@ -125,7 +125,7 @@ export default function RouteTransition() {
             setPhase("showing");
           }
         },
-        crossing ? 0 : APPEAR_AFTER_MS
+        crossing ? 0 : APPEAR_AFTER_MS,
       );
     };
 
@@ -178,7 +178,7 @@ export default function RouteTransition() {
 
     const remaining = Math.max(
       0,
-      minimumMs.current - (Date.now() - shownAt.current)
+      minimumMs.current - (Date.now() - shownAt.current),
     );
 
     const leave = setTimeout(() => setPhase("leaving"), remaining);
@@ -233,9 +233,23 @@ export default function RouteTransition() {
         background:
           "radial-gradient(85% 65% at 50% 50%, #0b0b0b 0%, #000000 62%)",
         opacity: isLeaving ? 0 : 1,
-        // Whatever happens to the timers, a fading curtain does not take
-        // taps with it.
-        pointerEvents: isLeaving ? "none" : "auto",
+        /*
+          Never, in any phase.
+
+          The curtain is scenery. While it was up it was also a
+          full-screen z-2000 shield, and it stays up for at least
+          MINIMUM_VISIBLE_MS after the new page arrives — so a click on
+          anything in the navbar between roughly a quarter of a second
+          and a second after the previous navigation hit the curtain and
+          did nothing at all. That is the "sometimes the link just does
+          not work" that is impossible to reproduce on purpose, because
+          it depends entirely on how fast you click.
+
+          Letting clicks through means a second navigation can start
+          while the first is still settling, which is exactly what the
+          visitor asked for, and what every browser does anyway.
+        */
+        pointerEvents: "none",
         transition: isLeaving
           ? `opacity ${VEIL_EXIT_MS}ms ease-out ${VEIL_EXIT_DELAY_MS}ms`
           : "opacity 180ms ease-out",

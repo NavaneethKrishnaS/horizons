@@ -167,9 +167,17 @@ export default function Navbar() {
               />
             </Link>
 
-            {/* Navigation */}
+            {/*
+              Navigation.
+
+              It switches to the menu button at lg, not md. Between about
+              850 and 1050 pixels the six centred links and the Check
+              Availability link on the right ran into each other — the
+              links are centred on the bar, so they grow towards the
+              corners as the window narrows and the corners do not move.
+            */}
             <div
-              className={`absolute left-1/2 hidden -translate-x-1/2 items-center gap-16 text-[15px] font-light md:flex ${
+              className={`absolute left-1/2 hidden -translate-x-1/2 items-center gap-10 text-[15px] font-light lg:flex xl:gap-16 ${
                 onPaper ? "text-black/70" : "text-white/90"
               }`}
             >
@@ -221,7 +229,7 @@ export default function Navbar() {
               {/* CTA — desktop only; on mobile it lives inside the menu */}
               <Link
                 href="/houseboats"
-                className={`group hidden items-center gap-2 text-[15px] font-light md:flex ${
+                className={`group hidden items-center gap-2 text-[15px] font-light lg:flex ${
                   onPaper ? "text-black" : "text-white"
                 }`}
               >
@@ -239,7 +247,7 @@ export default function Navbar() {
                 aria-label={menuOpen ? "Close menu" : "Open menu"}
                 aria-expanded={menuOpen}
                 aria-controls="mobile-menu"
-                className="relative -mr-2 flex h-10 w-10 items-center justify-center md:hidden"
+                className="relative -mr-2 flex h-10 w-10 items-center justify-center lg:hidden"
               >
                 <span
                   aria-hidden
@@ -271,7 +279,7 @@ export default function Navbar() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.24, ease: "easeOut" }}
-              className="absolute inset-x-0 top-full hidden md:block"
+              className="absolute inset-x-0 top-full hidden lg:block"
               onMouseEnter={() => openMenu("Destinations")}
               onMouseLeave={closeMenu}
             >

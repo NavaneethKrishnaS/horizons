@@ -28,13 +28,14 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
   // Shared, counted lock — see lib/scrollLock.
   useScrollLock(open);
 
-  // Close if the viewport grows past the mobile breakpoint. Without this
-  // the overlay is hidden by `md:hidden` while its scroll lock stays on,
-  // which leaves the desktop page unable to scroll.
+  // Close if the viewport grows past the breakpoint where the bar shows
+  // its own links. Without this the overlay is hidden by `lg:hidden`
+  // while its scroll lock stays on, which leaves the desktop page unable
+  // to scroll. The number here has to match that breakpoint.
   useEffect(() => {
     if (!open) return;
 
-    const query = window.matchMedia("(min-width: 768px)");
+    const query = window.matchMedia("(min-width: 1024px)");
 
     function handleChange(event: MediaQueryListEvent) {
       if (event.matches) onClose();
@@ -67,7 +68,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
           animate={{ opacity: 1 }}
           exit={reduceMotion ? { opacity: 0 } : { opacity: 0 }}
           transition={{ duration: 0.28, ease: "easeOut" }}
-          className="fixed inset-0 z-40 overflow-y-auto bg-[#111111] md:hidden"
+          className="fixed inset-0 z-40 overflow-y-auto bg-[#111111] lg:hidden"
         >
           <div className="min-h-full px-6 pb-12 pt-32">
             <ul>

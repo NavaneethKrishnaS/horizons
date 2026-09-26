@@ -8,6 +8,12 @@ export interface Destination {
   href: string;
 }
 
+/*
+  Three places on the home page. The hrefs are district pages, because
+  that is how the destination pages are filed — these used to point at
+  /destinations/munnar and friends, which have 404'd since the pages
+  were rebuilt district by district.
+*/
 export const destinations: Destination[] = [
     {
       id: 1,
@@ -17,7 +23,7 @@ export const destinations: Destination[] = [
         "Wake up among rolling tea estates, crisp mountain air and mist-covered valleys where every morning begins above the clouds.",
       image: "/images/retreats/munnar.png",
       preview: "/images/retreats/kumarakom.png",
-      href: "/destinations/munnar",
+      href: "/destinations/idukki",
     },
     {
       id: 2,
@@ -27,7 +33,7 @@ export const destinations: Destination[] = [
         "Private villas and tranquil backwaters designed for slow, meaningful escapes surrounded by nature.",
       image: "/images/retreats/kumarakom.png",
       preview: "/images/retreats/varkala.png",
-      href: "/destinations/kumarakom",
+      href: "/destinations/kottayam",
     },
     {
       id: 3,
@@ -37,6 +43,6 @@ export const destinations: Destination[] = [
         "Ocean cliffs, hidden beaches and unforgettable sunsets overlooking the Arabian Sea.",
       image: "/images/retreats/varkala.png",
       preview: "/images/retreats/munnar.png",
-      href: "/destinations/varkala",
+      href: "/destinations/thiruvananthapuram",
     },
   ];

@@ -146,6 +146,15 @@ export default function IntroScreen() {
         background:
           "radial-gradient(85% 65% at 50% 44%, #0b0b0b 0%, #000000 62%)",
         opacity: isLeaving ? 0 : 1,
+        /*
+          The veil takes nearly a second to fade, and for all of it the
+          element is still there at z-3000 across the whole window. It
+          had no pointerEvents rule, so during that second the screen
+          looked like the site and behaved like a sheet of glass: taps
+          on the navbar did nothing at all. It stops taking clicks the
+          moment it starts to go.
+        */
+        pointerEvents: isLeaving ? "none" : "auto",
         transition: `opacity ${VEIL_EXIT_MS}ms ease-out ${VEIL_EXIT_DELAY_MS}ms`,
       }}
     >
