@@ -4,175 +4,151 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function GuestStory() {
-  const stories = [
-    {
-      image: "/images/houseboats/guest-story.jpeg",
-      title: (
-        <>
-          There are places you visit,
-          <br />
-          and there are places that
-          <br />
-          become a part of you.
-        </>
-      ),
-      subtitle: "Kerala's backwaters became one of ours.",
-      guest: "Sarah & Daniel",
-      location: "Guests from London",
-    },
-    {
-      image: "/images/houseboats/guest-story-2.jpeg",
-      title: (
-        <>
-          Every sunrise reminded us
-          <br />
-          that luxury isn’t measured
-          <br />
-          in stars—but in moments.
-        </>
-      ),
-      subtitle:
-        "Every morning began with silence, soft light and endless water.",
-      guest: "Michael & Emma",
-      location: "Guests from Sydney",
-    },
-    {
-      image: "/images/houseboats/guest-story-3.jpeg",
-      title: (
-        <>
-          Some journeys end
-          <br />
-          when you return home.
-          <br />
-          The best ones stay forever.
-        </>
-      ),
-      subtitle: "Kerala left us with memories we'll always carry.",
-      guest: "Luca & Sofia",
-      location: "Guests from Milan",
-    },
-  ];
+import Container from "@/components/ui/Container";
+import Reveal from "@/components/ui/Reveal";
 
+/*
+  Three guests, in their own words.
+
+  This was a full-bleed carousel 760px tall — taller than the hero of
+  most pages and the loudest thing on a page that is otherwise quiet.
+  It is now an editorial spread: one photograph at a fixed height, the
+  words set beside it, and the three of them changing in place. Every
+  quote is set at the same size, so nothing in the rotation moves but
+  the words themselves.
+*/
+
+const STORIES = [
+  {
+    image: "/images/houseboats/guest-story.jpeg",
+    quote:
+      "There are places you visit, and there are places that become a part of you.",
+    line: "Kerala's backwaters became one of ours.",
+    guest: "Sarah & Daniel",
+    location: "London",
+  },
+  {
+    image: "/images/houseboats/guest-story-2.jpeg",
+    quote:
+      "Every sunrise reminded us that luxury isn't measured in stars, but in moments.",
+    line: "Every morning began with silence, soft light and endless water.",
+    guest: "Michael & Emma",
+    location: "Sydney",
+  },
+  {
+    image: "/images/houseboats/guest-story-3.jpeg",
+    quote:
+      "Some journeys end when you return home. The best ones stay forever.",
+    line: "Kerala left us with memories we will always carry.",
+    guest: "Luca & Sofia",
+    location: "Milan",
+  },
+];
+
+const HOLD_MS = 6000;
+
+export default function GuestStory() {
   const [active, setActive] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setActive((prev) => (prev + 1) % stories.length);
-    }, 5000);
+    const timer = setInterval(
+      () => setActive((prev) => (prev + 1) % STORIES.length),
+      HOLD_MS,
+    );
 
-    return () => clearInterval(interval);
-  }, [stories.length]);
+    return () => clearInterval(timer);
+  }, []);
 
-  const story = stories[active];
+  const story = STORIES[active];
 
   return (
     <section className="border-t border-white/[0.06] bg-[#0E0E0E] py-20 md:py-28">
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="relative overflow-hidden">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={active}
-              initial={{ opacity: 0, scale: 1.03 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 1.03 }}
-              transition={{ duration: 1 }}
-              className="relative"
-            >
-              {/* Image */}
-              <div className="relative h-[520px] w-full overflow-hidden md:h-[760px]">
-                <Image
-                  src={story.image}
-                  alt={story.guest}
-                  fill
-                  className="object-cover"
-                />
+      <Container>
+        <Reveal>
+          <p className="text-[10px] uppercase tracking-[0.35em] text-[#8B9556]">
+            In their own words
+          </p>
+        </Reveal>
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-black/10 to-transparent" />
-              </div>
-
-              {/* Content */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="max-w-3xl px-6 text-center md:px-10">
-                  <motion.p
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.15 }}
-                    className="text-[10px] uppercase tracking-[0.35em] text-white/70"
-                  >
-                    In their own words
-                  </motion.p>
-
-                  <motion.blockquote
-                    initial={{ opacity: 0, y: 25 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.25 }}
-                    className="mt-5 font-cormorant text-[20px] leading-[1.25] tracking-[-0.01em] text-white sm:mt-8 sm:text-[32px] md:text-[46px] md:leading-[1.15] md:tracking-[-0.03em] lg:text-[52px]"
-                  >
-                    {story.title}
-                  </motion.blockquote>
-
-                  <motion.p
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.35 }}
-                    className="mx-auto mt-4 max-w-xl font-cormorant text-[17px] font-light leading-7 text-white/85 sm:mt-8 sm:text-[21px] sm:leading-8 md:text-[24px]"
-                  >
-                    {story.subtitle}
-                  </motion.p>
-
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.45 }}
-                    className="mx-auto mt-6 h-px w-16 bg-white/40 sm:mt-10 sm:w-24"
+        <div className="mt-10 grid grid-cols-1 gap-8 md:mt-14 md:grid-cols-12 md:gap-16">
+          {/* The photograph */}
+          <Reveal className="md:col-span-5">
+            <div className="relative h-[260px] overflow-hidden sm:h-[320px] md:h-[400px]">
+              <AnimatePresence initial={false}>
+                <motion.div
+                  key={active}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.9, ease: "linear" }}
+                  className="absolute inset-0"
+                >
+                  <Image
+                    src={story.image}
+                    alt=""
+                    fill
+                    sizes="(max-width: 768px) 100vw, 40vw"
+                    className="object-cover"
                   />
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </Reveal>
 
-                  <motion.div
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.55 }}
-                    className="mt-10"
-                  >
-                    <p className="font-cormorant text-[18px] font-light text-white sm:text-[22px]">
-                      {story.guest}
-                    </p>
+          {/* The words */}
+          <Reveal
+            delay={90}
+            className="flex flex-col justify-center md:col-span-6 md:col-start-7"
+          >
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={active}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.5 }}
+              >
+                <blockquote className="font-cormorant text-[26px] font-light leading-[1.2] tracking-[-0.01em] text-white sm:text-[32px] md:text-[38px]">
+                  {story.quote}
+                </blockquote>
 
-                    <p className="mt-2 text-[10px] uppercase tracking-[0.28em] text-white/45 sm:mt-3">
-                      {story.location}
-                    </p>
-                  </motion.div>
-                  {/* Progress Lines */}
-                  <div className="mt-7 flex items-center justify-center gap-3 sm:mt-12 sm:gap-4">
-                    {stories.map((_, index) => (
-                      <button
-                        key={index}
-                        onClick={() => setActive(index)}
-                        aria-label={`Go to story ${index + 1}`}
-                        className="group relative h-[2px] w-14 overflow-hidden rounded-full bg-white/30"
-                      >
-                        {/* Active Fill */}
-                        <motion.div
-                          key={active === index ? active : `inactive-${index}`}
-                          initial={{ width: active === index ? "0%" : "100%" }}
-                          animate={{
-                            width: active === index ? "100%" : "0%",
-                          }}
-                          transition={{
-                            duration: active === index ? 5 : 0.2,
-                            ease: "linear",
-                          }}
-                          className="absolute left-0 top-0 h-full bg-white"
-                        />
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </AnimatePresence>
+                <p className="mt-6 max-w-md text-[15px] leading-7 text-white/45 md:mt-7">
+                  {story.line}
+                </p>
+
+                <p className="mt-8 text-[11px] uppercase tracking-[0.28em] text-white/60 md:mt-10">
+                  {story.guest}
+                  <span className="text-white/25"> — {story.location}</span>
+                </p>
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Which of the three, and how long it stays */}
+            <div className="mt-10 flex items-center gap-3 md:mt-12">
+              {STORIES.map((entry, index) => (
+                <button
+                  key={entry.guest}
+                  type="button"
+                  onClick={() => setActive(index)}
+                  aria-label={`Read what ${entry.guest} said`}
+                  className="relative h-[2px] w-12 overflow-hidden bg-white/15 transition-colors hover:bg-white/30"
+                >
+                  <motion.span
+                    key={active === index ? `run-${active}` : `idle-${index}`}
+                    initial={{ width: active === index ? "0%" : "100%" }}
+                    animate={{ width: active === index ? "100%" : "0%" }}
+                    transition={{
+                      duration: active === index ? HOLD_MS / 1000 : 0.25,
+                      ease: "linear",
+                    }}
+                    className="absolute left-0 top-0 h-full bg-white/70"
+                  />
+                </button>
+              ))}
+            </div>
+          </Reveal>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

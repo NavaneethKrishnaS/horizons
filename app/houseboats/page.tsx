@@ -6,7 +6,9 @@ import HouseboatHero from "@/components/houseboats/HouseboatHero";
 import WhatItIs from "@/components/houseboats/WhatItIs";
 import FeaturedHouseboats from "@/components/houseboats/FeaturedHouseboats";
 import DayAboard from "@/components/houseboats/DayAboard";
+import HouseboatExplorer from "@/components/houseboats/HouseboatExplorer";
 import Included from "@/components/houseboats/Included";
+import WhyChooseHorizons from "@/components/houseboats/WhyChooseHorizons";
 import GuestStory from "@/components/houseboats/GuestStory";
 import BookingCTA from "@/components/houseboats/BookingCTA";
 
@@ -24,7 +26,9 @@ export default function HouseboatsPage() {
       <WhatItIs />
       <FeaturedHouseboats />
       <DayAboard />
+      <HouseboatExplorer />
       <Included />
+      <WhyChooseHorizons />
       <GuestStory />
       <BookingCTA />
     </main>
