@@ -11,7 +11,16 @@ import { packages } from "@/data/packages";
 import { stays } from "@/data/stays";
 
 /*
-  The three things we do — one photograph, three entries.
+  The three things we do, in the order they happen — one photograph,
+  three entries.
+
+  The headings run as a sequence rather than as three unrelated
+  offers, because that is how a trip is actually put together: the
+  water first, then somewhere to sleep, then the option of handing
+  the whole thing over. "We own the boats" said the useful thing but
+  said it as a claim about us, which a visitor reads as a boast
+  before they read it as a fact. It is in the line underneath now,
+  where it belongs.
 
   Three cards was the site's own template for the fourth time. Three
   full-width bands fixed that and created a different problem: three
@@ -41,8 +50,8 @@ export default function Doors() {
       index: "01",
       href: "/houseboats",
       label: "Houseboats",
-      title: "We own the boats",
-      line: `${houseboats.length} kettuvallam on the Alleppey backwaters, one bedroom to six, moored somewhere quiet for the night.`,
+      title: "It begins on the water",
+      line: `${houseboats.length} kettuvallam of our own on the Alleppey backwaters, one bedroom to six, crewed and moored somewhere quiet for the night.`,
       image: "/images/houseboats/1-bedroom/cover.jpeg",
       alt: "A kettuvallam houseboat on the Alleppey backwaters",
     },
@@ -50,7 +59,7 @@ export default function Doors() {
       index: "02",
       href: "/stays",
       label: "Stays",
-      title: "Houses, not listings",
+      title: "Then a house to come back to",
       line: `${stays.length} hotels, homestays and family houses across India, most of them known to us by whoever runs the place.`,
       image: house?.image ?? "/images/houseboats/2-bedroom/cover.jpeg",
       alt: house?.imageAlt ?? "A house on the Kerala backwaters",
@@ -59,7 +68,7 @@ export default function Doors() {
       index: "03",
       href: "/packages",
       label: "Journeys",
-      title: "Or one made for you",
+      title: "Or the whole thing, arranged",
       line: `${packages.length} routes we run already, from a fortnight in Kerala to three weeks down the length of the country.`,
       image: journey?.image ?? packages[0].image,
       alt: journey?.imageAlt ?? packages[0].imageAlt,
@@ -107,7 +116,7 @@ export default function Doors() {
           <div className="md:col-span-7 md:col-start-6 md:self-center">
             <Reveal delay={80}>
               <p className="text-[10px] uppercase tracking-[0.35em] text-[#8B9556]">
-                Three ways in
+                How a journey goes
               </p>
             </Reveal>
 
