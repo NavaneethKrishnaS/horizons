@@ -2,96 +2,124 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /*
-  Add or reorder the hero photographs here — the rotation picks them up with
-  no other changes. One entry is fine; it simply does not rotate.
+  The hero.
 
-  Keep them to three or four: every one is downloaded at full size while the
-  visitor is looking at the first, so a long list costs load time on the page
-  that matters most. WebP at around 2000px wide and under 300KB each.
+  A photograph, always — it is what the first paint shows, what a slow
+  connection keeps, and what anyone who has asked for less movement
+  sees. If HERO_VIDEO is set, a muted loop fades in over the top of it
+  once the browser says it can actually play the thing; if it never
+  says so, nothing happens and nobody notices.
+
+  To put a film here:
+
+    1. Drop the source file anywhere and run, on the Mac,
+       scripts/encode-hero.sh <source>. It writes
+       public/video/hero.mp4 and hero.webm at 1920 wide, no audio.
+    2. Set HERO_VIDEO below.
+    3. Keep the poster in step with the film's first frame — the
+       script writes public/images/hero/hero-poster.jpg for exactly
+       that.
+
+  Keep the loop to twelve or fifteen seconds and under about 6MB. It is
+  the first thing a visitor downloads, and a minute of drone footage is
+  a minute they spend looking at nothing.
 */
-const HERO_IMAGES = [
-  {
-    src: "/images/hero/hero.png",
-    alt: "Sunset over the Kerala coast",
-  },
-];
+const HERO_IMAGE = {
+  src: "/images/hero/hero.png",
+  alt: "Sunset over the Kerala coast",
+};
 
-const INTERVAL_MS = 5000;
-const FADE_MS = 1400;
+const HERO_VIDEO: { mp4: string; webm?: string } | null = null;
 
 export default function Hero() {
-  const [index, setIndex] = useState(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [playing, setPlaying] = useState(false);
 
   useEffect(() => {
-    if (HERO_IMAGES.length < 2) return;
+    if (!HERO_VIDEO) return;
 
-    // Rotation is decoration, so hold still for anyone who has asked for less
-    // movement.
+    const node = videoRef.current;
+
+    if (!node) return;
+
+    /*
+      Three reasons not to fetch several megabytes of film: the visitor
+      has asked for less movement, the browser is in data-saver mode,
+      or it is telling us the connection is slow. In all three the
+      photograph is the whole hero, which is why the photograph is not
+      a fallback but the base layer.
+    */
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    let timer: number | undefined;
+    const connection = (
+      navigator as Navigator & {
+        connection?: { saveData?: boolean; effectiveType?: string };
+      }
+    ).connection;
 
-    const start = () => {
-      timer = window.setInterval(
-        () => setIndex((current) => (current + 1) % HERO_IMAGES.length),
-        INTERVAL_MS
-      );
-    };
+    if (connection?.saveData) return;
 
-    const stop = () => window.clearInterval(timer);
+    if (
+      connection?.effectiveType &&
+      /^(slow-)?2g$|^3g$/.test(connection.effectiveType)
+    ) {
+      return;
+    }
 
-    // No point cycling photographs into a tab nobody is looking at — and the
-    // browser throttles the timer there anyway, which makes the first change
-    // after returning arrive at a random moment.
-    const handleVisibility = () => {
-      stop();
+    const show = () => setPlaying(true);
 
-      if (document.visibilityState === "visible") start();
-    };
+    node.addEventListener("playing", show, { once: true });
 
-    if (document.visibilityState === "visible") start();
+    node.load();
 
-    document.addEventListener("visibilitychange", handleVisibility);
+    // Autoplay is refused often enough — a battery-saving phone, a
+    // browser setting — that it has to be treated as normal.
+    node.play().catch(() => {});
 
-    return () => {
-      stop();
-      document.removeEventListener("visibilitychange", handleVisibility);
-    };
+    return () => node.removeEventListener("playing", show);
   }, []);
 
   return (
-    <section className="relative flex min-h-lvh items-center justify-center overflow-hidden">
-      {/*
-        All the photographs are stacked and cross-faded on opacity alone.
-        Nothing moves and nothing is laid out again, so the browser can hand
-        the whole thing to the compositor.
-      */}
-      {HERO_IMAGES.map((image, position) => (
-        <Image
-          key={image.src}
-          src={image.src}
-          alt={image.alt}
-          fill
-          priority={position === 0}
-          sizes="100vw"
-          className="object-cover transition-opacity ease-in-out"
-          style={{
-            opacity: position === index ? 1 : 0,
-            transitionDuration: `${FADE_MS}ms`,
-          }}
-        />
-      ))}
+    <section className="relative flex min-h-lvh items-center justify-center overflow-hidden bg-[#111111]">
+      <Image
+        src={HERO_IMAGE.src}
+        alt={HERO_IMAGE.alt}
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover"
+      />
 
-      {/* Softer Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/30" />
+      {HERO_VIDEO ? (
+        <video
+          ref={videoRef}
+          muted
+          loop
+          playsInline
+          preload="none"
+          aria-hidden
+          tabIndex={-1}
+          className="absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-out"
+          style={{ opacity: playing ? 1 : 0 }}
+        >
+          {HERO_VIDEO.webm ? (
+            <source src={HERO_VIDEO.webm} type="video/webm" />
+          ) : null}
+          <source src={HERO_VIDEO.mp4} type="video/mp4" />
+        </video>
+      ) : null}
 
-      {/* Hero Content */}
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/10 to-black/40"
+      />
+
       <div className="relative z-10 flex flex-col items-center px-6 text-center text-[#F7F4EE]">
         <p className="mb-6 text-[11px] font-medium uppercase tracking-[0.55em] text-white/70">
-          BY SCENIC ESCAPES
+          By Scenic Escapes
         </p>
 
         <h1 className="font-cormorant text-[72px] font-medium leading-none tracking-[-0.02em] md:text-[118px] lg:text-[150px]">

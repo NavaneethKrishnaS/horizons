@@ -46,3 +46,7 @@ _source-photos/
 
 # Files the Claude desktop app drops here when it delivers something
 Claude outputs/
+
+# Screenshots this session writes into public/ to look at pages
+# through the dev server. Never part of the site.
+public/__*
