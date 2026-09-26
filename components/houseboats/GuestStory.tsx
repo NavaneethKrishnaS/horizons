@@ -32,7 +32,8 @@ export default function GuestStory() {
           in stars—but in moments.
         </>
       ),
-      subtitle: "Every morning began with silence, soft light and endless water.",
+      subtitle:
+        "Every morning began with silence, soft light and endless water.",
       guest: "Michael & Emma",
       location: "Guests from Sydney",
     },
@@ -66,10 +67,9 @@ export default function GuestStory() {
   const story = stories[active];
 
   return (
-    <section className="bg-[#F8F7F3] py-20 md:py-36">
+    <section className="border-t border-white/[0.06] bg-[#0E0E0E] py-20 md:py-28">
       <div className="mx-auto max-w-7xl px-6">
         <div className="relative overflow-hidden">
-
           <AnimatePresence mode="wait">
             <motion.div
               key={active}
@@ -98,9 +98,9 @@ export default function GuestStory() {
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.15 }}
-                    className="text-[12px] font-medium uppercase tracking-[0.4em] text-white/80"
+                    className="text-[10px] uppercase tracking-[0.35em] text-white/70"
                   >
-                    A JOURNEY REMEMBERED
+                    In their own words
                   </motion.p>
 
                   <motion.blockquote
@@ -116,7 +116,7 @@ export default function GuestStory() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.35 }}
-                    className="mx-auto mt-4 max-w-xl text-[14px] leading-6 text-white/90 sm:mt-8 sm:text-lg sm:leading-8 md:text-2xl"
+                    className="mx-auto mt-4 max-w-xl font-cormorant text-[17px] font-light leading-7 text-white/85 sm:mt-8 sm:text-[21px] sm:leading-8 md:text-[24px]"
                   >
                     {story.subtitle}
                   </motion.p>
@@ -134,16 +134,16 @@ export default function GuestStory() {
                     transition={{ delay: 0.55 }}
                     className="mt-10"
                   >
-                    <p className="text-[15px] font-medium text-white sm:text-xl">
+                    <p className="font-cormorant text-[18px] font-light text-white sm:text-[22px]">
                       {story.guest}
                     </p>
 
-                    <p className="mt-2 text-[10px] uppercase tracking-[0.25em] text-white/75 sm:mt-3 sm:text-xs sm:tracking-[0.35em]">
+                    <p className="mt-2 text-[10px] uppercase tracking-[0.28em] text-white/45 sm:mt-3">
                       {story.location}
                     </p>
                   </motion.div>
-                                    {/* Progress Lines */}
-                                    <div className="mt-7 flex items-center justify-center gap-3 sm:mt-12 sm:gap-4">
+                  {/* Progress Lines */}
+                  <div className="mt-7 flex items-center justify-center gap-3 sm:mt-12 sm:gap-4">
                     {stories.map((_, index) => (
                       <button
                         key={index}

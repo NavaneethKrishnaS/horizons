@@ -3,11 +3,22 @@
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 
+import Container from "@/components/ui/Container";
+import Reveal from "@/components/ui/Reveal";
 import { houseboats } from "@/data/houseboats";
 import FeaturedHouseboatCard from "./FeaturedHouseboatCard";
 
 const INITIAL_COUNT = 3;
 
+/*
+  The fleet.
+
+  It used to sit on a background photograph with a gradient over it,
+  under the words "handpicked luxury houseboats offering exceptional
+  comfort, authentic Kerala hospitality". Both are gone: the
+  photograph fought the cards, and the sentence said nothing that the
+  six boats underneath do not say better by existing.
+*/
 export default function FeaturedHouseboats() {
   const [expanded, setExpanded] = useState(false);
   const reduceMotion = useReducedMotion();
@@ -16,42 +27,33 @@ export default function FeaturedHouseboats() {
   const rest = houseboats.slice(INITIAL_COUNT);
 
   return (
-    <section className="relative overflow-hidden bg-black py-24 lg:py-28">
-      {/* Background Image */}
-      <div
-        className="absolute inset-0 -z-10 bg-cover bg-center"
-        style={{
-          backgroundImage: "url('/images/houseboats/featured-bg.png')",
-        }}
-      />
+    <section className="bg-[#111111] py-24 md:py-32">
+      <Container>
+        <Reveal>
+          <div className="grid gap-8 md:grid-cols-12">
+            <div className="md:col-span-7">
+              <p className="text-[10px] uppercase tracking-[0.35em] text-[#8B9556]">
+                The fleet
+              </p>
 
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-transparent via-black/60 to-black" />
+              <h2 className="mt-7 font-cormorant text-[30px] font-light leading-[1.1] text-white sm:text-[40px] md:text-[48px]">
+                {houseboats.length} boats, one bedroom to six.
+              </h2>
+            </div>
 
-      <div className="mx-auto max-w-7xl px-6">
-        {/* Section Heading */}
-        <div className="mb-12">
-          <p className="text-sm font-medium uppercase tracking-[0.3em] text-white/60">
-            Featured Collection
-          </p>
+            <p className="text-[15px] leading-8 text-white/45 md:col-span-4 md:col-start-9 md:self-end md:text-[16px]">
+              Prices are for the whole boat for one night, all meals included.
+              Deluxe, Premium and Luxury are the same hull and a different
+              standard of fit-out.
+            </p>
+          </div>
+        </Reveal>
 
-          <h2 className="mt-4 font-cormorant text-4xl font-light text-white md:text-5xl">
-            Featured Houseboats
-          </h2>
-
-          <p className="mt-4 max-w-2xl text-[15px] leading-7 text-white/75 sm:mt-6 sm:text-lg sm:leading-8">
-            Handpicked luxury houseboats offering exceptional comfort,
-            authentic Kerala hospitality, and unforgettable backwater
-            experiences.
-          </p>
-        </div>
-
-        <div className="grid gap-10">
-          {shown.map((houseboat) => (
-            <FeaturedHouseboatCard
-              key={houseboat.id}
-              houseboat={houseboat}
-            />
+        <div className="mt-14 grid gap-8 md:mt-20 md:gap-10">
+          {shown.map((houseboat, index) => (
+            <Reveal key={houseboat.id} delay={Math.min(index, 3) * 80}>
+              <FeaturedHouseboatCard houseboat={houseboat} />
+            </Reveal>
           ))}
 
           {expanded &&
@@ -71,35 +73,24 @@ export default function FeaturedHouseboats() {
             ))}
         </div>
 
-        {!expanded && rest.length > 0 && (
-          <div className="mt-12 flex justify-center">
+        {!expanded && rest.length > 0 ? (
+          <div className="mt-12 md:mt-14">
             <button
               type="button"
               onClick={() => setExpanded(true)}
-              className="group inline-flex items-center gap-3 rounded-full border border-white/25 px-8 py-4 text-[13px] font-medium uppercase tracking-[0.28em] text-white transition-all duration-300 hover:border-white/60 hover:bg-white/10"
+              className="group inline-flex items-center gap-2 border-b border-white/20 pb-2 text-[11px] uppercase tracking-[0.25em] text-white/70 transition-colors duration-300 hover:border-white/60 hover:text-white"
             >
-              <span>See all {houseboats.length} houseboats</span>
-
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+              The other {rest.length}
+              <span
                 aria-hidden
-                className="transition-transform duration-300 group-hover:translate-y-1"
+                className="transition-transform duration-300 group-hover:translate-y-0.5"
               >
-                <path d="M12 5v14" />
-                <path d="m19 12-7 7-7-7" />
-              </svg>
+                ↓
+              </span>
             </button>
           </div>
-        )}
-      </div>
+        ) : null}
+      </Container>
     </section>
   );
 }
