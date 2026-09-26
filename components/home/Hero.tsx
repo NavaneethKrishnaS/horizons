@@ -101,6 +101,15 @@ function renditionFor() {
 
   if (w / h < 0.85) return RENDITIONS.mb;
 
+  /*
+    Everything else gets the full-sized files and keeps them unless
+    the connection says otherwise — which it says by stalling, not by
+    being asked. navigator.connection.downlink is a rounded guess
+    from whatever the browser measured last, and on a good line it
+    reads low often enough that trusting it would hand a small file
+    to a large screen for no reason. So: start at hd, and step down
+    the first time a clip cannot keep up. See `downgrade` below.
+  */
   return w >= 1024 ? RENDITIONS.hd : RENDITIONS.sd;
 }
 
@@ -146,20 +155,28 @@ export default function Hero() {
   /* Which layer is showing. -1 until the first film is actually running. */
   const [shown, setShown] = useState(-1);
 
-  const upcoming = useRef(0);
-  const rendition = useRef(RENDITIONS.sd);
+  /*
+    The same fact as `shown`, in a ref.
+
+    The handlers below run outside React's render and have to know
+    which layer owns the screen *now*, not at the next paint. Every
+    decision here is made against this, and `shown` exists only to
+    move the opacity.
+  */
+  const active = useRef(-1);
+
+  /* The film the next prepare() will take. */
+  const nextFilm = useRef(0);
 
   /*
-    One flag per layer, not one between them.
-
-    A single shared flag deadlocked after one round. The leaving clip
-    goes on playing all through the dissolve, so it fires timeupdate
-    again after the arriving clip has already reset the flag — it set
-    the flag a second time, and the arriving clip then found it
-    already set when its own turn came and handed over to nobody. Both
-    films stopped, and it took a full cycle to show up.
+    Set while a change is in flight — from asking the other layer to
+    play until it actually plays. It replaces the pair of per-layer
+    flags this used to keep, which could both end up set with nobody
+    left to clear them.
   */
-  const handedOver = useRef<[boolean, boolean]>([false, false]);
+  const busy = useRef(false);
+
+  const rendition = useRef(RENDITIONS.sd);
 
   const layerOf = useCallback(
     (layer: 0 | 1) => (layer === 0 ? first : second).current,
@@ -173,8 +190,19 @@ export default function Hero() {
 
       if (!node) return;
 
-      node.src = rendition.current + HERO_FILMS[upcoming.current];
-      upcoming.current = (upcoming.current + 1) % HERO_FILMS.length;
+      /*
+        Never the layer on screen. This is what used to stop the hero
+        dead: a stalled clip fires `playing` again when it recovers,
+        that scheduled a second prepare, and the second one pointed
+        the *playing* layer at a new file. It reloads to a black first
+        frame, nothing is playing any more, and no event ever arrives
+        to start it again — the hero stands there looking like a
+        photograph until the page is reloaded.
+      */
+      if (layer === active.current) return;
+
+      node.src = rendition.current + HERO_FILMS[nextFilm.current];
+      nextFilm.current = (nextFilm.current + 1) % HERO_FILMS.length;
 
       node.load();
     },
@@ -187,32 +215,118 @@ export default function Hero() {
     rendition.current = renditionFor();
 
     const offs: (() => void)[] = [];
-    const timers: number[] = [];
+
+    let prepareTimer = 0;
+    let failsafe = 0;
+    let recoveries = 0;
+
+    const other = (layer: number) => (layer === 0 ? 1 : 0) as 0 | 1;
+
+    /*
+      The connection has told us something by stalling. Take the
+      smaller set from here on — the films already loaded finish as
+      they are, and every one after arrives at 1280 instead of 1920.
+      Between a third and a quarter of the bytes, which is the
+      difference between a clip that keeps up and one that does not.
+    */
+    const downgrade = () => {
+      if (rendition.current !== RENDITIONS.hd) return;
+
+      rendition.current = RENDITIONS.sd;
+    };
+
+    /*
+      Start the change. Guarded by `busy` so the several events that
+      can ask for it — the last half second of the clip, its end, a
+      stall the watchdog noticed — only ever produce one.
+    */
+    const handover = () => {
+      if (HERO_FILMS.length < 2 || busy.current) return;
+
+      const from = active.current;
+
+      if (from !== 0 && from !== 1) return;
+
+      const to = other(from);
+      const incoming = layerOf(to);
+
+      if (!incoming) return;
+
+      /* A prepare that never happened, or was skipped. Take one now. */
+      if (!incoming.getAttribute("src")) prepare(to);
+
+      busy.current = true;
+
+      /*
+        Only rewind one that has actually been somewhere. A freshly
+        prepared clip is already at zero, and asking for a seek it
+        does not need makes it stutter on its first few frames —
+        which are the frames showing through the dissolve.
+      */
+      if (incoming.currentTime > 0.05) incoming.currentTime = 0;
+
+      incoming.play().catch(() => {
+        busy.current = false;
+      });
+
+      /*
+        If it has not started within a second and a half — the file is
+        still arriving, the decoder is busy — let the flag go and ask
+        again. A late change is better than a hero that has stopped.
+      */
+      window.clearTimeout(failsafe);
+
+      failsafe = window.setTimeout(() => {
+        if (!busy.current) return;
+
+        busy.current = false;
+        downgrade();
+        incoming.play().catch(() => {});
+      }, 1500);
+    };
 
     ([0, 1] as const).forEach((layer) => {
       const node = layerOf(layer);
 
       if (!node) return;
 
-      const other = layer === 0 ? 1 : 0;
-
       const onPlaying = () => {
+        /*
+          A clip that recovers from buffering fires this again. It is
+          already the one on screen and nothing about the arrangement
+          has changed, so there is nothing to do — and everything to
+          avoid doing.
+        */
+        if (active.current === layer) return;
+
+        /*
+          And only a layer that is genuinely running may take the
+          screen. Handing it to one that is standing still is how the
+          hero ends up as a photograph: the layer actually playing is
+          then treated as the spare and gets pointed at the next file.
+        */
+        if (node.paused || node.ended) return;
+
+        active.current = layer;
+        busy.current = false;
         setShown(layer);
-        handedOver.current[layer] = false;
+
+        window.clearTimeout(failsafe);
 
         /*
           Get the next one ready — but not until the dissolve is over.
           Pointing a layer at a new file resets it to a black first
           frame, and that layer is the one still fading out on top of
-          this one. Doing it immediately put the first frame of the
-          next clip into the middle of the change, which is the one
-          thing the whole arrangement exists to avoid. There are still
-          four seconds of lead time afterwards.
+          this one. There are still four seconds of lead time
+          afterwards.
         */
         if (HERO_FILMS.length > 1) {
-          const timer = window.setTimeout(() => prepare(other), FADE_MS + 120);
+          window.clearTimeout(prepareTimer);
 
-          timers.push(timer);
+          prepareTimer = window.setTimeout(
+            () => prepare(other(layer)),
+            FADE_MS + 120,
+          );
         }
       };
 
@@ -223,31 +337,17 @@ export default function Hero() {
         timer set at the start would not.
       */
       const onTime = () => {
-        if (handedOver.current[layer] || HERO_FILMS.length < 2) return;
+        if (active.current !== layer) return;
         if (!Number.isFinite(node.duration)) return;
         if (node.duration - node.currentTime > FADE_MS / 1000) return;
 
-        handedOver.current[layer] = true;
-
-        const incoming = layerOf(other);
-
-        if (!incoming) return;
-
-        /*
-          Only rewind one that has actually been somewhere. A freshly
-          prepared clip is already at zero, and asking for a seek it
-          does not need makes it stutter on its first few frames —
-          which are the frames showing through the dissolve.
-        */
-        if (incoming.currentTime > 0.05) incoming.currentTime = 0;
-
-        incoming.play().catch(() => {});
+        handover();
       };
 
       /*
         A single film has nobody to hand over to, and a clip whose
-        handover never fired — a stall, a tab in the background — must
-        still go somewhere rather than stop on its last frame.
+        early handover never fired — a stall, a tab in the background
+        — must still go somewhere rather than stop on its last frame.
       */
       const onEnded = () => {
         if (HERO_FILMS.length < 2) {
@@ -257,42 +357,146 @@ export default function Hero() {
           return;
         }
 
-        if (handedOver.current[layer]) return;
+        if (active.current !== layer) return;
 
-        handedOver.current[layer] = true;
+        handover();
+      };
 
-        const incoming = layerOf(other);
+      /*
+        A file that will not load must not take the hero down with it.
+        If it was on screen, move on; if it was the one waiting, give
+        that layer the film after it. Bounded, so five bad files end
+        as the photograph rather than as a loop.
+      */
+      const onError = () => {
+        if (recoveries > HERO_FILMS.length) return;
 
-        if (!incoming) return;
+        recoveries += 1;
 
-        if (incoming.currentTime > 0.05) incoming.currentTime = 0;
+        if (active.current === layer) {
+          handover();
 
-        incoming.play().catch(() => {});
+          return;
+        }
+
+        prepare(layer);
       };
 
       node.addEventListener("playing", onPlaying);
       node.addEventListener("timeupdate", onTime);
       node.addEventListener("ended", onEnded);
+      node.addEventListener("error", onError);
 
       offs.push(() => {
         node.removeEventListener("playing", onPlaying);
         node.removeEventListener("timeupdate", onTime);
         node.removeEventListener("ended", onEnded);
+        node.removeEventListener("error", onError);
       });
     });
+
+    /*
+      The watchdog.
+
+      Every event this depends on is one the browser may simply not
+      send: a clip that stalls stops firing `timeupdate` and never
+      reaches `ended`, a backgrounded tab pauses the video, and a
+      refused autoplay produces nothing at all. Half a second of
+      arithmetic covers all three, and costs nothing next to the film
+      it is watching.
+    */
+    let lastTime = -1;
+    let still = 0;
+    let ticks = 0;
+
+    const watchdog = window.setInterval(() => {
+      ticks += 1;
+
+      /* Nothing has ever played: autoplay was refused. Ask again. */
+      if (active.current !== 0 && active.current !== 1) {
+        if (ticks % 4 === 0)
+          layerOf(0)
+            ?.play()
+            .catch(() => {});
+
+        return;
+      }
+
+      const node = layerOf(active.current as 0 | 1);
+
+      if (!node) return;
+
+      if (node.ended) {
+        handover();
+
+        return;
+      }
+
+      if (node.paused) {
+        node.play().catch(() => {});
+
+        return;
+      }
+
+      if (Math.abs(node.currentTime - lastTime) < 0.01) {
+        still += 1;
+
+        /* Three seconds without a new frame is a stall, not a pause. */
+        if (still >= 6) {
+          still = 0;
+          downgrade();
+          handover();
+        }
+      } else {
+        still = 0;
+      }
+
+      lastTime = node.currentTime;
+    }, 500);
+
+    /*
+      Coming back to the tab. Browsers pause a backgrounded video and
+      do not always resume it, which is the other way this used to be
+      found standing still.
+    */
+    const onVisible = () => {
+      if (document.visibilityState !== "visible") return;
+      if (active.current !== 0 && active.current !== 1) return;
+
+      layerOf(active.current as 0 | 1)
+        ?.play()
+        .catch(() => {});
+    };
+
+    document.addEventListener("visibilitychange", onVisible);
 
     prepare(0);
 
     // Autoplay is refused often enough — a battery-saving phone, a
     // browser setting — that it has to be treated as an ordinary
-    // outcome rather than an error. The photograph stands.
+    // outcome rather than an error. The photograph stands, and the
+    // watchdog keeps asking.
     layerOf(0)
       ?.play()
       .catch(() => {});
 
     return () => {
       offs.forEach((off) => off());
-      timers.forEach((timer) => window.clearTimeout(timer));
+
+      document.removeEventListener("visibilitychange", onVisible);
+
+      window.clearInterval(watchdog);
+      window.clearTimeout(prepareTimer);
+      window.clearTimeout(failsafe);
+
+      /*
+        Back to a standing start. In development this effect is run
+        twice on purpose, and without this the second run would carry
+        the first one's place in the reel.
+      */
+      active.current = -1;
+      busy.current = false;
+      nextFilm.current = 0;
     };
   }, [layerOf, prepare]);
 

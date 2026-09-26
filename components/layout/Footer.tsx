@@ -40,7 +40,10 @@ export default function Footer() {
                  warns on every page that the rendered height disagrees. */
               width={190}
               height={137}
-              priority
+              /* No priority: the footer is below every fold there is, and
+                 asking for a preload here only produced a browser warning
+                 on every page — once per client-side navigation — for a
+                 file the navbar has already cached. */
               className="h-auto w-[190px]"
             />
           </Link>
@@ -105,7 +108,6 @@ export default function Footer() {
             className="group mt-7 inline-flex items-center gap-2 text-[15px] text-white/60 transition-colors duration-300 hover:text-[#6B7341]"
           >
             Visit Scenic Escapes
-
             <span className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
               ↗
             </span>
