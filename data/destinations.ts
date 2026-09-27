@@ -43,6 +43,8 @@ export type Destination = {
   /* Stops as they are written in a journey's route, in data/packages.ts. */
   routeStops: string[];
   image?: { src: string; alt: string };
+  /* The plate section in the middle of the page. Five or more, or none. */
+  gallery?: { src: string; alt: string }[];
   boats?: boolean;
 };
 
@@ -73,6 +75,32 @@ export const KERALA: Destination[] = [
       src: `${UNSPLASH}/photo-1677216713977-50421d083abf?auto=format&fit=crop&w=2400&q=80`,
       alt: "The Varkala cliff and the beach below it, from the air",
     },
+    gallery: [
+      {
+        src: `${UNSPLASH}/photo-1645718431369-5320a435617a?auto=format&fit=crop&w=2000&q=80`,
+        alt: "The sea from the Varkala clifftop",
+      },
+      {
+        src: `${UNSPLASH}/photo-1645974459771-855ac128b89f?auto=format&fit=crop&w=2000&q=80`,
+        alt: "Kovalam beach and the coastline from above",
+      },
+      {
+        src: `${UNSPLASH}/photo-1621338318169-c6f87f8913c1?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A lighthouse above a palm-lined coast",
+      },
+      {
+        src: `${UNSPLASH}/photo-1649564293021-073a9932e5e9?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A temple tower beside its pond",
+      },
+      {
+        src: `${UNSPLASH}/photo-1644773182204-f0bf03cae0cb?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A temple gopuram over the city",
+      },
+      {
+        src: `${UNSPLASH}/photo-1664172967938-d1edbab6d214?auto=format&fit=crop&w=2000&q=80`,
+        alt: "Mist on the Ponmudi hills",
+      },
+    ],
   },
   {
     id: "kollam",
@@ -99,6 +127,32 @@ export const KERALA: Destination[] = [
       src: `${UNSPLASH}/photo-1583482011546-c327a8076798?auto=format&fit=crop&w=2400&q=80`,
       alt: "Sunrise at Munroe Thuruthu, a boatman poling between the islets",
     },
+    gallery: [
+      {
+        src: `${UNSPLASH}/photo-1723141614294-ee8e1d65773e?auto=format&fit=crop&w=2000&q=80`,
+        alt: "The great bird sculpture at Jatayu Earth Centre",
+      },
+      {
+        src: `${UNSPLASH}/photo-1506461883276-594a12b11cf3?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A boat on the backwaters",
+      },
+      {
+        src: `${UNSPLASH}/photo-1590161185432-26bb6eb3714c?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A man rowing on a Kerala river",
+      },
+      {
+        src: `${UNSPLASH}/photo-1697567464303-794509459456?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A boat passing a wall of green",
+      },
+      {
+        src: `${UNSPLASH}/photo-1583482939907-d6959d54af75?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A wooden boat at sunrise on Munroe Island",
+      },
+      {
+        src: `${UNSPLASH}/photo-1681226298132-67e322230098?auto=format&fit=crop&w=2000&q=80`,
+        alt: "The mangrove canals of Munroe Island from above",
+      },
+    ],
   },
   {
     id: "pathanamthitta",
@@ -125,6 +179,32 @@ export const KERALA: Destination[] = [
       src: `${UNSPLASH}/photo-1679934409073-838c884261fb?auto=format&fit=crop&w=2400&q=80`,
       alt: "Mist in the palms at first light",
     },
+    gallery: [
+      {
+        src: `${UNSPLASH}/photo-1714489896584-233675ee2f62?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A river winding through the Western Ghats",
+      },
+      {
+        src: `${UNSPLASH}/photo-1707111695072-6540ba3d480d?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A lone tree on a ridge in the hills",
+      },
+      {
+        src: `${UNSPLASH}/photo-1605531321045-59731b348442?auto=format&fit=crop&w=2000&q=80`,
+        alt: "Forest trees reflected in still water",
+      },
+      {
+        src: `${UNSPLASH}/photo-1660294121284-2b0aa9c39bec?auto=format&fit=crop&w=2000&q=80`,
+        alt: "Forest between the hill plantations",
+      },
+      {
+        src: `${UNSPLASH}/photo-1667149609003-e94460a66b32?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A still lake in the hills",
+      },
+      {
+        src: `${UNSPLASH}/photo-1700360898644-779a14798dda?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A dirt road through palm and forest",
+      },
+    ],
   },
   {
     id: "alappuzha",
@@ -156,6 +236,28 @@ export const KERALA: Destination[] = [
       src: `${UNSPLASH}/photo-1609828913552-f9138ed9e42d?auto=format&fit=crop&w=2400&q=80`,
       alt: "A kettuvallam moored under the palms on the Alappuzha backwaters",
     },
+    gallery: [
+      {
+        src: `${UNSPLASH}/photo-1593693397690-362cb9666fc2?auto=format&fit=crop&w=2000&q=80`,
+        alt: "Houseboats on the Alappuzha backwaters",
+      },
+      {
+        src: `${UNSPLASH}/photo-1528034342377-c406327f14b7?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A traditional boat under sail on the backwaters",
+      },
+      {
+        src: `${UNSPLASH}/photo-1706477459847-0a19a73fc89d?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A houseboat drifting on the Alleppey backwaters",
+      },
+      {
+        src: `${UNSPLASH}/photo-1667413445864-d0c1efbb7b55?auto=format&fit=crop&w=2000&q=80`,
+        alt: "Rowers in a snake boat race",
+      },
+      {
+        src: `${UNSPLASH}/photo-1593417033942-bcdf26b74700?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A wooden houseboat on the Alleppey backwaters",
+      },
+    ],
   },
   {
     id: "kottayam",
@@ -179,6 +281,28 @@ export const KERALA: Destination[] = [
       src: `${UNSPLASH}/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=2400&q=80`,
       alt: "A houseboat on the Vembanad backwaters",
     },
+    gallery: [
+      {
+        src: `${UNSPLASH}/photo-1715785849770-22374ff8bdfb?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A houseboat on the Kumarakom backwaters",
+      },
+      {
+        src: `${UNSPLASH}/photo-1654530050931-3b02b28570c1?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A houseboat moored among the palms",
+      },
+      {
+        src: `${UNSPLASH}/photo-1719479322948-fe21860a6421?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A rainbow over the backwaters",
+      },
+      {
+        src: `${UNSPLASH}/photo-1591353527304-24290c2a5a61?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A boat gliding past the trees",
+      },
+      {
+        src: `${UNSPLASH}/photo-1593417033868-d18d4099d78e?auto=format&fit=crop&w=2000&q=80`,
+        alt: "Birds over the backwaters",
+      },
+    ],
   },
   {
     id: "idukki",
@@ -204,6 +328,28 @@ export const KERALA: Destination[] = [
       src: `${UNSPLASH}/photo-1711192702535-eac61a78ecb0?auto=format&fit=crop&w=2400&q=80`,
       alt: "Tea slopes and the high range above Munnar",
     },
+    gallery: [
+      {
+        src: `${UNSPLASH}/photo-1669388580089-2c17c040de53?auto=format&fit=crop&w=2000&q=80`,
+        alt: "Tea covering a rolling hillside",
+      },
+      {
+        src: `${UNSPLASH}/photo-1698645524826-e65c949f41ac?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A house on a green hillside",
+      },
+      {
+        src: `${UNSPLASH}/photo-1684734654982-67496f590f33?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A lake held between green hills",
+      },
+      {
+        src: `${UNSPLASH}/photo-1766671965446-ce640da4700e?auto=format&fit=crop&w=2000&q=80`,
+        alt: "Clipped tea bushes under a clear sky",
+      },
+      {
+        src: `${UNSPLASH}/photo-1765635311503-c314839cbcdf?auto=format&fit=crop&w=2000&q=80`,
+        alt: "Dead trees standing in a still lake",
+      },
+    ],
   },
   {
     id: "ernakulam",
@@ -236,6 +382,32 @@ export const KERALA: Destination[] = [
       src: `${UNSPLASH}/photo-1590123732197-e7079d2ceb89?auto=format&fit=crop&w=2400&q=80`,
       alt: "A Chinese fishing net on the Kochi waterfront",
     },
+    gallery: [
+      {
+        src: `${UNSPLASH}/photo-1783100021835-c64c323b63dc?auto=format&fit=crop&w=2000&q=80`,
+        alt: "Chinese fishing nets, and the men working them",
+      },
+      {
+        src: `${UNSPLASH}/photo-1714931862306-7abe321b6b5f?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A row of Chinese fishing nets over the water",
+      },
+      {
+        src: `${UNSPLASH}/photo-1656418566478-7747134a53ac?auto=format&fit=crop&w=2000&q=80`,
+        alt: "Birds over an old palace roof",
+      },
+      {
+        src: `${UNSPLASH}/photo-1786228335558-94abdc76c35f?auto=format&fit=crop&w=2000&q=80`,
+        alt: "Harbour cranes against a burning sunset",
+      },
+      {
+        src: `${UNSPLASH}/photo-1777801842006-914f3c3231a5?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A street of old colonial buildings",
+      },
+      {
+        src: `${UNSPLASH}/photo-1679022578185-c5df8eaa01df?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A man walking a quiet street of shops",
+      },
+    ],
   },
   {
     id: "thrissur",
@@ -261,6 +433,28 @@ export const KERALA: Destination[] = [
       src: `${UNSPLASH}/photo-1575305327780-a887f284432f?auto=format&fit=crop&w=2400&q=80`,
       alt: "The Athirappilly falls on the Chalakudy river",
     },
+    gallery: [
+      {
+        src: `${UNSPLASH}/photo-1713717857192-080dbbcba744?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A waterfall falling through rainforest",
+      },
+      {
+        src: `${UNSPLASH}/photo-1633037499870-d105eb8b1daf?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A waterfall in heavy green",
+      },
+      {
+        src: `${UNSPLASH}/photo-1713639980963-8c37e9906c1d?auto=format&fit=crop&w=2000&q=80`,
+        alt: "Caparisoned elephants in their festival gold",
+      },
+      {
+        src: `${UNSPLASH}/photo-1641666017842-f94246ef2961?auto=format&fit=crop&w=2000&q=80`,
+        alt: "Elephants standing together at a temple festival",
+      },
+      {
+        src: `${UNSPLASH}/photo-1641666016494-0fb450533f13?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A crowned elephant before the temple crowd",
+      },
+    ],
   },
   {
     id: "palakkad",
@@ -285,6 +479,28 @@ export const KERALA: Destination[] = [
       src: `${UNSPLASH}/photo-1662535330891-877130e86a23?auto=format&fit=crop&w=2400&q=80`,
       alt: "Paddy and hills at Akathethara, under a monsoon sky",
     },
+    gallery: [
+      {
+        src: `${UNSPLASH}/photo-1647668747141-4c1505825332?auto=format&fit=crop&w=2000&q=80`,
+        alt: "An old fort wall beside still water",
+      },
+      {
+        src: `${UNSPLASH}/photo-1629039319626-46023ee7c52e?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A wooden house in a green field",
+      },
+      {
+        src: `${UNSPLASH}/photo-1712042360657-2295921f3d3a?auto=format&fit=crop&w=2000&q=80`,
+        alt: "Paddy and palms",
+      },
+      {
+        src: `${UNSPLASH}/photo-1720591658325-90372cc7da02?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A road curving through a green hillside",
+      },
+      {
+        src: `${UNSPLASH}/photo-1673698666908-246aea6fcefe?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A field with the mountains behind it",
+      },
+    ],
   },
   {
     id: "malappuram",
@@ -309,6 +525,28 @@ export const KERALA: Destination[] = [
       src: `${UNSPLASH}/photo-1705690525766-421e4dfa0f48?auto=format&fit=crop&w=2400&q=80`,
       alt: "Areca palms above a paddy field",
     },
+    gallery: [
+      {
+        src: `${UNSPLASH}/photo-1685677260082-dbec4b1303ee?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A small temple with a bell tower",
+      },
+      {
+        src: `${UNSPLASH}/photo-1685677259744-3db9dce68f47?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A wooden shrine under a red roof",
+      },
+      {
+        src: `${UNSPLASH}/photo-1685677260135-e3c8f193ba7b?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A red-roofed building among the palms",
+      },
+      {
+        src: `${UNSPLASH}/photo-1671795164748-8d70c5fb7a22?auto=format&fit=crop&w=2000&q=80`,
+        alt: "Sunlit cloud over green hills",
+      },
+      {
+        src: `${UNSPLASH}/photo-1590253901335-3d5a0f82e07d?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A rocky river through the forest",
+      },
+    ],
   },
   {
     id: "kozhikode",
@@ -333,6 +571,32 @@ export const KERALA: Destination[] = [
       src: `${UNSPLASH}/photo-1678780926989-3271d349134d?auto=format&fit=crop&w=2400&q=80`,
       alt: "A wooded headland where the river meets the sea",
     },
+    gallery: [
+      {
+        src: `${UNSPLASH}/photo-1761389629835-1183ae0cc1a3?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A fisherman on the beach",
+      },
+      {
+        src: `${UNSPLASH}/photo-1654673286005-4f36c2ec1da3?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A curving sand beach from above",
+      },
+      {
+        src: `${UNSPLASH}/photo-1694931537831-df7efcac39a0?auto=format&fit=crop&w=2000&q=80`,
+        alt: "People on the beach at sunset",
+      },
+      {
+        src: `${UNSPLASH}/photo-1620758660864-93db6324ffbb?auto=format&fit=crop&w=2000&q=80`,
+        alt: "Figures on a rocky shore",
+      },
+      {
+        src: `${UNSPLASH}/photo-1580088754457-15227e0f26f5?auto=format&fit=crop&w=2000&q=80`,
+        alt: "Palms along the sand",
+      },
+      {
+        src: `${UNSPLASH}/photo-1663002422178-369db7cc8509?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A rocky beach under the trees",
+      },
+    ],
   },
   {
     id: "wayanad",
@@ -357,6 +621,28 @@ export const KERALA: Destination[] = [
       src: `${UNSPLASH}/photo-1607025188828-be77a08aa372?auto=format&fit=crop&w=2400&q=80`,
       alt: "Banasura Sagar and the hills of Wayanad",
     },
+    gallery: [
+      {
+        src: `${UNSPLASH}/photo-1653992894965-abc73a9f7aff?auto=format&fit=crop&w=2000&q=80`,
+        alt: "The mountain range, in black and white",
+      },
+      {
+        src: `${UNSPLASH}/photo-1679236177920-4993b4538b2e?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A forested slope above the valley",
+      },
+      {
+        src: `${UNSPLASH}/photo-1656427025335-782b2a9a4719?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A mountain rising over the hills",
+      },
+      {
+        src: `${UNSPLASH}/photo-1696241973555-6d2c01ee58d9?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A footbridge over a river below the hills",
+      },
+      {
+        src: `${UNSPLASH}/photo-1681473565935-aee29b10fd00?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A house in dense forest",
+      },
+    ],
   },
   {
     id: "kannur",
@@ -381,6 +667,32 @@ export const KERALA: Destination[] = [
       src: `${UNSPLASH}/photo-1551292083-5d458a10336d?auto=format&fit=crop&w=2400&q=80`,
       alt: "A Theyyam being dressed in north Malabar",
     },
+    gallery: [
+      {
+        src: `${UNSPLASH}/photo-1546778316-dfda79f1c84e?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A theyyam performer in red",
+      },
+      {
+        src: `${UNSPLASH}/photo-1543198926-22fea2a870dd?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A theyyam face, painted, under its headdress",
+      },
+      {
+        src: `${UNSPLASH}/photo-1546753051-f9cbab09c91b?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A theyyam performer with a torch",
+      },
+      {
+        src: `${UNSPLASH}/photo-1776324686099-730a0b997557?auto=format&fit=crop&w=2000&q=80`,
+        alt: "Theyyam, and the fire",
+      },
+      {
+        src: `${UNSPLASH}/photo-1668070924650-d73bcafb539c?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A theyyam ritual, outdoors",
+      },
+      {
+        src: `${UNSPLASH}/photo-1630171011805-11ebc32f7229?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A car parked on the hard sand",
+      },
+    ],
   },
   {
     id: "kasaragod",
@@ -405,6 +717,28 @@ export const KERALA: Destination[] = [
       src: `${UNSPLASH}/photo-1698070010241-1ac4d4273dff?auto=format&fit=crop&w=2400&q=80`,
       alt: "Fishing boats on the Kasaragod shore",
     },
+    gallery: [
+      {
+        src: `${UNSPLASH}/photo-1591620244616-d4e18817c26e?auto=format&fit=crop&w=2000&q=80`,
+        alt: "Bekal Fort's ramparts above the sea",
+      },
+      {
+        src: `${UNSPLASH}/photo-1718796764127-6cacd396545f?auto=format&fit=crop&w=2000&q=80`,
+        alt: "Grass and rock along the shore",
+      },
+      {
+        src: `${UNSPLASH}/photo-1662543713250-d734701de793?auto=format&fit=crop&w=2000&q=80`,
+        alt: "A temple pond under the trees",
+      },
+      {
+        src: `${UNSPLASH}/photo-1744447301004-65dd2c60bd52?auto=format&fit=crop&w=2000&q=80`,
+        alt: "People crossing a hanging bridge",
+      },
+      {
+        src: `${UNSPLASH}/photo-1700360898618-65525e0ecfc6?auto=format&fit=crop&w=2000&q=80`,
+        alt: "Forest, and nothing else",
+      },
+    ],
   },
 ];
 

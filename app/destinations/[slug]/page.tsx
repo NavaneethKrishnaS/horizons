@@ -7,6 +7,7 @@ import { pageMeta } from "@/lib/meta";
 import Container from "@/components/ui/Container";
 import Reveal from "@/components/ui/Reveal";
 import EnquiryActions from "@/components/ui/EnquiryActions";
+import Plates from "@/components/destinations/Plates";
 import { KERALA, district, neighbours } from "@/data/destinations";
 import { stays } from "@/data/stays";
 import { packages } from "@/data/packages";
@@ -146,6 +147,10 @@ export default async function DistrictPage({
           </div>
         </Container>
       </section>
+
+      {place.gallery?.length ? (
+        <Plates place={place.district} photographs={place.gallery} />
+      ) : null}
 
       {place.boats ? (
         <section className="border-t border-white/10 py-16 md:py-20">
