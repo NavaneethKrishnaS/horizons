@@ -106,11 +106,11 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
               className="mt-12"
             >
               <Link
-                href="/houseboats"
+                href="/contact"
                 onClick={onClose}
                 className="flex items-center justify-between text-[13px] uppercase tracking-[0.25em] text-white"
               >
-                <span>Check Availability</span>
+                <span>Contact</span>
                 <span aria-hidden>&rarr;</span>
               </Link>
             </motion.div>

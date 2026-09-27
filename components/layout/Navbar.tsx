@@ -261,12 +261,12 @@ export default function Navbar() {
             <div className="ml-auto flex items-center">
               {/* CTA — desktop only; on mobile it lives inside the menu */}
               <Link
-                href="/houseboats"
+                href="/contact"
                 className={`group hidden items-center gap-2 text-[15px] font-light lg:flex ${
                   onPaper ? "text-black" : "text-white"
                 }`}
               >
-                <span>Check Availability</span>
+                <span>Contact</span>
 
                 <span className="transition-transform duration-300 group-hover:translate-x-1">
                   →
