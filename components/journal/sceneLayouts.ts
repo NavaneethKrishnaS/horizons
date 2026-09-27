@@ -117,7 +117,7 @@ export const sceneObjects: Record<string, SceneObjectSpec[]> = {
   /* The houseboat glides; rope and palm hold the banks. */
   kettuvallam: [
     {
-      ax: 50, ay: 40, size: 54, src: `${J}/houseboat.webp`, w: 1792, h: 609,
+      ax: 50, ay: 40, size: 54, src: `${J}/houseboat.webp`, w: 2172, h: 724,
       from: { x: -70, y: 6 },
       to: { x: 70, y: -4 },
     },
