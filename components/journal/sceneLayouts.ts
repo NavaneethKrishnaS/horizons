@@ -114,12 +114,18 @@ export const sceneObjects: Record<string, SceneObjectSpec[]> = {
     },
   ],
 
-  /* The houseboat glides; rope and palm hold the banks. */
+  /*
+    The houseboat glides; rope and palm hold the banks.
+
+    Right to left, because the drawing's prow points left and a boat
+    travelling backwards is the kind of thing you cannot stop seeing
+    once you have seen it.
+  */
   kettuvallam: [
     {
-      ax: 50, ay: 40, size: 54, src: `${J}/houseboat.webp`, w: 2172, h: 724,
-      from: { x: -70, y: 6 },
-      to: { x: 70, y: -4 },
+      ax: 50, ay: 26, size: 46, src: `${J}/houseboat.webp`, w: 2172, h: 724,
+      from: { x: 70, y: 6 },
+      to: { x: -70, y: -4 },
     },
     {
       ax: 84, ay: 62, size: 14, src: `${J}/rope.webp`, w: 760, h: 682, depth: 0.7,
