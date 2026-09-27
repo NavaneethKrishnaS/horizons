@@ -11,7 +11,7 @@ import FeaturedHouseboatCard from "./FeaturedHouseboatCard";
 const INITIAL_COUNT = 3;
 
 /*
-  The fleet.
+  The boats.
 
   It used to sit on a background photograph with a gradient over it,
   under the words "handpicked luxury houseboats offering exceptional
@@ -31,7 +31,7 @@ export default function FeaturedHouseboats() {
       <Container>
         <Reveal>
           <p className="text-[10px] uppercase tracking-[0.35em] text-[#8B9556]">
-            The fleet
+            The boats
           </p>
 
           <h2 className="mt-7 font-cormorant text-[30px] font-light leading-[1.1] text-white sm:text-[40px] md:text-[48px]">

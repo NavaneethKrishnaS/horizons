@@ -15,7 +15,7 @@ import BookingCTA from "@/components/houseboats/BookingCTA";
 export const metadata: Metadata = pageMeta({
   title: "Kerala houseboats | HORIZONS by Scenic Escapes",
   description:
-    "Six kettuvallam of our own on the Alleppey backwaters, one bedroom to six — air-conditioned bedrooms, a crew who cook on board, and an overnight mooring away from the traffic of boats.",
+    "Six kettuvallam on the Alleppey backwaters, one bedroom to six — air-conditioned bedrooms, a crew who cook on board, and an overnight mooring away from the traffic of boats.",
   path: "/houseboats",
 });
 

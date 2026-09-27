@@ -53,8 +53,7 @@ export const journalChapters: JournalChapter[] = [
       "The performer speaks instead with twenty-four principal hand gestures and with his face — the nine rasas, each one drilled for years until grief and fury can be summoned by muscle alone. The eyes are trained separately. Students spend months moving nothing else.",
       "Green paint, pacha, marks a noble character: a king, a god, a man who will do the right thing. The rice-paste frame around the face is built up in ridges over hours while the actor lies still. Traditionally the play began at dusk and finished at dawn.",
     ],
-    quote:
-      "Nothing is said. Everything is understood.",
+    quote: "Nothing is said. Everything is understood.",
     image: {
       src: "/images/about/kadhakali-1.jpg",
       alt: "A kathakali performer in pacha green makeup and full costume",
@@ -98,7 +97,7 @@ export const journalChapters: JournalChapter[] = [
     paragraphs: [
       "Kettuvallam means tied boat, and the name is literal. Planks of jackwood are stitched edge to edge with coir rope and sealed with boiled cashew resin. No iron anywhere. Built properly, one lasts generations, and any part of it can be untied and replaced.",
       "For centuries these were freight. They moved rice and spices down the canals to the coast, poled by two men, with a thatched hood at the stern where the crew slept. When the roads came, the trade went to lorries and the barges were left to rot in the shallows.",
-      "In the 1990s a handful of people in Alumkadavu began rebuilding them for guests instead of cargo — the same hull, the same coir, the same jackwood, with rooms inside. That is the village our founder is from, and that is where our boats come from still.",
+      "In the 1990s a handful of people in Alumkadavu began rebuilding them for guests instead of cargo — the same hull, the same coir, the same jackwood, with rooms inside. That is the village our founder is from, and that is where the boats we put people on come from still.",
     ],
     quote:
       "The backwaters are not a product we learned to sell. They are where we are from.",

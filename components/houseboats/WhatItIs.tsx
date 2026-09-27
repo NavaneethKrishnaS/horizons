@@ -37,9 +37,9 @@ export default function WhatItIs() {
               nineteen-nineties Mr Babu Varghese of Tourindia put a bed in one,
               and the whole industry followed. That happened in Alumkadavu,
               where our founder lives and where he began his career alongside Mr
-              Varghese. The boats on this page are ours: when you ask who is
-              cooking and where you will be moored for the night, there is
-              somebody here who knows.
+              Varghese. The boats on this page belong to families in those same
+              villages, which is why, when you ask who is cooking and where you
+              will be moored for the night, there is somebody here who knows.
             </p>
           </Reveal>
         </div>

@@ -157,14 +157,39 @@ const P = "https://images.unsplash.com";
   the first time we added one.
 */
 const UNITS = [
-  "no", "one", "two", "three", "four", "five", "six", "seven", "eight",
-  "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen",
-  "sixteen", "seventeen", "eighteen", "nineteen",
+  "no",
+  "one",
+  "two",
+  "three",
+  "four",
+  "five",
+  "six",
+  "seven",
+  "eight",
+  "nine",
+  "ten",
+  "eleven",
+  "twelve",
+  "thirteen",
+  "fourteen",
+  "fifteen",
+  "sixteen",
+  "seventeen",
+  "eighteen",
+  "nineteen",
 ];
 
 const TENS = [
-  "", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy",
-  "eighty", "ninety",
+  "",
+  "",
+  "twenty",
+  "thirty",
+  "forty",
+  "fifty",
+  "sixty",
+  "seventy",
+  "eighty",
+  "ninety",
 ];
 
 export function spelled(count: number) {
@@ -188,7 +213,8 @@ const catalogue: TourPackage[] = [
     slug: "zanskar-traverse",
     tier: "journey",
     title: "Across the Himalaya by Zanskar",
-    standfirst: "Leh to Lahaul, over a pass at five thousand one hundred metres.",
+    standfirst:
+      "Leh to Lahaul, over a pass at five thousand one hundred metres.",
     collection: "himalaya",
     region: "Ladakh & Himachal Pradesh",
     duration: "18 days",
@@ -216,13 +242,31 @@ const catalogue: TourPackage[] = [
       "The Shingo-la at 5,100m, and the drop into Lahaul on the far side",
     ],
     itinerary: [
-      { day: "1 – 2", text: "Fly to Delhi, then on to Leh. Two days doing very little, which at 3,500m is the work." },
-      { day: "3 – 4", text: "Leh, and the monasteries upstream along the Indus." },
-      { day: "5 – 6", text: "Alchi and the temples in the side valleys off the main road." },
-      { day: "7 – 11", text: "Into Zanskar: Zangla, Padum, Tahan-Tungri and Karcha." },
-      { day: "12 – 13", text: "The Lungnak gorges, and the walk up to Puktal monastery." },
+      {
+        day: "1 – 2",
+        text: "Fly to Delhi, then on to Leh. Two days doing very little, which at 3,500m is the work.",
+      },
+      {
+        day: "3 – 4",
+        text: "Leh, and the monasteries upstream along the Indus.",
+      },
+      {
+        day: "5 – 6",
+        text: "Alchi and the temples in the side valleys off the main road.",
+      },
+      {
+        day: "7 – 11",
+        text: "Into Zanskar: Zangla, Padum, Tahan-Tungri and Karcha.",
+      },
+      {
+        day: "12 – 13",
+        text: "The Lungnak gorges, and the walk up to Puktal monastery.",
+      },
       { day: "14", text: "Over the Shingo-la, 5,100m, and down into Lahaul." },
-      { day: "15 – 17", text: "Manali, Chandigarh, and the night train to Delhi." },
+      {
+        day: "15 – 17",
+        text: "Manali, Chandigarh, and the night train to Delhi.",
+      },
       { day: "18", text: "Delhi, and the flight home." },
     ],
     image: `${P}/photo-1643368214091-6af1a029aee0`,
@@ -262,7 +306,8 @@ const catalogue: TourPackage[] = [
     slug: "kashmir-to-ladakh",
     tier: "journey",
     title: "Kashmir to Ladakh",
-    standfirst: "The road the Buddhist pilgrims took, in the order they took it.",
+    standfirst:
+      "The road the Buddhist pilgrims took, in the order they took it.",
     collection: "himalaya",
     region: "Kashmir & Ladakh",
     duration: "15 days",
@@ -367,14 +412,26 @@ const catalogue: TourPackage[] = [
       "An optional walk to Tonglu, 3,070m, and back",
     ],
     itinerary: [
-      { day: "1 – 2", text: "Fly to Delhi. A day in the old city and the new." },
+      {
+        day: "1 – 2",
+        text: "Fly to Delhi. A day in the old city and the new.",
+      },
       { day: "3", text: "Delhi to Bagdogra, and up the road to Gangtok." },
       { day: "4 – 5", text: "Gangtok, and the monastery at Rumtek." },
-      { day: "6 – 7", text: "West through Tashiding to Yuksom, and a day in the village." },
+      {
+        day: "6 – 7",
+        text: "West through Tashiding to Yuksom, and a day in the village.",
+      },
       { day: "8", text: "Khecheopalri Lake, then on to Pelling." },
       { day: "9 – 10", text: "Down to Darjeeling; the monastery at Ghoom." },
-      { day: "11 – 12", text: "The walk up to Tonglu and back, for those who want it." },
-      { day: "13 – 15", text: "Darjeeling to Delhi, a last day in the city, and home." },
+      {
+        day: "11 – 12",
+        text: "The walk up to Tonglu and back, for those who want it.",
+      },
+      {
+        day: "13 – 15",
+        text: "Darjeeling to Delhi, a last day in the city, and home.",
+      },
     ],
     image: `${P}/photo-1661970072086-b7b1c3d7c787`,
     credit: {
@@ -414,7 +471,8 @@ const catalogue: TourPackage[] = [
     slug: "the-ganges",
     tier: "journey",
     title: "A journey down the Ganges",
-    standfirst: "From where it comes out of the mountains to where it is burned beside.",
+    standfirst:
+      "From where it comes out of the mountains to where it is burned beside.",
     collection: "sacred",
     region: "Uttarakhand & Uttar Pradesh",
     duration: "15 days",
@@ -441,13 +499,25 @@ const catalogue: TourPackage[] = [
       "Sarnath, where the first sermon was given",
     ],
     itinerary: [
-      { day: "1 – 2", text: "Fly to Delhi. A day in the old city and the new." },
-      { day: "3 – 4", text: "By road to Agra for the Taj Mahal, and back to Delhi." },
+      {
+        day: "1 – 2",
+        text: "Fly to Delhi. A day in the old city and the new.",
+      },
+      {
+        day: "3 – 4",
+        text: "By road to Agra for the Taj Mahal, and back to Delhi.",
+      },
       { day: "5", text: "A last morning in Delhi, then north to Haridwar." },
-      { day: "6 – 7", text: "Haridwar, up to Deoprayag, and back by way of Rishikesh." },
+      {
+        day: "6 – 7",
+        text: "Haridwar, up to Deoprayag, and back by way of Rishikesh.",
+      },
       { day: "8", text: "A free morning, then the night train to Allahabad." },
       { day: "9", text: "Allahabad and the confluence." },
-      { day: "10 – 11", text: "On to Varanasi. Two days, one of them unplanned." },
+      {
+        day: "10 – 11",
+        text: "On to Varanasi. Two days, one of them unplanned.",
+      },
       { day: "12", text: "Sarnath in the morning; the afternoon your own." },
       { day: "13 – 15", text: "Fly to Delhi, a last day, and home." },
     ],
@@ -529,7 +599,8 @@ const catalogue: TourPackage[] = [
     slug: "deccan-rock-temples",
     tier: "journey",
     title: "The rock temples of the Deccan",
-    standfirst: "Ajanta, Ellora, Elephanta — and the kingdoms that followed them.",
+    standfirst:
+      "Ajanta, Ellora, Elephanta — and the kingdoms that followed them.",
     collection: "sacred",
     region: "Maharashtra & Karnataka",
     duration: "About three weeks",
@@ -625,13 +696,31 @@ const catalogue: TourPackage[] = [
       "A taught drawing session most days",
     ],
     itinerary: [
-      { day: "1 – 2", text: "Fly to Delhi. Guided visits, and the first drawing." },
-      { day: "3", text: "On to Agra. The Taj Mahal in the afternoon, and time to draw it." },
-      { day: "4", text: "Fatehpur Sikri on the way to Bharatpur, then the bird sanctuary." },
-      { day: "5 – 6", text: "To Jaipur. The palaces, and drawing between them." },
+      {
+        day: "1 – 2",
+        text: "Fly to Delhi. Guided visits, and the first drawing.",
+      },
+      {
+        day: "3",
+        text: "On to Agra. The Taj Mahal in the afternoon, and time to draw it.",
+      },
+      {
+        day: "4",
+        text: "Fatehpur Sikri on the way to Bharatpur, then the bird sanctuary.",
+      },
+      {
+        day: "5 – 6",
+        text: "To Jaipur. The palaces, and drawing between them.",
+      },
       { day: "7", text: "Amber in the morning; the night train west." },
-      { day: "8 – 10", text: "Jaisalmer. Three days, most of them with a pencil." },
-      { day: "11 – 12", text: "Jodhpur, the fort, and the blue city below it." },
+      {
+        day: "8 – 10",
+        text: "Jaisalmer. Three days, most of them with a pencil.",
+      },
+      {
+        day: "11 – 12",
+        text: "Jodhpur, the fort, and the blue city below it.",
+      },
       { day: "13 – 15", text: "Fly to Delhi, a last day, and home." },
     ],
     image: `${P}/photo-1649497539295-ff89b0639669`,
@@ -677,13 +766,31 @@ const catalogue: TourPackage[] = [
       "The stepwell at Abhaneri, and the Taj Mahal at sunset",
     ],
     itinerary: [
-      { day: "1 – 2", text: "Delhi, then the internal flight to Udaipur. The mud-print village at Akola." },
-      { day: "3", text: "The palace, and the bandhani and lehariya workshops." },
-      { day: "4", text: "On to Jalore, and the Moti Bharat pearl embroiderers." },
-      { day: "5 – 6", text: "Jodhpur by way of the durrie weavers at Salawas. Mehrangarh, and a day of bandhej." },
+      {
+        day: "1 – 2",
+        text: "Delhi, then the internal flight to Udaipur. The mud-print village at Akola.",
+      },
+      {
+        day: "3",
+        text: "The palace, and the bandhani and lehariya workshops.",
+      },
+      {
+        day: "4",
+        text: "On to Jalore, and the Moti Bharat pearl embroiderers.",
+      },
+      {
+        day: "5 – 6",
+        text: "Jodhpur by way of the durrie weavers at Salawas. Mehrangarh, and a day of bandhej.",
+      },
       { day: "7", text: "Pushkar, and wooden block printing." },
-      { day: "8 – 9", text: "Jaipur through Bagru and Sanganer. The textile museums and the shops." },
-      { day: "10 – 11", text: "Agra by way of the Abhaneri stepwell. The Taj at sunset, the fort next morning." },
+      {
+        day: "8 – 9",
+        text: "Jaipur through Bagru and Sanganer. The textile museums and the shops.",
+      },
+      {
+        day: "10 – 11",
+        text: "Agra by way of the Abhaneri stepwell. The Taj at sunset, the fort next morning.",
+      },
       { day: "12 – 13", text: "Old Delhi and Dilli Haat, then home." },
     ],
     image: `${P}/photo-1534408925131-1b9560f72a9a`,
@@ -724,13 +831,28 @@ const catalogue: TourPackage[] = [
       "A drawing session most days",
     ],
     itinerary: [
-      { day: "1 – 2", text: "Fly to Kozhikode. Rest, then a first walk and a first drawing." },
-      { day: "3 – 4", text: "The train to Kannur. Workshops, the beach, and possibly Theyyam." },
+      {
+        day: "1 – 2",
+        text: "Fly to Kozhikode. Rest, then a first walk and a first drawing.",
+      },
+      {
+        day: "3 – 4",
+        text: "The train to Kannur. Workshops, the beach, and possibly Theyyam.",
+      },
       { day: "5", text: "North to Udupi. The temple, and time to draw it." },
-      { day: "6 – 7", text: "On to Gokarna. A guided morning, an afternoon drawing." },
+      {
+        day: "6 – 7",
+        text: "On to Gokarna. A guided morning, an afternoon drawing.",
+      },
       { day: "8", text: "The train into Goa." },
-      { day: "9 – 11", text: "Panaji and old Goa, a day of drawing, a day free. Overnight train out." },
-      { day: "12 – 14", text: "Mumbai at dawn. The city, Elephanta, and a last free day." },
+      {
+        day: "9 – 11",
+        text: "Panaji and old Goa, a day of drawing, a day free. Overnight train out.",
+      },
+      {
+        day: "12 – 14",
+        text: "Mumbai at dawn. The city, Elephanta, and a last free day.",
+      },
       { day: "15", text: "Home from Mumbai." },
     ],
     image: `${P}/photo-1662544097759-1dae27b23dcb`,
@@ -787,7 +909,7 @@ const catalogue: TourPackage[] = [
     days: 5,
     from: 0,
     summary:
-      "Most people see the backwaters for a night. This runs their entire length — from Kumbalam below Kochi down through Kumarakom, Kuttanad and Kayamkulam to Alumkadavu, which is where the kettuvallam was first converted and where our own boats still come from. One boat, four nights, and the canals get narrower as you go.",
+      "Most people see the backwaters for a night. This runs their entire length — from Kumbalam below Kochi down through Kumarakom, Kuttanad and Kayamkulam to Alumkadavu, which is where the kettuvallam was first converted and where the boats we use still come from. One boat, four nights, and the canals get narrower as you go.",
     route: [
       "Kumbalam",
       "Kumarakom",
@@ -806,11 +928,26 @@ const catalogue: TourPackage[] = [
       "Alumkadavu at the end, and the yard the boats are built in",
     ],
     itinerary: [
-      { day: "1", text: "Board at Kumbalam at midday. Through the Kochi backwaters, and the first night at Kumarakom on the Vembanad." },
-      { day: "2", text: "A village walk, then kayaking the small canals. Slowly into the Kuttanad paddy country; the night at Pulincunno." },
-      { day: "3", text: "Out early, when the light and the canal traffic are both worth being up for. Interior Kuttanad by canoe. The night at Kavalam." },
-      { day: "4", text: "Kainakary, the church at Champakulam, then Nedumudy, Thottappally and Thrikkunnapuzha. Kayamkulam by evening." },
-      { day: "5", text: "An early cruise past Amritapuri, and off the boat at Alumkadavu between half nine and eleven." },
+      {
+        day: "1",
+        text: "Board at Kumbalam at midday. Through the Kochi backwaters, and the first night at Kumarakom on the Vembanad.",
+      },
+      {
+        day: "2",
+        text: "A village walk, then kayaking the small canals. Slowly into the Kuttanad paddy country; the night at Pulincunno.",
+      },
+      {
+        day: "3",
+        text: "Out early, when the light and the canal traffic are both worth being up for. Interior Kuttanad by canoe. The night at Kavalam.",
+      },
+      {
+        day: "4",
+        text: "Kainakary, the church at Champakulam, then Nedumudy, Thottappally and Thrikkunnapuzha. Kayamkulam by evening.",
+      },
+      {
+        day: "5",
+        text: "An early cruise past Amritapuri, and off the boat at Alumkadavu between half nine and eleven.",
+      },
     ],
     image: `${P}/photo-1602216056096-3b40cc0c9944`,
     imageAlt: "A houseboat on the Kerala backwaters",
@@ -845,10 +982,22 @@ const catalogue: TourPackage[] = [
       "The drive itself — the ghat road, and where to stop on it",
     ],
     itinerary: [
-      { day: "1", text: "Up from Kochi through the ghats. Waterfalls and the first tea near Adimali; into Munnar by afternoon." },
-      { day: "2", text: "Eravikulam early, before the cloud. The afternoon in the estates — Mattupetty, the dam, and how tea is actually made." },
-      { day: "3", text: "South along the ridge to Thekkady. Spice country from Kumily onward; an evening walk in the plantations." },
-      { day: "4", text: "Periyar at dawn, on the lake. The afternoon free, or bamboo rafting in the reserve for anyone who wants the long version." },
+      {
+        day: "1",
+        text: "Up from Kochi through the ghats. Waterfalls and the first tea near Adimali; into Munnar by afternoon.",
+      },
+      {
+        day: "2",
+        text: "Eravikulam early, before the cloud. The afternoon in the estates — Mattupetty, the dam, and how tea is actually made.",
+      },
+      {
+        day: "3",
+        text: "South along the ridge to Thekkady. Spice country from Kumily onward; an evening walk in the plantations.",
+      },
+      {
+        day: "4",
+        text: "Periyar at dawn, on the lake. The afternoon free, or bamboo rafting in the reserve for anyone who wants the long version.",
+      },
       { day: "5", text: "Down through the cardamom hills and back to Kochi." },
     ],
     image: `${P}/photo-1711192702535-eac61a78ecb0`,
@@ -887,10 +1036,22 @@ const catalogue: TourPackage[] = [
       "Nights on an estate rather than in a town",
     ],
     itinerary: [
-      { day: "1", text: "Into Kodagu and up to Madikeri. The afternoon settling in on the estate; a walk through the coffee before dark." },
-      { day: "2", text: "The estate properly — picking, drying, grading, depending on the month. Abbey Falls, and Raja's Seat for the evening." },
-      { day: "3", text: "East to Bylakuppe. Namdroling, the settlements around it, and the long way back through Kushalnagar." },
-      { day: "4", text: "Talakaveri in the morning if the weather is with us, then down out of the hills." },
+      {
+        day: "1",
+        text: "Into Kodagu and up to Madikeri. The afternoon settling in on the estate; a walk through the coffee before dark.",
+      },
+      {
+        day: "2",
+        text: "The estate properly — picking, drying, grading, depending on the month. Abbey Falls, and Raja's Seat for the evening.",
+      },
+      {
+        day: "3",
+        text: "East to Bylakuppe. Namdroling, the settlements around it, and the long way back through Kushalnagar.",
+      },
+      {
+        day: "4",
+        text: "Talakaveri in the morning if the weather is with us, then down out of the hills.",
+      },
     ],
     image: `${P}/photo-1730621697273-233e874a7f88`,
     imageAlt: "A road through the coffee estates of Coorg",
@@ -903,7 +1064,8 @@ const catalogue: TourPackage[] = [
     slug: "chettinad-and-madurai",
     tier: "escape",
     title: "Chettinad, and the temple at Madurai",
-    standfirst: "Merchants' mansions, tiles made by hand, and one of the great living temples.",
+    standfirst:
+      "Merchants' mansions, tiles made by hand, and one of the great living temples.",
     collection: "tamil",
     region: "Tamil Nadu",
     duration: "4 days, 3 nights",
@@ -927,10 +1089,22 @@ const catalogue: TourPackage[] = [
       "A night in one of the mansions, because several are now the only way they survive",
     ],
     itinerary: [
-      { day: "1", text: "Into Madurai. The Meenakshi temple in the evening, which is when the city uses it." },
-      { day: "2", text: "The temple again at first light, then east to Chettinad and into a mansion for the night." },
-      { day: "3", text: "Kanadukathan and the houses. The tile works at Athangudi in the afternoon, and the antique shops at Karaikudi." },
-      { day: "4", text: "A last village or two, and back to Madurai or on to Thanjavur." },
+      {
+        day: "1",
+        text: "Into Madurai. The Meenakshi temple in the evening, which is when the city uses it.",
+      },
+      {
+        day: "2",
+        text: "The temple again at first light, then east to Chettinad and into a mansion for the night.",
+      },
+      {
+        day: "3",
+        text: "Kanadukathan and the houses. The tile works at Athangudi in the afternoon, and the antique shops at Karaikudi.",
+      },
+      {
+        day: "4",
+        text: "A last village or two, and back to Madurai or on to Thanjavur.",
+      },
     ],
     image: `${P}/photo-1660915223003-7df0db2e57d8`,
     imageAlt: "A Chettinad house in Tamil Nadu",
@@ -974,14 +1148,35 @@ const catalogue: TourPackage[] = [
     ],
     itinerary: [
       { day: "1", text: "Into Trivandrum, and straight down to the coast." },
-      { day: "2", text: "Kovalam. The morning at the lighthouse beach, the afternoon at whatever pace the journey in has left you." },
-      { day: "3 – 4", text: "North to Munroe Island. Two days of canals, coir making, and canoes at the hours the water is worth seeing." },
+      {
+        day: "2",
+        text: "Kovalam. The morning at the lighthouse beach, the afternoon at whatever pace the journey in has left you.",
+      },
+      {
+        day: "3 – 4",
+        text: "North to Munroe Island. Two days of canals, coir making, and canoes at the hours the water is worth seeing.",
+      },
       { day: "5", text: "Onto a houseboat and into the backwaters proper." },
-      { day: "6 – 7", text: "Off at Mararikulam. A fishing village, a long beach, and nothing asked of you." },
-      { day: "8 – 9", text: "Up into the hills to Thekkady. Periyar on the water at dawn; the spice plantations after." },
-      { day: "10 – 11", text: "Along the ridge to Munnar. Eravikulam early on one of the two mornings, the estates on the other." },
-      { day: "12 – 13", text: "Down to the coast at Arattupuzha, which is the quietest stop on the whole route." },
-      { day: "14", text: "Fort Kochi. The old town on foot, and Kathakali in the evening." },
+      {
+        day: "6 – 7",
+        text: "Off at Mararikulam. A fishing village, a long beach, and nothing asked of you.",
+      },
+      {
+        day: "8 – 9",
+        text: "Up into the hills to Thekkady. Periyar on the water at dawn; the spice plantations after.",
+      },
+      {
+        day: "10 – 11",
+        text: "Along the ridge to Munnar. Eravikulam early on one of the two mornings, the estates on the other.",
+      },
+      {
+        day: "12 – 13",
+        text: "Down to the coast at Arattupuzha, which is the quietest stop on the whole route.",
+      },
+      {
+        day: "14",
+        text: "Fort Kochi. The old town on foot, and Kathakali in the evening.",
+      },
       { day: "15", text: "The morning free, and out through Kochi." },
     ],
     image: `${P}/photo-1615289139857-99b7eb0702dd`,
@@ -1023,11 +1218,26 @@ const catalogue: TourPackage[] = [
     ],
     itinerary: [
       { day: "1", text: "Into Trivandrum and down the coast to Poovar." },
-      { day: "2 – 3", text: "Poovar. The estuary by boat, the beach on the far side of it, and the backwater behind." },
-      { day: "4 – 5", text: "North to Quilon and the Ashtamudi. Cashew, coir, and the Chinese nets at Thangassery." },
-      { day: "6 – 7", text: "Nedumudy, in the middle of Kuttanad. Canoes along the bunds; the paddy at the hour it is worked." },
-      { day: "8 – 9", text: "Up to Vagamon. The meadows, the pine forest, and the walk along the ridge." },
-      { day: "10 – 12", text: "Down to Vypin. Three nights: the beach, the fort at Pallipuram, and Fort Kochi across the water whenever you want it." },
+      {
+        day: "2 – 3",
+        text: "Poovar. The estuary by boat, the beach on the far side of it, and the backwater behind.",
+      },
+      {
+        day: "4 – 5",
+        text: "North to Quilon and the Ashtamudi. Cashew, coir, and the Chinese nets at Thangassery.",
+      },
+      {
+        day: "6 – 7",
+        text: "Nedumudy, in the middle of Kuttanad. Canoes along the bunds; the paddy at the hour it is worked.",
+      },
+      {
+        day: "8 – 9",
+        text: "Up to Vagamon. The meadows, the pine forest, and the walk along the ridge.",
+      },
+      {
+        day: "10 – 12",
+        text: "Down to Vypin. Three nights: the beach, the fort at Pallipuram, and Fort Kochi across the water whenever you want it.",
+      },
       { day: "13", text: "Out through Kochi." },
     ],
     image: `${P}/photo-1705838617550-ae0573ebefc8`,
@@ -1070,15 +1280,42 @@ const catalogue: TourPackage[] = [
       "Nileshwar and the Bekal coast, about as far north as Kerala goes",
     ],
     itinerary: [
-      { day: "1 – 2", text: "Into Kochi, and out to the backwaters the same day if the flight allows." },
-      { day: "3", text: "A homestay in Kuttanad, among the paddy, with the day spent on the water." },
-      { day: "4 – 5", text: "Up to Periyar at Thekkady — the lake early, the spice plantations after." },
-      { day: "6 – 7", text: "Down to a farm above the river at Thodupuzha. Cooking, the plantation, and the village." },
-      { day: "8 – 9", text: "Back to Fort Kochi. The old town, the godowns, and Kathakali in the evening." },
-      { day: "10", text: "North by train to Calicut, which is the right way to arrive on the Malabar coast." },
-      { day: "11 – 12", text: "Up into Wayanad. Plantations, the forest edge, and the road itself." },
-      { day: "13", text: "Thalassery, and a tharavad on the coast. Theyyam in season." },
-      { day: "14 – 15", text: "Nileshwar. Bekal fort for anyone who wants it, and out through Calicut." },
+      {
+        day: "1 – 2",
+        text: "Into Kochi, and out to the backwaters the same day if the flight allows.",
+      },
+      {
+        day: "3",
+        text: "A homestay in Kuttanad, among the paddy, with the day spent on the water.",
+      },
+      {
+        day: "4 – 5",
+        text: "Up to Periyar at Thekkady — the lake early, the spice plantations after.",
+      },
+      {
+        day: "6 – 7",
+        text: "Down to a farm above the river at Thodupuzha. Cooking, the plantation, and the village.",
+      },
+      {
+        day: "8 – 9",
+        text: "Back to Fort Kochi. The old town, the godowns, and Kathakali in the evening.",
+      },
+      {
+        day: "10",
+        text: "North by train to Calicut, which is the right way to arrive on the Malabar coast.",
+      },
+      {
+        day: "11 – 12",
+        text: "Up into Wayanad. Plantations, the forest edge, and the road itself.",
+      },
+      {
+        day: "13",
+        text: "Thalassery, and a tharavad on the coast. Theyyam in season.",
+      },
+      {
+        day: "14 – 15",
+        text: "Nileshwar. Bekal fort for anyone who wants it, and out through Calicut.",
+      },
     ],
     image: `${P}/photo-1551292083-5d458a10336d`,
     imageAlt: "A Theyyam performer in north Kerala",
@@ -1116,10 +1353,22 @@ const catalogue: TourPackage[] = [
       "Mararikulam at the end — two days of beach and nothing scheduled",
     ],
     itinerary: [
-      { day: "1 – 2", text: "Fort Kochi. The nets, the synagogue, the streets, and Kathakali on the second evening." },
-      { day: "3 – 4", text: "Up to Munnar. One day for the drive and the estates, one for the walk at Kolukkumalai." },
-      { day: "5 – 6", text: "Periyar. The spice garden, the lake at first light, and an easy trek for anyone who wants it." },
-      { day: "7", text: "Down to Alleppey. Bicycles in the afternoon and a cooking lesson before dinner." },
+      {
+        day: "1 – 2",
+        text: "Fort Kochi. The nets, the synagogue, the streets, and Kathakali on the second evening.",
+      },
+      {
+        day: "3 – 4",
+        text: "Up to Munnar. One day for the drive and the estates, one for the walk at Kolukkumalai.",
+      },
+      {
+        day: "5 – 6",
+        text: "Periyar. The spice garden, the lake at first light, and an easy trek for anyone who wants it.",
+      },
+      {
+        day: "7",
+        text: "Down to Alleppey. Bicycles in the afternoon and a cooking lesson before dinner.",
+      },
       { day: "8", text: "Onto the boat, and a night on the water." },
       { day: "9", text: "Off at Mararikulam. The beach, and nothing else." },
       { day: "10", text: "The morning free, and out through Kochi." },
@@ -1135,7 +1384,8 @@ const catalogue: TourPackage[] = [
     slug: "kerala-ayurveda",
     tier: "journey",
     title: "Ayurveda in Kerala",
-    standfirst: "Fourteen days at Chowara, and about three hours of it each day is treatment.",
+    standfirst:
+      "Fourteen days at Chowara, and about three hours of it each day is treatment.",
     collection: "wellness",
     region: "Kerala",
     duration: "14 days",
@@ -1194,14 +1444,35 @@ const catalogue: TourPackage[] = [
       "Pondicherry, then the Pallava carvings at Mahabalipuram on the way to the airport",
     ],
     itinerary: [
-      { day: "1 – 2", text: "Into Kochi. Fort Kochi on foot, and the evening for Kathakali." },
+      {
+        day: "1 – 2",
+        text: "Into Kochi. Fort Kochi on foot, and the evening for Kathakali.",
+      },
       { day: "3", text: "Down to Alleppey and onto the water." },
-      { day: "4 – 5", text: "Up to Munnar. The estates, and Eravikulam early on the second morning." },
-      { day: "6", text: "Over the ghats into Tamil Nadu, and into Madurai for the evening ceremony." },
-      { day: "7", text: "East through Chettinad to Trichy, and on to Thanjavur." },
-      { day: "8", text: "The Chola temples, then up the coast to Pondicherry." },
-      { day: "9", text: "Pondicherry: the French quarter in the morning, Auroville after." },
-      { day: "10", text: "Mahabalipuram — the shore temple, the rathas, and the stone carvers still working." },
+      {
+        day: "4 – 5",
+        text: "Up to Munnar. The estates, and Eravikulam early on the second morning.",
+      },
+      {
+        day: "6",
+        text: "Over the ghats into Tamil Nadu, and into Madurai for the evening ceremony.",
+      },
+      {
+        day: "7",
+        text: "East through Chettinad to Trichy, and on to Thanjavur.",
+      },
+      {
+        day: "8",
+        text: "The Chola temples, then up the coast to Pondicherry.",
+      },
+      {
+        day: "9",
+        text: "Pondicherry: the French quarter in the morning, Auroville after.",
+      },
+      {
+        day: "10",
+        text: "Mahabalipuram — the shore temple, the rathas, and the stone carvers still working.",
+      },
       { day: "11", text: "Up to Chennai and out." },
     ],
     image: `${P}/photo-1693134322630-8c3510d215f6`,
@@ -1245,21 +1516,48 @@ const catalogue: TourPackage[] = [
       "Kanyakumari where the three seas meet, and Padmanabhapuram palace on the way",
     ],
     itinerary: [
-      { day: "1", text: "Late into Chennai, and straight down to Mamallapuram." },
-      { day: "2", text: "The morning free. The carvings in the afternoon, with a guide." },
-      { day: "3", text: "Into Chennai for the day, by rickshaw, and back down the coast by evening." },
-      { day: "4", text: "Mamallapuram again in the morning; the afternoon left alone." },
+      {
+        day: "1",
+        text: "Late into Chennai, and straight down to Mamallapuram.",
+      },
+      {
+        day: "2",
+        text: "The morning free. The carvings in the afternoon, with a guide.",
+      },
+      {
+        day: "3",
+        text: "Into Chennai for the day, by rickshaw, and back down the coast by evening.",
+      },
+      {
+        day: "4",
+        text: "Mamallapuram again in the morning; the afternoon left alone.",
+      },
       { day: "5", text: "West to Trichy. Rock Fort in the afternoon." },
-      { day: "6", text: "Srirangam early, then on to Madurai. The flower market and the Gandhi museum." },
-      { day: "7", text: "The Meenakshi temple in the morning, and again for the night ceremony." },
-      { day: "8", text: "Over the ghats to Kumily. A nature walk in the afternoon." },
+      {
+        day: "6",
+        text: "Srirangam early, then on to Madurai. The flower market and the Gandhi museum.",
+      },
+      {
+        day: "7",
+        text: "The Meenakshi temple in the morning, and again for the night ceremony.",
+      },
+      {
+        day: "8",
+        text: "Over the ghats to Kumily. A nature walk in the afternoon.",
+      },
       { day: "9", text: "The spice plantations with Chacko." },
-      { day: "10", text: "The morning free; the last boat on the lake in the afternoon." },
+      {
+        day: "10",
+        text: "The morning free; the last boat on the lake in the afternoon.",
+      },
       { day: "11", text: "Down to Kochi. Kathakali in the evening." },
       { day: "12", text: "Fort Kochi in the morning, the afternoon free." },
       { day: "13", text: "Onto the houseboat, and a night in the backwaters." },
       { day: "14", text: "Off the boat and down to Kovalam." },
-      { day: "15", text: "The day at leisure, and out of Trivandrum around midnight." },
+      {
+        day: "15",
+        text: "The day at leisure, and out of Trivandrum around midnight.",
+      },
     ],
     image: `${P}/photo-1676465997765-4e37e9da8cde`,
     imageAlt: "The temples at Mahabalipuram",
@@ -1305,16 +1603,40 @@ const catalogue: TourPackage[] = [
       { day: "2", text: "Down to Mysore in the afternoon. The evening free." },
       { day: "3", text: "Mysore properly, with a guide." },
       { day: "4", text: "South to Bandipur, and the afternoon safari." },
-      { day: "5", text: "The morning safari, then over into Kerala and down to Kannur." },
+      {
+        day: "5",
+        text: "The morning safari, then over into Kerala and down to Kannur.",
+      },
       { day: "6", text: "Kannur, with a guide." },
-      { day: "7", text: "The early train to Kochi. Fort Kochi in the afternoon." },
-      { day: "8", text: "The morning free; a guided walk and Kathakali after." },
-      { day: "9", text: "Up to Kumily. The last boat on the lake in the afternoon." },
-      { day: "10", text: "The spice plantations with Chacko, and the Green Walk in the park." },
-      { day: "11", text: "Down to Alleppey, onto the houseboat, and into the backwaters." },
+      {
+        day: "7",
+        text: "The early train to Kochi. Fort Kochi in the afternoon.",
+      },
+      {
+        day: "8",
+        text: "The morning free; a guided walk and Kathakali after.",
+      },
+      {
+        day: "9",
+        text: "Up to Kumily. The last boat on the lake in the afternoon.",
+      },
+      {
+        day: "10",
+        text: "The spice plantations with Chacko, and the Green Walk in the park.",
+      },
+      {
+        day: "11",
+        text: "Down to Alleppey, onto the houseboat, and into the backwaters.",
+      },
       { day: "12", text: "Off the boat in the morning and south to Kovalam." },
-      { day: "13", text: "Kanyakumari for the day, with Padmanabhapuram palace on the way." },
-      { day: "14", text: "The day at leisure, and out of Trivandrum in the evening." },
+      {
+        day: "13",
+        text: "Kanyakumari for the day, with Padmanabhapuram palace on the way.",
+      },
+      {
+        day: "14",
+        text: "The day at leisure, and out of Trivandrum in the evening.",
+      },
     ],
     image: `${P}/photo-1659126574791-13313aa424bd`,
     imageAlt: "Mysore Palace lit at night",
@@ -1359,15 +1681,33 @@ const catalogue: TourPackage[] = [
       "Tranquebar, a Danish fort on a Tamil beach, and Pondicherry after it",
     ],
     itinerary: [
-      { day: "1 – 2", text: "Into Chennai, and down to Mamallapuram. The bas-reliefs and the shore temple." },
-      { day: "3", text: "Kanchipuram for the day — the temples, and the silk." },
-      { day: "4", text: "By train to Dindigul, and out to a house by the lake at Athoor." },
-      { day: "5", text: "The villages, temples and plantations around the lake." },
-      { day: "6", text: "The flower market, then Madurai. The Nayak palace, and the Meenakshi temple in the evening." },
+      {
+        day: "1 – 2",
+        text: "Into Chennai, and down to Mamallapuram. The bas-reliefs and the shore temple.",
+      },
+      {
+        day: "3",
+        text: "Kanchipuram for the day — the temples, and the silk.",
+      },
+      {
+        day: "4",
+        text: "By train to Dindigul, and out to a house by the lake at Athoor.",
+      },
+      {
+        day: "5",
+        text: "The villages, temples and plantations around the lake.",
+      },
+      {
+        day: "6",
+        text: "The flower market, then Madurai. The Nayak palace, and the Meenakshi temple in the evening.",
+      },
       { day: "7", text: "East into Chettinad. Thirumayam fort on the way." },
       { day: "8", text: "The mansions at Kanadukathan, and the tile works." },
       { day: "9", text: "North to Thanjavur, and the great temple." },
-      { day: "10", text: "Darasuram and Gangaikondacholapuram, then out to Tranquebar on the coast." },
+      {
+        day: "10",
+        text: "Darasuram and Gangaikondacholapuram, then out to Tranquebar on the coast.",
+      },
       { day: "11", text: "Chidambaram in the morning, and on to Pondicherry." },
       { day: "12", text: "The ashram, the French quarter, and Auroville." },
       { day: "13 – 14", text: "Back up the coast to Chennai, and out." },
@@ -1415,16 +1755,37 @@ const catalogue: TourPackage[] = [
     ],
     itinerary: [
       { day: "1", text: "Into Chennai and straight up to Tirupati." },
-      { day: "2", text: "Tirupati, early, which is the only sensible hour for it." },
+      {
+        day: "2",
+        text: "Tirupati, early, which is the only sensible hour for it.",
+      },
       { day: "3", text: "Down to Vellore, and the golden temple." },
-      { day: "4", text: "Kanchipuram on the way south, then the long run to Madurai." },
-      { day: "5", text: "Madurai. The temple in the morning and again at night." },
-      { day: "6", text: "South to Kanyakumari, for the point and the sunset off it." },
+      {
+        day: "4",
+        text: "Kanchipuram on the way south, then the long run to Madurai.",
+      },
+      {
+        day: "5",
+        text: "Madurai. The temple in the morning and again at night.",
+      },
+      {
+        day: "6",
+        text: "South to Kanyakumari, for the point and the sunset off it.",
+      },
       { day: "7", text: "Across to Rameswaram." },
-      { day: "8", text: "Rameswaram: the temple, the corridor, and Dhanushkodi at the end of the island." },
+      {
+        day: "8",
+        text: "Rameswaram: the temple, the corridor, and Dhanushkodi at the end of the island.",
+      },
       { day: "9", text: "North through Chettinad to Trichy." },
-      { day: "10", text: "Srirangam and Rock Fort, then up the coast to Pondicherry." },
-      { day: "11", text: "Pondicherry in the morning, Mamallapuram in the afternoon, Chennai by evening." },
+      {
+        day: "10",
+        text: "Srirangam and Rock Fort, then up the coast to Pondicherry.",
+      },
+      {
+        day: "11",
+        text: "Pondicherry in the morning, Mamallapuram in the afternoon, Chennai by evening.",
+      },
       { day: "12", text: "Out of Chennai." },
     ],
     image: `${P}/photo-1692173248120-59547c3d4653`,
@@ -1467,12 +1828,24 @@ const catalogue: TourPackage[] = [
       "Namdroling at Bylakuppe, and Mysore at the end",
     ],
     itinerary: [
-      { day: "1 – 2", text: "Into Kochi, and a day in the old town before going up." },
-      { day: "3 – 4", text: "Munnar. The estates, and Eravikulam on the second morning." },
+      {
+        day: "1 – 2",
+        text: "Into Kochi, and a day in the old town before going up.",
+      },
+      {
+        day: "3 – 4",
+        text: "Munnar. The estates, and Eravikulam on the second morning.",
+      },
       { day: "5", text: "East to Pollachi, below the Anamalais." },
       { day: "6", text: "Up into the Nilgiris to Coonoor." },
-      { day: "7 – 9", text: "Down to Mudumalai. Three nights on the forest edge, with drives at both ends of the day." },
-      { day: "10 – 11", text: "North into Kodagu. A coffee estate, and the country around Madikeri." },
+      {
+        day: "7 – 9",
+        text: "Down to Mudumalai. Three nights on the forest edge, with drives at both ends of the day.",
+      },
+      {
+        day: "10 – 11",
+        text: "North into Kodagu. A coffee estate, and the country around Madikeri.",
+      },
       { day: "12", text: "Bylakuppe and Namdroling on the way to Mysore." },
       { day: "13", text: "Mysore — the palace, and the market." },
       { day: "14", text: "Up to Bangalore and out." },
@@ -1521,16 +1894,40 @@ const catalogue: TourPackage[] = [
       "Golgumbaz at Bijapur, then bidri work at Bidar and Charminar at the end",
     ],
     itinerary: [
-      { day: "1 – 2", text: "Into Bangalore, and on to Mysore by way of Srirangapatna." },
-      { day: "3", text: "Mysore: the market and the palace, then Somnathpur in the afternoon." },
+      {
+        day: "1 – 2",
+        text: "Into Bangalore, and on to Mysore by way of Srirangapatna.",
+      },
+      {
+        day: "3",
+        text: "Mysore: the market and the palace, then Somnathpur in the afternoon.",
+      },
       { day: "4", text: "North to Hassan, with Shravanabelagola on the way." },
-      { day: "5", text: "Belur and Halebid, both in one day, which is the right way to compare them." },
+      {
+        day: "5",
+        text: "Belur and Halebid, both in one day, which is the right way to compare them.",
+      },
       { day: "6", text: "The long drive to Hampi." },
-      { day: "7", text: "Hampi, all day: the bazaar, Vittala, the Tungabhadra, the hills above it." },
-      { day: "8 – 9", text: "Pattadakal and Badami — the cave temples, and the tank below them." },
-      { day: "10", text: "Aihole in the morning; Bijapur, Golgumbaz and the Jama Masjid after." },
-      { day: "11", text: "Bidar: the fort, and the bidri workshops in the town." },
-      { day: "12 – 13", text: "Into Telangana. Hyderabad, Charminar, and the Mecca Masjid." },
+      {
+        day: "7",
+        text: "Hampi, all day: the bazaar, Vittala, the Tungabhadra, the hills above it.",
+      },
+      {
+        day: "8 – 9",
+        text: "Pattadakal and Badami — the cave temples, and the tank below them.",
+      },
+      {
+        day: "10",
+        text: "Aihole in the morning; Bijapur, Golgumbaz and the Jama Masjid after.",
+      },
+      {
+        day: "11",
+        text: "Bidar: the fort, and the bidri workshops in the town.",
+      },
+      {
+        day: "12 – 13",
+        text: "Into Telangana. Hyderabad, Charminar, and the Mecca Masjid.",
+      },
       { day: "14", text: "Out of Hyderabad." },
     ],
     image: `${P}/photo-1722934804353-0d9f6a55ab5e`,
@@ -1573,13 +1970,22 @@ const catalogue: TourPackage[] = [
     ],
     itinerary: [
       { day: "1 – 2", text: "Into Bombay." },
-      { day: "3", text: "The city on foot and by train. Elephanta for anyone who wants it." },
-      { day: "4", text: "South down the coast to Murud, and the fort in the bay." },
+      {
+        day: "3",
+        text: "The city on foot and by train. Elephanta for anyone who wants it.",
+      },
+      {
+        day: "4",
+        text: "South down the coast to Murud, and the fort in the bay.",
+      },
       { day: "5", text: "Inland and up to Mahabaleshwar." },
       { day: "6", text: "Pratapgarh in the morning, then down to Chiplun." },
       { day: "7", text: "Back to the coast at Ganpatipule." },
       { day: "8", text: "On into Goa." },
-      { day: "9", text: "Panjim and Old Goa — the churches, and Fontainhas after." },
+      {
+        day: "9",
+        text: "Panjim and Old Goa — the churches, and Fontainhas after.",
+      },
       { day: "10", text: "Out of Goa." },
     ],
     image: `${P}/photo-1567005753256-c0529035b300`,
@@ -1632,18 +2038,30 @@ const catalogue: TourPackage[] = [
     itinerary: [
       { day: "1 – 3", text: "Chennai, then Mahabalipuram for two nights." },
       { day: "4 – 5", text: "Pondicherry: the French town, and Auroville." },
-      { day: "6 – 7", text: "Thanjavur and the Chola temples; on into Chettinad." },
+      {
+        day: "6 – 7",
+        text: "Thanjavur and the Chola temples; on into Chettinad.",
+      },
       { day: "8", text: "Chettinad to Madurai." },
-      { day: "9 – 10", text: "Over the ghats to Munnar, and two nights in the tea." },
+      {
+        day: "9 – 10",
+        text: "Over the ghats to Munnar, and two nights in the tea.",
+      },
       { day: "11 – 12", text: "Down to Mararikulam. Two days on the coast." },
       { day: "13 – 14", text: "Alleppey and the backwaters, then Fort Kochi." },
-      { day: "15 – 17", text: "North to Mysore. The palace, the market, Somnathpur." },
+      {
+        day: "15 – 17",
+        text: "North to Mysore. The palace, the market, Somnathpur.",
+      },
       { day: "18 – 19", text: "Kodagu, and a coffee estate at Madikeri." },
       { day: "20 – 21", text: "Hassan, Belur and Halebid." },
       { day: "22 – 23", text: "Hampi, and a full day in it." },
       { day: "24 – 25", text: "Badami, Pattadakal and Aihole." },
       { day: "26 – 27", text: "Chorla Ghat, on the Karnataka–Goa border." },
-      { day: "28 – 29", text: "Down into Goa. Panjim, Old Goa, and the coast." },
+      {
+        day: "28 – 29",
+        text: "Down into Goa. Panjim, Old Goa, and the coast.",
+      },
       { day: "30", text: "Out of Goa." },
     ],
     image: `${P}/photo-1691075213372-ff9e2d6d7645`,
@@ -1688,11 +2106,23 @@ const catalogue: TourPackage[] = [
     ],
     itinerary: [
       { day: "1", text: "Into Delhi." },
-      { day: "2", text: "Delhi: Jama Masjid, the Red Fort, Humayun's tomb, Qutub Minar. The evening flight to Udaipur." },
-      { day: "3", text: "Udaipur. The City Palace, Jagdish temple, the gardens, and the lake at sunset." },
+      {
+        day: "2",
+        text: "Delhi: Jama Masjid, the Red Fort, Humayun's tomb, Qutub Minar. The evening flight to Udaipur.",
+      },
+      {
+        day: "3",
+        text: "Udaipur. The City Palace, Jagdish temple, the gardens, and the lake at sunset.",
+      },
       { day: "4", text: "North through Ranakpur to Jodhpur." },
-      { day: "5", text: "Mehrangarh in the morning, the clock-tower bazaar after, and on towards Jaipur by way of Pushkar." },
-      { day: "6", text: "Jaipur: Amber, the City Palace, Jantar Mantar, the Hawa Mahal." },
+      {
+        day: "5",
+        text: "Mehrangarh in the morning, the clock-tower bazaar after, and on towards Jaipur by way of Pushkar.",
+      },
+      {
+        day: "6",
+        text: "Jaipur: Amber, the City Palace, Jantar Mantar, the Hawa Mahal.",
+      },
       { day: "7", text: "East to Agra, with Fatehpur Sikri on the way." },
       { day: "8", text: "The Taj at sunrise, then back to Delhi." },
       { day: "9", text: "Out of Delhi." },
@@ -1742,14 +2172,29 @@ const catalogue: TourPackage[] = [
     ],
     itinerary: [
       { day: "1 – 2", text: "Into Delhi, and a day in it." },
-      { day: "3 – 4", text: "Agra: the fort, and the Taj. On to Jaipur by way of Fatehpur Sikri." },
-      { day: "5", text: "Jaipur — Amber, the City Palace, Jantar Mantar, the Hawa Mahal." },
+      {
+        day: "3 – 4",
+        text: "Agra: the fort, and the Taj. On to Jaipur by way of Fatehpur Sikri.",
+      },
+      {
+        day: "5",
+        text: "Jaipur — Amber, the City Palace, Jantar Mantar, the Hawa Mahal.",
+      },
       { day: "6", text: "South to Bundi and the palace on the hill." },
-      { day: "7", text: "The Bijolia temples and the Menal gorge, then a night at Bijaipur." },
+      {
+        day: "7",
+        text: "The Bijolia temples and the Menal gorge, then a night at Bijaipur.",
+      },
       { day: "8", text: "Chittorgarh in the morning, Udaipur by evening." },
       { day: "9", text: "Udaipur, at its own pace." },
-      { day: "10", text: "Ranakpur, then Jojawar, and out to a Raika village." },
-      { day: "11", text: "The rural train through the Aravallis, then Jodhpur and Mehrangarh." },
+      {
+        day: "10",
+        text: "Ranakpur, then Jojawar, and out to a Raika village.",
+      },
+      {
+        day: "11",
+        text: "The rural train through the Aravallis, then Jodhpur and Mehrangarh.",
+      },
       { day: "12", text: "Nagaur fort, and on to Bikaner." },
       { day: "13", text: "Into Shekhawati, and the painted houses." },
       { day: "14 – 15", text: "Back to Delhi, and out." },
@@ -1792,13 +2237,28 @@ const catalogue: TourPackage[] = [
       "The Taj Mahal and the Red Fort at Agra at the end",
     ],
     itinerary: [
-      { day: "1 – 2", text: "Into Delhi, and out to Alsisar in Shekhawati the same day." },
+      {
+        day: "1 – 2",
+        text: "Into Delhi, and out to Alsisar in Shekhawati the same day.",
+      },
       { day: "3", text: "The village, the school, and the painted houses." },
       { day: "4", text: "South to Pushkar, and the temples around the lake." },
-      { day: "5", text: "On to Jaipur. Amber, the Hawa Mahal, the City Palace, Jantar Mantar." },
-      { day: "6", text: "Holi, with an Indian family, for as long as it lasts." },
-      { day: "7", text: "Out to Kalakho — the village, the temple, and a cooking lesson." },
-      { day: "8", text: "Chand Baori at Abhaneri, then Agra. The Taj and the Red Fort." },
+      {
+        day: "5",
+        text: "On to Jaipur. Amber, the Hawa Mahal, the City Palace, Jantar Mantar.",
+      },
+      {
+        day: "6",
+        text: "Holi, with an Indian family, for as long as it lasts.",
+      },
+      {
+        day: "7",
+        text: "Out to Kalakho — the village, the temple, and a cooking lesson.",
+      },
+      {
+        day: "8",
+        text: "Chand Baori at Abhaneri, then Agra. The Taj and the Red Fort.",
+      },
       { day: "9", text: "Back to Delhi, and the old city in the afternoon." },
       { day: "10", text: "Out of Delhi." },
     ],
@@ -1839,15 +2299,36 @@ const catalogue: TourPackage[] = [
       "The cellular jail at Port Blair on the way home",
     ],
     itinerary: [
-      { day: "1 – 2", text: "Into Delhi, and the city — Old Delhi, the Red Fort, Jama Masjid, Qutub Minar." },
-      { day: "3", text: "To Jaipur. Sisodia Rani and the Galta temples in the afternoon." },
-      { day: "4", text: "Jaipur by bicycle: the Hawa Mahal, Amber, the City Palace. A cooking class after." },
+      {
+        day: "1 – 2",
+        text: "Into Delhi, and the city — Old Delhi, the Red Fort, Jama Masjid, Qutub Minar.",
+      },
+      {
+        day: "3",
+        text: "To Jaipur. Sisodia Rani and the Galta temples in the afternoon.",
+      },
+      {
+        day: "4",
+        text: "Jaipur by bicycle: the Hawa Mahal, Amber, the City Palace. A cooking class after.",
+      },
       { day: "5", text: "Agra, by way of Fatehpur Sikri." },
-      { day: "6", text: "The Taj at sunrise. Agra fort, Itmad-ud-Daulah and Mehtab Bagh after." },
+      {
+        day: "6",
+        text: "The Taj at sunrise. Agra fort, Itmad-ud-Daulah and Mehtab Bagh after.",
+      },
       { day: "7", text: "The old city by bicycle, then back to Delhi." },
-      { day: "8", text: "Fly to Port Blair, and the ferry across to Havelock." },
-      { day: "9 – 10", text: "Havelock. Radhanagar, the reef, and bicycles for the rest of it." },
-      { day: "11", text: "Back to Port Blair. The cellular jail, and the anthropological museum." },
+      {
+        day: "8",
+        text: "Fly to Port Blair, and the ferry across to Havelock.",
+      },
+      {
+        day: "9 – 10",
+        text: "Havelock. Radhanagar, the reef, and bicycles for the rest of it.",
+      },
+      {
+        day: "11",
+        text: "Back to Port Blair. The cellular jail, and the anthropological museum.",
+      },
       { day: "12 – 13", text: "Port Blair to Delhi, and out." },
     ],
     image: `${P}/photo-1586053226626-febc8817962f`,
@@ -1901,9 +2382,18 @@ const catalogue: TourPackage[] = [
       { day: "10 – 11", text: "South by air, and on to Pondicherry." },
       { day: "12", text: "Kumbakonam, and the Chola temples around it." },
       { day: "13 – 14", text: "Madurai. The Meenakshi temple, twice." },
-      { day: "15 – 16", text: "Over the ghats to Munnar, and two nights in the tea." },
-      { day: "17 – 19", text: "Down to Fort Kochi, then Alleppey and a night on the water." },
-      { day: "20 – 21", text: "Mararikulam. The coast, and nothing asked of you." },
+      {
+        day: "15 – 16",
+        text: "Over the ghats to Munnar, and two nights in the tea.",
+      },
+      {
+        day: "17 – 19",
+        text: "Down to Fort Kochi, then Alleppey and a night on the water.",
+      },
+      {
+        day: "20 – 21",
+        text: "Mararikulam. The coast, and nothing asked of you.",
+      },
       { day: "22", text: "Out through Kochi." },
     ],
     image: `${P}/photo-1587135941948-670b381f08ce`,

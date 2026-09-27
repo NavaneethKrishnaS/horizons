@@ -13,7 +13,7 @@ import { houseboats } from "@/data/houseboats";
   side by side is what transparent pricing actually looks like.
 
   The inclusions are read from the first boat, which carries the list
-  the fleet shares; the exclusions are the shared list itself.
+  the boats share; the exclusions are the shared list itself.
 */
 export default function Included() {
   const inclusions = houseboats[0]?.inclusions ?? [];

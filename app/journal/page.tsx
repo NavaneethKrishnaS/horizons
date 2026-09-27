@@ -12,10 +12,9 @@ import { journalChapters } from "@/data/journal";
 import { sceneObjects } from "@/components/journal/sceneLayouts";
 
 export const metadata: Metadata = pageMeta({
-  title:
-    "The Journal | HORIZONS by Scenic Escapes",
+  title: "The Journal | HORIZONS by Scenic Escapes",
   description:
-    "The story of Kerala's water — the spice coast, kathakali, the snake boats of Onam, and the kettuvallam that became our houseboats.",
+    "The story of Kerala's water — the spice coast, kathakali, the snake boats of Onam, and the kettuvallam that became the houseboats.",
   path: "/journal",
 });
 

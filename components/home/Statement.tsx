@@ -36,13 +36,14 @@ export default function Statement() {
         <Reveal delay={160}>
           <p className="mt-10 text-[17px] leading-9 text-white/55 md:mt-14 md:text-[19px] md:leading-[2.1]">
             Kerala is where we live and work, not a place we read up on when a
-            letter arrives. The boats on this site are ours. Most of the houses
-            we send guests to are ones we have known for years rather than found
-            on a screen, and every district in the state is written up here, one
-            by one. Beyond Kerala we travel where we have already been ourselves
-            — Tamil Nadu, Karnataka, Goa and further north — so a journey is put
-            together out of places we can answer for. The person who reads your
-            letter is the one who arranges it.
+            letter arrives. The boats and the houses are not ours — they belong
+            to the families who run them — but we have known most of them for
+            years rather than found them on a screen, we book them ourselves,
+            and we are answerable to you for every one we put you on. Every
+            district in the state is written up here, one by one, and beyond
+            Kerala we travel where we have already been: Tamil Nadu, Karnataka,
+            Goa and further north. The person who reads your letter is the one
+            who arranges the journey.
           </p>
         </Reveal>
       </Container>

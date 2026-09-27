@@ -17,10 +17,10 @@ import { stays } from "@/data/stays";
   The headings run as a sequence rather than as three unrelated
   offers, because that is how a trip is actually put together: the
   water first, then somewhere to sleep, then the option of handing
-  the whole thing over. "We own the boats" said the useful thing but
-  said it as a claim about us, which a visitor reads as a boast
-  before they read it as a fact. It is in the line underneath now,
-  where it belongs.
+  the whole thing over. An earlier draft of this section said the
+  boats were ours. They are not — they belong to the families who
+  run them, and a claim like that has no business on a page a guest
+  is deciding from.
 
   Three cards was the site's own template for the fourth time. Three
   full-width bands fixed that and created a different problem: three
@@ -51,7 +51,7 @@ export default function Doors() {
       href: "/houseboats",
       label: "Houseboats",
       title: "It begins on the water",
-      line: `${houseboats.length} kettuvallam of our own on the Alleppey backwaters, one bedroom to six, crewed and moored somewhere quiet for the night.`,
+      line: `${houseboats.length} kettuvallam on the Alleppey backwaters, one bedroom to six, crewed and moored somewhere quiet for the night.`,
       image: "/images/houseboats/1-bedroom/cover.jpeg",
       alt: "A kettuvallam houseboat on the Alleppey backwaters",
     },

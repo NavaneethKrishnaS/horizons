@@ -60,7 +60,7 @@ export default async function DistrictPage({
     .filter((stay) => stay !== undefined);
 
   const journeys = packages.filter((tour) =>
-    tour.route.some((stop) => place.routeStops.includes(stop))
+    tour.route.some((stop) => place.routeStops.includes(stop)),
   );
 
   const { previous, next } = neighbours(place.id);
@@ -128,7 +128,10 @@ export default async function DistrictPage({
         <Container>
           <div className="mx-auto max-w-2xl">
             {place.body.map((paragraph, line) => (
-              <Reveal key={`${place.id}-p${line}`} delay={Math.min(line, 3) * 70}>
+              <Reveal
+                key={`${place.id}-p${line}`}
+                delay={Math.min(line, 3) * 70}
+              >
                 <p
                   className={`text-[16px] leading-9 text-white/70 md:text-[17px] md:leading-[1.95] ${
                     line === 0
@@ -154,7 +157,7 @@ export default async function DistrictPage({
               >
                 <span>
                   <span className="block text-[10px] uppercase tracking-[0.3em] text-[#8B9556]">
-                    Our own boats
+                    On the water
                   </span>
 
                   <span className="mt-2 block font-cormorant text-[24px] font-light text-white transition-colors duration-300 group-hover:text-[#A8B473] md:text-[28px]">
@@ -257,7 +260,10 @@ export default async function DistrictPage({
         <Container>
           <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
             {previous ? (
-              <Link href={`/destinations/${previous.id}`} className="group max-w-xs">
+              <Link
+                href={`/destinations/${previous.id}`}
+                className="group max-w-xs"
+              >
                 <p className="text-[10px] uppercase tracking-[0.3em] text-white/30">
                   ← South
                 </p>
