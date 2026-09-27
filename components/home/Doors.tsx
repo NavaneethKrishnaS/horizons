@@ -51,7 +51,7 @@ export default function Doors() {
       href: "/houseboats",
       label: "Houseboats",
       title: "It begins on the water",
-      line: `${houseboats.length} kettuvallam on the Alleppey backwaters, one bedroom to six, crewed and moored somewhere quiet for the night.`,
+      line: `${houseboats.length} kettuvallams on the Alleppey backwaters, one bedroom to six, crewed and moored somewhere quiet for the night.`,
       image: "/images/houseboats/1-bedroom/cover.jpeg",
       alt: "A kettuvallam houseboat on the Alleppey backwaters",
     },

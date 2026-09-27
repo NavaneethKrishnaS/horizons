@@ -161,7 +161,7 @@ export default async function DistrictPage({
                   </span>
 
                   <span className="mt-2 block font-cormorant text-[24px] font-light text-white transition-colors duration-300 group-hover:text-[#A8B473] md:text-[28px]">
-                    One, two and three bedroom kettuvallam
+                    One, two and three bedroom kettuvallams
                   </span>
                 </span>
 
