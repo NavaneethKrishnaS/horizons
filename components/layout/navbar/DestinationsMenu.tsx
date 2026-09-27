@@ -52,7 +52,8 @@ export default function DestinationsMenu({ onNavigate }: Props) {
           <div className="mt-8 grid grid-cols-3 gap-x-5 gap-y-7 lg:grid-cols-6 lg:gap-x-6">
             {MENU_PLACES.map((place, index) => (
               <Link
-                key={place.href}
+                /* Keyed by name, not href: Munnar and Thekkady share a page. */
+                key={place.label}
                 href={place.href}
                 onClick={onNavigate}
                 className="group block"

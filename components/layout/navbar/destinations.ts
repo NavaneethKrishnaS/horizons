@@ -4,8 +4,10 @@
   Six places a traveller already has a name for, each leading to the
   district page that covers it — the pages are filed by district, and a
   menu that said "Idukki" where a visitor is looking for Munnar would be
-  filing convenience dressed up as navigation. The whole set of fourteen
-  is one click further, at the foot of the panel.
+  filing convenience dressed up as navigation. Munnar and Thekkady are
+  both in Idukki and both arrive at the same page, which is the page
+  that covers them. The whole set of fourteen is one click further, at
+  the foot of the panel.
 */
 export type MenuPlace = {
   label: string;
@@ -16,28 +18,34 @@ export type MenuPlace = {
 
 export const MENU_PLACES: MenuPlace[] = [
   {
-    label: "Alleppey",
-    note: "Backwaters and houseboats",
-    image: "/images/menu/destinations/alleppey.png",
-    href: "/destinations/alappuzha",
-  },
-  {
-    label: "Kumarakom",
-    note: "The quiet side of the lake",
-    image: "/images/menu/destinations/kumarakom.png",
-    href: "/destinations/kottayam",
+    label: "Kochi",
+    note: "Chinese nets and the old harbour",
+    /*
+      The only one of the six without a picture of its own yet, so it
+      borrows the photograph the Ernakulam page already uses — the
+      right subject, and remote rather than a file we hold.
+    */
+    image:
+      "https://images.unsplash.com/photo-1590123732197-e7079d2ceb89?auto=format&fit=crop&w=1200&q=80",
+    href: "/destinations/ernakulam",
   },
   {
     label: "Munnar",
-    note: "Tea, and Thekkady beyond it",
+    note: "Tea, and the high range",
     image: "/images/menu/destinations/munnar.png",
     href: "/destinations/idukki",
   },
   {
-    label: "Varkala",
-    note: "Cliffs above the Arabian Sea",
-    image: "/images/menu/destinations/varkala.png",
-    href: "/destinations/thiruvananthapuram",
+    label: "Thekkady",
+    note: "Periyar, and the spice hills",
+    image: "/images/menu/destinations/thekkady.png",
+    href: "/destinations/idukki",
+  },
+  {
+    label: "Alleppey",
+    note: "Backwaters and houseboats",
+    image: "/images/menu/destinations/alleppey.png",
+    href: "/destinations/alappuzha",
   },
   {
     label: "Wayanad",
