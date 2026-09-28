@@ -594,8 +594,13 @@ export default function Hero() {
           Find Your Next Horizon.
         </p>
 
+        {/*
+          To the destinations, not to the boats: the first thing asked
+          of a visitor should be where they want to go, not which
+          houseboat they want.
+        */}
         <Link
-          href="/houseboats"
+          href="/destinations"
           className="group mt-11 inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-white/75 transition-colors duration-300 hover:text-white"
         >
           Begin Journey
