@@ -1,5 +1,7 @@
 /*
-  Generated. Do not edit by hand.
+  Generated, then extended by hand for the properties whose galleries
+  were one or two photographs deep: the new frames came from the
+  folders the office supplied and were re-encoded to the same recipe.
 
   The properties' own photographs, selected from what each one sent and
   re-encoded for the web: WebP, long edge capped at 1800px. First entry
@@ -24,7 +26,7 @@ export const stayPhotos: Record<string, string[]> = {
     "/images/stays/28-kothi/05.webp",
     "/images/stays/28-kothi/06.webp",
   ],
-  "aashyana": [
+  aashyana: [
     "/images/stays/aashyana/cover.webp",
     "/images/stays/aashyana/01.webp",
     "/images/stays/aashyana/02.webp",
@@ -51,8 +53,14 @@ export const stayPhotos: Record<string, string[]> = {
     "/images/stays/ahilya-by-the-sea/05.webp",
     "/images/stays/ahilya-by-the-sea/06.webp",
   ],
-  "amrapali": [
+  amrapali: [
     "/images/stays/amrapali/cover.webp",
+    "/images/stays/amrapali/01.webp",
+    "/images/stays/amrapali/02.webp",
+    "/images/stays/amrapali/03.webp",
+    "/images/stays/amrapali/04.webp",
+    "/images/stays/amrapali/05.webp",
+    "/images/stays/amrapali/06.webp",
   ],
   "anahata-retreat": [
     "/images/stays/anahata-retreat/cover.webp",
@@ -63,7 +71,7 @@ export const stayPhotos: Record<string, string[]> = {
     "/images/stays/anahata-retreat/05.webp",
     "/images/stays/anahata-retreat/06.webp",
   ],
-  "anopura": [
+  anopura: [
     "/images/stays/anopura/cover.webp",
     "/images/stays/anopura/01.webp",
     "/images/stays/anopura/02.webp",
@@ -105,7 +113,7 @@ export const stayPhotos: Record<string, string[]> = {
     "/images/stays/coco-shambhala-sindhudurg/02.webp",
     "/images/stays/coco-shambhala-sindhudurg/03.webp",
   ],
-  "cranganor": [
+  cranganor: [
     "/images/stays/cranganor/cover.webp",
     "/images/stays/cranganor/01.webp",
     "/images/stays/cranganor/02.webp",
@@ -146,7 +154,7 @@ export const stayPhotos: Record<string, string[]> = {
     "/images/stays/gramam-homestay/05.webp",
     "/images/stays/gramam-homestay/06.webp",
   ],
-  "jalakara": [
+  jalakara: [
     "/images/stays/jalakara/cover.webp",
     "/images/stays/jalakara/01.webp",
     "/images/stays/jalakara/02.webp",
@@ -155,7 +163,7 @@ export const stayPhotos: Record<string, string[]> = {
     "/images/stays/jalakara/05.webp",
     "/images/stays/jalakara/06.webp",
   ],
-  "jawai": [
+  jawai: [
     "/images/stays/jawai/cover.webp",
     "/images/stays/jawai/01.webp",
     "/images/stays/jawai/02.webp",
@@ -169,9 +177,7 @@ export const stayPhotos: Record<string, string[]> = {
     "/images/stays/kahani-paradise/01.webp",
     "/images/stays/kahani-paradise/02.webp",
   ],
-  "khem-villas": [
-    "/images/stays/khem-villas/cover.webp",
-  ],
+  "khem-villas": ["/images/stays/khem-villas/cover.webp"],
   "kumarakom-lake-resort": [
     "/images/stays/kumarakom-lake-resort/cover.webp",
     "/images/stays/kumarakom-lake-resort/01.webp",
@@ -204,7 +210,7 @@ export const stayPhotos: Record<string, string[]> = {
     "/images/stays/marari-villas/05.webp",
     "/images/stays/marari-villas/06.webp",
   ],
-  "mihirgarh": [
+  mihirgarh: [
     "/images/stays/mihirgarh/cover.webp",
     "/images/stays/mihirgarh/01.webp",
     "/images/stays/mihirgarh/02.webp",
@@ -213,10 +219,7 @@ export const stayPhotos: Record<string, string[]> = {
     "/images/stays/mihirgarh/05.webp",
     "/images/stays/mihirgarh/06.webp",
   ],
-  "mizpah": [
-    "/images/stays/mizpah/cover.webp",
-    "/images/stays/mizpah/01.webp",
-  ],
+  mizpah: ["/images/stays/mizpah/cover.webp", "/images/stays/mizpah/01.webp"],
   "narendra-bhawan": [
     "/images/stays/narendra-bhawan/cover.webp",
     "/images/stays/narendra-bhawan/01.webp",
@@ -247,6 +250,9 @@ export const stayPhotos: Record<string, string[]> = {
   "otter-creek-tents": [
     "/images/stays/otter-creek-tents/cover.webp",
     "/images/stays/otter-creek-tents/01.webp",
+    "/images/stays/otter-creek-tents/02.webp",
+    "/images/stays/otter-creek-tents/03.webp",
+    "/images/stays/otter-creek-tents/04.webp",
   ],
   "philipkuttys-farm": [
     "/images/stays/philipkuttys-farm/cover.webp",
@@ -257,7 +263,7 @@ export const stayPhotos: Record<string, string[]> = {
     "/images/stays/philipkuttys-farm/05.webp",
     "/images/stays/philipkuttys-farm/06.webp",
   ],
-  "purity": [
+  purity: [
     "/images/stays/purity/cover.webp",
     "/images/stays/purity/01.webp",
     "/images/stays/purity/02.webp",
@@ -314,10 +320,22 @@ export const stayPhotos: Record<string, string[]> = {
   "samode-haveli": [
     "/images/stays/samode-haveli/cover.webp",
     "/images/stays/samode-haveli/01.webp",
+    "/images/stays/samode-haveli/02.webp",
+    "/images/stays/samode-haveli/03.webp",
+    "/images/stays/samode-haveli/04.webp",
+    "/images/stays/samode-haveli/05.webp",
+    "/images/stays/samode-haveli/06.webp",
+    "/images/stays/samode-haveli/07.webp",
   ],
   "samode-palace": [
     "/images/stays/samode-palace/cover.webp",
     "/images/stays/samode-palace/01.webp",
+    "/images/stays/samode-palace/02.webp",
+    "/images/stays/samode-palace/03.webp",
+    "/images/stays/samode-palace/04.webp",
+    "/images/stays/samode-palace/05.webp",
+    "/images/stays/samode-palace/06.webp",
+    "/images/stays/samode-palace/07.webp",
   ],
   "shahpura-bagh": [
     "/images/stays/shahpura-bagh/cover.webp",
@@ -355,8 +373,13 @@ export const stayPhotos: Record<string, string[]> = {
   "spice-coast-cruises": [
     "/images/stays/spice-coast-cruises/cover.webp",
     "/images/stays/spice-coast-cruises/01.webp",
+    "/images/stays/spice-coast-cruises/02.webp",
+    "/images/stays/spice-coast-cruises/03.webp",
+    "/images/stays/spice-coast-cruises/04.webp",
+    "/images/stays/spice-coast-cruises/05.webp",
+    "/images/stays/spice-coast-cruises/06.webp",
   ],
-  "sukoon": [
+  sukoon: [
     "/images/stays/sukoon/cover.webp",
     "/images/stays/sukoon/01.webp",
     "/images/stays/sukoon/02.webp",
@@ -365,7 +388,7 @@ export const stayPhotos: Record<string, string[]> = {
     "/images/stays/sukoon/05.webp",
     "/images/stays/sukoon/06.webp",
   ],
-  "suryagarh": [
+  suryagarh: [
     "/images/stays/suryagarh/cover.webp",
     "/images/stays/suryagarh/01.webp",
     "/images/stays/suryagarh/02.webp",
@@ -382,7 +405,7 @@ export const stayPhotos: Record<string, string[]> = {
     "/images/stays/suryauday-haveli/04.webp",
     "/images/stays/suryauday-haveli/05.webp",
   ],
-  "swaswara": [
+  swaswara: [
     "/images/stays/swaswara/cover.webp",
     "/images/stays/swaswara/01.webp",
     "/images/stays/swaswara/02.webp",
@@ -452,6 +475,9 @@ export const stayPhotos: Record<string, string[]> = {
   ],
   "villa-jacaranda": [
     "/images/stays/villa-jacaranda/cover.webp",
+    "/images/stays/villa-jacaranda/01.webp",
+    "/images/stays/villa-jacaranda/02.webp",
+    "/images/stays/villa-jacaranda/03.webp",
   ],
   "vismaya-lake-heritage": [
     "/images/stays/vismaya-lake-heritage/cover.webp",
