@@ -177,7 +177,13 @@ export const stayPhotos: Record<string, string[]> = {
     "/images/stays/kahani-paradise/01.webp",
     "/images/stays/kahani-paradise/02.webp",
   ],
-  "khem-villas": ["/images/stays/khem-villas/cover.webp"],
+  "khem-villas": [
+    "/images/stays/khem-villas/cover.webp",
+    "/images/stays/khem-villas/01.webp",
+    "/images/stays/khem-villas/02.webp",
+    "/images/stays/khem-villas/03.webp",
+    "/images/stays/khem-villas/04.webp",
+  ],
   "kumarakom-lake-resort": [
     "/images/stays/kumarakom-lake-resort/cover.webp",
     "/images/stays/kumarakom-lake-resort/01.webp",
@@ -200,6 +206,9 @@ export const stayPhotos: Record<string, string[]> = {
   "marari-beach-resort": [
     "/images/stays/marari-beach-resort/cover.webp",
     "/images/stays/marari-beach-resort/01.webp",
+    "/images/stays/marari-beach-resort/02.webp",
+    "/images/stays/marari-beach-resort/03.webp",
+    "/images/stays/marari-beach-resort/04.webp",
   ],
   "marari-villas": [
     "/images/stays/marari-villas/cover.webp",
@@ -219,7 +228,11 @@ export const stayPhotos: Record<string, string[]> = {
     "/images/stays/mihirgarh/05.webp",
     "/images/stays/mihirgarh/06.webp",
   ],
-  mizpah: ["/images/stays/mizpah/cover.webp", "/images/stays/mizpah/01.webp"],
+  mizpah: [
+    "/images/stays/mizpah/cover.webp",
+    "/images/stays/mizpah/01.webp",
+    "/images/stays/mizpah/02.webp",
+  ],
   "narendra-bhawan": [
     "/images/stays/narendra-bhawan/cover.webp",
     "/images/stays/narendra-bhawan/01.webp",
