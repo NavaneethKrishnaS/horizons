@@ -62,7 +62,7 @@ export const faq: FaqGroup[] = [
       },
       {
         q: "Who will I be dealing with?",
-        a: "One of the people who plans the journeys. There is no enquiry desk and no ticket number — there are not many of us, which is the point, and the company has been arranging travel in South India for the better part of three decades.",
+        a: "One of the people who plans the journeys. There is no enquiry desk and no ticket number — there are not many of us, which is the point, and the people who will answer you have been arranging travel in South India for the better part of three decades.",
       },
       {
         q: "Can you arrange a journey outside Kerala?",
@@ -110,7 +110,7 @@ export const faq: FaqGroup[] = [
       },
       {
         q: "Is the train worth taking?",
-        a: "Often, yes. The coastal line runs almost the whole length of Kerala and both Alappuzha and Kollam sit on it, with Ernakulam Junction as the hub. It is not fast — Ernakulam to Alappuzha is about forty minutes when the road can take twice that — and it is one of the better ways to watch the state go by. We will tell you when the train is the better answer and when it is not.",
+        a: "Often, yes. The coastal line runs almost the whole length of Kerala and both Alappuzha and Kollam sit on it, with Ernakulam Junction as the hub. It is not fast — Ernakulam to Alappuzha is about an hour, though the road in traffic can take the best part of two — and it is one of the better ways to watch the state go by. We will tell you when the train is the better answer and when it is not.",
       },
       {
         q: "How long does it take to get around?",
@@ -162,11 +162,11 @@ export const faq: FaqGroup[] = [
       },
       {
         q: "How were they chosen?",
-        a: "By staying in them, mostly, or by sending people we know and listening carefully afterwards. We have stood in most of them. The ones we would not send our own family to are not on the list.",
+        a: "We know them. Some we have stayed in ourselves; some we know through the people who run them; some we have sent guests we care about to and then listened very carefully afterwards. Thirty years in this trade is mostly that — a long memory for which places are as good as they say they are. The ones we would not send our own family to are not on the list.",
       },
       {
         q: "Whose photographs are on the site?",
-        a: "Each property's own. We do not put stock photography under the name of a place somebody might sleep in — if a property has not sent us its pictures, its page says so rather than borrowing somebody else's backwater.",
+        a: "Every photograph of a place you might sleep in is that property's own. We do not put stock photography under the name of a hotel or a boat — if a property has not sent us its pictures, its page says so rather than borrowing somebody else's backwater. The wider landscapes on the destination and journey pages are licensed photographs, and they are there to show you a district rather than a room.",
       },
     ],
   },

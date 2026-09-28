@@ -222,7 +222,7 @@ export const KERALA: Destination[] = [
     nights: "Three: one on a boat, two on the sand.",
     stayLength: "3 nights",
     arrive:
-      "Cochin airport to Alappuzha, 85km, about two hours. The train from Ernakulam does it in forty minutes.",
+      "Cochin airport to Alappuzha, 85km, about two hours. The train from Ernakulam does it in about an hour.",
     collection: "backwaters",
     stays: [
       "spice-coast-cruises",
@@ -416,7 +416,7 @@ export const KERALA: Destination[] = [
     standfirst: "The state's loudest festival, and its best-known waterfall.",
     body: [
       "Thrissur calls itself the cultural capital and has the festival to argue it. The Pooram, in April or May, is two temples competing with elephants, parasols and a percussion ensemble two hundred strong — it runs for thirty-six hours, ends in fireworks before dawn, and is not a thing to wander into unprepared.",
-      "Athirappilly is the waterfall everyone has seen without knowing where it is: eighty feet across the Chalakudy river at the edge of the Sholayar forest, at its most absurd in the weeks after the rains.",
+      "Athirappilly is the waterfall everyone has seen without knowing where it is: eighty feet high and three hundred across, on the Chalakudy river at the edge of the Sholayar forest, at its most absurd in the weeks after the rains.",
       "Guruvayur, north of the town, is one of the most visited temples in India and closed to non-Hindus, which is worth knowing before a driver takes you there.",
     ],
     season:
@@ -605,7 +605,7 @@ export const KERALA: Destination[] = [
     standfirst:
       "Up the ghat road into coffee, and the oldest human marks in the state.",
     body: [
-      "Wayanad is the only district with no coast, and it feels like a different state: a plateau at nine hundred metres, coffee and pepper under the trees rather than tea on open hills, and forest that runs on into Karnataka and Tamil Nadu as one of the last corridors elephants can still use.",
+      "Wayanad is one of the few districts with no coast at all, and it feels like a different state: a plateau at nine hundred metres, coffee and pepper under the trees rather than tea on open hills, and forest that runs on into Karnataka and Tamil Nadu as one of the last corridors elephants can still use.",
       "The Edakkal caves have petroglyphs cut into them that are at least six thousand years old — stick figures, wheels, a man with a headdress — reached by a climb that will take an hour of your morning.",
       "Banasura Sagar is the reservoir, the largest earth dam in India, with islands that appear as the water drops. The district was badly hit by landslides in recent years; ask before travelling in heavy monsoon.",
     ],
@@ -651,7 +651,7 @@ export const KERALA: Destination[] = [
     standfirst: "Where men become gods for a night, from December to April.",
     body: [
       "Theyyam is the reason to plan a journey around a calendar. It is not a performance for anybody: a village ritual in which a man in costume and firelight becomes a deity, speaks as one, and is consulted as one — it runs in the shrines of north Malabar through the cool months, most nights, somewhere. Being taken to one by somebody who knows the family is an entirely different experience from watching one, which is the whole argument for going with people who are from here.",
-      "The rest of the district is quietly remarkable. Muzhappilangad is the only beach in India you are allowed to drive along, four kilometres of hard sand. Thalassery gave the world its biryani and, less probably, taught India cricket. The Kannur fort is Portuguese, then Dutch, then British, in the usual order.",
+      "The rest of the district is quietly remarkable. Muzhappilangad is the longest drive-in beach in India, four kilometres of hard sand you are allowed to drive along. Thalassery gave the world its biryani and, less probably, taught India cricket. The Kannur fort is Portuguese, then Dutch, then British, in the usual order.",
       "There are no crowds up here, and the coast is almost entirely unbuilt.",
     ],
     season:

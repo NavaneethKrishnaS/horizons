@@ -1018,7 +1018,7 @@ const catalogue: TourPackage[] = [
     days: 4,
     from: 3,
     summary:
-      "Kodagu grows most of India's coffee, on estates under shade trees with pepper vines running up them. An hour away at Bylakuppe is something nobody expects: Tibetan settlements begun in 1961, and Namdroling, founded in 1963 by Penor Rinpoche and now the largest teaching centre of the Nyingma school anywhere, with several thousand monks and nuns. The two things are half a morning apart and neither prepares you for the other.",
+      "Kodagu grows more coffee than any other district in India, on estates under shade trees with pepper vines running up them. An hour away at Bylakuppe is something nobody expects: Tibetan settlements begun in 1961, and Namdroling, founded in 1963 by Penor Rinpoche and now the largest teaching centre of the Nyingma school anywhere, with several thousand monks and nuns. The two things are half a morning apart and neither prepares you for the other.",
     route: [
       "Madikeri",
       "Coffee estates",
