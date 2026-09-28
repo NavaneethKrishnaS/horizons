@@ -50,3 +50,7 @@ Claude outputs/
 # Screenshots this session writes into public/ to look at pages
 # through the dev server. Never part of the site.
 public/__*
+
+# A stale Turbopack dev cache, renamed out of the way so the dev server
+# could start. Safe to delete from Finder; nothing in it is source.
+/.next-stale-cache/

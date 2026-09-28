@@ -8,10 +8,9 @@ import LegalCTA from "@/components/legal/LegalCTA";
 import { LAST_UPDATED, SECTIONS, SUMMARY } from "@/data/privacy";
 
 export const metadata: Metadata = pageMeta({
-  title:
-    "Privacy | HORIZONS by Scenic Escapes",
+  title: "Privacy | HORIZONS by Scenic Escapes",
   description:
-    "No cookies, no analytics, nothing collected by the website at all. What we hold is what you write to us, we use it to arrange your journey, and you can have it deleted by asking.",
+    "No cookies, no tracking and no advertising. We count page views and we hold what you write to us, we use it to arrange your journey, and you can have it deleted by asking.",
   path: "/privacy",
 });
 
@@ -21,7 +20,7 @@ export default function PrivacyPage() {
       <LegalHero
         label="Privacy"
         title="What happens to what you tell us."
-        intro="This website sets no cookies, runs no analytics and knows nothing about you. The only personal information we hold is what you choose to write to us, and the only thing we do with it is arrange your journey. Everything below is the long version of those two sentences."
+        intro="This website sets no cookies and follows nobody anywhere. It counts page views, without a cookie and without an identifier, so we know which journeys are being read about. Beyond that, the only personal information we hold is what you choose to write to us, and the only thing we do with it is arrange your journey. Everything below is the long version of those three sentences."
         updated={LAST_UPDATED}
         facts={SUMMARY}
       />

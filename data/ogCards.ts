@@ -66,7 +66,7 @@ export const OG_CARDS: Record<string, OgCardCopy> = {
   privacy: {
     label: "Privacy",
     title: "What happens to what you tell us.",
-    note: "No cookies, no analytics, nothing collected by the website at all.",
+    note: "No cookies, no tracking, no advertising. Page counts and the enquiry you send us, and nothing else.",
   },
   terms: {
     label: "Terms",

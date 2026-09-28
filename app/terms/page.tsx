@@ -8,10 +8,9 @@ import LegalCTA from "@/components/legal/LegalCTA";
 import { LAST_UPDATED, SECTIONS, SUMMARY } from "@/data/terms";
 
 export const metadata: Metadata = pageMeta({
-  title:
-    "Terms & Conditions | HORIZONS by Scenic Escapes",
+  title: "Terms & Conditions | HORIZONS by Scenic Escapes",
   description:
-    "How a booking is made, what it costs and when, what comes back if you cancel, and what we answer for. Plain conditions for a small company you are trusting with a journey.",
+    "How a booking is made, what it costs and when, what comes back if you cancel, and what we answer for. Plain conditions, from the people who will answer the phone.",
   path: "/terms",
 });
 

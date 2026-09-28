@@ -1,11 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import {
-  Geist,
-  Geist_Mono,
-  Cormorant_Garamond,
-} from "next/font/google";
+import { Geist, Geist_Mono, Cormorant_Garamond } from "next/font/google";
 
 import "./globals.css";
+
+import { Analytics } from "@vercel/analytics/next";
 
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -77,11 +75,19 @@ export default function RootLayout({
 
         <Navbar />
 
-        <main className="flex-1">
-          {children}
-        </main>
+        <main className="flex-1">{children}</main>
 
         <Footer />
+
+        {/*
+          Counts visits, and nothing more. No cookie is set and nothing
+          is kept in the browser: our host counts the page, the site the
+          visit came from, the country and the kind of device, and none
+          of it is joined to a person. It is here because we had no idea
+          which journeys anybody was reading about, and the privacy page
+          says so in plain words rather than leaving it to be found.
+        */}
+        <Analytics />
       </body>
     </html>
   );

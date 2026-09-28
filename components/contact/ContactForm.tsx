@@ -7,16 +7,19 @@ import Reveal from "@/components/ui/Reveal";
 import { CONTACT_EMAIL, emailLink, whatsappLink } from "@/lib/whatsapp";
 
 /*
-  The same enquiry flow the houseboat pages use: the form checks itself,
-  writes the message out, and hands it to WhatsApp. Nothing is posted
-  anywhere — there is no server behind this site yet, and a form that
-  quietly swallowed an enquiry would be worse than no form. The page says
-  so above the button, because a visitor should never be surprised by
-  which app opens.
+  The enquiry flow. The form checks itself, writes the message out, and
+  posts it to /api/enquiry, which puts it in our inbox.
 
-  The email link beside it carries the same text, so the people who do not
-  use WhatsApp — a good share of our British and American guests — are not
-  sent away to write the whole thing again.
+  Two buttons, because the route out is not the same for everyone. The
+  WhatsApp one also opens WhatsApp with the same words, since that is
+  how most of our Indian and European guests want to carry on talking.
+  The other one simply sends from this page, which is what the British
+  and American guests who do not use WhatsApp were being denied before.
+
+  If the route cannot take it — no key configured, or the network went —
+  the page falls back to opening the visitor's own mail app with the
+  message already written, and says so. A form that quietly swallowed an
+  enquiry would be worse than no form.
 */
 
 const LABEL = "block text-[10px] uppercase tracking-[0.3em] text-white/35";
@@ -100,7 +103,19 @@ export default function ContactForm() {
   const [note, setNote] = useState("");
 
   const [errors, setErrors] = useState<Errors>({});
-  const [handedOver, setHandedOver] = useState<"whatsapp" | "email" | null>(null);
+  const [handedOver, setHandedOver] = useState<"whatsapp" | "email" | null>(
+    null,
+  );
+
+  /*
+    The site's own send, which is separate from the hand-off above:
+    "sending" while the request is in the air, "sent" when the enquiry
+    is in the inbox, "offline" when the route could not take it and the
+    visitor's own mail app has been opened instead.
+  */
+  const [posting, setPosting] = useState<"sending" | "sent" | "offline" | null>(
+    null,
+  );
 
   /*
     Built on every render rather than on submit, so both routes are
@@ -223,7 +238,7 @@ export default function ContactForm() {
   */
   const clear = (field: keyof Errors) =>
     setErrors((current) =>
-      current[field] ? { ...current, [field]: undefined } : current
+      current[field] ? { ...current, [field]: undefined } : current,
     );
 
   /*
@@ -232,7 +247,38 @@ export default function ContactForm() {
     address link that skipped validation would be the lesser of the two
     however the buttons were drawn.
   */
-  const send = (route: "whatsapp" | "email") => {
+  /*
+    Record it here before anything is handed anywhere.
+
+    Returns true when the enquiry is in our inbox. False means the
+    route could not take it — no key configured yet, or the network
+    went — and the caller falls back to opening the visitor's own mail
+    app, which is what this page did before the route existed.
+  */
+  const record = async (route: "whatsapp" | "email") => {
+    try {
+      const response = await fetch("/api/enquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          email,
+          phone,
+          where,
+          when,
+          party,
+          note,
+          route,
+        }),
+      });
+
+      return response.ok;
+    } catch {
+      return false;
+    }
+  };
+
+  const send = async (route: "whatsapp" | "email") => {
     const found = check();
 
     if (found) {
@@ -244,6 +290,28 @@ export default function ContactForm() {
       document.getElementById(found)?.focus();
 
       return;
+    }
+
+    setPosting("sending");
+
+    const recorded = await record(route);
+
+    /*
+      The email route is now a real send: if it reached us there is
+      nothing left for the visitor to do, and opening their mail app
+      on top of that would only invite them to send it twice.
+    */
+    if (route === "email") {
+      if (recorded) {
+        setPosting("sent");
+        setHandedOver(null);
+
+        return;
+      }
+
+      setPosting("offline");
+    } else {
+      setPosting(recorded ? "sent" : null);
     }
 
     const url =
@@ -292,8 +360,8 @@ export default function ContactForm() {
 
             <p className="mt-8 max-w-md text-[15px] leading-8 text-white/55 md:text-[16px] md:leading-9">
               Only your name and an address are needed. Everything else just
-              saves a round of questions — and if you do not know the dates
-              yet, that is the normal way to start.
+              saves a round of questions — and if you do not know the dates yet,
+              that is the normal way to start.
             </p>
           </Reveal>
 
@@ -316,12 +384,17 @@ export default function ContactForm() {
                       clear("name");
                     }}
                     aria-invalid={Boolean(errors.name)}
-                    aria-describedby={errors.name ? "contact-name-error" : undefined}
+                    aria-describedby={
+                      errors.name ? "contact-name-error" : undefined
+                    }
                     className={`${FIELD} ${errors.name ? BAD : OK}`}
                   />
 
                   {errors.name ? (
-                    <p id="contact-name-error" className="mt-2.5 text-[12px] text-[#C08457]">
+                    <p
+                      id="contact-name-error"
+                      className="mt-2.5 text-[12px] text-[#C08457]"
+                    >
                       {errors.name}
                     </p>
                   ) : null}
@@ -345,12 +418,17 @@ export default function ContactForm() {
                       clear("email");
                     }}
                     aria-invalid={Boolean(errors.email)}
-                    aria-describedby={errors.email ? "contact-email-error" : undefined}
+                    aria-describedby={
+                      errors.email ? "contact-email-error" : undefined
+                    }
                     className={`${FIELD} ${errors.email ? BAD : OK}`}
                   />
 
                   {errors.email ? (
-                    <p id="contact-email-error" className="mt-2.5 text-[12px] text-[#C08457]">
+                    <p
+                      id="contact-email-error"
+                      className="mt-2.5 text-[12px] text-[#C08457]"
+                    >
                       {errors.email}
                     </p>
                   ) : null}
@@ -452,8 +530,8 @@ export default function ContactForm() {
                       nearlyFull ? "opacity-100" : "opacity-0"
                     }`}
                   >
-                    That is about as much as this form can carry — there is
-                    room for the rest once the conversation is open.
+                    That is about as much as this form can carry — there is room
+                    for the rest once the conversation is open.
                   </p>
                 </div>
               </div>
@@ -478,7 +556,8 @@ export default function ContactForm() {
                     onClick={
                       route.id === "whatsapp" ? undefined : () => send("email")
                     }
-                    className="group flex items-center justify-between gap-5 whitespace-nowrap border border-white/25 px-8 py-4 text-[11px] uppercase tracking-[0.3em] text-white transition-colors duration-500 hover:border-[#6B7341] hover:bg-[#6B7341]"
+                    disabled={posting === "sending"}
+                    className="group flex items-center justify-between gap-5 whitespace-nowrap border border-white/25 px-8 py-4 text-[11px] uppercase tracking-[0.3em] text-white transition-colors duration-500 hover:border-[#6B7341] hover:bg-[#6B7341] disabled:pointer-events-none disabled:opacity-50"
                   >
                     {route.label}
                     <span
@@ -514,14 +593,24 @@ export default function ContactForm() {
               <p
                 aria-live="polite"
                 className={`mt-6 max-w-md text-[13px] leading-7 text-[#A8B473] transition-opacity duration-500 ${
-                  handedOver ? "opacity-100" : "pointer-events-none opacity-0"
+                  handedOver || posting
+                    ? "opacity-100"
+                    : "pointer-events-none opacity-0"
                 }`}
               >
-                {handedOver === "whatsapp"
-                  ? "WhatsApp should have opened with your message in it. If it did not, the email button carries exactly the same words."
-                  : handedOver === "email"
-                    ? "Your mail app should have opened with the message in it. If it did not, the WhatsApp button carries exactly the same words."
-                    : " "}
+                {posting === "sending"
+                  ? "Sending\u2026"
+                  : posting === "sent" && !handedOver
+                    ? `Thank you \u2014 your message is with us. We read everything ourselves, and a reply will come to ${email.trim()}, usually within a day.`
+                    : posting === "offline"
+                      ? "We could not send it from this page just now, so your mail app should have opened with the message in it. If it did not, the WhatsApp button carries exactly the same words."
+                      : handedOver === "whatsapp"
+                        ? posting === "sent"
+                          ? "WhatsApp should have opened with your message in it \u2014 and we have the enquiry here either way, so nothing is lost if it did not."
+                          : "WhatsApp should have opened with your message in it. If it did not, the other button sends exactly the same words from this page."
+                        : handedOver === "email"
+                          ? "Your mail app should have opened with the message in it. If it did not, the WhatsApp button carries exactly the same words."
+                          : " "}
               </p>
             </form>
           </Reveal>

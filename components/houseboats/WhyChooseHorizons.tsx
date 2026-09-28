@@ -3,9 +3,9 @@ import Reveal from "@/components/ui/Reveal";
 export default function WhyChooseHorizons() {
   const features = [
     {
-      title: "Curated Fleet",
+      title: "Boats We Know",
       description:
-        "Every houseboat is personally selected for its comfort, authenticity and exceptional hospitality.",
+        "Every houseboat here is one we have been aboard, chosen for its comfort, its authenticity and the family who run it.",
     },
     {
       title: "Local Expertise",

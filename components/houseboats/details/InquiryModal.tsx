@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
@@ -58,19 +58,40 @@ export default function InquiryModal({
     phone: "",
   });
 
+  /*
+    An availability enquiry is the most valuable thing anybody does on
+    this site, and until now it reached us only if the visitor finished
+    the hand-off in another app. So it is posted to /api/enquiry first,
+    every time. `sent` is the acknowledgement they are owed once it has
+    arrived; `posting` stops a second press while it is in the air.
+  */
+  const [posting, setPosting] = useState(false);
+  const [sent, setSent] = useState(false);
+
+  /*
+    Every way out of this modal goes through here — the cross, Cancel,
+    Escape, the backdrop, Close — so it is also where the sent state is
+    forgotten, and the next enquiry opens on a clean form.
+  */
+  const close = useCallback(() => {
+    setPosting(false);
+    setSent(false);
+    onClose();
+  }, [onClose]);
+
   useEffect(() => {
     if (!isOpen) return;
 
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        onClose();
+        close();
       }
     };
 
     window.addEventListener("keydown", handleEscape);
 
     return () => window.removeEventListener("keydown", handleEscape);
-  }, [isOpen, onClose]);
+  }, [isOpen, close]);
 
   useScrollLock(isOpen);
 
@@ -104,7 +125,38 @@ export default function InquiryModal({
     return !newErrors.fullName && !newErrors.email && !newErrors.phone;
   };
 
-  const handleContinue = (route: "whatsapp" | "email") => {
+  /*
+    True when the enquiry is in our inbox. False means the route could
+    not take it — no key configured, or the network went — and the
+    visitor's own mail app is opened instead, as it always was.
+  */
+  const record = async (
+    route: "whatsapp" | "email",
+    details: Record<string, string>,
+    requests: string,
+  ) => {
+    try {
+      const response = await fetch("/api/enquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: fullName,
+          email,
+          phone,
+          note: requests,
+          route,
+          subject: `Availability — ${houseboatName}`,
+          details,
+        }),
+      });
+
+      return response.ok;
+    } catch {
+      return false;
+    }
+  };
+
+  const handleContinue = async (route: "whatsapp" | "email") => {
     if (!validateForm()) return;
 
     const guests = [
@@ -150,6 +202,37 @@ export default function InquiryModal({
 
     const body = lines.join("\n");
 
+    setPosting(true);
+
+    const recorded = await record(
+      route,
+      {
+        Houseboat: houseboatName,
+        Category: selectedCategory,
+        "Check-in": format(checkIn, "dd MMM yyyy"),
+        "Check-out": format(checkOut, "dd MMM yyyy"),
+        Duration: `${nights} night${nights === 1 ? "" : "s"}`,
+        Guests: guests,
+        "Estimated total": `₹${totalPrice.toLocaleString()}`,
+        ...(country.trim() ? { Country: country.trim() } : {}),
+      },
+      specialRequests,
+    );
+
+    setPosting(false);
+
+    /*
+      If it reached us there is nothing left for the visitor to do, and
+      opening their mail app on top of that would only invite them to
+      send the same enquiry twice. WhatsApp still opens, because there
+      the point is the conversation, not the delivery.
+    */
+    if (route === "email" && recorded) {
+      setSent(true);
+
+      return;
+    }
+
     const url =
       route === "whatsapp"
         ? whatsappLink(body)
@@ -181,7 +264,7 @@ export default function InquiryModal({
 
     setErrors({ fullName: "", email: "", phone: "" });
 
-    onClose();
+    close();
   };
 
   const summary: { label: string; value: string }[] = [
@@ -215,7 +298,7 @@ export default function InquiryModal({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.25 }}
-          onClick={onClose}
+          onClick={close}
           className="fixed inset-0 z-[1000] overflow-y-auto bg-black/50 p-0 backdrop-blur-sm md:p-6"
         >
           <div className="flex min-h-full items-end justify-center md:items-center">
@@ -240,7 +323,7 @@ export default function InquiryModal({
 
                 <button
                   type="button"
-                  onClick={onClose}
+                  onClick={close}
                   aria-label="Close enquiry"
                   className="-mr-2 -mt-1 flex h-10 w-10 shrink-0 items-center justify-center text-neutral-900 transition-colors duration-300 hover:text-[#6B7341]"
                 >
@@ -281,111 +364,145 @@ export default function InquiryModal({
                   </div>
                 </div>
 
-                {/* Guest details */}
-                <p className="mt-9 text-[11px] uppercase tracking-[0.3em] text-neutral-500">
-                  Your Details
-                </p>
+                {/*
+                  Once the enquiry is with us the form has no further
+                  business being on screen: what the visitor needs is the
+                  particulars they just sent and a sentence telling them
+                  we have them.
+                */}
+                {sent ? (
+                  <div className="mt-9 border border-[#6B7341]/40 px-5 py-6 md:px-6">
+                    <p className="text-[11px] uppercase tracking-[0.3em] text-[#6B7341]">
+                      Enquiry Received
+                    </p>
 
-                <div className="mt-5 grid gap-5 md:grid-cols-2">
-                  <div>
-                    <label htmlFor="inquiry-name" className={labelClass}>
-                      Full Name <span className="text-[#6B7341]">*</span>
-                    </label>
-
-                    <input
-                      id="inquiry-name"
-                      value={fullName}
-                      onChange={(event) => setFullName(event.target.value)}
-                      placeholder="Your full name"
-                      className={`${inputClass} ${
-                        errors.fullName ? "border-red-400" : "border-neutral-200"
-                      }`}
-                    />
-
-                    {errors.fullName && (
-                      <p className="mt-2 text-[12px] text-red-500">
-                        {errors.fullName}
-                      </p>
-                    )}
+                    <p className="mt-4 text-[15px] leading-8 text-neutral-700">
+                      Thank you, {fullName.trim().split(" ")[0]}. Your enquiry
+                      is with us, and we read these ourselves rather than
+                      passing them to a desk. A reply will come to{" "}
+                      <span className="text-neutral-900">{email.trim()}</span>,
+                      usually within a day, with what is actually free on those
+                      dates.
+                    </p>
                   </div>
+                ) : (
+                  <>
+                    {/* Guest details */}
+                    <p className="mt-9 text-[11px] uppercase tracking-[0.3em] text-neutral-500">
+                      Your Details
+                    </p>
 
-                  <div>
-                    <label htmlFor="inquiry-email" className={labelClass}>
-                      Email <span className="text-[#6B7341]">*</span>
-                    </label>
+                    <div className="mt-5 grid gap-5 md:grid-cols-2">
+                      <div>
+                        <label htmlFor="inquiry-name" className={labelClass}>
+                          Full Name <span className="text-[#6B7341]">*</span>
+                        </label>
 
-                    <input
-                      id="inquiry-email"
-                      type="email"
-                      value={email}
-                      onChange={(event) => setEmail(event.target.value)}
-                      placeholder="name@example.com"
-                      className={`${inputClass} ${
-                        errors.email ? "border-red-400" : "border-neutral-200"
-                      }`}
-                    />
+                        <input
+                          id="inquiry-name"
+                          value={fullName}
+                          onChange={(event) => setFullName(event.target.value)}
+                          placeholder="Your full name"
+                          className={`${inputClass} ${
+                            errors.fullName
+                              ? "border-red-400"
+                              : "border-neutral-200"
+                          }`}
+                        />
 
-                    {errors.email && (
-                      <p className="mt-2 text-[12px] text-red-500">
-                        {errors.email}
-                      </p>
-                    )}
-                  </div>
+                        {errors.fullName && (
+                          <p className="mt-2 text-[12px] text-red-500">
+                            {errors.fullName}
+                          </p>
+                        )}
+                      </div>
 
-                  <div>
-                    <label htmlFor="inquiry-phone" className={labelClass}>
-                      Phone <span className="text-[#6B7341]">*</span>
-                    </label>
+                      <div>
+                        <label htmlFor="inquiry-email" className={labelClass}>
+                          Email <span className="text-[#6B7341]">*</span>
+                        </label>
 
-                    <input
-                      id="inquiry-phone"
-                      type="tel"
-                      value={phone}
-                      onChange={(event) => setPhone(event.target.value)}
-                      placeholder="+91 98765 43210"
-                      className={`${inputClass} ${
-                        errors.phone ? "border-red-400" : "border-neutral-200"
-                      }`}
-                    />
+                        <input
+                          id="inquiry-email"
+                          type="email"
+                          value={email}
+                          onChange={(event) => setEmail(event.target.value)}
+                          placeholder="name@example.com"
+                          className={`${inputClass} ${
+                            errors.email
+                              ? "border-red-400"
+                              : "border-neutral-200"
+                          }`}
+                        />
 
-                    {errors.phone && (
-                      <p className="mt-2 text-[12px] text-red-500">
-                        {errors.phone}
-                      </p>
-                    )}
-                  </div>
+                        {errors.email && (
+                          <p className="mt-2 text-[12px] text-red-500">
+                            {errors.email}
+                          </p>
+                        )}
+                      </div>
 
-                  <div>
-                    <label htmlFor="inquiry-country" className={labelClass}>
-                      Country
-                    </label>
+                      <div>
+                        <label htmlFor="inquiry-phone" className={labelClass}>
+                          Phone <span className="text-[#6B7341]">*</span>
+                        </label>
 
-                    <input
-                      id="inquiry-country"
-                      value={country}
-                      onChange={(event) => setCountry(event.target.value)}
-                      placeholder="Optional"
-                      className={`${inputClass} border-neutral-200`}
-                    />
-                  </div>
+                        <input
+                          id="inquiry-phone"
+                          type="tel"
+                          value={phone}
+                          onChange={(event) => setPhone(event.target.value)}
+                          placeholder="+91 98765 43210"
+                          className={`${inputClass} ${
+                            errors.phone
+                              ? "border-red-400"
+                              : "border-neutral-200"
+                          }`}
+                        />
 
-                  <div className="md:col-span-2">
-                    <label htmlFor="inquiry-requests" className={labelClass}>
-                      Special Requests
-                    </label>
+                        {errors.phone && (
+                          <p className="mt-2 text-[12px] text-red-500">
+                            {errors.phone}
+                          </p>
+                        )}
+                      </div>
 
-                    <textarea
-                      id="inquiry-requests"
-                      rows={3}
-                      value={specialRequests}
-                      onChange={(event) =>
-                        setSpecialRequests(event.target.value)
-                      }
-                      placeholder="Dietary needs, a celebration, an early check-in"
-                      className={`${inputClass} resize-none border-neutral-200`}
-                    />
-                  </div>
-                </div>
+                      <div>
+                        <label htmlFor="inquiry-country" className={labelClass}>
+                          Country
+                        </label>
+
+                        <input
+                          id="inquiry-country"
+                          value={country}
+                          onChange={(event) => setCountry(event.target.value)}
+                          placeholder="Optional"
+                          className={`${inputClass} border-neutral-200`}
+                        />
+                      </div>
+
+                      <div className="md:col-span-2">
+                        <label
+                          htmlFor="inquiry-requests"
+                          className={labelClass}
+                        >
+                          Special Requests
+                        </label>
+
+                        <textarea
+                          id="inquiry-requests"
+                          rows={3}
+                          value={specialRequests}
+                          onChange={(event) =>
+                            setSpecialRequests(event.target.value)
+                          }
+                          placeholder="Dietary needs, a celebration, an early check-in"
+                          className={`${inputClass} resize-none border-neutral-200`}
+                        />
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
 
               {/*
@@ -398,37 +515,51 @@ export default function InquiryModal({
                 belongs.
               */}
               <div className="border-t border-neutral-200 px-6 py-5 md:px-9">
-                <div className="grid gap-3 sm:grid-cols-2">
+                {sent ? (
                   <button
                     type="button"
-                    onClick={() => handleContinue("whatsapp")}
+                    onClick={close}
                     className="w-full bg-neutral-900 py-4 text-[12px] uppercase tracking-[0.25em] text-white transition-colors duration-300 hover:bg-black"
                   >
-                    Send on WhatsApp
+                    Close
                   </button>
+                ) : (
+                  <>
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      <button
+                        type="button"
+                        onClick={() => handleContinue("whatsapp")}
+                        disabled={posting}
+                        className="w-full bg-neutral-900 py-4 text-[12px] uppercase tracking-[0.25em] text-white transition-colors duration-300 hover:bg-black disabled:pointer-events-none disabled:opacity-50"
+                      >
+                        Send on WhatsApp
+                      </button>
 
-                  <button
-                    type="button"
-                    onClick={() => handleContinue("email")}
-                    className="w-full bg-neutral-900 py-4 text-[12px] uppercase tracking-[0.25em] text-white transition-colors duration-300 hover:bg-black"
-                  >
-                    Send by email
-                  </button>
-                </div>
+                      <button
+                        type="button"
+                        onClick={() => handleContinue("email")}
+                        disabled={posting}
+                        className="w-full bg-neutral-900 py-4 text-[12px] uppercase tracking-[0.25em] text-white transition-colors duration-300 hover:bg-black disabled:pointer-events-none disabled:opacity-50"
+                      >
+                        {posting ? "Sending…" : "Send by email"}
+                      </button>
+                    </div>
 
-                <button
-                  type="button"
-                  onClick={onClose}
-                  className="mt-4 w-full py-1 text-[12px] uppercase tracking-[0.25em] text-neutral-500 transition-colors duration-300 hover:text-neutral-900"
-                >
-                  Cancel
-                </button>
+                    <button
+                      type="button"
+                      onClick={close}
+                      className="mt-4 w-full py-1 text-[12px] uppercase tracking-[0.25em] text-neutral-500 transition-colors duration-300 hover:text-neutral-900"
+                    >
+                      Cancel
+                    </button>
+                  </>
+                )}
               </div>
             </motion.div>
           </div>
         </motion.div>
       )}
     </AnimatePresence>,
-    document.body
+    document.body,
   );
 }

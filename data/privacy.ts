@@ -4,11 +4,22 @@
   Written against what the site actually does rather than against a
   template: every claim in here was checked in the browser before it was
   written down. No cookies are set — the cookie jar is empty on every
-  page. No analytics, no advertising pixels, no embeds, no iframes. The
-  typefaces are served from our own domain, so opening a page does not
-  tell Google you did. The photographs that sit on Unsplash's servers are
-  fetched by our server and re-served from ours, so the visitor's browser
-  never talks to anybody but us.
+  page. No advertising pixels, no embeds, no iframes. The typefaces are
+  served from our own domain, so opening a page does not tell Google you
+  did. The photographs that sit on Unsplash's servers are fetched by our
+  server and re-served from ours.
+
+  Two things changed on 28 September 2026 and are written down here
+  because they had to be. The site now counts page views through Vercel,
+  who already serves every page: no cookie, no identifier that follows
+  anybody to another website, nothing joined to a name. And the enquiry
+  form now sends to our mailbox itself, through Resend, instead of
+  handing the message to the visitor's own email program and hoping.
+
+  The line about the mailbox said Google Workspace. The live MX records
+  for scenicescapesindia.com point at secureserver.net, which is GoDaddy,
+  so it said the wrong thing and now says the right one. If the mailbox
+  ever moves, this is the line that moves with it.
 
   The one thing the site does put in your browser is the note that the
   opening animation has played, and it is named here rather than glossed
@@ -20,11 +31,11 @@
 
 import type { LegalSection } from "@/data/legal.types";
 
-export const LAST_UPDATED = "25 September 2026";
+export const LAST_UPDATED = "28 September 2026";
 
 export const SUMMARY = [
   { label: "Cookies", value: "None" },
-  { label: "Analytics or tracking", value: "None" },
+  { label: "Analytics", value: "Page counts, no cookies" },
   { label: "Sold or shared for advertising", value: "Never" },
 ];
 
@@ -42,8 +53,9 @@ export const SECTIONS: LegalSection[] = [
     id: "website",
     heading: "What the website collects",
     body: [
-      "Nothing. There are no cookies on this site — not analytics cookies, not advertising cookies, not the consent banner that usually comes with them, because there is nothing to consent to. There is no Google Analytics, no advertising pixel, no session recording and no embedded video or map quietly reporting your visit to somebody else.",
-      "The typefaces are served from this website rather than from Google, and the photographs are fetched by our server and re-served from ours. Opening a page here does not tell any other company that you did.",
+      "Almost nothing, and no cookies at all — not analytics cookies, not advertising cookies, not the consent banner that usually comes with them, because there is nothing to consent to. There is no Google Analytics, no advertising pixel, no session recording and no embedded video or map quietly reporting your visit to somebody else.",
+      "We do count visits, and it would be wrong to leave that out. Vercel, who host this site and therefore already answer every page you open, count them for us: which page it was, which website you arrived from, roughly where in the world you are, and what kind of device and browser you used. No cookie is set, nothing is stored in your browser, there is no identifier that follows you to any other website, and none of it is joined to your IP address or your name. We look at it to learn which journeys people are actually reading about. It cannot tell us who you are, and we could not ask it to.",
+      "The typefaces are served from this website rather than from Google, and the photographs are fetched by our server and re-served from ours. Apart from that count, which goes to the company already serving you the page, opening a page here does not tell another company that you did.",
       "One small thing is put in your browser, and it is only fair to name it: when the opening animation has played, your browser is asked to remember that for as long as the tab stays open, so it does not play again on every page. It is not a cookie, it holds nothing about you, it never leaves your computer, and it disappears when you close the tab.",
     ],
   },
@@ -66,9 +78,9 @@ export const SECTIONS: LegalSection[] = [
     id: "writing",
     heading: "When you write to us",
     body: [
-      "The enquiry form on this site does not send anything anywhere. It writes the message out for you and hands it to your own email program or to WhatsApp — nothing reaches us until you press send yourself, in your own application. The same is true of every enquiry button on the site.",
+      "The enquiry form sends what you wrote to our own mailbox, and that is the whole of it: there is no database behind this website, no account being made for you, and nothing kept anywhere but the mail itself. If you use the WhatsApp button, it opens WhatsApp with the same message so you can carry the conversation on there. If the sending fails for any reason, the form falls back to opening your own email program with the message already written, and tells you on the page that it has done so.",
       "So what we hold is what you chose to write: your name, your email address, your telephone number if you gave one, and whatever you told us about the journey you are thinking about — dates, how many of you, a knee that does not like stairs, a child who will not eat chilli.",
-      "Email to info@scenicescapesindia.com is held in our mailbox at Google Workspace. Messages sent on WhatsApp are carried and stored by WhatsApp, which belongs to Meta, under their terms rather than ours. If you would rather neither company held the conversation, telephone us.",
+      "What you send from the form is carried to us by Resend, an American company, over its servers in Ireland, and it lands in our mailbox at info@scenicescapesindia.com, which is hosted by GoDaddy. Resend holds a copy of the message in its log for a short while, as any postal service holds a letter while carrying it; we do not use it for anything else. Messages sent on WhatsApp are carried and stored by WhatsApp, which belongs to Meta, under their terms rather than ours. If you would rather none of them held the conversation, telephone us.",
     ],
   },
   {
