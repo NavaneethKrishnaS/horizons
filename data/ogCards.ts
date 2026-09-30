@@ -33,6 +33,11 @@ export const OG_CARDS: Record<string, OgCardCopy> = {
     title: "Thirty-nine ways across India.",
     note: "Itineraries we run on the ground, from Kerala to Ladakh.",
   },
+  experiences: {
+    label: "On the water",
+    title: "The backwaters, without the boat.",
+    note: "Shikara rides, village canoes at first light, kayaking, and the ferries everybody here takes.",
+  },
   stays: {
     label: "Places to stay",
     title: "Where we would put you.",

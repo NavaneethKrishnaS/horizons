@@ -54,3 +54,10 @@ public/__*
 # A stale Turbopack dev cache, renamed out of the way so the dev server
 # could start. Safe to delete from Finder; nothing in it is source.
 /.next-stale-cache/
+
+# The originals behind public/images/experiences/*.webp. Kept on disk so
+# they can be re-cropped, kept out of the repository because only the
+# webp is ever served and a 7MB jpeg in git history is there for good.
+public/images/experiences/kayaking.jpg
+public/images/experiences/shikara.PNG
+public/images/experiences/ferryboat.jpg

@@ -20,6 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/destinations",
     "/journal",
     "/houseboats",
+    "/experiences",
     "/packages",
     "/stays",
     "/contact",

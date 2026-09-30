@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import Container from "@/components/ui/Container";
 import { throttle } from "@/lib/throttle";
 import DestinationsMenu from "./navbar/DestinationsMenu";
+import ExperiencesMenu from "./navbar/ExperiencesMenu";
 import MobileMenu from "./navbar/MobileMenu";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -28,7 +29,7 @@ export default function Navbar() {
     as long as the panel is open — a dark panel under a cream bar is
     the seam this exists to remove.
   */
-  const panelOpen = activeMenu === "Destinations";
+  const panelOpen = activeMenu !== null;
 
   const onPaper = paperPage && !panelOpen;
 
@@ -208,9 +209,15 @@ export default function Navbar() {
               Availability link on the right ran into each other — the
               links are centred on the bar, so they grow towards the
               corners as the window narrows and the corners do not move.
+
+              Experiences made it seven, which is about seventy pixels
+              the centre did not have at the narrow end of that range. The
+              gap closes to seven at lg to pay for it and is untouched at
+              xl, so the desktop bar is exactly as it was and only the
+              tight window changes.
             */}
             <div
-              className={`absolute left-1/2 hidden -translate-x-1/2 items-center gap-10 text-[15px] font-light lg:flex xl:gap-16 ${
+              className={`absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 text-[15px] font-light lg:flex xl:gap-16 ${
                 onPaper ? "text-black/70" : "text-white/90"
               }`}
             >
@@ -233,6 +240,18 @@ export default function Navbar() {
               >
                 Houseboats
               </Link>
+
+              <div
+                onMouseEnter={() => openMenu("Experiences")}
+                onMouseLeave={closeMenu}
+              >
+                <Link
+                  href="/experiences"
+                  className={`transition ${active("/experiences")}`}
+                >
+                  Experiences
+                </Link>
+              </div>
 
               <Link href="/stays" className={`transition ${active("/stays")}`}>
                 Stays
@@ -317,6 +336,22 @@ export default function Navbar() {
               onMouseLeave={closeMenu}
             >
               <DestinationsMenu onNavigate={() => setActiveMenu(null)} />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {activeMenu === "Experiences" && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.24, ease: "easeOut" }}
+              className="absolute inset-x-0 top-full hidden lg:block"
+              onMouseEnter={() => openMenu("Experiences")}
+              onMouseLeave={closeMenu}
+            >
+              <ExperiencesMenu onNavigate={() => setActiveMenu(null)} />
             </motion.div>
           )}
         </AnimatePresence>

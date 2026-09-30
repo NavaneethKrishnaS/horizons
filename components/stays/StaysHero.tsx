@@ -12,11 +12,39 @@ import { collections, stays } from "@/data/stays";
 */
 /* Spelled, because a numeral in a line of Cormorant reads as a price. */
 const UNITS = [
-  "no", "one", "two", "three", "four", "five", "six", "seven", "eight",
-  "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen",
-  "sixteen", "seventeen", "eighteen", "nineteen",
+  "no",
+  "one",
+  "two",
+  "three",
+  "four",
+  "five",
+  "six",
+  "seven",
+  "eight",
+  "nine",
+  "ten",
+  "eleven",
+  "twelve",
+  "thirteen",
+  "fourteen",
+  "fifteen",
+  "sixteen",
+  "seventeen",
+  "eighteen",
+  "nineteen",
 ];
-const TENS = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
+const TENS = [
+  "",
+  "",
+  "twenty",
+  "thirty",
+  "forty",
+  "fifty",
+  "sixty",
+  "seventy",
+  "eighty",
+  "ninety",
+];
 
 function spelled(count: number) {
   if (count < 20) return UNITS[count] ?? String(count);
@@ -98,10 +126,10 @@ export default function StaysHero() {
           className="horizons-stays-in mt-9 max-w-2xl text-[15px] leading-8 text-white/60 md:text-[17px] md:leading-9"
           style={{ animationDelay: "360ms" }}
         >
-          Small hotels, family houses, houseboats and camps — {kerala} of
-          them in Kerala, where we live, and the rest in places we have been
-          sent enough times to have opinions about. None of them is a chain.
-          We have stood in most of them.
+          Small hotels, family houses, houseboats and camps — {kerala} of them
+          in Kerala, where we live, and the rest in places we have been sent
+          enough times to have opinions about. None of them is a chain, and we
+          know every one of them.
         </p>
       </Container>
 
@@ -134,7 +162,8 @@ export default function StaysHero() {
                 </span>
               ))}
               <span className="text-white/30">
-                {" "}— and {spelled(remaining)} more.
+                {" "}
+                — and {spelled(remaining)} more.
               </span>
             </p>
 
