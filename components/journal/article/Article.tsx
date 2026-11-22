@@ -3,6 +3,8 @@ import Link from "next/link";
 
 import { ARTICLES, type JournalArticle } from "@/data/journalArticles";
 
+import Contents from "./Contents";
+
 /*
   An article, in the Journal's own paper rather than the site's black.
 
@@ -18,29 +20,6 @@ import { ARTICLES, type JournalArticle } from "@/data/journalArticles";
 export default function Article({ article }: { article: JournalArticle }) {
   const others = ARTICLES.filter((other) => other.slug !== article.slug);
 
-  /*
-    One list, rendered in both places. The kicker sits above the label
-    rather than beside it, and each row is divided from the last by a
-    hairline so the eye has something to count.
-  */
-  const contents = article.sections.map((section, index) => (
-    <li
-      key={section.id}
-      className={index === 0 ? "" : "border-t border-black/[0.07]"}
-    >
-      <a href={`#${section.id}`} className="group/row block py-2.5">
-        {section.kicker && (
-          <span className="block text-[9.5px] uppercase tracking-[0.26em] text-black/35 transition-colors duration-300 group-hover/row:text-[#6B7341]">
-            {section.kicker}
-          </span>
-        )}
-
-        <span className="mt-1 block text-[13.5px] leading-[1.4] text-black/60 transition-colors duration-300 group-hover/row:text-[#111111]">
-          {section.rail}
-        </span>
-      </a>
-    </li>
-  ));
 
   return (
     <div className="mx-auto grid max-w-[1120px] gap-10 px-6 pb-28 pt-28 md:px-10 md:pb-36 md:pt-32 lg:grid-cols-[230px_1fr] lg:gap-[72px]">
@@ -72,7 +51,7 @@ export default function Article({ article }: { article: JournalArticle }) {
             </span>
           </summary>
 
-          <ol className="mt-3">{contents}</ol>
+          <Contents sections={article.sections} listClassName="mt-3" />
         </details>
 
         <div className="hidden lg:block">
@@ -80,7 +59,7 @@ export default function Article({ article }: { article: JournalArticle }) {
             On this page
           </p>
 
-          <ol className="mt-5">{contents}</ol>
+          <Contents sections={article.sections} listClassName="mt-5" />
         </div>
 
         <Image
