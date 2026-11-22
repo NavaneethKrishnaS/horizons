@@ -211,13 +211,6 @@ export default function Footer() {
             </Link>
 
             <Link
-              href="/gallery"
-              className="transition-colors duration-300 hover:text-white"
-            >
-              Gallery
-            </Link>
-
-            <Link
               href="/cookies"
               className="transition-colors duration-300 hover:text-white"
             >

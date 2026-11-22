@@ -19,7 +19,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/about",
     "/destinations",
     "/journal",
-    "/gallery",
     "/houseboats",
     "/experiences",
     "/packages",
