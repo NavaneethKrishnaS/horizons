@@ -1,11 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import { format } from "date-fns";
 
+import Turnstile, { type TurnstileHandle } from "@/components/common/Turnstile";
 import { emailLink, whatsappLink } from "@/lib/whatsapp";
 
 import { useScrollLock } from "@/lib/scrollLock";
@@ -66,6 +67,8 @@ export default function InquiryModal({
     arrived; `posting` stops a second press while it is in the air.
   */
   const [posting, setPosting] = useState(false);
+  const [robotToken, setRobotToken] = useState("");
+  const turnstile = useRef<TurnstileHandle>(null);
   const [sent, setSent] = useState(false);
 
   /*
@@ -84,6 +87,21 @@ export default function InquiryModal({
   const close = useCallback(() => {
     setPosting(false);
     setSent(false);
+
+    /*
+      A Turnstile token is good once, and this component keeps its state
+      while the modal is shut — only the markup inside AnimatePresence
+      goes. So the token has to be cleared here by hand: the widget that
+      issued it has already unmounted, which makes the ref null and the
+      reset below a no-op in this path. It is kept for the case where
+      the widget is still up.
+
+      Without this, a visitor who sends one enquiry and opens the form
+      again posts a spent token, and the server drops it silently.
+    */
+    setRobotToken("");
+    turnstile.current?.reset();
+
     onClose();
   }, [onClose]);
 
@@ -157,6 +175,7 @@ export default function InquiryModal({
           details,
           company: trap,
           startedAt,
+          turnstileToken: robotToken,
         }),
       });
 
@@ -552,6 +571,15 @@ export default function InquiryModal({
                   </button>
                 ) : (
                   <>
+                    {/*
+                      Above the buttons, not beneath them: on the rare
+                      occasion it asks for a tick, it must not be the
+                      thing hidden below the fold of a scrolling modal.
+                    */}
+                    <div className="mb-5">
+                      <Turnstile ref={turnstile} onToken={setRobotToken} />
+                    </div>
+
                     <div className="grid gap-3 sm:grid-cols-2">
                       <button
                         type="button"

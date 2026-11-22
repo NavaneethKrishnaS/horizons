@@ -28,18 +28,19 @@ import type { LegalSection } from "@/data/legal.types";
 export const LAST_UPDATED = "22 November 2026";
 
 export const SUMMARY = [
-  { label: "Cookies set", value: "None" },
-  { label: "Consent banner", value: "Not needed" },
-  { label: "Third-party trackers", value: "None" },
+  { label: "Cookies we set", value: "None" },
+  { label: "Advertising or tracking", value: "None" },
+  { label: "Third parties", value: "One, on the forms" },
 ];
 
 export const SECTIONS: LegalSection[] = [
   {
     id: "none",
-    heading: "There are none",
+    heading: "Almost none, and the exception is named",
     body: [
-      "This website sets no cookies. Not one — not for analytics, not for advertising, not for remembering who you are between visits. If you open your browser's developer tools on any page here and look at the cookie jar, it is empty, and it stays empty however long you read.",
-      "That is why you have not been shown a banner asking you to accept anything. The banners exist because most sites place cookies before you have agreed to them and the law requires them to ask first. We have nothing to ask about, so we do not interrupt you to ask it.",
+      "This website sets no cookies of its own. Not one — not for analytics, not for advertising, not for remembering who you are between visits.",
+      "There is one exception, named here rather than buried: the pages carrying an enquiry form run a robot check by Cloudflare, which may set a cookie of its own while it runs. Everywhere else the cookie jar is empty and stays empty however long you read.",
+      "That is why you have not been shown a banner. The banners exist because most sites place advertising and tracking cookies before you have agreed to them. We place none, and the one check that does run is part of sending a form rather than something watching you read.",
     ],
   },
   {
@@ -63,16 +64,25 @@ export const SECTIONS: LegalSection[] = [
     id: "others",
     heading: "Nobody else is watching either",
     body: [
-      "Plenty of sites set no cookies of their own and still leak a visit to half a dozen other companies, through an embedded video, a map, a social button or a font. This one does none of that.",
+      "Plenty of sites set no cookies of their own and still leak a visit to half a dozen other companies, through an embedded video, a map, a social button or a font. This one reaches exactly one other company, on the pages with a form, and it is there to keep robots out rather than to watch anybody.",
       "There is no embedded video and no embedded map. There are no social buttons that load anything. The typefaces come from this website rather than from Google, so opening a page here does not tell Google you did. The photographs that sit on another company's servers are fetched by our server and served to you from ours.",
     ],
     list: [
       "No Google Analytics, and no tag manager",
       "No advertising or remarketing pixel",
       "No Facebook, Instagram or other social tracking",
-      "No embedded video, map or iframe",
+      "No embedded video, map or social button",
       "No session recording or heatmaps",
       "No fonts loaded from another company",
+    ],
+  },
+  {
+    id: "the-robot-check",
+    heading: "The one thing that does reach out",
+    body: [
+      "The enquiry forms run a check by Cloudflare called Turnstile, which tells us whether a form was filled in by a person or by a script. It is here because the forms were found by a robot within a day of going up, and the four checks we wrote ourselves did not hold.",
+      "While a form is on your screen, Cloudflare receives your IP address, your browser type and a technical fingerprint of the connection, for that purpose and under Cloudflare's own Turnstile privacy addendum. It may set a cookie of its own while the check runs. Most people see a small box tick itself and are asked nothing at all.",
+      "It runs on the contact page and on the houseboat availability form, and nowhere else. Reading a journey, a stay or the journal reaches nobody but us.",
     ],
   },
   {

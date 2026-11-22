@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import Container from "@/components/ui/Container";
 import Reveal from "@/components/ui/Reveal";
+import Turnstile, { type TurnstileHandle } from "@/components/common/Turnstile";
 import { CONTACT_EMAIL, emailLink, whatsappLink } from "@/lib/whatsapp";
 
 /*
@@ -130,6 +131,14 @@ export default function ContactForm() {
   */
   const [trap, setTrap] = useState("");
   const [startedAt] = useState(() => Date.now());
+
+  /*
+    Cloudflare's token, and a handle to clear it. It is cleared after a
+    send because a token is good once: leaving a spent one in state
+    means a second enquiry from the same visitor is refused.
+  */
+  const [robotToken, setRobotToken] = useState("");
+  const turnstile = useRef<TurnstileHandle>(null);
 
   /*
     Built on every render rather than on submit, so both routes are
@@ -285,6 +294,7 @@ export default function ContactForm() {
           route,
           company: trap,
           startedAt,
+          turnstileToken: robotToken,
         }),
       });
 
@@ -353,6 +363,14 @@ export default function ContactForm() {
     }
 
     setHandedOver(route);
+
+    /*
+      A Turnstile token is good once. Leaving the spent one in state
+      means a visitor who sends a second enquiry — a correction, or a
+      question they forgot — is silently refused by the server. Clear it
+      and let the widget hand us a fresh one.
+    */
+    turnstile.current?.reset();
   };
 
   /* Enter in a field picks the first button, the way a form always has. */
@@ -589,7 +607,16 @@ export default function ContactForm() {
                 come out exactly the same width even though the labels are
                 not the same length — and neither one wraps to do it.
               */}
-              <div className="mt-12 grid w-full gap-4 sm:w-fit sm:grid-cols-2">
+              {/*
+                The robot check, above the buttons rather than hidden by
+                them: on the rare occasion it does ask something, it must
+                not be the thing the visitor scrolled past.
+              */}
+              <div className="mt-11 max-w-md">
+                <Turnstile ref={turnstile} onToken={setRobotToken} />
+              </div>
+
+              <div className="mt-8 grid w-full gap-4 sm:w-fit sm:grid-cols-2">
                 {ROUTES.map((route) => (
                   <button
                     key={route.id}

@@ -4,7 +4,7 @@
   Written against what the site actually does rather than against a
   template: every claim in here was checked in the browser before it was
   written down. No cookies are set — the cookie jar is empty on every
-  page. No advertising pixels, no embeds, no iframes. The typefaces are
+  page. No advertising pixels and no embeds. The typefaces are
   served from our own domain, so opening a page does not tell Google you
   did. The photographs that sit on Unsplash's servers are fetched by our
   server and re-served from ours.
@@ -31,10 +31,10 @@
 
 import type { LegalSection } from "@/data/legal.types";
 
-export const LAST_UPDATED = "28 September 2026";
+export const LAST_UPDATED = "22 November 2026";
 
 export const SUMMARY = [
-  { label: "Cookies", value: "None" },
+  { label: "Cookies we set", value: "None" },
   { label: "Analytics", value: "Page counts, no cookies" },
   { label: "Sold or shared for advertising", value: "Never" },
 ];
@@ -53,9 +53,10 @@ export const SECTIONS: LegalSection[] = [
     id: "website",
     heading: "What the website collects",
     body: [
-      "Almost nothing, and no cookies at all — not analytics cookies, not advertising cookies, not the consent banner that usually comes with them, because there is nothing to consent to. There is no Google Analytics, no advertising pixel, no session recording and no embedded video or map quietly reporting your visit to somebody else.",
+      "Almost nothing, and no cookies of our own — not analytics cookies, not advertising cookies, and no consent banner, because there is nothing here to consent to. There is no Google Analytics, no advertising pixel, no session recording and no embedded video or map quietly reporting your visit to somebody else.",
       "We do count visits, and it would be wrong to leave that out. Vercel, who host this site and therefore already answer every page you open, count them for us: which page it was, which website you arrived from, roughly where in the world you are, and what kind of device and browser you used. No cookie is set, nothing is stored in your browser, there is no identifier that follows you to any other website, and none of it is joined to your IP address or your name. We look at it to learn which journeys people are actually reading about. It cannot tell us who you are, and we could not ask it to.",
-      "The typefaces are served from this website rather than from Google, and the photographs are fetched by our server and re-served from ours. Apart from that count, which goes to the company already serving you the page, opening a page here does not tell another company that you did.",
+      "The typefaces are served from this website rather than from Google, and the photographs are fetched by our server and re-served from ours. Apart from that count, which goes to the company already serving you the page, opening a page here does not tell another company that you did — with one exception, on the two pages that carry an enquiry form.",
+      "Those forms run a robot check by Cloudflare called Turnstile, because within a day of the forms going up they were found by a script. While a form is on your screen Cloudflare receives your IP address, your browser type and a technical fingerprint of the connection, for that purpose only and under Cloudflare's own Turnstile privacy addendum. It may set a cookie of its own while the check runs. It is on the contact page and the houseboat availability form, and nowhere else on this site.",
       "One small thing is put in your browser, and it is only fair to name it: when the opening animation has played, your browser is asked to remember that for as long as the tab stays open, so it does not play again on every page. It is not a cookie, it holds nothing about you, it never leaves your computer, and it disappears when you close the tab.",
     ],
   },

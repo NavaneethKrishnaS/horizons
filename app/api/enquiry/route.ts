@@ -58,6 +58,9 @@ type Body = {
   */
   company?: string;
   startedAt?: number;
+
+  /* Cloudflare's proof that a browser, not a script, filled this in. */
+  turnstileToken?: string;
 };
 
 /* Generous, but enough that nobody pastes a book through it. */
@@ -90,19 +93,21 @@ const DETAIL_VALUE = 200;
   whose privacy page says plainly that there is no such thing, and we
   would rather keep that sentence true than save ourselves this file.
 
-  So there are four checks instead, in order of how certain each is:
+  So there are five checks instead, in order of how certain each is:
 
   1. Origin. A browser sends it on every POST; a script usually does
      not bother, and cannot claim ours from somewhere else.
   2. The honeypot. A hidden field. A person leaves it empty because a
      person cannot see it. A script fills everything.
   3. The clock. Nothing human fills seven fields in three seconds.
-  4. Gibberish. Random strings alternate upper and lower case in a way
+  4. Cloudflare Turnstile, checked on the server. Added because the
+     first three were not enough on their own.
+  5. Gibberish. Random strings alternate upper and lower case in a way
      that written language does not.
 
-  The first three are near enough certain, so those are dropped without
+  The first four are near enough certain, so those are dropped without
   a word — answered 200 so the script learns nothing and does not go
-  looking for a way round. The fourth is a judgement rather than a
+  looking for a way round. The fifth is a judgement rather than a
   fact, so it does not drop anything: it marks the subject line and the
   mail still arrives. A rule in the mailbox can file those, and nothing
   a real guest wrote is ever silently thrown away on a hunch.
@@ -159,6 +164,50 @@ function looksMachineMade(value: string) {
   });
 }
 
+/*
+  Layer five: Cloudflare Turnstile, checked here rather than trusted
+  from the browser. The widget hands the page a token; only this call
+  says whether it is real.
+
+  Two deliberate ways of letting an enquiry through. Until
+  TURNSTILE_SECRET_KEY is set in Vercel the check is skipped, so adding
+  the widget never silently swallows enquiries before the key is in
+  place. And if Cloudflare itself cannot be reached, the other four
+  layers decide — an outage at Cloudflare must not cost us a real guest.
+
+  A missing token when the secret IS set is a different matter: the
+  widget was there and nothing came back, which is what a script looks
+  like. That one is refused.
+*/
+async function passedRobotCheck(token: string, request: Request) {
+  const secret = process.env.TURNSTILE_SECRET_KEY;
+
+  if (!secret) return true;
+  if (!token) return false;
+
+  try {
+    const body = new URLSearchParams({ secret, response: token });
+
+    const ip =
+      request.headers.get("cf-connecting-ip") ??
+      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
+
+    if (ip) body.set("remoteip", ip);
+
+    const response = await fetch(
+      "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+      { method: "POST", body },
+    );
+
+    const data = (await response.json()) as { success?: boolean };
+
+    return data.success === true;
+  } catch (error) {
+    console.error("Turnstile could not be reached", error);
+    return true;
+  }
+}
+
 const clean = (value: unknown, field: string) =>
   typeof value === "string" ? value.trim().slice(0, LIMITS[field] ?? 200) : "";
 
@@ -183,6 +232,15 @@ export async function POST(request: Request) {
   const tooQuick = !started || Date.now() - started < 3000;
 
   if (foreignOrigin(request) || clean(body.company, "name") || tooQuick) {
+    return NextResponse.json({ ok: true });
+  }
+
+  /*
+    Dropped the same silent way as the other three. A script that is told
+    its token failed learns where the wall is; one that is told "thank
+    you" goes away.
+  */
+  if (!(await passedRobotCheck(body.turnstileToken ?? "", request))) {
     return NextResponse.json({ ok: true });
   }
 
