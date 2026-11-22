@@ -5,6 +5,8 @@ import "./globals.css";
 
 import { Analytics } from "@vercel/analytics/next";
 
+import { ORGANISATION_JSON_LD } from "@/lib/organisation";
+
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import RouteTransition from "@/components/layout/RouteTransition";
@@ -69,6 +71,21 @@ export default function RootLayout({
       `}
     >
       <body className="flex min-h-full flex-col bg-[#111111]">
+        {/*
+          The company, on every page rather than only on /company. The
+          < is escaped so a stray tag in a future value can never close
+          this script early.
+        */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(ORGANISATION_JSON_LD).replace(
+              /</g,
+              "\\u003c",
+            ),
+          }}
+        />
+
         <IntroScreen />
 
         <RouteTransition />
