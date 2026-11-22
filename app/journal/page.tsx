@@ -5,6 +5,7 @@ import { pageMeta } from "@/lib/meta";
 import JournalHero from "@/components/journal/JournalHero";
 import Scene from "@/components/journal/Scene";
 import Founder from "@/components/journal/Founder";
+import ArticleIndex from "@/components/journal/article/ArticleIndex";
 import SceneStyles from "@/components/journal/SceneStyles";
 import SceneFit from "@/components/journal/SceneFit";
 
@@ -39,6 +40,8 @@ export default function JournalPage() {
       ))}
 
       <Founder />
+
+      <ArticleIndex />
     </main>
   );
 }

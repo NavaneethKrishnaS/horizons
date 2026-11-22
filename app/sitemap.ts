@@ -4,6 +4,7 @@ import { houseboats } from "@/data/houseboats";
 import { packages } from "@/data/packages";
 import { stays } from "@/data/stays";
 import { KERALA } from "@/data/destinations";
+import { ARTICLES } from "@/data/journalArticles";
 
 const SITE = "https://horizonsindia.com";
 
@@ -38,6 +39,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${SITE}${path}`,
       changeFrequency: "monthly" as const,
       priority: path === "" ? 1 : 0.8,
+    })),
+    ...ARTICLES.map((article) => ({
+      url: `${SITE}/journal/${article.slug}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
     })),
     ...KERALA.map((place) => ({
       url: `${SITE}/destinations/${place.id}`,
