@@ -18,30 +18,70 @@ import { ARTICLES, type JournalArticle } from "@/data/journalArticles";
 export default function Article({ article }: { article: JournalArticle }) {
   const others = ARTICLES.filter((other) => other.slug !== article.slug);
 
+  /*
+    One list, rendered in both places. The kicker sits above the label
+    rather than beside it, and each row is divided from the last by a
+    hairline so the eye has something to count.
+  */
+  const contents = article.sections.map((section, index) => (
+    <li
+      key={section.id}
+      className={index === 0 ? "" : "border-t border-black/[0.07]"}
+    >
+      <a href={`#${section.id}`} className="group/row block py-2.5">
+        {section.kicker && (
+          <span className="block text-[9.5px] uppercase tracking-[0.26em] text-black/35 transition-colors duration-300 group-hover/row:text-[#6B7341]">
+            {section.kicker}
+          </span>
+        )}
+
+        <span className="mt-1 block text-[13.5px] leading-[1.4] text-black/60 transition-colors duration-300 group-hover/row:text-[#111111]">
+          {section.rail}
+        </span>
+      </a>
+    </li>
+  ));
+
   return (
     <div className="mx-auto grid max-w-[1120px] gap-10 px-6 pb-28 pt-28 md:px-10 md:pb-36 md:pt-32 lg:grid-cols-[230px_1fr] lg:gap-[72px]">
       <aside className="lg:sticky lg:top-28 lg:self-start">
-        <p className="text-[10px] uppercase tracking-[0.4em] text-black/45">
-          On this page
-        </p>
+        {/*
+          The contents.
 
-        <ol className="mt-5 space-y-1 text-[13px] leading-[2] text-black/55">
-          {article.sections.map((section) => (
-            <li key={section.id}>
-              <a
-                href={`#${section.id}`}
-                className="flex gap-3 transition-colors duration-300 hover:text-[#111111]"
-              >
-                {section.kicker && (
-                  <span className="w-[46px] shrink-0 text-black/35">
-                    {section.kicker}
-                  </span>
-                )}
-                <span>{section.rail}</span>
-              </a>
-            </li>
-          ))}
-        </ol>
+          The kicker used to sit in a fixed 46px column beside the label,
+          which is the right shape for "12:00" and the wrong one for
+          "October to March" — that wrapped to three lines while its
+          neighbour took one and the list stopped reading as a list. It
+          has a line of its own now, so it can be any length and nothing
+          moves.
+
+          On a phone the same list would put eight stacked rows between
+          the title and the first paragraph, so below lg it folds into a
+          disclosure. <details> rather than state: it is a native control,
+          it works with no JavaScript, and the anchors inside it are in
+          the markup either way for anything reading the page.
+        */}
+        <details className="group border-y border-black/10 py-3 lg:hidden">
+          <summary className="flex cursor-pointer list-none items-center justify-between text-[10px] uppercase tracking-[0.4em] text-black/45">
+            On this page
+            <span
+              aria-hidden
+              className="text-[13px] transition-transform duration-300 group-open:rotate-45"
+            >
+              +
+            </span>
+          </summary>
+
+          <ol className="mt-3">{contents}</ol>
+        </details>
+
+        <div className="hidden lg:block">
+          <p className="text-[10px] uppercase tracking-[0.4em] text-black/45">
+            On this page
+          </p>
+
+          <ol className="mt-5">{contents}</ol>
+        </div>
 
         <Image
           src={article.railArt.src}
