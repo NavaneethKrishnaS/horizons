@@ -20,6 +20,7 @@ const items = [
   { label: "Stays", href: "/stays" },
   { label: "Packages", href: "/packages" },
   { label: "Journal", href: "/journal" },
+  { label: "Gallery", href: "/gallery" },
   { label: "About", href: "/about" },
 ];
 

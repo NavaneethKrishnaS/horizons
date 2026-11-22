@@ -210,14 +210,16 @@ export default function Navbar() {
               links are centred on the bar, so they grow towards the
               corners as the window narrows and the corners do not move.
 
-              Experiences made it seven, which is about seventy pixels
-              the centre did not have at the narrow end of that range. The
-              gap closes to seven at lg to pay for it and is untouched at
-              xl, so the desktop bar is exactly as it was and only the
-              tight window changes.
+              Experiences made it seven and Gallery made it eight, which
+              is about a hundred and thirty pixels the centre did not have
+              at the narrow end of that range. The gap pays for both: five
+              at lg, twelve at xl. Check this bar between about 1024 and
+              1280 pixels after any further link is added — that window is
+              where it breaks first, and it breaks by the centred links
+              touching the Contact link rather than by wrapping.
             */}
             <div
-              className={`absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 text-[15px] font-light lg:flex xl:gap-16 ${
+              className={`absolute left-1/2 hidden -translate-x-1/2 items-center gap-5 text-[15px] font-light lg:flex xl:gap-12 ${
                 onPaper ? "text-black/70" : "text-white/90"
               }`}
             >
@@ -269,6 +271,13 @@ export default function Navbar() {
                 className={`transition ${active("/journal")}`}
               >
                 Journal
+              </Link>
+
+              <Link
+                href="/gallery"
+                className={`transition ${active("/gallery")}`}
+              >
+                Gallery
               </Link>
 
               <Link href="/about" className={`transition ${active("/about")}`}>
