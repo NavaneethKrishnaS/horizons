@@ -81,9 +81,9 @@ export const ARTICLES: JournalArticle[] = [
           "In the high range it is a different calculation: the monsoon shuts the views in cloud, though the tea has never looked better than it does wet. On the plateau at Wayanad the monsoon is serious rather than picturesque.",
         ],
         art: {
-          src: "/images/journal/ripples.webp",
-          alt: "Rain rings on water, drawn",
-          width: 200,
+          src: "/images/journal/monsoon-cloud.webp",
+          alt: "A monsoon cloud with rain falling from it, drawn",
+          width: 230,
         },
       },
       {
@@ -95,6 +95,11 @@ export const ARTICLES: JournalArticle[] = [
           "April and May are hot and humid on the coast. The hill country is the sensible answer in those months: Munnar, Wayanad and the tea estates, beautiful in a way the coast is not.",
           "Two places run against that rule. At Kovalam and Varkala the sea is warm enough to forgive the heat. And the Thrissur Pooram, the loudest festival in the state, falls in April or May — the town is full, which is rather the point of it.",
         ],
+        art: {
+          src: "/images/journal/tea-branch.webp",
+          alt: "A sprig of the tea plant in flower, drawn",
+          width: 165,
+        },
       },
       {
         id: "by-the-calendar",
@@ -197,7 +202,7 @@ export const ARTICLES: JournalArticle[] = [
     metaTitle: "How we plan a journey in Kerala — and why there are no prices",
     metaDescription:
       "What happens after you write to us: who replies, how quickly, how an itinerary is built and changed, and why a journey is quoted rather than priced.",
-    railArt: { src: "/images/journal/lamp.webp", alt: "An oil lamp, drawn" },
+    railArt: { src: "/images/journal/pen-nib.webp", alt: "A dip-pen nib" },
     sections: [
       {
         id: "how-to-start",
@@ -229,9 +234,9 @@ export const ARTICLES: JournalArticle[] = [
           "The same is true of the map. Kerala is where we are from and where most of what we run happens, but a journey can go well beyond it.",
         ],
         art: {
-          src: "/images/journal/feather.webp",
-          alt: "A peacock feather, drawn",
-          width: 150,
+          src: "/images/journal/pen-nib.webp",
+          alt: "A steel dip-pen nib, drawn",
+          width: 160,
         },
       },
       {
