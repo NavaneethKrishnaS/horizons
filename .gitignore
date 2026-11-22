@@ -61,3 +61,7 @@ public/__*
 public/images/experiences/kayaking.jpg
 public/images/experiences/shikara.PNG
 public/images/experiences/ferryboat.jpg
+
+# Contact sheets and the manifest from culling the Scenic Escapes gallery
+# library. Kept on disk so that work is not repeated; never deployed.
+/.cull/
