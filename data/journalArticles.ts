@@ -133,7 +133,7 @@ export const ARTICLES: JournalArticle[] = [
     metaTitle: "How long to spend in Kerala: nights needed, region by region",
     metaDescription:
       "How many nights the backwaters, the high range, Fort Kochi, the north and the far south each need, and why a first Kerala itinerary usually tries to do one place too many.",
-    railArt: { src: "/images/journal/rope.webp", alt: "Coir rope, drawn" },
+    railArt: { src: "/images/journal/hourglass.webp", alt: "An hourglass" },
     sections: [
       {
         id: "one-too-many",
