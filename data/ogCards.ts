@@ -73,6 +73,11 @@ export const OG_CARDS: Record<string, OgCardCopy> = {
     title: "What happens to what you tell us.",
     note: "No cookies, no tracking, no advertising. Page counts and the enquiry you send us, and nothing else.",
   },
+  cookies: {
+    label: "Cookies",
+    title: "No banner, because no cookies.",
+    note: "None are set, by us or by anybody else. What we count instead, and the one thing your browser keeps.",
+  },
   terms: {
     label: "Terms",
     title: "What we promise, and what we ask.",
