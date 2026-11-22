@@ -61,3 +61,8 @@ public/__*
 public/images/experiences/kayaking.jpg
 public/images/experiences/shikara.PNG
 public/images/experiences/ferryboat.jpg
+
+# Contact sheets and the manifest used to cull the gallery down from the
+# 443 in the Scenic Escapes library to the 262 in data/gallery.ts. Kept on
+# disk so the cull can be revised without doing it again; never deployed.
+/.cull/

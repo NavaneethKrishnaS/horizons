@@ -68,6 +68,11 @@ export const OG_CARDS: Record<string, OgCardCopy> = {
     title: "Where we would take you.",
     note: "The backwaters, Fort Kochi, Munnar, Thekkady, the coast and north Malabar — and the rest of India.",
   },
+  gallery: {
+    label: "Gallery",
+    title: "Everything, all at once.",
+    note: "Photographs from journeys we planned, taken by us and by the people travelling with us.",
+  },
   privacy: {
     label: "Privacy",
     title: "What happens to what you tell us.",
