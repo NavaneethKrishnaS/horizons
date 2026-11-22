@@ -118,6 +118,20 @@ export default function ContactForm() {
   );
 
   /*
+    The two the route uses to tell a person from a script, and which a
+    person never sees. The honeypot is a hidden field: anybody with eyes
+    leaves it alone, and the scripts that found this form fill in
+    everything they can see in the markup. The clock is when this form
+    was drawn, because nothing human fills it in three seconds.
+
+    useState with an initialiser rather than Date.now() in the body, so
+    it is the moment the form appeared and not the moment of the last
+    keystroke.
+  */
+  const [trap, setTrap] = useState("");
+  const [startedAt] = useState(() => Date.now());
+
+  /*
     Built on every render rather than on submit, so both routes are
     always carrying whatever has been typed so far.
 
@@ -269,6 +283,8 @@ export default function ContactForm() {
           party,
           note,
           route,
+          company: trap,
+          startedAt,
         }),
       });
 
@@ -367,6 +383,31 @@ export default function ContactForm() {
 
           <Reveal delay={140}>
             <form onSubmit={onSubmit} noValidate>
+              {/*
+                The honeypot.
+
+                Hidden from sight and from screen readers, out of the tab
+                order, and with autofill turned off so a browser never
+                helpfully puts a company name in it. A real visitor
+                cannot reach it; the scripts fill every input they find,
+                and the route drops anything that arrives with this set.
+              */}
+              <div aria-hidden className="hidden">
+                <label htmlFor="contact-company">
+                  Company (leave this empty)
+                </label>
+
+                <input
+                  id="contact-company"
+                  name="company"
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={trap}
+                  onChange={(event) => setTrap(event.target.value)}
+                />
+              </div>
+
               <div className="grid gap-x-10 gap-y-9 sm:grid-cols-2">
                 <div>
                   <label className={LABEL} htmlFor="contact-name">

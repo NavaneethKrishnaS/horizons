@@ -69,6 +69,14 @@ export default function InquiryModal({
   const [sent, setSent] = useState(false);
 
   /*
+    The same two the contact form carries: a hidden field a person never
+    fills, and the moment this was drawn. The route uses them to tell a
+    visitor from a script without putting a captcha on the page.
+  */
+  const [trap, setTrap] = useState("");
+  const [startedAt] = useState(() => Date.now());
+
+  /*
     Every way out of this modal goes through here — the cross, Cancel,
     Escape, the backdrop, Close — so it is also where the sent state is
     forgotten, and the next enquiry opens on a clean form.
@@ -147,6 +155,8 @@ export default function InquiryModal({
           route,
           subject: `Availability — ${houseboatName}`,
           details,
+          company: trap,
+          startedAt,
         }),
       });
 
@@ -391,6 +401,23 @@ export default function InquiryModal({
                     <p className="mt-9 text-[11px] uppercase tracking-[0.3em] text-neutral-500">
                       Your Details
                     </p>
+
+                    {/* The honeypot. Hidden, untabbable, never autofilled. */}
+                    <div aria-hidden className="hidden">
+                      <label htmlFor="inquiry-company">
+                        Company (leave this empty)
+                      </label>
+
+                      <input
+                        id="inquiry-company"
+                        name="company"
+                        type="text"
+                        tabIndex={-1}
+                        autoComplete="off"
+                        value={trap}
+                        onChange={(event) => setTrap(event.target.value)}
+                      />
+                    </div>
 
                     <div className="mt-5 grid gap-5 md:grid-cols-2">
                       <div>

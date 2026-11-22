@@ -50,6 +50,14 @@ type Body = {
   */
   subject?: string;
   details?: Record<string, unknown>;
+
+  /*
+    The two the page adds and a person never sees. `company` is the
+    honeypot: it is in the markup, hidden, and left empty by anybody
+    with eyes. `startedAt` is when the form was drawn.
+  */
+  company?: string;
+  startedAt?: number;
 };
 
 /* Generous, but enough that nobody pastes a book through it. */
@@ -70,6 +78,87 @@ const DETAIL_ROWS = 12;
 const DETAIL_LABEL = 40;
 const DETAIL_VALUE = 200;
 
+/*
+  Keeping the machines out, without a captcha.
+
+  A form with a public address on it gets found. Ours did, within a day,
+  by the usual kind of script: every field filled with random characters
+  and posted straight through.
+
+  The obvious answer is a captcha, and we are not using one. It would
+  mean a third-party script on every page carrying the form, on a site
+  whose privacy page says plainly that there is no such thing, and we
+  would rather keep that sentence true than save ourselves this file.
+
+  So there are four checks instead, in order of how certain each is:
+
+  1. Origin. A browser sends it on every POST; a script usually does
+     not bother, and cannot claim ours from somewhere else.
+  2. The honeypot. A hidden field. A person leaves it empty because a
+     person cannot see it. A script fills everything.
+  3. The clock. Nothing human fills seven fields in three seconds.
+  4. Gibberish. Random strings alternate upper and lower case in a way
+     that written language does not.
+
+  The first three are near enough certain, so those are dropped without
+  a word — answered 200 so the script learns nothing and does not go
+  looking for a way round. The fourth is a judgement rather than a
+  fact, so it does not drop anything: it marks the subject line and the
+  mail still arrives. A rule in the mailbox can file those, and nothing
+  a real guest wrote is ever silently thrown away on a hunch.
+*/
+
+const ALLOWED_HOSTS = [
+  "horizonsindia.com",
+  "www.horizonsindia.com",
+  "localhost:3000",
+  "localhost:3001",
+];
+
+/* True when the request did not come from one of our own pages. */
+function foreignOrigin(request: Request) {
+  const origin =
+    request.headers.get("origin") ?? request.headers.get("referer");
+
+  /* No header at all is a script, or a browser too old to matter. */
+  if (!origin) return true;
+
+  try {
+    const { host } = new URL(origin);
+
+    return !ALLOWED_HOSTS.includes(host) && !host.endsWith(".vercel.app");
+  } catch {
+    return true;
+  }
+}
+
+/*
+  How many times a single word changes case inside itself. "STtxLVNaRRs"
+  does it nine times; "McDonald" does it twice; an ordinary word does it
+  once or none. Five is well clear of any name or place we might
+  actually be sent, including the German and Malayalam ones.
+*/
+function looksMachineMade(value: string) {
+  return value.split(/\s+/).some((word) => {
+    if (word.length < 10) return false;
+
+    let flips = 0;
+
+    for (let i = 1; i < word.length; i += 1) {
+      const before = word[i - 1];
+      const here = word[i];
+
+      if (!/[a-z]/i.test(before) || !/[a-z]/i.test(here)) continue;
+
+      if ((before === before.toUpperCase()) !== (here === here.toUpperCase())) {
+        flips += 1;
+      }
+    }
+
+    return flips >= 5;
+  });
+}
+
 const clean = (value: unknown, field: string) =>
   typeof value === "string" ? value.trim().slice(0, LIMITS[field] ?? 200) : "";
 
@@ -84,6 +173,17 @@ export async function POST(request: Request) {
     body = await request.json();
   } catch {
     return NextResponse.json({ error: "bad-request" }, { status: 400 });
+  }
+
+  /*
+    Silently accepted and silently dropped. The script gets its 200 and
+    goes away; the inbox never hears about it.
+  */
+  const started = typeof body.startedAt === "number" ? body.startedAt : 0;
+  const tooQuick = !started || Date.now() - started < 3000;
+
+  if (foreignOrigin(request) || clean(body.company, "name") || tooQuick) {
+    return NextResponse.json({ ok: true });
   }
 
   const name = clean(body.name, "name");
@@ -120,6 +220,9 @@ export async function POST(request: Request) {
   if (!name || !looksLikeEmail(email)) {
     return NextResponse.json({ error: "incomplete" }, { status: 422 });
   }
+
+  /* Marked rather than dropped, for the reason set out above. */
+  const suspect = [name, where, when, party, note].some(looksMachineMade);
 
   const key = process.env.RESEND_API_KEY;
 
@@ -167,9 +270,11 @@ export async function POST(request: Request) {
         `HORIZONS <enquiries@${CONTACT_EMAIL.split("@")[1]}>`,
       to: [process.env.ENQUIRY_TO ?? CONTACT_EMAIL],
       replyTo: email,
-      subject: subject
-        ? `${subject} — ${name}`
-        : `Enquiry from ${name}${where ? ` — ${where}` : ""}`,
+      subject: `${suspect ? "[Check] " : ""}${
+        subject
+          ? `${subject} — ${name}`
+          : `Enquiry from ${name}${where ? ` — ${where}` : ""}`
+      }`,
       text: lines.join("\n"),
     });
 
