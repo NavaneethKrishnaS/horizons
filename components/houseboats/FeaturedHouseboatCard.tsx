@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Houseboat } from "@/data/houseboat.types";
+import { PRICE_NOTE } from "@/data/houseboat.shared";
 
 /*
   The card's shape is unchanged — photograph on the left, everything
@@ -82,6 +83,10 @@ export default function FeaturedHouseboatCard({
 
           <span className="text-[13px] text-white/35">per night</span>
         </div>
+
+        <p className="mt-3 max-w-[30rem] text-[12px] leading-relaxed text-white/35 sm:text-[13px]">
+          {PRICE_NOTE}
+        </p>
 
         <Link
           href={`/houseboats/${houseboat.slug}`}

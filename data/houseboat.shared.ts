@@ -1,3 +1,14 @@
+/*
+  One sentence, one place. Rates on the backwaters move with the season
+  and with the day, so a figure on the page is a guide and not an offer.
+
+  It appears under the price in the hero, on the listing card and in the
+  booking card. The mobile sheet renders the booking card, so a phone
+  sees it too without the sticky bar having to carry a paragraph.
+*/
+export const PRICE_NOTE =
+  "The prices are indicative only. Final price and availability will be confirmed on your request.";
+
 export const commonMeals = [
     "Welcome Drink",
     "Lunch",

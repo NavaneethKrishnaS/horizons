@@ -11,6 +11,7 @@ import DateSelector from "./DateSelector";
 import InquiryModal from "./InquiryModal";
 
 import { Houseboat } from "@/data/houseboat.types";
+import { PRICE_NOTE } from "@/data/houseboat.shared";
 import { CONTACT_EMAIL } from "@/lib/whatsapp";
 
 interface BookingCardProps {
@@ -71,6 +72,10 @@ export default function BookingCard({
 
           <span className="text-[13px] text-neutral-500">/ night</span>
         </div>
+
+        <p className="mt-3 text-[13px] leading-relaxed text-neutral-500">
+          {PRICE_NOTE}
+        </p>
 
         <div className="mt-4 flex items-center gap-2 text-[13px] text-neutral-600">
           <ShieldCheck

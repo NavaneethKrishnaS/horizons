@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
 import { Houseboat } from "@/data/houseboat.types";
+import { PRICE_NOTE } from "@/data/houseboat.shared";
 
 interface HouseboatHeroProps {
   houseboat: Houseboat;
@@ -88,6 +89,10 @@ export default function HouseboatHero({ houseboat }: HouseboatHeroProps) {
                 />
               </button>
             </div>
+
+            <p className="mt-5 max-w-[34rem] text-[13px] leading-relaxed text-white/60 md:mt-7">
+              {PRICE_NOTE}
+            </p>
           </motion.div>
         </div>
       </div>

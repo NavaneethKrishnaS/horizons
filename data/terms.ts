@@ -51,6 +51,7 @@ export const SECTIONS: LegalSection[] = [
       "An international transfer usually carries a fee from the sending bank; please ask your bank to send the invoiced amount in full, so the figure that reaches us is the figure on the invoice.",
     ],
     list: [
+      "Bank transfer in US dollars",
       "Bank transfer in Indian rupees",
       "Bank transfer in euros or pounds sterling",
       "Card payment, through a secure link we send you",
