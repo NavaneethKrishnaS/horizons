@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
 import { CONTACT_EMAIL } from "@/lib/whatsapp";
+import { PHONE_DISPLAY } from "@/data/contact";
+import { PRICE_NOTE } from "@/data/houseboat.shared";
 
 /*
   Where an enquiry actually arrives.
@@ -208,6 +210,57 @@ async function passedRobotCheck(token: string, request: Request) {
   }
 }
 
+/*
+  The note back to the person who wrote in.
+
+  It exists because the only confirmation until now was a line on a page
+  they may already have closed, and a form that answers with silence is
+  one people assume is broken. Somebody writing from Europe at midnight
+  should have something in their inbox before we are awake.
+
+  Three rules it keeps. It promises only what the FAQ already promises:
+  a reply within a day, usually the same one. It repeats their own words
+  back, so they can see the message arrived whole rather than take our
+  word for it. And it sells nothing — no offers, no attachments, no
+  links to click. It is a receipt, not a campaign.
+
+  Sent after the enquiry itself, and only if that one succeeded: an
+  acknowledgement for a message sitting in nobody's inbox would be a
+  lie. If the acknowledgement alone fails, the enquiry is still ours and
+  the visitor is told nothing went wrong, because for them nothing did.
+*/
+function acknowledgement(name: string, said: string[]) {
+  const first = name.trim().split(/\s+/)[0] || "there";
+
+  return [
+    `Dear ${first},`,
+    "",
+    "Thank you for writing to us. Your enquiry has reached HORIZONS and",
+    "one of the people who plans the journeys will answer it personally,",
+    "within a day and usually the same one.",
+    "",
+    "There is no ticket number and no queue. Whoever replies to you is",
+    "whoever would design the journey.",
+    "",
+    "This is what reached us:",
+    "",
+    ...said.map((line) => (line ? `    ${line}` : "")),
+    "",
+    "If anything there is wrong, or you would rather talk than type,",
+    `WhatsApp is the quickest way to reach us: ${PHONE_DISPLAY}`,
+    "",
+    "Warm regards,",
+    "",
+    "HORIZONS by Scenic Escapes",
+    "Alumkadavu, Kerala",
+    "horizonsindia.com",
+    "",
+    "— This note was sent automatically because you used the form on",
+    "our website. You do not need to reply to it; a person will write to",
+    "you shortly.",
+  ].join("\n");
+}
+
 const clean = (value: unknown, field: string) =>
   typeof value === "string" ? value.trim().slice(0, LIMITS[field] ?? 200) : "";
 
@@ -340,6 +393,59 @@ export async function POST(request: Request) {
       console.error("enquiry: resend refused", error);
 
       return NextResponse.json({ error: "send-failed" }, { status: 502 });
+    }
+
+    /*
+      The receipt, after the enquiry and never instead of it. A failure
+      here is logged and swallowed: the enquiry is already in our inbox,
+      and telling the visitor something went wrong would be false.
+
+      Not sent to an address the gibberish test flagged. If the message
+      was invented the address probably was too, and mail bouncing off
+      invented addresses is how a sending domain's reputation is lost.
+    */
+    if (!suspect) {
+      /*
+        Their own answers, not the note we wrote to ourselves. The inbox
+        copy opens "<name> has written from the website" and closes with
+        "They sent this from the website", which reads as someone talking
+        about you the moment it lands in your own inbox.
+      */
+      const theirs = [
+        ...(details.length
+          ? details
+          : [
+              where ? `Where: ${where}` : null,
+              when ? `When: ${when}` : null,
+              party ? `Party: ${party}` : null,
+            ]),
+        "",
+        note || "(You did not write a message.)",
+      ].filter((line): line is string => line !== null);
+
+      /*
+        A figure quoted back in an email is a figure in writing. The site
+        says a price is a guide and not an offer in three places; a
+        receipt that repeats the total without saying so would be the one
+        place it does not, and it is the one the visitor keeps.
+      */
+      if (theirs.some((line) => line.startsWith("Estimated total"))) {
+        theirs.push("", PRICE_NOTE);
+      }
+
+      const receipt = await resend.emails.send({
+        from:
+          process.env.ENQUIRY_FROM ??
+          `HORIZONS <enquiries@${CONTACT_EMAIL.split("@")[1]}>`,
+        to: [email],
+        replyTo: process.env.ENQUIRY_TO ?? CONTACT_EMAIL,
+        subject: "We have your enquiry — HORIZONS by Scenic Escapes",
+        text: acknowledgement(name, theirs),
+      });
+
+      if (receipt.error) {
+        console.error("enquiry: acknowledgement not sent", receipt.error);
+      }
     }
   } catch (cause) {
     console.error("enquiry: send threw", cause);
