@@ -30,18 +30,23 @@ const SCRIPT = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=exp
   TURNSTILE_SECRET_KEY and must never appear in this project.
 
   The widget is bound in Cloudflare to horizonsindia.com and
-  www.horizonsindia.com. It will refuse to run on any other hostname,
-  which is why localhost gets Cloudflare's own test key instead — that
-  one always passes, so the forms can be worked on without the server
-  check standing in the way.
+  www.horizonsindia.com, and refuses to run on any other hostname. So
+  everywhere else — localhost, and Vercel's preview URLs — gets
+  Cloudflare's own test key, which always passes.
+
+  That is a safety belt rather than a convenience. If the real key ran
+  on a preview deployment it would refuse, no token would come back,
+  and the server would read that as a script and drop the enquiry. An
+  allow-list of our own two hostnames means a preview can only ever
+  fall back to the test key, never into silent refusal.
 */
 const SITE_KEY = "0x4AAAAAAGOXYrqHmmrQx6SV";
 const TEST_SITE_KEY = "1x00000000000000000000AA";
 
+const LIVE_HOSTS = ["horizonsindia.com", "www.horizonsindia.com"];
+
 const keyFor = (hostname: string) =>
-  ["localhost", "127.0.0.1", "[::1]"].includes(hostname)
-    ? TEST_SITE_KEY
-    : SITE_KEY;
+  LIVE_HOSTS.includes(hostname) ? SITE_KEY : TEST_SITE_KEY;
 
 type Api = {
   render: (el: HTMLElement, opts: Record<string, unknown>) => string;
