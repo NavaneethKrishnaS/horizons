@@ -21,11 +21,27 @@ import { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
   which always passes, so the forms keep working while it is being set up.
 */
 
-const TEST_SITE_KEY = "1x00000000000000000000AA";
 const SCRIPT = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
 
-const SITE_KEY =
-  process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim() || TEST_SITE_KEY;
+/*
+  The site key is public by design — it names the widget and authorises
+  nothing, which is why it sits here rather than in an environment
+  variable. Its partner, the secret, is only in Vercel as
+  TURNSTILE_SECRET_KEY and must never appear in this project.
+
+  The widget is bound in Cloudflare to horizonsindia.com and
+  www.horizonsindia.com. It will refuse to run on any other hostname,
+  which is why localhost gets Cloudflare's own test key instead — that
+  one always passes, so the forms can be worked on without the server
+  check standing in the way.
+*/
+const SITE_KEY = "0x4AAAAAAGOXYrqHmmrQx6SV";
+const TEST_SITE_KEY = "1x00000000000000000000AA";
+
+const keyFor = (hostname: string) =>
+  ["localhost", "127.0.0.1", "[::1]"].includes(hostname)
+    ? TEST_SITE_KEY
+    : SITE_KEY;
 
 type Api = {
   render: (el: HTMLElement, opts: Record<string, unknown>) => string;
@@ -102,7 +118,7 @@ const Turnstile = forwardRef<TurnstileHandle, TurnstileProps>(function Turnstile
         if (!alive || !box.current) return;
 
         widget.current = api.render(box.current, {
-          sitekey: SITE_KEY,
+          sitekey: keyFor(window.location.hostname),
           theme: "light",
           size: "flexible",
           callback: (token: string) => callbacks.current.onToken(token),
